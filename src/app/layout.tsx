@@ -13,15 +13,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "convex.world",
   description: "Create, collaborate, and ship decentralised economic systems.",
-  metadataBase: new URL('https://convex.world'),
+  metadataBase: new URL('https://convex-dev.github.io'),
   openGraph: {
     title: 'convex.world',
     description: 'Create, collaborate, and ship decentralised economic systems.',
-    url: 'https://convex.world',
+    url: 'https://convex-dev.github.io/convex.world',
     siteName: 'convex.world',
     images: [
       {
-        url: '/images/social_card.png',
+        url: '/convex.world/images/social_card.png',
         width: 1200,
         height: 630,
         alt: 'convex.world',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'convex.world',
     description: 'Create, collaborate, and ship decentralised economic systems.',
-    images: ['/images/social_twitter.png'],
+    images: ['/convex.world/images/social_twitter.png'],
     creator: '@convex_world',
   },
   icons: {
