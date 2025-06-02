@@ -16,7 +16,6 @@ if (isGithubActions) {
   const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || '';
   if (repo) {
     nextConfig.basePath = `/${repo}`;
-    nextConfig.assetPrefix = `/${repo}/`;
   }
 }
 
