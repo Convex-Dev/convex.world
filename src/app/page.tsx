@@ -1,68 +1,97 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div className="gradient-bg absolute inset-0 -z-10"></div>
-      
+    <div className="min-h-screen bg-convex-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="py-6">
           <nav className="flex justify-between items-center">
-            <div className="text-2xl font-bold text-white">convex.world</div>
+            <div className="flex items-center space-x-2">
+              <div className="text-2xl font-bold text-convex-dark-blue">convex.world</div>
+            </div>
             <div className="flex gap-6">
-              <a href="https://docs.convex.world" className="text-white hover:text-gray-200">Docs</a>
-              <Link href="/blog" className="text-white hover:text-gray-200">Blog</Link>
-              <Link href="/community" className="text-white hover:text-gray-200">Community</Link>
+              <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">Documentation</a>
+              <a href="https://github.com/Convex-Dev" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">GitHub</a>
+              <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">Discord</a>
             </div>
           </nav>
         </header>
 
-        <main className="py-20 sm:py-32">
-          <div className="text-center">
-            <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
-              Build Something Amazing
-            </h1>
-            <p className="text-xl sm:text-2xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Create, collaborate, and ship your next project faster with our powerful development platform.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/get-started"
-                className="glass-effect text-white px-8 py-3 rounded-lg hover:bg-white/20 transition-all duration-300"
-              >
-                Get Started
-              </a>
-              <a
-                href="https://github.com/get-convex/convex"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-effect text-white px-8 py-3 rounded-lg hover:bg-white/20 transition-all duration-300"
-              >
-                GitHub →
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Lightning Fast",
-                description: "Built for speed and performance from the ground up."
-              },
-              {
-                title: "Type Safe",
-                description: "End-to-end type safety with TypeScript support."
-              },
-              {
-                title: "Real-time by Default",
-                description: "Live updates and real-time collaboration built-in."
-              }
-            ].map((feature, index) => (
-              <div key={index} className="glass-effect p-6 rounded-lg">
-                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-white/80">{feature.description}</p>
+        <main className="py-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
+                Convex World
+              </h1>
+              <p className="text-xl text-convex-medium-blue mb-8">
+                An open-source engine for building decentralized economic systems
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://docs.convex.world/getting-started"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors"
+                >
+                  Get Started
+                </a>
+                <a
+                  href="https://github.com/Convex-Dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-convex-dark-blue text-base font-medium rounded-md text-convex-dark-blue bg-white hover:bg-convex-sky-blue transition-colors"
+                >
+                  View on GitHub
+                </a>
               </div>
-            ))}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Decentralized Consensus</h3>
+                <p className="text-convex-medium-blue">Build robust economic systems with our unique consensus mechanism designed for scalability and security.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Smart Contracts</h3>
+                <p className="text-convex-medium-blue">Write and deploy smart contracts using our expressive and secure programming model.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Developer Tools</h3>
+                <p className="text-convex-medium-blue">Comprehensive suite of development tools, including CLI, SDKs, and extensive documentation.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Community Driven</h3>
+                <p className="text-convex-medium-blue">Join our active community of developers and contributors shaping the future of decentralized systems.</p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-convex-dark-blue mb-6">Ready to Get Started?</h2>
+              <p className="text-lg text-convex-medium-blue mb-8">
+                Explore our comprehensive documentation and join the Convex community.
+              </p>
+              <div className="flex justify-center space-x-4">
+                <a
+                  href="https://docs.convex.world"
+                  className="text-convex-medium-blue hover:text-convex-dark-blue underline"
+                >
+                  Read the Docs
+                </a>
+                <span className="text-convex-medium-blue">•</span>
+                <a
+                  href="https://discord.com/invite/xfYGq4CT7v"
+                  className="text-convex-medium-blue hover:text-convex-dark-blue underline"
+                >
+                  Join Discord
+                </a>
+                <span className="text-convex-medium-blue">•</span>
+                <a
+                  href="https://github.com/Convex-Dev"
+                  className="text-convex-medium-blue hover:text-convex-dark-blue underline"
+                >
+                  Contribute
+                </a>
+              </div>
+            </div>
           </div>
         </main>
       </div>

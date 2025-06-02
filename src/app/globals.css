@@ -1,9 +1,22 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #000000;
-  --accent-color: #FF6B6B;
+@layer base {
+  body {
+    @apply bg-convex-white text-convex-dark-blue;
+  }
+}
+
+@layer components {
+  .gradient-bg {
+    @apply bg-gradient-to-r from-convex-dark-blue via-convex-medium-blue to-convex-light-blue bg-[length:400%_400%];
+    animation: gradient 15s ease infinite;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur border border-white/20;
+  }
 }
 
 @theme inline {
@@ -36,16 +49,4 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
-
-.gradient-bg {
-  background: linear-gradient(-45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
-}
-
-.glass-effect {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
