@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
     <footer className="bg-convex-dark-blue py-12">
@@ -10,18 +12,32 @@ export default function Footer() {
             Documentation
           </a>
           <a
-              href="https://discord.com/invite/xfYGq4CT7v"
-              className="text-white hover:text-convex-sky-blue"
-            >
-              Join Discord <img src="/images/social_discord.png" alt="Discord" className="w-4 h-4 m-2 inline-block"/>
+            href="https://discord.com/invite/xfYGq4CT7v"
+            className="text-white hover:text-convex-sky-blue flex items-center"
+          >
+            Join Discord 
+            <Image 
+              src="/images/social_discord.png" 
+              alt="Discord" 
+              width={16} 
+              height={16} 
+              className="m-2"
+            />
           </a>
           <a
             href="https://github.com/Convex-Dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white hover:text-convex-sky-blue transition-colors"
+            className="text-white hover:text-convex-sky-blue transition-colors flex items-center"
           >
-            Contribute  <img src="/images/social_github.png" alt="Github" className="w-4 h-4 m-2 inline-block"/>
+            Contribute
+            <Image 
+              src="/images/social_github.png" 
+              alt="Github" 
+              width={16} 
+              height={16} 
+              className="m-2"
+            />
           </a>
         </div>
       </div>

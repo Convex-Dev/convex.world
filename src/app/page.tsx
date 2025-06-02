@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main className="py-10">
@@ -17,12 +19,31 @@ export default function Home() {
               Introduction
             </a>
             <a
-              href="https://github.com/Convex-Dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 border border-convex-dark-blue text-base font-medium rounded-md text-convex-dark-blue bg-white hover:bg-convex-sky-blue transition-colors"
+              href="https://discord.com/invite/xfYGq4CT7v"
+              className="text-convex-medium-blue hover:text-convex-dark-blue underline flex items-center"
             >
-              View on GitHub <img src="/images/social_github.png" alt="Github" className="w-5 h-5 m-2" />
+              Join Discord 
+              <Image 
+                src="/images/social_discord.png" 
+                alt="Discord" 
+                width={16} 
+                height={16} 
+                className="m-2"
+              />
+            </a>
+            <span className="text-convex-medium-blue">•</span>
+            <a
+              href="https://github.com/Convex-Dev"
+              className="text-convex-medium-blue hover:text-convex-dark-blue underline flex items-center"
+            >
+              Contribute 
+              <Image 
+                src="/images/social_github.png" 
+                alt="Github" 
+                width={16} 
+                height={16} 
+                className="m-2"
+              />
             </a>
           </div>
         </div>
