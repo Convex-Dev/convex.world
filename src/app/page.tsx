@@ -1,8 +1,8 @@
 export default function Home() {
   return (
-    <main className="py-20">
+    <main className="py-10">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
             Convex
           </h1>
@@ -49,30 +49,14 @@ export default function Home() {
         <div className="text-center">
           <h2 className="text-3xl font-bold text-convex-dark-blue mb-6">Ready to Get Started?</h2>
           <p className="text-lg text-convex-medium-blue mb-8">
-            Explore our comprehensive documentation and join the Convex community.
-          </p>
-          <div className="flex justify-center space-x-6">
-            <a
+            Explore our comprehensive <a
               href="https://docs.convex.world"
               className="text-convex-medium-blue hover:text-convex-dark-blue underline"
-            >
-              Read the Docs
-            </a>
-            <span className="text-convex-medium-blue">•</span>
-            <a
-              href="https://discord.com/invite/xfYGq4CT7v"
-              className="text-convex-medium-blue hover:text-convex-dark-blue underline"
-            >
-              Join Discord <img src="/images/social_discord.png" alt="Discord" className="w-4 h-4 m-2 inline-block"/>
-            </a>
-            <span className="text-convex-medium-blue">•</span>
-            <a
-              href="https://github.com/Convex-Dev"
-              className="text-convex-medium-blue hover:text-convex-dark-blue underline"
-            >
-              Contribute <img src="/images/social_github.png" alt="Github" className="w-4 h-4 m-2 inline-block"/>
-            </a>
-          </div>
+            >documentation</a> and join the Convex <a
+            href="https://discord.com/invite/xfYGq4CT7v"
+            className="text-convex-medium-blue hover:text-convex-dark-blue underline"
+          >community.</a>
+          </p>
         </div>
       </div>
     </main>
