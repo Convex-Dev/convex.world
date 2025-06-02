@@ -11,7 +11,7 @@ export default function Home() {
           <nav className="flex justify-between items-center">
             <div className="text-2xl font-bold text-white">convex.world</div>
             <div className="flex gap-6">
-              <Link href="/docs" className="text-white hover:text-gray-200">Docs</Link>
+              <a href="https://docs.convex.world" className="text-white hover:text-gray-200">Docs</a>
               <Link href="/blog" className="text-white hover:text-gray-200">Blog</Link>
               <Link href="/community" className="text-white hover:text-gray-200">Community</Link>
             </div>
