@@ -86,9 +86,17 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Set base path
+        id: set-base-path
+        run: |
+          if [ -n "${{ vars.SITE_BASE_PATH }}" ]; then
+            echo "base_path=${{ vars.SITE_BASE_PATH }}" >> $GITHUB_OUTPUT
+          else
+            echo "base_path=/${{ github.event.repository.name }}" >> $GITHUB_OUTPUT
+          fi
       - name: Build with Next.js
         env:
-          PAGES_BASE_PATH: /convex.world
+          PAGES_BASE_PATH: ${{ steps.set-base-path.outputs.base_path }}
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
