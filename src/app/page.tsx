@@ -19,22 +19,8 @@ export default function Home() {
               Introduction
             </a>
             <a
-              href="https://discord.com/invite/xfYGq4CT7v"
-              className="text-convex-medium-blue hover:text-convex-dark-blue underline flex items-center"
-            >
-              Join Discord 
-              <Image 
-                src="/images/social_discord.png" 
-                alt="Discord" 
-                width={16} 
-                height={16} 
-                className="m-2"
-              />
-            </a>
-            <span className="text-convex-medium-blue">•</span>
-            <a
               href="https://github.com/Convex-Dev"
-              className="text-convex-medium-blue hover:text-convex-dark-blue underline flex items-center"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors"
             >
               Contribute 
               <Image 
