@@ -22,7 +22,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
               <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
-                Convex World
+                Convex
               </h1>
               <p className="text-xl text-convex-medium-blue mb-8">
                 An open-source engine for building decentralized economic systems
