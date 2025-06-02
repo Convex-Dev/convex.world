@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/convex.world',
+  basePath: process.env.PAGES_BASE_PATH,
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  assetPrefix: '/convex.world/',
 }
 
 module.exports = nextConfig
