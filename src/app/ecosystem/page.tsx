@@ -1,3 +1,24 @@
+import EcosystemBox from "@/components/EcosystemBox";
+
+const ecosystemItems = [
+  {
+    title: "Projects",
+    description: "Discover decentralized applications and services built on Convex."
+  },
+  {
+    title: "Tools",
+    description: "Find developer tools, libraries, and resources for building on Convex."
+  },
+  {
+    title: "Community",
+    description: "Connect with other builders and contributors in the Convex ecosystem."
+  },
+  {
+    title: "Resources",
+    description: "Access documentation, guides, and learning materials."
+  }
+];
+
 export default function Ecosystem() {
   return (
     <div className="bg-convex-white">
@@ -14,22 +35,13 @@ export default function Ecosystem() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Projects</h3>
-                <p className="text-convex-medium-blue">Discover decentralized applications and services built on Convex.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Tools</h3>
-                <p className="text-convex-medium-blue">Find developer tools, libraries, and resources for building on Convex.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Community</h3>
-                <p className="text-convex-medium-blue">Connect with other builders and contributors in the Convex ecosystem.</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-                <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">Resources</h3>
-                <p className="text-convex-medium-blue">Access documentation, guides, and learning materials.</p>
-              </div>
+              {ecosystemItems.map((item) => (
+                <EcosystemBox
+                  key={item.title}
+                  title={item.title}
+                  description={item.description}
+                />
+              ))}
             </div>
           </div>
         </main>

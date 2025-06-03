@@ -9,7 +9,7 @@ export default function Home() {
             Convex
           </h1>
           <p className="text-xl text-convex-medium-blue mb-8">
-            An open-source engine for building decentralized economic systems
+            An open-source engine for decentralised economic systems
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
