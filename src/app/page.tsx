@@ -5,11 +5,8 @@ export default function Home() {
     <main className="py-10">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
-            Convex
-          </h1>
           <p className="text-xl text-convex-medium-blue mb-8">
-            An open-source engine for decentralised economic systems
+            The engine for decentralised economic systems
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

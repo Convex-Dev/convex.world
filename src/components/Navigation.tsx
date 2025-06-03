@@ -6,7 +6,7 @@ export default function Navigation() {
       <nav className="flex justify-between items-center">
         <div className="flex items-center space-x-8">
           <Link href="/" className="text-2xl font-bold text-convex-dark-blue">
-            convex.world
+            <img src="/images/logo_dark_blue.svg" alt="Convex Logo" className="w-50 h-20" />
           </Link>
 
         </div>
