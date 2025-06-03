@@ -14,9 +14,15 @@ export default function Navigation() {
         <Link href="/ecosystem" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
             Ecosystem
           </Link>
-          <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">Documentation</a>
-          <a href="https://github.com/Convex-Dev" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">GitHub</a>
-          <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">Discord</a>
+          <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+          Documentation
+          <img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
+          </a>
+          <a href="https://github.com/Convex-Dev" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+          GitHub<img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
+          </a>
+          <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+          Discord<img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" /></a>
         </div>
       </nav>
     </header>
