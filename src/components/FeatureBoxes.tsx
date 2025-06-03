@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface FeatureBox {
   title: string;
@@ -29,7 +30,16 @@ export default function FeatureBoxes() {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
       {features.map((feature, index) => (
         <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-          <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">{feature.title}</h3>
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="text-xl font-semibold text-convex-dark-blue">{feature.title}</h3>
+            <Image
+              src="/images/logo_dark_blue.svg"
+              alt="Convex Logo"
+              width={70}
+              height={40}
+              className="ml-4"
+            />
+          </div>
           <p className="text-convex-medium-blue">{feature.description}</p>
         </div>
       ))}
