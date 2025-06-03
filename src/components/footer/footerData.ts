@@ -3,8 +3,12 @@ export const footerData = {
     title: "Documentation",
     links: [
       {
-        text: "Getting Started",
+        text: "Convex Intro",
         href: "https://docs.convex.world/docs/intro"
+      },
+      {
+        text: "White Paper",
+        href: "https://docs.convex.world/docs/overview/convex-whitepaper"
       },
       {
         text: "Core Concepts",
@@ -16,7 +20,7 @@ export const footerData = {
       },
       {
         text: "API Reference",
-        href: "https://docs.convex.world/docs/api"
+        href: "http://peer.convex.live:8080/swagger"
       }
     ]
   },
