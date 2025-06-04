@@ -19,6 +19,9 @@ export default function Navigation() {
             Team
           </Link>
           */}
+          <Link href="/tools" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+            Tools
+          </Link>
           <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
             Documentation
             <img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
