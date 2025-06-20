@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Navigation() {
   return (
@@ -6,7 +7,7 @@ export default function Navigation() {
       <nav className="flex justify-between items-center">
         <div className="flex items-center space-x-8">
           <Link href="/" className="text-2xl font-bold text-convex-dark-blue">
-            <img src="/images/logo_dark_blue.svg" alt="Convex Logo" className="w-50 h-20" />
+            <Image src="/images/logo_dark_blue.svg" alt="Convex Logo" width={200} height={80} className="w-50 h-20" />
           </Link>
 
         </div>
@@ -24,13 +25,13 @@ export default function Navigation() {
           </Link>
           <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
             Documentation
-            <img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
+            <Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
           <a href="https://github.com/Convex-Dev" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
-            GitHub<img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
+            GitHub<Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
           <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
-            Discord<img src="/link.svg" alt="Link" className="inline-block w-4 h-4 ml-1" />
+            Discord<Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
         </div>
       </nav>

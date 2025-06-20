@@ -118,7 +118,7 @@ function ToolContent({ tool }: { tool: Tool }) {
           {tool.link.isExternal ? "Learn more" : "View documentation"}
         </span>
         {tool.link.isExternal && (
-          <img src="/link.svg" alt="External Link" className="w-4 h-4 ml-1" />
+          <Image src="/link.svg" alt="External Link" width={16} height={16} className="w-4 h-4 ml-1" />
         )}
       </div>
     </>

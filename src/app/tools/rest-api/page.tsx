@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 interface Endpoint {
   method: "GET" | "POST" | "PUT" | "DELETE";
   path: string;
