@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-convex-white text-convex-dark-blue;
+    @apply text-convex-dark-blue;
   }
 }
 

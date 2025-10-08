@@ -6,9 +6,10 @@ export default function Home() {
     <main>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-4">
-          <p className="text-xl text-convex-medium-blue mb-6">
-            The engine for decentralised economic systems
-          </p>
+          <h1 className="text-convex-medium-blue text-4xl mb-3">
+            Lattice Technology for decentralised economic systems
+          </h1>
+          <p></p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
               href="https://docs.convex.world/docs/intro"

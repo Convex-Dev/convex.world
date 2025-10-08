@@ -1,13 +1,39 @@
 interface EcosystemBoxProps {
   title: string;
   description: string;
+  image?: string;
+  link?: string;
 }
 
-export default function EcosystemBox({ title, description }: EcosystemBoxProps) {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-      <h3 className="text-xl font-semibold text-convex-dark-blue mb-3">{title}</h3>
+export default function EcosystemBox({ title, description, image, link }: EcosystemBoxProps) {
+  const content = (
+    <div className="flex flex-col items-center text-center gap-4">
+      {image && (
+        <div className="w-full h-32 flex items-center justify-center">
+          <img src={image} alt={title} className="max-w-full max-h-full object-contain" />
+        </div>
+      )}
+      <h3 className="text-xl font-semibold text-convex-dark-blue">{title}</h3>
       <p className="text-convex-medium-blue">{description}</p>
+    </div>
+  );
+
+  if (link) {
+    return (
+      <a 
+        href={link} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block h-full bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue hover:shadow-md hover:border-convex-blue transition-all duration-200"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="h-full bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+      {content}
     </div>
   );
 } 

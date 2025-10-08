@@ -27,9 +27,6 @@ export default function Navigation() {
             Documentation
             <Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
-          <a href="https://github.com/Convex-Dev" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
-            GitHub<Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
-          </a>
           <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
             Discord<Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
