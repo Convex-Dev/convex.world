@@ -9,7 +9,7 @@ export default function EcosystemBox({ title, description, image, link }: Ecosys
   const content = (
     <div>
       {image && (
-        <img src={image} alt={title} />
+        <img src={image} alt={title} style={{ width: '100%',  height: '150px', objectFit: 'contain' }}/>
       )}
       <h3>{title}</h3>
       <p className="description-text">{description}</p>

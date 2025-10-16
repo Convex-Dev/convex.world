@@ -80,30 +80,33 @@ const endpoints: Endpoint[] = [
 export default function RestApi() {
   return (
     <main>
-      <div className="container">
+      <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div className="hero-section">
           <h1>REST API</h1>
-          <p className="intro-text">
+          <p>
             Interact with the Convex network using our RESTful API endpoints
           </p>
         </div>
 
-        <section>
-          <h2>Getting Started</h2>
-          <div className="card">
+        <section className="card">
+          <h2>Overview</h2>
             <p className="description-text">
               The Convex REST API allows you to interact with the network programmatically. 
-              All API endpoints are served over HTTPS and return responses in JSON format.
+              All API endpoints are served over HTTPS and can return responses in <code>application/json</code> or <code>application/cvx</code> format.
             </p>
             <Code>Base URL: http://peer.convex.live:8080/api/v1</Code>
-          </div>
+            <p className="description-text">
+              Endpoints are documented using OpenAPI (Swagger) and can be explored using the 
+              <a href="http://peer.convex.live:8080/swagger" target="_blank" rel="noopener noreferrer">Swagger UI</a> 
+              available as standard at most Convex peers.
+            </p>
         </section>
 
-        <section>
+        <section className="card">
           <h2>API Endpoints</h2>
           <div className="endpoints-list">
             {endpoints.map((endpoint) => (
-              <article key={endpoint.path} className="card">
+              <article key={endpoint.path}>
                 <div className="endpoint-header">
                   <div>
                     <div className="endpoint-meta">
@@ -119,7 +122,6 @@ export default function RestApi() {
                     </p>
                   </div>
                 </div>
-                <div className="code-block">
                   <div className="code-section">
                     <h4>Example Request</h4>
                     <Code language="bash">{endpoint.example.request}</Code>
@@ -128,7 +130,6 @@ export default function RestApi() {
                     <h4>Example Response</h4>
                     <Code language="json">{endpoint.example.response}</Code>
                   </div>
-                </div>
               </article>
             ))}
           </div>
