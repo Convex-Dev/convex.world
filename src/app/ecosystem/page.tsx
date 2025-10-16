@@ -34,30 +34,27 @@ const ecosystemItems: Array<{
 
 export default function Ecosystem() {
   return (
-    <div className="bg-convex-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <main className="py-3">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center">
-              <p className="intro-text">
-                Explore the growing ecosystem of projects and tools built on Convex
-              </p>
-            </div>
+    <main>
+      <div className="container">
+        <div className="hero-section">
+          <h1>Ecosystem</h1>
+          <p className="intro-text">
+            Explore the growing ecosystem of projects and tools built on Convex
+          </p>
+        </div>
 
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,_1fr))] gap-6 md:gap-8 mx-auto mb-16">
-              {ecosystemItems.map((item) => (
-                <EcosystemBox
-                  key={item.title}
-                  title={item.title}
-                  description={item.description}
-                  image={item.image}
-                  link={item.link}
-                />
-              ))}
-            </div>
-          </div>
-        </main>
+        <div className="ecosystem-grid">
+          {ecosystemItems.map((item) => (
+            <EcosystemBox
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+              link={item.link}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
 } 
