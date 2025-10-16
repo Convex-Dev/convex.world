@@ -31,9 +31,5 @@ export default function EcosystemBox({ title, description, image, link }: Ecosys
     );
   }
 
-  return (
-    <div className="h-full bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
-      {content}
-    </div>
-  );
+  return content; 
 } 

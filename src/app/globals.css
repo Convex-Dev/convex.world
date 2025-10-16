@@ -6,6 +6,18 @@
   body {
     @apply text-convex-dark-blue;
   }
+  
+  h1 {
+    @apply text-convex-dark-blue text-4xl font-bold !important;
+  }
+  
+  h2 {
+    @apply text-convex-dark-blue text-3xl font-bold;
+  }
+  
+  h3 {
+    @apply text-convex-dark-blue text-2xl font-bold;
+  }
 }
 
 @layer components {
@@ -35,7 +47,6 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 

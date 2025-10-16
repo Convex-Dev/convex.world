@@ -23,12 +23,13 @@ export default function Navigation() {
           <Link href="/tools" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
             Tools
           </Link>
-          <a href="https://docs.convex.world" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
-            Documentation
+          <a href="https://docs.convex.world" target="discord" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+            Docs
             <Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
-          <a href="https://discord.com/invite/xfYGq4CT7v" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
-            Discord<Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
+          <a href="https://discord.com/invite/xfYGq4CT7v" target="docs" className="text-convex-medium-blue hover:text-convex-dark-blue transition-colors">
+            Discord
+            <Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
         </div>
       </nav>

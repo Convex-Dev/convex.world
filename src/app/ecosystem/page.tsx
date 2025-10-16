@@ -44,7 +44,7 @@ export default function Ecosystem() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-6 md:gap-8 mx-auto mb-16">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(400px,_1fr))] gap-6 md:gap-8 mx-auto mb-16">
               {ecosystemItems.map((item) => (
                 <EcosystemBox
                   key={item.title}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Button from "@/components/Button";
 import FeatureBoxes from "@/components/FeatureBoxes";
 
 export default function Home() {
@@ -6,30 +7,15 @@ export default function Home() {
     <main>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-4">
-          <h1 className="text-convex-medium-blue text-4xl mb-3">
-            Lattice Technology for decentralised economic systems
+          <h1>
+            Real-time economic systems
           </h1>
-          <p></p>
+          <p>Take advantage of Lattice Technology for decentralised applications</p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a
-              href="https://docs.convex.world/docs/intro"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors"
-            >
-              Introduction
-            </a>
-            <a
-              href="https://github.com/Convex-Dev"
-              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors"
-            >
-              Contribute 
-              <Image 
-                src="/images/social_github.png" 
-                alt="Github" 
-                width={16} 
-                height={16} 
-                className="m-2"
-              />
-            </a>
+            <Button href="https://docs.convex.world/docs/intro">Introduction</Button>
+            <Button href="https://github.com/Convex-Dev" rightIconSrc="/images/social_github.png" rightIconAlt="Github">
+              Contribute
+            </Button>
           </div>
         </div>
 
