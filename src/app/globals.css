@@ -64,6 +64,9 @@
   :root {
     --color-background-system: #000000;
     --color-foreground-system: #ffffff;
+    /* Ensure readable text on dark backgrounds */
+    --color-text: #e5e7eb; /* slate-200 */
+    --color-text-secondary: #94a3b8; /* slate-400 */
   }
 }
 
@@ -98,6 +101,7 @@
   
   h2 {
     font-size: var(--text-3xl);
+    color: var(--color-primary) !important;
   }
   
   h3 {
@@ -397,6 +401,109 @@
   
   .external-link-icon {
     margin-left: var(--space-xs);
+  }
+  
+  /* Code Blocks */
+  .code-block {
+    background: #f8fafc;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--convex-sky-blue);
+    position: relative;
+  }
+  
+  .code-block pre {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    margin: 0;
+  }
+  
+  .code-block code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+  
+  .code-language {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-sm);
+    background: var(--convex-sky-blue);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .code-section {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .code-section h4 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+  
+  /* HTTP Method Badges */
+  .method-badge {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .method-get {
+    background: #dcfce7;
+    color: var(--color-text);
+  }
+  
+  .method-post {
+    background: #dbeafe;
+    color: var(--color-text);
+  }
+  
+  .method-put {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  
+  .method-delete {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  
+  /* API Endpoint */
+  .endpoint-path {
+    font-family: var(--font-mono);
+    color: inherit;
+    background: transparent;
+    font-size: 0.875rem;
+  }
+  
+  .endpoint-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+  }
+  
+  .endpoint-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .endpoints-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
   
   /* Ecosystem Box Links */

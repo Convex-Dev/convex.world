@@ -1,3 +1,5 @@
+import Code from "@/components/Code";
+
 interface Endpoint {
   method: "GET" | "POST" | "PUT" | "DELETE";
   path: string;
@@ -77,90 +79,61 @@ const endpoints: Endpoint[] = [
 
 export default function RestApi() {
   return (
-    <div className="bg-convex-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <main className="py-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
-                REST API
-              </h1>
-              <p className="intro-text">
-                Interact with the Convex network using our RESTful API endpoints
-              </p>
-            </div>
+    <main>
+      <div className="container">
+        <div className="hero-section">
+          <h1>REST API</h1>
+          <p className="intro-text">
+            Interact with the Convex network using our RESTful API endpoints
+          </p>
+        </div>
 
-            <div className="mb-12">
-              <h2 className="text-2xl font-semibold text-convex-dark-blue mb-4">
-                Getting Started
-              </h2>
-              <div className="card mb-6">
-                <p className="description-text mb-4">
-                  The Convex REST API allows you to interact with the network programmatically. 
-                  All API endpoints are served over HTTPS and return responses in JSON format.
-                </p>
-                <div className="bg-gray-50 p-4 rounded-md">
-                  <p className="code-text">
-                    Base URL: http://peer.convex.live:8080/api/v1
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <h2 className="text-2xl font-semibold text-convex-dark-blue mb-4">
-                API Endpoints
-              </h2>
-              {endpoints.map((endpoint) => (
-                <div
-                  key={endpoint.path}
-                  className="card"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className={`
-                          px-2 py-1 rounded text-sm font-medium
-                          ${endpoint.method === 'GET' ? 'bg-green-100 text-green-800' :
-                            endpoint.method === 'POST' ? 'bg-blue-100 text-blue-800' :
-                            endpoint.method === 'PUT' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'}
-                        `}>
-                          {endpoint.method}
-                        </span>
-                        <code className="text-convex-dark-blue font-mono">
-                          {endpoint.path}
-                        </code>
-                      </div>
-                      <p className="description-text">
-                        {endpoint.description}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-md space-y-4">
-                    <div>
-                      <h4 className="text-sm font-medium text-convex-dark-blue mb-2">
-                        Example Request
-                      </h4>
-                      <pre className="text-sm font-mono text-convex-medium-blue whitespace-pre-wrap">
-                        {endpoint.example.request}
-                      </pre>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium text-convex-dark-blue mb-2">
-                        Example Response
-                      </h4>
-                      <pre className="text-sm font-mono text-convex-medium-blue whitespace-pre-wrap">
-                        {endpoint.example.response}
-                      </pre>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <section>
+          <h2>Getting Started</h2>
+          <div className="card">
+            <p className="description-text">
+              The Convex REST API allows you to interact with the network programmatically. 
+              All API endpoints are served over HTTPS and return responses in JSON format.
+            </p>
+            <Code>Base URL: http://peer.convex.live:8080/api/v1</Code>
           </div>
-        </main>
+        </section>
+
+        <section>
+          <h2>API Endpoints</h2>
+          <div className="endpoints-list">
+            {endpoints.map((endpoint) => (
+              <article key={endpoint.path} className="card">
+                <div className="endpoint-header">
+                  <div>
+                    <div className="endpoint-meta">
+                      <span className={`method-badge method-${endpoint.method.toLowerCase()}`}>
+                        {endpoint.method}
+                      </span>
+                      <code className="endpoint-path">
+                        {endpoint.path}
+                      </code>
+                    </div>
+                    <p className="description-text">
+                      {endpoint.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="code-block">
+                  <div className="code-section">
+                    <h4>Example Request</h4>
+                    <Code language="bash">{endpoint.example.request}</Code>
+                  </div>
+                  <div className="code-section">
+                    <h4>Example Response</h4>
+                    <Code language="json">{endpoint.example.response}</Code>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 } 
