@@ -317,6 +317,66 @@
     }
   }
   
+  /* Tools Page */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  @media (min-width: 768px) {
+    .tools-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .tool-card {
+    background: white;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--convex-sky-blue);
+    transition: border-color 0.3s ease;
+  }
+  
+  .tool-card:hover {
+    border-color: var(--color-secondary);
+  }
+  
+  .tool-card a {
+    display: block;
+    text-decoration: none;
+  }
+  
+  .tool-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-md);
+  }
+  
+  .tool-header h3 {
+    color: var(--color-primary);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .tool-icon {
+    margin-left: var(--space-md);
+  }
+  
+  .tool-footer {
+    margin-top: var(--space-md);
+    display: flex;
+    align-items: center;
+    font-size: var(--text-sm);
+  }
+  
+  .external-link-icon {
+    margin-left: var(--space-xs);
+  }
+  
   /* Ecosystem Box Links */
   .ecosystem-box {
     text-decoration: none;

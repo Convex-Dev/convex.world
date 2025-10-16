@@ -52,73 +52,59 @@ const tools: Tool[] = [
 
 export default function Tools() {
   return (
-    <div className="bg-convex-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <main className="py-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
-                Developer Tools
-              </h1>
-              <p className="intro-text">
-                Everything you need to build on the Convex network
-              </p>
-            </div>
+    <main>
+      <div className="container">
+        <div className="hero-section">
+          <h1>Developer Tools</h1>
+          <p className="intro-text">
+            Everything you need to build on the Convex network
+          </p>
+        </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {tools.map((tool) => (
-                <div
-                  key={tool.title}
-                  className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue hover:border-convex-medium-blue transition-colors"
+        <div className="tools-grid">
+          {tools.map((tool) => (
+            <article key={tool.title} className="tool-card">
+              {tool.link.isExternal ? (
+                <a
+                  href={tool.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {tool.link.isExternal ? (
-                    <a
-                      href={tool.link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
-                    >
-                      <ToolContent tool={tool} />
-                    </a>
-                  ) : (
-                    <Link href={tool.link.href} className="block">
-                      <ToolContent tool={tool} />
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </main>
+                  <ToolContent tool={tool} />
+                </a>
+              ) : (
+                <Link href={tool.link.href}>
+                  <ToolContent tool={tool} />
+                </Link>
+              )}
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
 }
 
 function ToolContent({ tool }: { tool: Tool }) {
   return (
     <>
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-xl font-semibold text-convex-dark-blue">
-            {tool.title}
-          </h3>
-        </div>
+      <div className="tool-header">
+        <h3>{tool.title}</h3>
         <Image
           src={tool.icon}
           alt={`${tool.title} Icon`}
           width={70}
           height={40}
-          className="ml-4"
+          className="tool-icon"
         />
       </div>
       <p className="description-text">{tool.description}</p>
-      <div className="mt-4 flex items-center text-convex-medium-blue">
-        <span className="text-sm">
+      <div className="tool-footer">
+        <span>
           {tool.link.isExternal ? "Learn more" : "View documentation"}
         </span>
         {tool.link.isExternal && (
-          <Image src="/link.svg" alt="External Link" width={16} height={16} className="w-4 h-4 ml-1" />
+          <Image src="/link.svg" alt="External Link" width={16} height={16} className="external-link-icon" />
         )}
       </div>
     </>
