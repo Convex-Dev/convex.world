@@ -65,7 +65,7 @@ export default function Team() {
               <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
                 Our Team
               </h1>
-              <p className="text-xl text-convex-medium-blue mb-8">
+              <p className="intro-text">
                 Meet the people building the future of decentralised economic systems
               </p>
             </div>
@@ -81,7 +81,7 @@ export default function Team() {
                       <h3 className="text-xl font-semibold text-convex-dark-blue">
                         {member.name}
                       </h3>
-                      <p className="text-convex-medium-blue font-medium">
+                      <p className="role-text">
                         {member.role}
                       </p>
                     </div>
@@ -93,7 +93,7 @@ export default function Team() {
                       className="ml-4"
                     />
                   </div>
-                  <p className="text-convex-medium-blue mb-4">{member.description}</p>
+                  <p className="description-text mb-4">{member.description}</p>
                   <div className="flex gap-4">
                     {member.links.github && (
                       <a

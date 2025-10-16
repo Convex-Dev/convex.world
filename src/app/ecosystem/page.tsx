@@ -39,7 +39,7 @@ export default function Ecosystem() {
         <main className="py-3">
           <div className="max-w-4xl mx-auto">
             <div className="text-center">
-              <p className="text-xl text-convex-medium-blue mb-8">
+              <p className="intro-text">
                 Explore the growing ecosystem of projects and tools built on Convex
               </p>
             </div>

@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Color Constants - Light Mode (Default) */
+:root {
+  /* Convex Brand Colors */
+  --convex-dark-blue: #0F206C;
+  --convex-medium-blue: #416BA9;
+  --convex-light-blue: #6AAAE4;
+  --convex-sky-blue: #EBF7FF;
+  --convex-white: #F5F7FD;
+  
+  /* Semantic Colors */
+  --color-primary: var(--convex-dark-blue);
+  --color-secondary: var(--convex-medium-blue);
+  --color-accent: var(--convex-light-blue);
+  --color-background: var(--convex-white);
+  --color-text: var(--convex-dark-blue);
+  --color-text-secondary: var(--convex-medium-blue);
+  
+  /* System Colors */
+  --color-background-system: #ffffff;
+  --color-foreground-system: #000000;
+}
+
+/* Color Constants - Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode color overrides can be added here later */
+    --color-background-system: #000000;
+    --color-foreground-system: #ffffff;
+  }
+}
+
 @layer base {
   body {
     @apply text-convex-dark-blue;
@@ -18,35 +49,111 @@
   h3 {
     @apply text-convex-dark-blue text-2xl font-bold;
   }
+  
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  main {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @layer components {
   .gradient-bg {
-    @apply bg-gradient-to-r from-convex-dark-blue via-convex-medium-blue to-convex-light-blue bg-[length:400%_400%];
+    background: linear-gradient(to right, var(--convex-dark-blue), var(--convex-medium-blue), var(--convex-light-blue));
+    background-size: 400% 400%;
     animation: gradient 15s ease infinite;
   }
 
   .glass-effect {
     @apply bg-white/10 backdrop-blur border border-white/20;
   }
+  
+  .container {
+    max-width: 56rem; /* equivalent to max-w-4xl */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-section {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-section p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  @media (min-width: 640px) {
+    .button-group {
+      flex-direction: row;
+    }
+  }
+  
+  .cta-section {
+    text-align: center;
+  }
+  
+  .cta-section h3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-section p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  .cta-section a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+  }
+  
+  .cta-section a:hover {
+    color: var(--color-primary);
+  }
+  
+  .intro-text {
+    font-size: 1.25rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+  }
+  
+  .description-text {
+    color: var(--color-text-secondary);
+  }
+  
+  .role-text {
+    color: var(--color-text-secondary);
+    font-weight: 500;
+  }
+  
+  .code-text {
+    font-size: 0.875rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-primary);
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+/* Font Variables */
+:root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
 body {
-  background: var(--background);
+  background: var(--color-background-system);
+  color: var(--color-foreground-system);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 

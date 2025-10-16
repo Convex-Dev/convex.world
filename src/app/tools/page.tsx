@@ -60,7 +60,7 @@ export default function Tools() {
               <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
                 Developer Tools
               </h1>
-              <p className="text-xl text-convex-medium-blue mb-8">
+              <p className="intro-text">
                 Everything you need to build on the Convex network
               </p>
             </div>
@@ -112,7 +112,7 @@ function ToolContent({ tool }: { tool: Tool }) {
           className="ml-4"
         />
       </div>
-      <p className="text-convex-medium-blue">{tool.description}</p>
+      <p className="description-text">{tool.description}</p>
       <div className="mt-4 flex items-center text-convex-medium-blue">
         <span className="text-sm">
           {tool.link.isExternal ? "Learn more" : "View documentation"}

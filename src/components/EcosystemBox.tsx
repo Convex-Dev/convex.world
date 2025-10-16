@@ -14,7 +14,7 @@ export default function EcosystemBox({ title, description, image, link }: Ecosys
         </div>
       )}
       <h3 className="text-xl font-semibold text-convex-dark-blue">{title}</h3>
-      <p className="text-convex-medium-blue">{description}</p>
+      <p className="description-text">{description}</p>
     </div>
   );
 

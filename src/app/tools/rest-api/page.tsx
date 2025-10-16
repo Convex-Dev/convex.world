@@ -85,7 +85,7 @@ export default function RestApi() {
               <h1 className="text-5xl font-bold text-convex-dark-blue mb-6">
                 REST API
               </h1>
-              <p className="text-xl text-convex-medium-blue mb-8">
+              <p className="intro-text">
                 Interact with the Convex network using our RESTful API endpoints
               </p>
             </div>
@@ -95,12 +95,12 @@ export default function RestApi() {
                 Getting Started
               </h2>
               <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue mb-6">
-                <p className="text-convex-medium-blue mb-4">
+                <p className="description-text mb-4">
                   The Convex REST API allows you to interact with the network programmatically. 
                   All API endpoints are served over HTTPS and return responses in JSON format.
                 </p>
                 <div className="bg-gray-50 p-4 rounded-md">
-                  <p className="text-sm font-mono text-convex-dark-blue">
+                  <p className="code-text">
                     Base URL: http://peer.convex.live:8080/api/v1
                   </p>
                 </div>
@@ -132,7 +132,7 @@ export default function RestApi() {
                           {endpoint.path}
                         </code>
                       </div>
-                      <p className="text-convex-medium-blue">
+                      <p className="description-text">
                         {endpoint.description}
                       </p>
                     </div>

@@ -40,7 +40,7 @@ export default function FeatureBoxes() {
               className="ml-4"
             />
           </div>
-          <p className="text-convex-medium-blue">{feature.description}</p>
+          <p className="description-text">{feature.description}</p>
         </div>
       ))}
     </div>
