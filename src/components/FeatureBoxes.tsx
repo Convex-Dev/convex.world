@@ -29,7 +29,7 @@ export default function FeatureBoxes() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
       {features.map((feature, index) => (
-        <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
+        <div key={index} className="card">
           <div className="flex items-start justify-between mb-3">
             <h3 className="text-xl font-semibold text-convex-dark-blue">{feature.title}</h3>
           </div>

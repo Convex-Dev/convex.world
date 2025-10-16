@@ -63,7 +63,7 @@ export default function Tools() {
 
         <div className="tools-grid">
           {tools.map((tool) => (
-            <article key={tool.title} className="tool-card">
+            <article key={tool.title} className="card">
               {tool.link.isExternal ? (
                 <a
                   href={tool.link.href}

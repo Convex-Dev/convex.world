@@ -94,7 +94,7 @@ export default function RestApi() {
               <h2 className="text-2xl font-semibold text-convex-dark-blue mb-4">
                 Getting Started
               </h2>
-              <div className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue mb-6">
+              <div className="card mb-6">
                 <p className="description-text mb-4">
                   The Convex REST API allows you to interact with the network programmatically. 
                   All API endpoints are served over HTTPS and return responses in JSON format.
@@ -114,7 +114,7 @@ export default function RestApi() {
               {endpoints.map((endpoint) => (
                 <div
                   key={endpoint.path}
-                  className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue"
+                  className="card"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>

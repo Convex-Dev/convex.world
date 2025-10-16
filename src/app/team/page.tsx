@@ -74,7 +74,7 @@ export default function Team() {
               {teamMembers.map((member) => (
                 <div
                   key={member.name}
-                  className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue"
+                  className="card"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>

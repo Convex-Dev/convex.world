@@ -317,6 +317,26 @@
     }
   }
   
+  /* Card System */
+  .card {
+    background: white;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--convex-sky-blue);
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    border-color: var(--color-secondary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card a {
+    display: block;
+    text-decoration: none;
+  }
+  
   /* Tools Page */
   .tools-grid {
     display: grid;
@@ -328,24 +348,6 @@
     .tools-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-  }
-  
-  .tool-card {
-    background: white;
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--convex-sky-blue);
-    transition: border-color 0.3s ease;
-  }
-  
-  .tool-card:hover {
-    border-color: var(--color-secondary);
-  }
-  
-  .tool-card a {
-    display: block;
-    text-decoration: none;
   }
   
   .tool-header {
@@ -370,6 +372,7 @@
     margin-top: var(--space-md);
     display: flex;
     align-items: center;
+    color: var(--color-secondary);
     font-size: var(--text-sm);
   }
   
