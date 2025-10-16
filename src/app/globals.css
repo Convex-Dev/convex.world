@@ -76,8 +76,8 @@
   }
   
   body {
-    background: var(--color-background-system);
-    color: var(--color-foreground-system);
+    background: var(--color-background);
+    color: var(--color-foreground);
     font-family: var(--font-sans);
     line-height: var(--leading-relaxed);
   }
@@ -116,6 +116,17 @@
   }
   
   a:hover {
+    color: var(--color-primary);
+  }
+  
+  /* Navigation Links */
+  .nav-title {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-title:hover {
     color: var(--color-primary);
   }
   
