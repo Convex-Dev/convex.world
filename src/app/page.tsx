@@ -10,7 +10,7 @@ export default function Home() {
           <h1>
             Real-time economic systems
           </h1>
-          <p>Take advantage of Lattice Technology for decentralised applications</p>
+          <p>Lattice Technology for decentralised applications</p>
           <div className="button-group">
             <Button href="https://docs.convex.world/docs/intro">Introduction</Button>
             <Button href="https://github.com/Convex-Dev" rightIconSrc="/images/social_github.png" rightIconAlt="Github">

@@ -7,29 +7,27 @@ interface EcosystemBoxProps {
 
 export default function EcosystemBox({ title, description, image, link }: EcosystemBoxProps) {
   const content = (
-    <div className="flex flex-col items-center text-center gap-4">
+    <div>
       {image && (
-        <div className="w-full h-32 flex items-center justify-center">
-          <img src={image} alt={title} className="max-w-full max-h-full object-contain" />
-        </div>
+        <img src={image} alt={title} />
       )}
-      <h3 className="text-xl font-semibold text-convex-dark-blue">{title}</h3>
+      <h3>{title}</h3>
       <p className="description-text">{description}</p>
     </div>
   );
 
   if (link) {
     return (
-      <a 
-        href={link} 
-        target="_blank" 
+      <a
+        href={link}
+        target="_blank"
         rel="noopener noreferrer"
-        className="ecosystem-box card h-full"
+        className="ecosystem-box card"
       >
         {content}
       </a>
     );
   }
 
-  return content; 
+  return <div className="card">{content}</div>;
 } 

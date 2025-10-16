@@ -24,11 +24,8 @@ export default function Button({
   rightIconWidth = 24,
   rightIconHeight = 24,
 }: ButtonProps) {
-  const baseClasses =
-    "inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors no-underline";
-
   return (
-    <a href={href} target={target} rel={rel} className={`${baseClasses}${className ? ` ${className}` : ""}`}>
+    <a href={href} target={target} rel={rel} className={`button${className ? ` ${className}` : ""}`}>
       {children}
       {rightIconSrc ? (
         <Image
@@ -36,7 +33,6 @@ export default function Button({
           alt={rightIconAlt || ""}
           width={rightIconWidth}
           height={rightIconHeight}
-          className="ml-2"
         />
       ) : null}
     </a>

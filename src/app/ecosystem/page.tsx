@@ -39,7 +39,7 @@ export default function Ecosystem() {
         <div className="hero-section">
           <h1>Ecosystem</h1>
           <p className="intro-text">
-            Explore the growing ecosystem of projects and tools built on Convex
+            Explore the growing ecosystem of projects and companies building on Convex
           </p>
         </div>
 
