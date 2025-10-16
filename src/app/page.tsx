@@ -21,7 +21,7 @@ export default function Home() {
 
         <FeatureBoxes />
 
-        <div className="cta-section">
+        <div>
           <h3>Ready to Get Started?</h3>
           <p>
             Explore our comprehensive <a href="https://docs.convex.world">documentation</a> and join the Convex <a href="https://discord.com/invite/xfYGq4CT7v">community.</a>

@@ -111,7 +111,7 @@
   
   a {
     color: var(--color-secondary);
-    text-decoration: underline;
+    text-decoration: none;
     transition: color 0.2s ease;
   }
   
@@ -128,6 +128,11 @@
   
   .nav-title:hover {
     color: var(--color-primary);
+  }
+  
+  /* List Elements */
+ li {
+    list-style: none;
   }
   
   /* Layout Elements */
@@ -161,19 +166,6 @@
   .hero-section p {
     color: var(--color-text-secondary);
     margin-bottom: var(--space-lg);
-  }
-  
-  .cta-section {
-    text-align: center;
-  }
-  
-  .cta-section h3 {
-    margin-bottom: var(--space-lg);
-  }
-  
-  .cta-section p {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-xl);
   }
   
   /* Button Layout */
@@ -291,6 +283,15 @@
   
   .footer img {
     margin-left: var(--space-sm);
+  }
+  
+  /* Ecosystem Box Links */
+  .ecosystem-box {
+    text-decoration: none;
+  }
+  
+  .ecosystem-box:hover {
+    text-decoration: none;
   }
 }
 

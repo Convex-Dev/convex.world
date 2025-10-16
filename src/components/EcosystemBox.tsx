@@ -24,7 +24,7 @@ export default function EcosystemBox({ title, description, image, link }: Ecosys
         href={link} 
         target="_blank" 
         rel="noopener noreferrer"
-        className="block h-full bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue hover:shadow-md hover:border-convex-blue transition-all duration-200"
+        className="ecosystem-box block h-full bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue hover:shadow-md hover:border-convex-blue transition-all duration-200"
       >
         {content}
       </a>
