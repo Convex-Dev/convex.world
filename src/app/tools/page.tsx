@@ -13,6 +13,15 @@ interface Tool {
 
 const tools: Tool[] = [
   {
+    title: "Explorer",
+    description: "Explore the Convex network, view transactions, blocks, and network activity in real-time.",
+    link: {
+      href: "https://peer.convex.live",
+      isExternal: true
+    },
+    icon: "/images/logo_dark_blue.svg"
+  },
+  {
     title: "REST API",
     description: "Access Convex network data and functionality through our comprehensive REST API endpoints.",
     link: {
