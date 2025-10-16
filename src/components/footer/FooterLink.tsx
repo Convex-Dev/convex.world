@@ -12,10 +12,7 @@ interface FooterLinkProps {
 export default function FooterLink({ href, children, icon }: FooterLinkProps) {
   return (
     <li>
-      <a
-        href={href}
-        className="text-convex-sky-blue hover:text-white transition-colors inline-flex items-center"
-      >
+      <a href={href}>
         {children}
         {icon && (
           <Image 
@@ -23,7 +20,6 @@ export default function FooterLink({ href, children, icon }: FooterLinkProps) {
             alt={icon.alt}
             width={16}
             height={16}
-            className="ml-2"
           />
         )}
       </a>

@@ -16,7 +16,7 @@ const features: FeatureBox[] = [
     description: "Craft and deploy secure, composable smart contracts using our Lambda Calculus-based programming model, designed for developer flexibility and robust on-chain logic.",
   },
   {
-    title: "Powerful Developer Ecosystem",
+    title: "Developer Ecosystem",
     description: "Accelerate your Web3 projects with our comprehensive toolkit: intuitive CLI, feature-rich SDKs, and detailed documentation for seamless integration and deployment.",
   },
   {
@@ -32,13 +32,6 @@ export default function FeatureBoxes() {
         <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-convex-sky-blue">
           <div className="flex items-start justify-between mb-3">
             <h3 className="text-xl font-semibold text-convex-dark-blue">{feature.title}</h3>
-            <Image
-              src="/images/logo_dark_blue.svg"
-              alt="Convex Logo"
-              width={70}
-              height={40}
-              className="ml-4"
-            />
           </div>
           <p className="description-text">{feature.description}</p>
         </div>

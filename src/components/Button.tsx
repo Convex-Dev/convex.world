@@ -25,7 +25,7 @@ export default function Button({
   rightIconHeight = 24,
 }: ButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors";
+    "inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-convex-dark-blue text-white hover:bg-convex-medium-blue transition-colors no-underline";
 
   return (
     <a href={href} target={target} rel={rel} className={`${baseClasses}${className ? ` ${className}` : ""}`}>

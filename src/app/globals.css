@@ -227,6 +227,71 @@
   .glass-effect {
     @apply bg-white/10 backdrop-blur border border-white/20;
   }
+  
+  /* Footer Styles */
+  .footer {
+    background: var(--color-primary);
+    padding: var(--space-2xl) 0;
+  }
+  
+  .footer > div {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-md);
+  }
+  
+  .footer > div > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  @media (min-width: 768px) {
+    .footer > div > div {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .footer h3 {
+    color: white;
+    font-weight: 600;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+  }
+  
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .footer ul li {
+    list-style: none;
+  }
+  
+  .footer ul li::marker {
+    content: "";
+  }
+  
+  .footer a {
+    color: var(--convex-sky-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .footer a:hover {
+    color: white;
+  }
+  
+  .footer img {
+    margin-left: var(--space-sm);
+  }
 }
 
 /* ==========================================================================
