@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 
 interface FeatureBox {
   title: string;
@@ -20,22 +19,24 @@ const features: FeatureBox[] = [
     description: "Accelerate your Web3 projects with our comprehensive toolkit: intuitive CLI, feature-rich SDKs, and detailed documentation for seamless integration and deployment.",
   },
   {
-    title: "Vibrant Community Governance",
+    title: "Community Governance",
     description: "Shape the future of decentralised innovation by joining our global network of developers, validators, and contributors driving open-source Web3 solutions.",
   },
 ];
 
 export default function FeatureBoxes() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-      {features.map((feature, index) => (
-        <div key={index} className="card">
-          <div className="flex items-start justify-between mb-3">
-            <h3 className="text-xl font-semibold text-convex-dark-blue">{feature.title}</h3>
-          </div>
-          <p className="description-text">{feature.description}</p>
-        </div>
-      ))}
-    </div>
+    <section>
+      <div className="tools-grid">
+        {features.map((feature, index) => (
+          <article key={index} className="card">
+            <header>
+              <h3>{feature.title}</h3>
+            </header>
+            <p className="description-text">{feature.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
   );
-} 
+}

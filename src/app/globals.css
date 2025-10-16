@@ -23,6 +23,7 @@
   --color-text-secondary: var(--convex-medium-blue);
   --color-background-system: #ffffff;
   --color-foreground-system: #000000;
+  --color-border: var(--convex-sky-blue);
 
   /* Typography */
   --font-sans: var(--font-source-sans), system-ui, -apple-system, sans-serif;
@@ -59,15 +60,18 @@
   --radius-lg: 0.5rem;
 }
 
-/* Dark Mode Overrides */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background-system: #000000;
-    --color-foreground-system: #ffffff;
-    /* Ensure readable text on dark backgrounds */
-    --color-text: #e5e7eb; /* slate-200 */
-    --color-text-secondary: #94a3b8; /* slate-400 */
-  }
+
+
+/* Dark Mode Class-based Overrides */
+.dark {
+  --color-primary: var(--convex-dark-blue);
+  --color-secondary: var(--convex-medium-blue);
+  --color-accent: var(--convex-light-blue);
+  --color-background: #000000; /* black */
+  --color-text: var(--convex-white); /* slate-100 */
+  --color-text-secondary: var(--convex-sky-blue); /* slate-300 */
+  --color-background-system: #000000; /* black */
+  --color-foreground-system: #f1f5f9; /* slate-100 */
 }
 
 /* ==========================================================================
@@ -84,6 +88,35 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     line-height: var(--leading-relaxed);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body > div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  body > div > div {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    body > div > div {
+      padding: 0 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    body > div > div {
+      padding: 0 2rem;
+    }
   }
   
   /* Typography Hierarchy */
@@ -213,9 +246,20 @@
   .gradient-bg {
     background: linear-gradient(
       to right, 
-      var(--convex-dark-blue), 
-      var(--convex-medium-blue), 
-      var(--convex-light-blue)
+      var(--color-primary), 
+      var(--color-secondary), 
+      var(--color-accent)
+    );
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+  
+  .dark .gradient-bg {
+    background: linear-gradient(
+      to right, 
+      var(--color-primary), 
+      var(--color-secondary), 
+      var(--color-accent)
     );
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
@@ -320,13 +364,24 @@
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--convex-sky-blue);
+    border: 1px solid var(--color-border);
     transition: all 0.3s ease;
   }
   
   .card:hover {
     border-color: var(--color-secondary);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .card {
+    background: #111827; /* gray-900 */
+    border-color: #374151; /* gray-700 */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .card:hover {
+    border-color: var(--color-secondary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
   }
   
   .card a {
@@ -408,7 +463,7 @@
     background: #f8fafc;
     padding: var(--space-md);
     border-radius: var(--radius-md);
-    border: 1px solid var(--convex-sky-blue);
+    border: 1px solid var(--color-border);
     position: relative;
   }
   
@@ -425,11 +480,21 @@
     font-size: 0.875rem;
   }
   
+  .dark .code-block {
+    background: #111827; /* gray-900 */
+    border-color: #374151; /* gray-700 */
+  }
+  
+  .dark .code-block pre,
+  .dark .code-block code {
+    color: #f1f5f9;
+  }
+  
   .code-language {
     position: absolute;
     top: var(--space-xs);
     right: var(--space-sm);
-    background: var(--convex-sky-blue);
+    background: var(--color-border);
     color: var(--color-primary);
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-sm);
@@ -513,6 +578,34 @@
   
   .ecosystem-box:hover {
     text-decoration: none;
+  }
+  
+  /* Color Mode Toggle */
+  .color-mode-toggle {
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs);
+    color: var(--color-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .color-mode-toggle:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+  
+  .dark .color-mode-toggle {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+  }
+  
+  .dark .color-mode-toggle:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
   }
 }
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import ColorMode from './ColorMode';
 
 export default function Navigation() {
   return (
@@ -31,6 +32,7 @@ export default function Navigation() {
             Discord
             <Image src="/link.svg" alt="Link" width={16} height={16} className="inline-block w-4 h-4 ml-1" />
           </a>
+          <ColorMode />
         </div>
       </nav>
     </header>

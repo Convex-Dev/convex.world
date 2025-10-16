@@ -56,19 +56,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${sourceSans.variable}`}>
       <head>
-        <link rel="stylesheet" href="/pico.min.css" />
       </head>
-      <body className="antialiased">
-        <div className="min-h-screen bg-convex-white flex flex-col">
-          <div className="flex-grow">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <Navigation />
-              {children}
-            </div>
-          </div>
-          <Footer />
+      <body>
+        <div>
+          <Navigation />
+          {children}
         </div>
+        <Footer />
       </body>
+      
     </html>
   );
 }
