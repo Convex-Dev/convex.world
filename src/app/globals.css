@@ -28,7 +28,7 @@
   --color-text-secondary: var(--convex-medium-blue);
   --color-background-system: #ffffff;
   --color-foreground-system: #000000;
-  --color-border: var(--convex-sky-blue);
+  --color-border: var(--convex-medium-blue);
 
   /* Typography */
   --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
@@ -106,9 +106,6 @@ html {
 
 body {
   margin: 0;
-}
-
-.app-layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -116,24 +113,20 @@ body {
 
 .app-content {
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-container {
-  width: 100%;
+  max-width: 80rem;
   margin: 0 auto;
   padding: 0 1rem;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
-  .app-container {
-    padding: 1rem;
+  .app-content {
+    padding: 0 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .app-container {
+  .app-content {
     padding: 0 2rem;
   }
 }
@@ -314,11 +307,6 @@ nav a img {
   font-weight: 500;
 }
 
-.code-text {
-  font-size: var(--text-sm);
-  font-family: var(--font-mono);
-  color: var(--color-primary);
-}
 
 /* Visual Effects */
 
@@ -526,6 +514,12 @@ footer .footer-links {
   line-height: 1.5;
   white-space: pre-wrap;
   margin: 0;
+}
+
+.code-text {
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  color: var(--color-primary);
 }
 
 .code-block code {

@@ -34,29 +34,20 @@ const tools: Tool[] = [
     title: "CLI Tool",
     description: "Command-line interface for interacting with the Convex network, managing accounts, and deploying smart contracts.",
     link: {
-      href: "https://docs.convex.world/docs/tools/cli",
+      href: "https://docs.convex.world/docs/products/convex-cli",
       isExternal: true
     },
     icon: "/images/logo_dark_blue.svg"
   },
   {
-    title: "SDKs",
-    description: "Native libraries for multiple programming languages to build applications on Convex.",
+    title: "Convex SDK",
+    description: "Libraries for multiple programming languages to build applications on Convex.",
     link: {
-      href: "https://docs.convex.world/docs/tools/sdks",
+      href: "https://docs.convex.world/docs/sdk",
       isExternal: true
     },
     icon: "/images/logo_dark_blue.svg"
   },
-  {
-    title: "Developer Tools",
-    description: "Suite of development tools including debugger, test framework, and local network simulator.",
-    link: {
-      href: "https://docs.convex.world/docs/tools/developer",
-      isExternal: true
-    },
-    icon: "/images/logo_dark_blue.svg"
-  }
 ];
 
 export default function Tools() {
