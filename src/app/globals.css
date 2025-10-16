@@ -245,14 +245,7 @@
     padding: var(--space-xl) var(--space-lg) var(--space-2xl);
     position: relative;
   }
-  
-  footer > div > div {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-2xl);
-    align-items: start;
-  }
-  
+
   @media (min-width: 640px) {
     footer > div > div {
       grid-template-columns: 2fr 1fr 1fr;
@@ -347,6 +340,12 @@
   @media (min-width: 768px) {
     .tools-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .tools-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
   
