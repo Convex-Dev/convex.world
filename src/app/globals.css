@@ -36,6 +36,7 @@
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
+  --space-3xl: 4rem;
   
   /* Typography Scale */
   --text-xs: 0.75rem;
@@ -221,68 +222,99 @@
   }
   
   /* Footer Styles */
-  .footer {
-    background: var(--color-primary);
-    padding: var(--space-2xl) 0;
+  footer {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a2d5a 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
   }
   
-  .footer > div {
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--convex-light-blue), transparent);
+  }
+  
+  footer > div {
     max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--space-md);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+    position: relative;
   }
   
-  .footer > div > div {
+  footer > div > div {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: var(--space-2xl);
+    align-items: start;
   }
   
-  @media (min-width: 768px) {
-    .footer > div > div {
-      grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 640px) {
+    footer > div > div {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-3xl);
     }
   }
   
-  .footer h3 {
+  footer h3 {
     color: white;
-    font-weight: 600;
     font-size: var(--text-lg);
-    margin-bottom: var(--space-md);
+    position: relative;
   }
   
-  .footer ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  footer ul {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
-  }
-  
-  .footer ul li {
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
     list-style: none;
   }
   
-  .footer ul li::marker {
+  footer ul li::marker {
     content: "";
   }
   
-  .footer a {
+  footer a {
     color: var(--convex-sky-blue);
     text-decoration: none;
-    transition: color 0.2s ease;
+    font-size: var(--text-sm);
+    font-weight: 400;
+    transition: color 0.3s ease;
     display: inline-flex;
     align-items: center;
+    padding: var(--space-xs) 0;
   }
   
-  .footer a:hover {
+  footer a:hover {
     color: white;
   }
   
-  .footer img {
+  footer img {
     margin-left: var(--space-sm);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  
+  footer a:hover img {
+    opacity: 1;
+  }
+  
+  /* Footer Links Section */
+  footer .footer-links {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 640px) {
+    footer .footer-links {
+      flex-direction: row;
+      gap: var(--space-2xl);
+    }
   }
   
   /* Ecosystem Box Links */

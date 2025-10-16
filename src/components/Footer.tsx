@@ -1,39 +1,122 @@
-import FooterColumn from './footer/FooterColumn';
-import FooterLink from './footer/FooterLink';
-import { footerData } from './footer/footerData';
+import Image from 'next/image';
+
+interface FooterLink {
+  text: string;
+  href: string;
+  icon?: {
+    src: string;
+    alt: string;
+  };
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+const footerData: FooterColumn[] = [
+  {
+    title: "Documentation",
+    links: [
+      {
+        text: "Convex Intro",
+        href: "https://docs.convex.world/docs/intro"
+      },
+      {
+        text: "White Paper",
+        href: "https://docs.convex.world/docs/overview/convex-whitepaper"
+      },
+      {
+        text: "Core Concepts",
+        href: "https://docs.convex.world/docs/overview/concepts"
+      },
+      {
+        text: "Tutorials",
+        href: "https://docs.convex.world/docs/tutorial/coins"
+      },
+      {
+        text: "API Reference",
+        href: "http://peer.convex.live:8080/swagger"
+      }
+    ]
+  },
+  {
+    title: "Community",
+    links: [
+      {
+        text: "Discord",
+        href: "https://discord.com/invite/xfYGq4CT7v",
+        icon: {
+          src: "/images/social_discord.png",
+          alt: "Discord"
+        }
+      },
+      {
+        text: "GitHub",
+        href: "https://github.com/Convex-Dev",
+        icon: {
+          src: "/images/social_github.png",
+          alt: "Github"
+        }
+      },
+      {
+        text: "Twitter",
+        href: "https://twitter.com/convex_world"
+      }
+    ]
+  },
+  {
+    title: "Resources",
+    links: [
+      {
+        text: "Blog",
+        href: "https://docs.convex.world/blog"
+      },
+      {
+        text: "Ecosystem",
+        href: "https://docs.convex.world/docs/ecosystem"
+      },
+      {
+        text: "Report an Issue",
+        href: "https://github.com/Convex-Dev/convex.world/issues"
+      },
+      {
+        text: "Contribute",
+        href: "https://docs.convex.world/docs/contributing"
+      }
+    ]
+  }
+];
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer>
       <div>
         <div>
-          <FooterColumn title={footerData.documentation.title}>
-            {footerData.documentation.links.map((link) => (
-              <FooterLink key={link.href} href={link.href}>
-                {link.text}
-              </FooterLink>
+          <section className="footer-links">
+            {footerData.map((column) => (
+              <div key={column.title}>
+                <h3>{column.title}</h3>
+                <ul>
+                  {column.links.map((link) => (
+                    <li key={link.href}>
+                      <a href={link.href}>
+                        {link.text}
+                        {link.icon && (
+                          <Image 
+                            src={link.icon.src}
+                            alt={link.icon.alt}
+                            width={16}
+                            height={16}
+                          />
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </FooterColumn>
-
-          <FooterColumn title={footerData.community.title}>
-            {footerData.community.links.map((link) => (
-              <FooterLink 
-                key={link.href} 
-                href={link.href} 
-                icon={link.icon}
-              >
-                {link.text}
-              </FooterLink>
-            ))}
-          </FooterColumn>
-
-          <FooterColumn title={footerData.resources.title}>
-            {footerData.resources.links.map((link) => (
-              <FooterLink key={link.href} href={link.href}>
-                {link.text}
-              </FooterLink>
-            ))}
-          </FooterColumn>
+          </section>
         </div>
       </div>
     </footer>
