@@ -111,9 +111,8 @@ body {
   flex-direction: column;
 }
 
-.app-content {
+main {
   flex-grow: 1;
-  max-width: 80rem;
   margin: 0 auto;
   padding: 0 1rem;
   width: 100%;

@@ -52,7 +52,6 @@ const tools: Tool[] = [
 
 export default function Tools() {
   return (
-    <main>
       <div className="container">
         <div className="hero-section">
           <h1>Developer Tools</h1>
@@ -81,7 +80,6 @@ export default function Tools() {
           ))}
         </div>
       </div>
-    </main>
   );
 }
 

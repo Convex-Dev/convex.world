@@ -52,7 +52,7 @@ export default function RootLayout({
       <Head />
       <body>
         <Navigation />
-        <main className="app-content">
+        <main>
           {children}
         </main>
         <Footer />

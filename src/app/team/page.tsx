@@ -57,7 +57,6 @@ const teamMembers: TeamMember[] = [
 
 export default function Team() {
   return (
-    <main>
       <div className="container">
         <div className="hero-section">
           <h1>Our Team</h1>
@@ -149,6 +148,5 @@ export default function Team() {
           ))}
         </div>
       </div>
-    </main>
   );
 } 

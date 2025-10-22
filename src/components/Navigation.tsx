@@ -23,9 +23,11 @@ export default function Navigation() {
           </Link>
           <a href="https://peer.convex.live/explorer" target="explorer" className="nav-title">
             Explorer
+            <Image src="/link.svg" alt="Link" width={16} height={16} />
           </a>
           <a href="https://docs.convex.world" target="discord" className="nav-title">
             Docs
+            <Image src="/link.svg" alt="Link" width={16} height={16} />
           </a>
           <a href="https://discord.com/invite/xfYGq4CT7v" target="docs" className="nav-title">
             Discord

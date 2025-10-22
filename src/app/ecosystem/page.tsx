@@ -34,7 +34,6 @@ const ecosystemItems: Array<{
 
 export default function Ecosystem() {
   return (
-    <main>
       <div className="container">
         <div className="hero-section">
           <h1>Ecosystem</h1>
@@ -55,6 +54,5 @@ export default function Ecosystem() {
           ))}
         </div>
       </div>
-    </main>
   );
 } 

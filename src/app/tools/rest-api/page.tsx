@@ -79,7 +79,6 @@ const endpoints: Endpoint[] = [
 
 export default function RestApi() {
   return (
-    <main>
       <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div className="hero-section">
           <h1>REST API</h1>
@@ -135,6 +134,5 @@ export default function RestApi() {
           </div>
         </section>
       </div>
-    </main>
   );
 } 
