@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Convex – Decentralised Economic Systems",
+    default: "Convex",
     template: "%s | Convex",
   },
   description:

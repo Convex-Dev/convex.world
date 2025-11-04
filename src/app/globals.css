@@ -90,7 +90,10 @@
    ========================================================================== */
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 /* Root Layout Styles */
@@ -109,11 +112,13 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  line-height: 1.4; /* Accessible line height */
 }
 
 main {
   flex-grow: 1;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0 1rem;
   width: 100%;
 }
@@ -128,6 +133,14 @@ main {
   .app-content {
     padding: 0 2rem;
   }
+}
+
+/* Overall typography */
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word; /* Avoid text overflows */
+  text-wrap: pretty;
+  text-wrap: balance; /* Fallback for older browsers */
 }
 
 /* Typography Hierarchy */
@@ -158,8 +171,6 @@ h3 {
 
 p {
   color: var(--color-text);
-  line-height: var(--leading-relaxed);
-  margin-bottom: var(--space-md);
 }
 
 a {
@@ -184,6 +195,10 @@ a:hover {
 }
 
 /* List Elements */
+ul, ol {
+  padding-left: 1.5rem;
+}
+
 li {
   list-style: none;
 }
@@ -191,10 +206,6 @@ li {
 /* ===========================================================
    LAYOUT ELEMENTS
    =========================================================== */
-main {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 /* Navigation */
 nav {
