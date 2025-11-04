@@ -1,46 +1,83 @@
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-function Head() {
-  return (
-    <head>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content="#0F206C" />
-      <meta name="description" content="Create, collaborate, and ship decentralised economic systems." />
-      <meta name="keywords" content="blockchain, decentralized, convex, web3, consensus, smart contracts" />
-      <meta name="author" content="Convex" />
-      
-      {/* Open Graph */}
-      <meta property="og:title" content="convex.world" />
-      <meta property="og:description" content="Create, collaborate, and ship decentralised economic systems." />
-      <meta property="og:url" content="https://convex-dev.github.io/convex.world" />
-      <meta property="og:site_name" content="convex.world" />
-      <meta property="og:type" content="website" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:image" content="/convex.world/images/social_card.png" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="convex.world" />
-      
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="convex.world" />
-      <meta name="twitter:description" content="Create, collaborate, and ship decentralised economic systems." />
-      <meta name="twitter:image" content="/convex.world/images/social_twitter.png" />
-      <meta name="twitter:creator" content="@convex_world" />
-      
-      {/* Favicon */}
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/favicon.ico" />
-      
-      {/* Preconnect to external domains */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-    </head>
-  );
-}
+export const metadata: Metadata = {
+  title: {
+    default: "Convex – Decentralised Economic Systems",
+    template: "%s | Convex",
+  },
+  description:
+    "Create, collaborate, and ship production-grade decentralised economic systems using the Convex lattice technology.",
+  keywords: [
+    "blockchain",
+    "decentralized",
+    "convex",
+    "web3",
+    "consensus",
+    "smart contracts",
+  ],
+  authors: [{ name: "Convex Team" }],
+  creator: "Convex",
+  publisher: "Convex",
+  metadataBase: new URL("https://convex.world"),
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Convex – Decentralised Economic Systems",
+    description:
+      "Create, collaborate, and ship production-grade decentralised economic systems.",
+    url: "https://convex.world",
+    siteName: "Convex",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/images/social_card.png",
+        width: 1200,
+        height: 630,
+        alt: "Convex – Build the future of decentralised economies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Convex",
+    description:
+      "Build production-grade decentralised economic systems using Convex lattice technology.",
+    images: ["/images/social_twitter.png"],
+    creator: "@convex_world",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0F206C",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Convex",
+  url: "https://convex.world",
+  logo: "https://convex.world/images/logo.png",
+  sameAs: [
+    "https://twitter.com/convex_world",
+    "https://github.com/convex-dev",
+    "https://discord.com/invite/xfYGq4CT7v",
+  ],
+};
 
 export default function RootLayout({
   children,
@@ -49,8 +86,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head />
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navigation />
         <main>
           {children}
