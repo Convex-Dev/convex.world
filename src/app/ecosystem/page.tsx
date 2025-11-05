@@ -7,7 +7,7 @@ const ecosystemItems: Array<{
   link?: string;
 }> = [
   {
-    title: "Covia.AI",
+    title: "Covia.ai",
     description: "Covia is using Convex lattice technology to build the universal grid for AI, enabling powerful AI agent ecosystems across organisational boundaries.",
     image: "/images/covia.png",
     link: "https://covia.ai"

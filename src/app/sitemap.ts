@@ -22,8 +22,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: buildDate,
       changeFrequency: "weekly",
       priority: 0.8,
-    }
-
+    },
+    {
+      url: `${baseUrl}/coin`,
+      lastModified: buildDate,
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/developer`,
+      lastModified: buildDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 }
 

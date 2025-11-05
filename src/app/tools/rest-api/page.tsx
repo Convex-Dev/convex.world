@@ -16,7 +16,7 @@ const endpoints: Endpoint[] = [
     path: "/api/v1/status",
     description: "Get the current status of the Convex network including version, block height, and network health.",
     example: {
-      request: "curl http://peer.convex.live:8080/api/v1/status",
+      request: "curl https://peer.convex.live/api/v1/status",
       response: `{
   "status": "healthy",
   "version": "1.0.0",
@@ -30,7 +30,7 @@ const endpoints: Endpoint[] = [
     path: "/api/v1/transactions",
     description: "Submit a new transaction to the Convex network.",
     example: {
-      request: `curl -X POST http://peer.convex.live:8080/api/v1/transactions \\
+      request: `curl -X POST https://peer.convex.live/api/v1/transactions \\
 -H "Content-Type: application/json" \\
 -d '{
   "sender": "0x...",
@@ -52,9 +52,9 @@ const endpoints: Endpoint[] = [
     path: "/api/v1/accounts/{address}",
     description: "Retrieve account information including balance and transaction history.",
     example: {
-      request: "curl http://peer.convex.live:8080/api/v1/accounts/0x...",
+      request: "curl https://peer.convex.live/api/v1/accounts/11",
       response: `{
-  "address": "0x...",
+  "address": "11",
   "balance": 5000,
   "nonce": 42,
   "lastActivity": "2024-01-20T12:00:00Z"
@@ -64,9 +64,9 @@ const endpoints: Endpoint[] = [
   {
     method: "GET",
     path: "/api/v1/blocks/{height}",
-    description: "Get detailed information about a specific block by its height.",
+    description: "Get detailed information about a specific block by its position in the CPoS ordering.",
     example: {
-      request: "curl http://peer.convex.live:8080/api/v1/blocks/1234567",
+      request: "curl https://peer.convex.live/api/v1/blocks/1234567",
       response: `{
   "height": 1234567,
   "hash": "0x...",

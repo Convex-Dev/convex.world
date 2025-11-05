@@ -7,10 +7,14 @@ export default function Home() {
     <main>
       <div className="container">
         <div className="hero-section">
-          <h1>
-            Real-time economic systems
-          </h1>
-          <p>Lattice Technology for decentralised applications</p>
+          <h3>
+            Intelligent, open economic systems
+          </h3>
+          <p>
+            Convex unifies compute, data, and value into one deterministic fabric 
+            - enabling humans and AI to coordinate, transact, and build intelligent 
+            economies.
+          </p>
           <div className="button-group">
             <Button href="https://docs.convex.world/docs/intro">Introduction</Button>
             <Button href="https://github.com/Convex-Dev" rightIconSrc="/images/social_github.png" rightIconAlt="Github">

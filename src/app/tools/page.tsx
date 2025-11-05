@@ -22,6 +22,15 @@ const tools: Tool[] = [
     icon: "/images/logo_dark_blue.svg"
   },
   {
+    title: "Convex Desktop",
+    description: "A fully functional desktop application for Convex power users / developers. Can be used to interact as a wallet and also run local test networks.",
+    link: {
+      href: "https://docs.convex.world/docs/products/convex-desktop",
+      isExternal: true
+    },
+    icon: "/images/logo_dark_blue.svg"
+  },
+  {
     title: "REST API",
     description: "Access Convex network data and functionality through our comprehensive REST API endpoints.",
     link: {

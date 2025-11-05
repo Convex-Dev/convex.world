@@ -10,6 +10,13 @@ export default function Navigation() {
               <Image src="/images/logo_dark_blue.svg" alt="Convex Logo" width={200} height={80} />
         </Link>
         <div>
+          <Link href="/developers" className="nav-title">
+            Developers
+          </Link>
+          <Link href="/tools" className="nav-title">
+            Tools
+          </Link>
+
           <Link href="/ecosystem" className="nav-title">
             Ecosystem
           </Link>
@@ -18,21 +25,15 @@ export default function Navigation() {
             Team
           </Link>
           */}
-          <Link href="/tools" className="nav-title">
-            Toolkit
+          <Link href="/coin" className="nav-title">
+            Coin
           </Link>
-          <a href="https://peer.convex.live/explorer" target="explorer" className="nav-title">
-            Explorer
-            <Image src="/link.svg" alt="Link" width={16} height={16} />
-          </a>
+
           <a href="https://docs.convex.world" target="discord" className="nav-title">
             Docs
             <Image src="/link.svg" alt="Link" width={16} height={16} />
           </a>
-          <a href="https://discord.com/invite/xfYGq4CT7v" target="docs" className="nav-title">
-            Discord
-            <Image src="/link.svg" alt="Link" width={16} height={16} />
-          </a>
+
           <ColorMode />
         </div>
       </nav>
