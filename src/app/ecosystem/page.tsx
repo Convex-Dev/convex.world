@@ -1,4 +1,4 @@
-import EcosystemBox from "@/components/EcosystemBox";
+import Card from "@/components/Card";
 
 const ecosystemItems: Array<{
   title: string;
@@ -36,22 +36,45 @@ export default function Ecosystem() {
   return (
       <div className="container">
         <div className="hero-section">
-          <h1>Ecosystem</h1>
+          <h1>Convex Ecosystem</h1>
           <p className="intro-text">
-            Explore the growing ecosystem of projects and companies building on Convex
+            Companies and projects building on Convex and Lattice technology.
           </p>
         </div>
 
         <div className="ecosystem-grid">
-          {ecosystemItems.map((item) => (
-            <EcosystemBox
-              key={item.title}
-              title={item.title}
-              description={item.description}
-              image={item.image}
-              link={item.link}
-            />
-          ))}
+          {ecosystemItems.map(({ title, description, image, link }) => {
+            const content = (
+              <>
+                {image && (
+                  <img
+                    src={image}
+                    alt={title}
+                    style={{ width: "100%", height: "150px", objectFit: "contain" }}
+                  />
+                )}
+                <h3 style={{ textAlign: "center" }}>{title}</h3>
+                <p className="description-text">{description}</p>
+              </>
+            );
+
+            return (
+              <Card key={title} className="ecosystem-box">
+                {link ? (
+                  <a
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ecosystem-box-link"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  content
+                )}
+              </Card>
+            );
+          })}
         </div>
       </div>
   );
