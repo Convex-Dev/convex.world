@@ -27,7 +27,7 @@ const ecosystemItems: Array<{
   {
     title: "ReMeLife",
     description: "The first AI-Web3 Care-2-Earn community ecosystem. Using Convex to build ReMeGrid, a decentralised rewards-based care community.",
-    link: "https://remelife.io",
+    link: "https://remelife.com",
     image: "/images/remelife.png"
   }
 ];
