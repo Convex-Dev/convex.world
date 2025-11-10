@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Code from "@/components/Code";
 
 interface Endpoint {
@@ -14,64 +15,22 @@ const endpoints: Endpoint[] = [
   {
     method: "GET",
     path: "/api/v1/status",
-    description: "Get the current status of the Convex network including version, block height, and network health.",
+    description: "Get the current status of the Convex peer including key network and consensus information.",
     example: {
       request: "curl https://peer.convex.live/api/v1/status",
       response: `{
-  "status": "healthy",
-  "version": "1.0.0",
-  "blockHeight": 1234567,
-  "timestamp": "2024-01-20T12:00:00Z"
-}`
-    }
-  },
-  {
-    method: "POST",
-    path: "/api/v1/transactions",
-    description: "Submit a new transaction to the Convex network.",
-    example: {
-      request: `curl -X POST https://peer.convex.live/api/v1/transactions \\
--H "Content-Type: application/json" \\
--d '{
-  "sender": "0x...",
-  "action": "transfer",
-  "params": {
-    "to": "0x...",
-    "amount": 1000
-  }
-}'`,
-      response: `{
-  "transactionHash": "0x...",
-  "status": "pending",
-  "timestamp": "2024-01-20T12:00:00Z"
-}`
-    }
-  },
-  {
-    method: "GET",
-    path: "/api/v1/accounts/{address}",
-    description: "Retrieve account information including balance and transaction history.",
-    example: {
-      request: "curl https://peer.convex.live/api/v1/accounts/11",
-      response: `{
-  "address": "11",
-  "balance": 5000,
-  "nonce": 42,
-  "lastActivity": "2024-01-20T12:00:00Z"
-}`
-    }
-  },
-  {
-    method: "GET",
-    path: "/api/v1/blocks/{height}",
-    description: "Get detailed information about a specific block by its position in the CPoS ordering.",
-    example: {
-      request: "curl https://peer.convex.live/api/v1/blocks/1234567",
-      response: `{
-  "height": 1234567,
-  "hash": "0x...",
-  "timestamp": "2024-01-20T12:00:00Z",
-  "transactions": ["0x...", "0x..."]
+  "consensus-point": 605,
+  "proposal-point": 605,
+  "genesis": "0xb0e44f2a645abfa539f5b96b7a0eabb0f902866feaff0f7c12d1213e02333f13",
+  "peer": "0xf167b15c46ea3e5db7d059230a6b18aa891418261014c4afc93e7b3c572b63a1",
+  "belief": "0x3afd30f048506f504f773a7ae804ea10fd5674e474f542011a03941dc737a0e7",
+  "state": "0x4a313e33da05964e930b14cdcf9385fb65dca580e9d9167a54f18b6806399cf2",
+  "consensus": [605,
+                605,
+                605,
+                605],
+  "block-point": 605,
+  "states": "0x4a313e33da05964e930b14cdcf9385fb65dca580e9d9167a54f18b6806399cf2"
 }`
     }
   }
@@ -83,22 +42,24 @@ export default function RestApi() {
         <div className="hero-section">
           <h1>REST API</h1>
           <p>
-            Interact with the Convex network using our RESTful API endpoints
+            Interact with the Convex peer network using our RESTful API endpoints
           </p>
         </div>
 
         <section className="card">
-          <h2>Overview</h2>
             <p className="description-text">
-              The Convex REST API allows you to interact with the network programmatically. 
+              The Convex <b>REST API</b> allows you to interact with the network programmatically. 
               All API endpoints are served over HTTPS and can return responses in <code>application/json</code> or <code>application/cvx</code> format.
             </p>
-            <Code>Base URL: http://peer.convex.live:8080/api/v1</Code>
+            <Code>Base URL: https://peer.convex.live/api/v1</Code>
             <p className="description-text">
-              Endpoints are documented using OpenAPI (Swagger) and can be explored using the 
-              <a href="http://peer.convex.live:8080/swagger" target="_blank" rel="noopener noreferrer">Swagger UI</a> 
-              available as standard at most Convex peers.
+              Endpoints are documented using OpenAPI (Swagger) and are available at most Convex peers.
             </p>
+            <div>
+              <Button href="https://peer.convex.live/swagger" target="_blank" rel="noopener noreferrer">
+                Open Swagger UI
+              </Button>
+            </div>
         </section>
 
         <section className="card">

@@ -13,12 +13,11 @@ export default function Coin() {
                     <h3>Convex Coin</h3>
                     <p>The Convex Coin (CVM) is the native utility token of the Convex network - fuelling secure, scalable, and truly global on-chain state changes.</p>
                     <p>A modest fee in CVM is required <em>only</em> for transactions that mutate the shared global state. This minimal cost protects the ecosystem from spam and ensures fair access to collective resources.</p>
-                    <p>Most Convex interactions are free with no CVM required:
-                        <ul>
-                            <li><strong>Unlimited reads:</strong> Query the global state at zero cost</li>
-                            <li><strong>Off-chain freedom:</strong> Leverage Lattice Technology for data storage and computation without any CVM</li>
-                        </ul>
-                    </p>
+                    <p>Most Convex interactions are free with no CVM required:</p>
+                    <ul>
+                        <li><strong>Unlimited reads:</strong> Query the global state at zero cost</li>
+                        <li><strong>Off-chain freedom:</strong> Leverage Lattice Technology for data storage and computation without any CVM</li>
+                    </ul>
                     <p><strong>Staking:</strong> CVM also empowers network security: stake it on trusted peers via our innovative CPoS (Convergent Proof-of-Stake) consensus to earn rewards and harden the network.</p>
                 </Card>
 
