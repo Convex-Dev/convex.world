@@ -435,6 +435,13 @@ footer .footer-links {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* Slide */
+.slide {
+  background-color: white;
+  padding: var(--container-padding);
+  margin: var(--container-padding);
+}
+
 /* Grid stuff */
 
 .auto-grid {
@@ -466,7 +473,7 @@ th {
 }
 
 tbody tr:hover {
-  background-color: #f3f4f6;
+  background-color: var(--color-background);
 }
 
 /* Tools Page */

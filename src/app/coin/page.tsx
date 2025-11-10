@@ -55,6 +55,7 @@ export default function Coin() {
                         alt="CVM Release Curve"
                         width={960}
                         height={540}
+                        className="slide"
                         style={{ width: '100%', maxWidth: '30em', height: 'auto', display: 'block', margin: '0 auto' }}
                         sizes="(max-width: 768px) 100vw, 30em"
                     />
