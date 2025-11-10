@@ -493,8 +493,7 @@ tbody tr:hover {
 .ecosystem-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-xl);
-  margin-bottom: var(--space-2xl);
+  gap: var(--container-gap);
 }
 
 @media (min-width: 768px) {

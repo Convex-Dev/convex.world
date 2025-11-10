@@ -1,4 +1,5 @@
 import Card from "@/components/Card";
+import Image from "next/image";
 
 const ecosystemItems: Array<{
   title: string;
@@ -14,9 +15,15 @@ const ecosystemItems: Array<{
   },
   {
     title: "Paisley",
-    description: "Paisley is a membership-based cooperative for freelancers and creatives that uses the power of Convex to build a better future for all.",
+    description: "A membership-owned cooperative platform for freelancers and creatives that uses the power of Convex to build a better future for all.",
     image: "/images/paisley-logo.png",
     link: "https://paisley.io"
+  },
+  {
+    title: "European Union",
+    description: "The European Union has built on Convex as part of its Next Generation Internet programme, with a focus on efficient scalable DLT infrastructure and interoperable token exchange.",
+    image: "/images/Europe.png",
+    link: "https://docs.convex.world/docs/products/tokengine"
   },
   {
     title: "Lumoza",
@@ -47,10 +54,13 @@ export default function Ecosystem() {
             const content = (
               <>
                 {image && (
-                  <img
+                  <Image
                     src={image}
                     alt={title}
+                    width={400}
+                    height={150}
                     style={{ width: "100%", height: "150px", objectFit: "contain" }}
+                    sizes="(max-width: 768px) 100vw, 300px"
                   />
                 )}
                 <h3 style={{ textAlign: "center" }}>{title}</h3>

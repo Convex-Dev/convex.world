@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import Image from "next/image";
 
 export default function Coin() {
     return (
@@ -49,7 +50,14 @@ export default function Coin() {
                         </tbody>
                     </table>
                     <p>The supply of CVM converges towards a theoretical hard cap of 1,000,000,000 CVM (but never reaches it). The rate of this convergence is determined by the economics of the release curve.</p>
-                    <img src="/images/release-curve.png" alt="CVM Release Curve" style={{ width: '100%', maxWidth: '30em', height: 'auto', display: 'block', margin: '0 auto' }} />
+                    <Image
+                        src="/images/release-curve.png"
+                        alt="CVM Release Curve"
+                        width={960}
+                        height={540}
+                        style={{ width: '100%', maxWidth: '30em', height: 'auto', display: 'block', margin: '0 auto' }}
+                        sizes="(max-width: 768px) 100vw, 30em"
+                    />
                     <p>
                         For more details see <a href="https://docs.convex.world/docs/cad/tokenomics">CAD020 Tokenomics</a> and the <a href="https://docs.convex.world/docs/overview/convex-whitepaper">Convex White Paper</a> document.
                     </p>
