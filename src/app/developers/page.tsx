@@ -29,15 +29,15 @@ export default function Developer() {
       </Card>
 
       <Card>
-        <h2>The power of Lisp</h2>
+        <h2>Convex Lisp</h2>
         <p>
           We needed a programming language that powerful, easy to use and 
           well-suited to the development of dynamic, composable economic systems.
           </p>
         <p> So we created Convex Lisp, a modern Lisp dialect inspired by 
-          <a href="https://clojure.org" target="_blank" rel="noopener noreferrer">Clojure</a>,
-          because we want to be able to write code that is both powerful and easy to understand 
-          for humans and AI agents alike. We want to be able to write code like this:
+          <a href="https://clojure.org" target="_blank" rel="noopener noreferrer"> Clojure</a>,
+          because we want to be able to write code that is powerful and easy to understand 
+          (for humans and AI agents alike). We want to be able to write code like this, and have it execute reliably on the CVM with no extra complexity or tooling:
         </p>
         <Code language="lisp">
           (if (trusted? entity) (transfer entity digital-asset))
