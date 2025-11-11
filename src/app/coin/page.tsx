@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import Code from "@/components/Code";
 import Image from "next/image";
 
 export default function Coin() {
@@ -11,14 +12,23 @@ export default function Coin() {
             <div className="container">
                 <Card>
                     <h3>Convex Coin</h3>
-                    <p>The Convex Coin (CVM) is the native utility token of the Convex network - fuelling secure, scalable, and truly global on-chain state changes.</p>
-                    <p>A modest fee in CVM is required <em>only</em> for transactions that mutate the shared global state. This minimal cost protects the ecosystem from spam and ensures fair access to collective resources.</p>
-                    <p>Most Convex interactions are free with no CVM required:</p>
+                    <p>The Convex Coin (<b>CVM</b>) is the native utility token of the Convex network, 
+                    enabling secure, scalable, and fully global on-chain state changes.</p>
+                    <p>
+                    A small CVM fee applies only to transactions that modify the shared 
+                    global state - safeguarding the network from spam while ensuring equitable access to shared resources.</p>
+                    <p>Most interactions remain free:</p>
                     <ul>
-                        <li><strong>Unlimited reads:</strong> Query the global state at zero cost</li>
-                        <li><strong>Off-chain freedom:</strong> Leverage Lattice Technology for data storage and computation without any CVM</li>
+                        <li><strong>Unlimited reads:</strong> Query the global state at no cost</li>
+                        <li><strong>Off-chain flexibility:</strong> Use Lattice Technology for storage and computation without CVM</li>
                     </ul>
-                    <p><strong>Staking:</strong> CVM also empowers network security: stake it on trusted peers via our innovative CPoS (Convergent Proof-of-Stake) consensus to earn rewards and harden the network.</p>
+                    <p>CVM has various other uses in the ecosystem:</p>
+                    <ul>
+                        <li><strong>Staking:</strong> Secure the network by staking CVM on trusted peers 
+                        through Convergent Proof-of-Stake (CPoS), earning rewards while strengthening network security and resilience</li>
+                        <li><strong>Value Exchange:</strong> CVM can be used as a convenient, self-sovereign digital currency</li>
+                        <li><strong>Rewards:</strong> CVM is used to reward contributors to the network and ecosystem</li>
+                    </ul>
                 </Card>
 
                 <div className="button-group">
@@ -28,8 +38,9 @@ export default function Coin() {
 
                 <Card>
                     <h3>Tokenomics</h3>
-                    <p>Issued by the non-profit Convex Foundation, ensuring that every CVM issued serves 
-                        the long-term health of the network. Coins are distributed based on the following proportions:</p>
+                    <p>The non-profit Convex Foundation ensures that every CVM issued serves 
+                        the long-term health of the network. </p>
+                    <p>Coins are distributed based on the following proportions:</p>
                     <table>
                         <thead>
                             <tr>
@@ -48,6 +59,17 @@ export default function Coin() {
                             </tr>
                         </tbody>
                     </table>
+                    <p>The price of CVM is determined by the <b>release curve</b> which assigns an increasing price to each unit of CVM 
+                    as it is released, according to the following formula:
+                    <Code>
+                    {
+`price = c * x / (1 - x)
+
+where:
+- c is the constant base price of $100
+- x is the proportion of CVM already sold from the release curve`}
+                    </Code>
+                    </p>
                     <p>The supply of CVM converges towards a theoretical hard cap of 1,000,000,000 CVM (but never reaches it). The rate of this convergence is determined by the economics of the release curve.</p>
                     <Image
                         src="/images/release-curve.png"
