@@ -1,13 +1,15 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import ColorMode from './ColorMode';
+import Logo from './Logo';
 
 export default function Navigation() {
   return (
     <header>
       <nav>
         <Link href="/">
-              <Image src="/images/logo_dark_blue.svg" alt="Convex Logo" width={200} height={80} />
+          <Logo priority />
+          <span className="sr-only">Convex home</span>
         </Link>
         <div>
           <Link href="/developers" className="nav-title">
