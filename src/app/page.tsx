@@ -14,16 +14,16 @@ export default function Home() {
             - enabling humans and AI to coordinate, transact, and build intelligent 
             economies.
           </p>
-          <div className="button-group">
+        </div>
+
+        <FeatureBoxes />
+      </div>
+      <div className="button-group">
             <Button href="https://docs.convex.world/docs/intro">Introduction</Button>
             <Button href="https://github.com/Convex-Dev" rightIconSrc="/images/social_github.png" rightIconAlt="Github">
               Contribute
             </Button>
           </div>
-        </div>
-
-        <FeatureBoxes />
-      </div>
     </main>
   );
 }

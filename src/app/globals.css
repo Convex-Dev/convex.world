@@ -432,7 +432,7 @@ footer .footer-links {
 /* Card System */
 .card {
   background: white;
-  padding: var(--space-lg);
+  padding: var(--container-padding);
   border-radius: var(--radius-lg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--color-border);
@@ -442,6 +442,30 @@ footer .footer-links {
 .card:hover {
   border-color: var(--color-secondary);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-links {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--color-secondary);
+  background-color: rgba(106, 170, 228, 0.12);
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.card-link:hover {
+  color: var(--color-primary);
+  background-color: rgba(106, 170, 228, 0.2);
 }
 
 .dark .card {
@@ -455,6 +479,16 @@ footer .footer-links {
 .dark .card:hover {
   border-color: var(--color-secondary);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.dark .card-link {
+  color: var(--convex-light-blue);
+  background-color: rgba(65, 107, 169, 0.2);
+}
+
+.dark .card-link:hover {
+  color: var(--convex-sky-blue);
+  background-color: rgba(65, 107, 169, 0.3);
 }
 
 /* Slide */
@@ -503,7 +537,7 @@ tbody tr:hover {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-xl);
-  padding: var(--main-padding);
+  padding: var(--container-padding);
 }
 
 @media (min-width: 768px) {
