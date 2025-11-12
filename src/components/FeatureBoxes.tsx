@@ -39,6 +39,11 @@ const features: FeatureBox[] = [
     title: "Ultimate Performance",
     description: "The world's fastest decentralised VM - execute 1 million transactions on shared global state per second",
     links: [
+      {
+        label: "Performance",
+        href: "docs/overview/performance",
+        external: true,
+      }
     ],
   },
   {
@@ -78,10 +83,15 @@ const features: FeatureBox[] = [
         external: true,
       },
       {
+        label: "Manifesto",
+        href: "https://docs.convex.world/docs/overview/manifesto",
+        external: true,
+      },
+      {
         label: "Tokenomics",
         href: "https://docs.convex.world/docs/cad/tokenomics",
         external: true,
-      },
+      }
     ],
   }
 ];

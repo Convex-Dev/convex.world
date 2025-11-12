@@ -43,12 +43,14 @@ export default function Developer() {
           (if (trusted? entity) (transfer entity digital-asset))
         </Code>
         <p>
-          We're pioneered the concept of <b>One Line DeFi</b> - a single line of code can represent a complex economic transaction.
+          We&apos;ve pioneered the concept of <b>One Line DeFi</b> - a single line of code can represent a complex economic transaction.
         </p>
         <p>
-          If you're curious about Lisp, a good essay to read is
-          <a href="https://paulgraham.com/avg.html" target="_blank" rel="noopener noreferrer"> "Beating the Averages" by Paul Graham </a> - 
-          it's a great introduction to the power of Lisp and why it is a competitive advantage.
+          If you&apos;re curious about Lisp, a good essay to read is{" "}
+          <a href="https://paulgraham.com/avg.html" target="_blank" rel="noopener noreferrer">
+            &ldquo;Beating the Averages&rdquo; by Paul Graham
+          </a>{" "}
+          - it&apos;s a great introduction to the power of Lisp and why it is a competitive advantage.
         </p>
       </Card>
 

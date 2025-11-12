@@ -88,7 +88,7 @@ export default function Ecosystem() {
         </div>
 
         <p>
-          If you're building on Convex and want to be featured here, let us know and we'll add you to the list.
+          If you&apos;re building on Convex and want to be featured here, let us know and we&apos;ll add you to the list.
         </p>
       </div>
   );
