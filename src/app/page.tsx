@@ -10,8 +10,8 @@ export default function Home() {
             Intelligent, open economic systems
           </h3>
           <p>
-            Convex unifies compute, data, and value into one deterministic fabric 
-            - enabling humans and AI to coordinate, transact, and build intelligent 
+            Convex unifies compute, data, and value into a  global fabric 
+            - enabling humans and AI agents to coordinate, transact, and build intelligent 
             economies.
           </p>
         </div>

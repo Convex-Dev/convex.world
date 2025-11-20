@@ -1,6 +1,7 @@
 import Card from "@/components/Card";
 import Button from "@/components/Button";
 import Code from "@/components/Code";
+import Hex from "@/components/Hex";
 
 export default function Developer() {
   return (

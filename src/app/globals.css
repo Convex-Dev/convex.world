@@ -255,6 +255,7 @@ nav .logo {
   filter: invert(64%) sepia(35%) saturate(628%) hue-rotate(179deg) brightness(95%) contrast(92%);
 }
 
+
 input, button, textarea, select {
   font: inherit; /* Don't have custom typography for these elements */
 }

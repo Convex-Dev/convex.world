@@ -18,6 +18,11 @@ const features: FeatureBox[] = [
     description: "Beyond blockchain - Convex achieves consensus in milliseconds with zero block delay.",
     links: [
       {
+        label: "Video",
+        href: "https://www.youtube.com/watch?v=XmDUkrOAhsY",
+        external: true,
+      },
+      {
         label: "Whitepaper",
         href: "https://docs.convex.world/docs/overview/convex-whitepaper",
         external: true,
@@ -26,7 +31,7 @@ const features: FeatureBox[] = [
   },
   {
     title: "Global Scale",
-    description: "Lattice Technology gives every project its own global data fabric",
+    description: "Lattice Technology gives every project its own global P2P data fabric",
     links: [
       {
         label: "Lattice Technology",
