@@ -94,7 +94,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                   >
                     <Image
-                      src="/images/social_github.png"
+                      src="/images/social_github.webp"
                       alt="GitHub"
                       width={24}
                       height={24}
@@ -108,7 +108,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                   >
                     <Image
-                      src="/images/social_linkedin.png"
+                      src="/images/social_linkedin.webp"
                       alt="LinkedIn"
                       width={24}
                       height={24}
@@ -122,7 +122,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                   >
                     <Image
-                      src="/images/social_twitter.png"
+                      src="/images/social_twitter.webp"
                       alt="Twitter"
                       width={24}
                       height={24}
@@ -136,7 +136,7 @@ export default function Team() {
                     rel="noopener noreferrer"
                   >
                     <Image
-                      src="/images/social_discord.png"
+                      src="/images/social_discord.webp"
                       alt="Discord"
                       width={24}
                       height={24}
