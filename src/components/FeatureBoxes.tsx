@@ -101,6 +101,7 @@ export default function FeatureBoxes() {
               ))}
             </div>
           ) : null}
+          <div className="feature-corner-br" aria-hidden="true" />
         </article>
       ))}
     </div>

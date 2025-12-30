@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FeatureBoxes from "@/components/FeatureBoxes";
+import CapabilitySections from "@/components/CapabilitySections";
 
 export default function Home() {
   return (
@@ -79,18 +79,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features Section */}
-      <section className="features-section">
-        <div className="section-header">
-          <span className="section-number">// 001</span>
-          <h2>Core Capabilities</h2>
-          <p>
-            Beyond blockchain. A new architecture for decentralized computation, 
-            designed for the age of autonomous agents and intelligent systems.
-          </p>
-        </div>
-        <FeatureBoxes />
-      </section>
+      {/* Capabilities Journey */}
+      <CapabilitySections />
 
       {/* Geometric separator */}
       <div className="geo-line" aria-hidden="true" />

@@ -8,6 +8,33 @@ import {
   Boxes,
   Zap
 } from "lucide-react";
+import AnimatedTerminal from "@/components/AnimatedTerminal";
+
+const heroTerminalSequences = [
+  {
+    lines: [
+      { type: 'command' as const, text: '(import convex.fungible :as fun)' },
+      { type: 'command' as const, text: '(deploy (fun/build-token {:supply 1000000}))' },
+      { type: 'result' as const, text: '#token:0x8a2f...' },
+    ]
+  },
+  {
+    lines: [
+      { type: 'command' as const, text: '(@convex.fungible/mint MY-TOKEN 500000)' },
+      { type: 'result' as const, text: '500000' },
+      { type: 'command' as const, text: '(@convex.fungible/balance MY-TOKEN)' },
+      { type: 'result' as const, text: '500000' },
+    ]
+  },
+  {
+    lines: [
+      { type: 'command' as const, text: '(def accounts (query (all :users)))' },
+      { type: 'result' as const, text: '[#addr:0x1a.. #addr:0x2b..]' },
+      { type: 'command' as const, text: '(count accounts)' },
+      { type: 'result' as const, text: '2847' },
+    ]
+  },
+];
 
 export default function Developer() {
   return (
@@ -38,19 +65,7 @@ export default function Developer() {
           </div>
         </div>
         <div className="dev-hero-visual">
-          <div className="dev-code-showcase">
-            <div className="dev-code-header">
-              <span className="dev-code-dot"></span>
-              <span className="dev-code-dot"></span>
-              <span className="dev-code-dot"></span>
-              <span className="dev-code-title">convex-lisp</span>
-            </div>
-            <div className="dev-code-body">
-              <code>(import convex.fungible :as fun)</code>
-              <code>{`(deploy (fun/build-token {:supply 1000000}))`}</code>
-              <code>(fun/transfer token recipient 1000)</code>
-            </div>
-          </div>
+          <AnimatedTerminal sequences={heroTerminalSequences} title="convex-lisp" />
         </div>
       </section>
 
