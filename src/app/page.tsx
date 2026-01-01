@@ -1,5 +1,8 @@
 import Link from "next/link";
 import CapabilitySections from "@/components/CapabilitySections";
+import LiveProofOfLife from "@/components/LiveProofOfLife";
+import LiveInspector from "@/components/LiveInspector";
+import ResourceGauges from "@/components/ResourceGauges";
 
 export default function Home() {
   return (
@@ -43,27 +46,23 @@ export default function Home() {
       </section>
 
       {/* Proof of Life Strip — Real-time system status */}
-      <div className="proof-of-life">
-        <div className="pol-item">
-          <div className="pol-label">Consensus Height</div>
-          <div className="pol-value">14,892,847</div>
-        </div>
-        <div className="pol-item">
-          <div className="pol-label">Active Participants</div>
-          <div className="pol-value">2,847</div>
-        </div>
-        <div className="pol-item">
-          <div className="pol-label">Juice Consumed</div>
-          <div className="pol-value">847.2M</div>
-        </div>
-        <div className="pol-item">
-          <div className="pol-label">State Convergence</div>
-          <div className="pol-value">&lt;500ms</div>
-        </div>
-      </div>
+      <LiveProofOfLife />
 
       {/* Capabilities Journey */}
       <CapabilitySections />
+
+      {/* Live Tools Section */}
+      <section className="inspector-section">
+        <div className="section-header">
+          <span className="section-number">// 004</span>
+          <h2>System Observation</h2>
+          <p>Live instrumentation into network state</p>
+        </div>
+        <div className="live-tools-grid">
+          <LiveInspector />
+          <ResourceGauges />
+        </div>
+      </section>
 
       {/* Geometric separator */}
       <div className="geo-line" aria-hidden="true" />

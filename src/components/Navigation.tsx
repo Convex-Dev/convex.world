@@ -22,6 +22,9 @@ export default function Navigation() {
           <Link href="/coin" className="nav-link">
             Coin
           </Link>
+          <Link href="/developers#sandbox" className="nav-link nav-link-sandbox">
+            Sandbox
+          </Link>
           <a 
             href="https://docs.convex.world" 
             target="_blank" 

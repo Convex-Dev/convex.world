@@ -1,14 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  Cpu, 
-  Database, 
-  BookOpen,
-  Terminal,
-  Boxes,
-  Zap
-} from "lucide-react";
+import { BookOpen, Terminal, Boxes, Zap, Database } from "lucide-react";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
+import ReplSandbox from "@/components/ReplSandbox";
 
 const heroTerminalSequences = [
   {
@@ -81,8 +75,18 @@ export default function Developer() {
           {/* CVM Card */}
           <article className="dev-card dev-card-featured">
             <span className="dev-card-number">01</span>
-            <div className="dev-card-icon">
-              <Cpu size={24} strokeWidth={1.5} />
+            <div className="dev-card-icon dev-card-icon-cvm">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="4" width="16" height="16" rx="2" fill="var(--accent-primary)" />
+                <rect x="7" y="7" width="4" height="4" rx="1" fill="var(--accent-highlight)" />
+                <rect x="13" y="7" width="4" height="4" rx="1" fill="var(--accent-highlight)" />
+                <rect x="7" y="13" width="4" height="4" rx="1" fill="var(--accent-highlight)" />
+                <rect x="13" y="13" width="4" height="4" rx="1" fill="var(--accent-highlight)" />
+                <line x1="2" y1="9" x2="4" y2="9" stroke="var(--accent-highlight)" strokeWidth="2" />
+                <line x1="2" y1="15" x2="4" y2="15" stroke="var(--accent-highlight)" strokeWidth="2" />
+                <line x1="20" y1="9" x2="22" y2="9" stroke="var(--accent-highlight)" strokeWidth="2" />
+                <line x1="20" y1="15" x2="22" y2="15" stroke="var(--accent-highlight)" strokeWidth="2" />
+              </svg>
             </div>
             <h3>Convex Virtual Machine</h3>
             <p>
@@ -125,8 +129,17 @@ export default function Developer() {
           {/* Lattice Data Card */}
           <article className="dev-card">
             <span className="dev-card-number">03</span>
-            <div className="dev-card-icon">
-              <Database size={24} strokeWidth={1.5} />
+            <div className="dev-card-icon dev-card-icon-lattice">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="7" height="7" rx="1" fill="var(--accent-consensus)" />
+                <rect x="14" y="3" width="7" height="7" rx="1" fill="var(--accent-primary)" />
+                <rect x="3" y="14" width="7" height="7" rx="1" fill="var(--accent-primary)" />
+                <rect x="14" y="14" width="7" height="7" rx="1" fill="var(--accent-consensus)" />
+                <line x1="10" y1="6.5" x2="14" y2="6.5" stroke="var(--accent-highlight)" strokeWidth="1.5" />
+                <line x1="10" y1="17.5" x2="14" y2="17.5" stroke="var(--accent-highlight)" strokeWidth="1.5" />
+                <line x1="6.5" y1="10" x2="6.5" y2="14" stroke="var(--accent-highlight)" strokeWidth="1.5" />
+                <line x1="17.5" y1="10" x2="17.5" y2="14" stroke="var(--accent-highlight)" strokeWidth="1.5" />
+              </svg>
             </div>
             <h3>Lattice Data</h3>
             <p className="dev-tagline">
@@ -171,6 +184,40 @@ export default function Developer() {
               <p>Libraries for Java, JavaScript, and more</p>
             </div>
           </Link>
+        </div>
+      </section>
+
+      {/* REPL Sandbox Section */}
+      <section id="sandbox" className="dev-section dev-sandbox-section">
+        <div className="section-header">
+          <span className="section-number">// 003</span>
+          <h2>REPL Sandbox</h2>
+          <p>Experiment with Convex Lisp in a live environment</p>
+        </div>
+        
+        <div className="dev-sandbox-container">
+          <ReplSandbox />
+          <div className="dev-sandbox-info">
+            <h4>Interactive Console</h4>
+            <p>
+              This sandbox connects to the Convex testnet. Execute Lisp expressions, 
+              define functions, query state, and observe Juice costs in real-time.
+            </p>
+            <ul className="dev-sandbox-features">
+              <li>
+                <Zap size={14} />
+                <span>Real-time Juice cost estimation</span>
+              </li>
+              <li>
+                <Terminal size={14} />
+                <span>Full Convex Lisp syntax support</span>
+              </li>
+              <li>
+                <Database size={14} />
+                <span>Query global state directly</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
