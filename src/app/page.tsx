@@ -17,23 +17,16 @@ export default function Home() {
           <div className="hero-label">A New Internet of Value</div>
         </div>
         <h1>
-          The execution layer for{" "}
-          <span className="hero-accent">intelligent economies</span>
+          Convex is a deterministic economic system shared by{" "}
+          <span className="hero-accent">humans and autonomous agents</span>
         </h1>
         <p>
-          Convex unifies compute, data, and value into one deterministic fabric—enabling 
-          humans and AI to coordinate, transact, and build autonomous economic systems 
-          at global scale.
+          Both participate under the same rules, the same physics, and the same finality.
         </p>
-        
-        {/* Convex Lisp code snippet */}
-        <div className="hero-code">
-          <span className="code-snippet">(convex.fungible/mint my-token 1000000)</span>
-        </div>
 
         <div className="btn-group">
-          <Link href="https://docs.convex.world/docs/intro" className="btn btn-primary">
-            Enter the Lattice
+          <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
+            Read Documentation
           </Link>
           <Link 
             href="https://github.com/Convex-Dev" 
@@ -49,33 +42,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <div className="stats-bar">
-        <div className="stat-item">
-          <div className="stat-value">
-            1<span className="stat-unit">M+</span>
-          </div>
-          <div className="stat-label">Transactions / Second</div>
+      {/* Proof of Life Strip — Real-time system status */}
+      <div className="proof-of-life">
+        <div className="pol-item">
+          <div className="pol-label">Consensus Height</div>
+          <div className="pol-value">14,892,847</div>
         </div>
-        <div className="stat-item">
-          <div className="stat-value">
-            <span className="stat-unit">&lt;</span>500<span className="stat-unit">ms</span>
-          </div>
-          <div className="stat-label">Global Finality</div>
+        <div className="pol-item">
+          <div className="pol-label">Active Participants</div>
+          <div className="pol-value">2,847</div>
         </div>
-        <div className="stat-item">
-          <div className="stat-value">
-            100<span className="stat-unit">%</span>
-          </div>
-          <div className="stat-label">Green Consensus</div>
+        <div className="pol-item">
+          <div className="pol-label">Juice Consumed</div>
+          <div className="pol-value">847.2M</div>
         </div>
-        <div className="stat-item stat-item-infinity">
-          <div className="stat-value">
-            <svg className="stat-infinity-svg" viewBox="0 0 24 24" aria-label="Infinity">
-              <path d="M18.178 8c5.096 0 5.096 8 0 8-5.095 0-7.133-8-12.739-8-4.585 0-4.585 8 0 8 5.606 0 7.644-8 12.74-8z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div className="stat-label">Horizontal Scale</div>
+        <div className="pol-item">
+          <div className="pol-label">State Convergence</div>
+          <div className="pol-value">&lt;500ms</div>
         </div>
       </div>
 

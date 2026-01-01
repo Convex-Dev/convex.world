@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 interface FooterLink {
   text: string;
   href: string;
@@ -22,7 +20,7 @@ const footerData: FooterColumn[] = [
     ]
   },
   {
-    title: "Community",
+    title: "Participate",
     links: [
       { text: "Discord", href: "https://discord.com/invite/xfYGq4CT7v" },
       { text: "GitHub", href: "https://github.com/Convex-Dev" },
@@ -34,8 +32,8 @@ const footerData: FooterColumn[] = [
     links: [
       { text: "Blog", href: "https://docs.convex.world/blog" },
       { text: "Ecosystem", href: "https://docs.convex.world/docs/ecosystem" },
-      { text: "Report an Issue", href: "https://github.com/Convex-Dev/convex.world/issues" },
-      { text: "Contribute", href: "https://docs.convex.world/docs/contributing" }
+      { text: "Press Assets", href: "https://github.com/Convex-Dev/design-assets" },
+      { text: "Report an Issue", href: "https://github.com/Convex-Dev/convex.world/issues" }
     ]
   }
 ];
@@ -44,6 +42,23 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-content">
+        {/* Network Status Strip */}
+        <div className="footer-status">
+          <div className="status-item">
+            <span className="status-indicator status-live" />
+            <span className="status-label">Network</span>
+            <span className="status-value">Operational</span>
+          </div>
+          <div className="status-item">
+            <span className="status-label">Peers</span>
+            <span className="status-value">24</span>
+          </div>
+          <div className="status-item">
+            <span className="status-label">Protocol</span>
+            <span className="status-value">v0.7.14</span>
+          </div>
+        </div>
+
         <div className="footer-grid">
           {footerData.map((column) => (
             <div key={column.title} className="footer-column">
@@ -61,7 +76,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="footer-bottom">
-          <p>Convex Foundation. Building infrastructure for intelligent economies.</p>
+          <p>Convex Foundation — Infrastructure for deterministic economic systems</p>
         </div>
       </div>
     </footer>

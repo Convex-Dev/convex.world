@@ -49,18 +49,18 @@ export default function Developer() {
       {/* Hero Section - Asymmetric Layout */}
       <section className="dev-hero-split">
         <div className="dev-hero-content">
-          <span className="dev-hero-tag">// Developer Platform</span>
+          <span className="dev-hero-tag">// Builder Interface</span>
           <h1>Build on the<br /><span className="hero-accent">Lattice</span></h1>
           <p>
-            Create intelligent economic systems with a unified fabric for compute, 
-            data, and value—purpose-built for humans and AI.
+            Build economic systems where humans and autonomous agents participate 
+            under the same rules, the same costs, and the same finality.
           </p>
           <div className="btn-group">
             <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
-              Read the Docs
+              Read Documentation
             </Link>
             <Link href="https://github.com/Convex-Dev" className="btn btn-secondary" target="_blank">
-              Explore GitHub
+              View Source
             </Link>
           </div>
         </div>
@@ -108,16 +108,16 @@ export default function Developer() {
             <p>
               A modern Lisp dialect inspired by{" "}
               <a href="https://clojure.org" target="_blank" rel="noopener noreferrer">Clojure</a>—powerful, 
-              expressive, and designed for composable economic systems that both humans and AI can understand.
+              expressive, and designed for composable economic systems that both humans and autonomous agents can understand.
             </p>
             <p>
-              Write code like this and have it execute reliably on the CVM:
+              Express economic logic that executes deterministically on the CVM:
             </p>
             <div className="dev-inline-code">
               <code>(if (trusted? addr) (fun/transfer token addr 1000))</code>
             </div>
             <p className="dev-highlight">
-              <strong>One Line DeFi</strong> — a single expression can represent 
+              <strong>Offers resolve to settlements</strong> — a single expression can represent 
               a complete economic transaction.
             </p>
           </article>
@@ -174,21 +174,21 @@ export default function Developer() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Builder Section */}
       <section className="dev-cta">
         <div className="dev-cta-content">
-          <h2>Ready to build?</h2>
+          <h2>Build Economic Systems</h2>
           <p>
-            Whether you&apos;re prototyping a new protocol, building an AI-native marketplace, 
-            or integrating with existing systems—Convex gives you the tools to design 
-            resilient, scalable experiences.
+            Convex is for people building economic systems where humans and autonomous 
+            agents must coexist safely. Costs and constraints are visible. State converges 
+            deterministically.
           </p>
           <div className="btn-group">
             <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
-              Start Building
+              Read Documentation
             </Link>
             <Link href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary" target="_blank">
-              Join Discord
+              Join Community
             </Link>
           </div>
         </div>
