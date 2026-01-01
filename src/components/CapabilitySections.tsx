@@ -95,7 +95,7 @@ function ConsensusGraphic() {
 }
 
 function ScaleGraphic() {
-  const [activeCells, setActiveCells] = useState<Set<string>>(new Set());
+  const [activeCells, setActiveCells] = useState<Set<string>>(new Set(['0-2', '1-1', '1-3', '2-0', '2-2', '3-1']));
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -103,8 +103,8 @@ function ScaleGraphic() {
         const next = new Set(prev);
         const key = `${Math.floor(Math.random() * 4)}-${Math.floor(Math.random() * 4)}`;
         if (next.has(key)) {
-          next.delete(key);
-        } else if (next.size < 6) {
+          if (next.size > 4) next.delete(key);
+        } else if (next.size < 8) {
           next.add(key);
         } else {
           const arr = Array.from(next);
@@ -113,13 +113,26 @@ function ScaleGraphic() {
         }
         return next;
       });
-    }, 400);
+    }, 500);
     return () => clearInterval(interval);
   }, []);
-  
+
   return (
     <div className="cap-graphic cap-graphic-scale">
       <svg viewBox="0 0 200 200" className="cap-svg">
+        {/* Subtle connection lines forming lattice pattern */}
+        <g className="lattice-bg-lines">
+          {[0, 1, 2, 3, 4].map(i => (
+            <line key={`h${i}`} x1="25" y1={25 + i * 38} x2="175" y2={25 + i * 38} className="lattice-grid-line" />
+          ))}
+          {[0, 1, 2, 3, 4].map(i => (
+            <line key={`v${i}`} x1={25 + i * 38} y1="25" x2={25 + i * 38} y2="175" className="lattice-grid-line" />
+          ))}
+          {/* Diagonal connections */}
+          <line x1="25" y1="25" x2="175" y2="175" className="lattice-grid-line lattice-diag" />
+          <line x1="175" y1="25" x2="25" y2="175" className="lattice-grid-line lattice-diag" />
+        </g>
+        {/* Solid cells */}
         <g className="scale-grid">
           {[0, 1, 2, 3].map((i) =>
             [0, 1, 2, 3].map((j) => {
@@ -128,10 +141,11 @@ function ScaleGraphic() {
                 <rect
                   key={`${i}-${j}`}
                   className={`scale-cell ${isActive ? 'scale-cell-lit' : ''}`}
-                  x={30 + j * 40}
-                  y={30 + i * 40}
-                  width="30"
-                  height="30"
+                  x={30 + j * 38}
+                  y={30 + i * 38}
+                  width="32"
+                  height="32"
+                  rx="4"
                 />
               );
             })

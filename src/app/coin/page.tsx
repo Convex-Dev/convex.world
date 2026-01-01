@@ -25,12 +25,10 @@ function ConvexLogoAnimated() {
           fill="none" 
           strokeWidth="1.5"
         />
-        {/* Inner lines forming the lattice pattern - triangles pointing DOWN */}
+        {/* Inner lines forming the lattice pattern */}
         <line className="logo-line logo-line-1" x1="50" y1="5" x2="50" y2="95" />
         <line className="logo-line logo-line-2" x1="50" y1="95" x2="7" y2="27.5" />
         <line className="logo-line logo-line-3" x1="50" y1="95" x2="93" y2="27.5" />
-        <line className="logo-line logo-line-4" x1="50" y1="50" x2="7" y2="72.5" />
-        <line className="logo-line logo-line-5" x1="50" y1="50" x2="93" y2="72.5" />
         
         {/* Energy pulse circles */}
         <circle className="energy-pulse pulse-1" cx="50" cy="50" r="20" />
