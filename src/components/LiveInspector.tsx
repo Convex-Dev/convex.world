@@ -1,93 +1,99 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Search, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
+import { query as convexQuery, getBalance } from '@/lib/convex-api';
 
 interface AccountData {
   address: string;
   cnsName: string | null;
   balance: number;
-  juice: number;
   memory: number;
-  source: string;
+  environment: string | null;
+  error?: string;
 }
 
-const MOCK_ACCOUNTS: Record<string, AccountData> = {
-  'convex.world': {
-    address: '0x7F3A2B8C9D4E5F6A1B2C3D4E5F6A7B8C9D0E1F2A',
-    cnsName: 'convex.world',
-    balance: 1000000000,
-    juice: 847234567,
-    memory: 2048,
-    source: `(def registry
-  "Main CNS registry for convex.world"
-  {:name "convex.world"
-   :owner *address*
-   :created 1704067200000})
-
-(defn lookup [name]
-  (get-in @registry [:entries name]))
-
-(defn register [name addr]
-  (when (trusted? *caller*)
-    (set-in! registry [:entries name] addr)))`,
-  },
-  'convex.fungible': {
-    address: '0x8B2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C',
-    cnsName: 'convex.fungible',
-    balance: 500000000,
-    juice: 234567890,
-    memory: 4096,
-    source: `(defn build-token [config]
-  "Creates a new fungible token with given config"
-  (deploy
-    {:supply (:supply config 0)
-     :decimals (:decimals config 18)
-     :transfers []}))
-
-(defn transfer [token to amount]
-  (let [from *caller*]
-    (assert (>= (balance token from) amount))
-    (update! token :transfers conj
-      {:from from :to to :amount amount})))`,
-  },
-  '0x1234': {
-    address: '0x1234567890ABCDEF1234567890ABCDEF12345678',
-    cnsName: null,
-    balance: 42000000,
-    juice: 12345678,
-    memory: 512,
-    source: `(def agent-config
-  {:type :autonomous
-   :constraints {:max-spend 1000
-                 :duration 86400000}})
-
-(defn execute [action]
-  (when (within-constraints? action)
-    (perform action)))`,
-  },
-};
-
 export default function LiveInspector() {
-  const [query, setQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [account, setAccount] = useState<AccountData | null>(null);
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const lookupAccount = useCallback(async (input: string): Promise<AccountData | null> => {
+    const trimmed = input.trim();
+    
+    // Check if it's an address (starts with # or is a number)
+    let address: string;
+    let cnsName: string | null = null;
+    
+    if (trimmed.startsWith('#') || trimmed.startsWith('0x') || /^\d+$/.test(trimmed)) {
+      // Direct address lookup
+      address = trimmed.startsWith('#') ? trimmed.slice(1) : trimmed;
+    } else {
+      // CNS name lookup - try to resolve
+      cnsName = trimmed;
+      const cnsResult = await convexQuery(`(call *registry* (cns-resolve '${trimmed}))`);
+      if (cnsResult.errorCode || !cnsResult.value) {
+        // Try alternate CNS lookup format
+        const altResult = await convexQuery(`(lookup *registry* '${trimmed})`);
+        if (altResult.errorCode || !altResult.value) {
+          return null;
+        }
+        address = String(altResult.value);
+      } else {
+        address = String(cnsResult.value);
+      }
+    }
+    
+    // Get balance
+    const balanceResult = await convexQuery(`(balance ${address})`);
+    const balance = typeof balanceResult.value === 'number' ? balanceResult.value : 0;
+    
+    // Get account info
+    const infoResult = await convexQuery(`(account ${address})`);
+    let memory = 0;
+    let environment: string | null = null;
+    
+    if (infoResult.value && typeof infoResult.value === 'object') {
+      const info = infoResult.value as Record<string, unknown>;
+      memory = typeof info.memory === 'number' ? info.memory : 0;
+      if (info.environment) {
+        environment = JSON.stringify(info.environment, null, 2);
+      }
+    }
+    
+    return {
+      address: String(address),
+      cnsName,
+      balance,
+      memory,
+      environment,
+    };
+  }, []);
+
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) return;
+    if (!searchQuery.trim() || isSearching) return;
     
     setIsSearching(true);
+    setSearchError(null);
+    setAccount(null);
     
-    // Simulate network delay
-    setTimeout(() => {
-      const found = MOCK_ACCOUNTS[query.toLowerCase()] || MOCK_ACCOUNTS['0x1234'];
-      setAccount(found);
+    try {
+      const result = await lookupAccount(searchQuery);
+      if (result) {
+        setAccount(result);
+        setIsSourceExpanded(false);
+      } else {
+        setSearchError('Account not found');
+      }
+    } catch (err) {
+      setSearchError(err instanceof Error ? err.message : 'Lookup failed');
+    } finally {
       setIsSearching(false);
-      setIsSourceExpanded(false);
-    }, 400);
+    }
   };
 
   const copyAddress = () => {
@@ -116,9 +122,9 @@ export default function LiveInspector() {
         <Search size={16} className="inspector-search-icon" />
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="CNS name or address (e.g., convex.world)"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Address (e.g., 9, 12) or account number"
           className="inspector-input"
         />
         <button type="submit" className="inspector-search-btn" disabled={isSearching}>
@@ -126,11 +132,17 @@ export default function LiveInspector() {
         </button>
       </form>
 
+      {searchError && (
+        <div className="inspector-error">
+          <p>{searchError}</p>
+        </div>
+      )}
+
       {account && (
         <div className="inspector-result">
           <div className="inspector-identity">
             <div className="inspector-address-row">
-              <code className="inspector-address">{account.address}</code>
+              <code className="inspector-address">#{account.address}</code>
               <button onClick={copyAddress} className="inspector-copy" title="Copy address">
                 {copied ? <Check size={14} /> : <Copy size={14} />}
               </button>
@@ -146,39 +158,37 @@ export default function LiveInspector() {
               <span className="inspector-stat-value">{formatNumber(account.balance)}</span>
             </div>
             <div className="inspector-stat">
-              <span className="inspector-stat-label">Juice Used</span>
-              <span className="inspector-stat-value inspector-stat-juice">{formatNumber(account.juice)}</span>
-            </div>
-            <div className="inspector-stat">
               <span className="inspector-stat-label">Memory</span>
               <span className="inspector-stat-value">{formatNumber(account.memory)} bytes</span>
             </div>
           </div>
 
-          <div className="inspector-source">
-            <button 
-              onClick={() => setIsSourceExpanded(!isSourceExpanded)}
-              className="inspector-source-toggle"
-            >
-              {isSourceExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-              <span>CVM Source</span>
-            </button>
-            {isSourceExpanded && (
-              <pre className="inspector-source-code">
-                <code>{account.source}</code>
-              </pre>
-            )}
-          </div>
+          {account.environment && (
+            <div className="inspector-source">
+              <button 
+                onClick={() => setIsSourceExpanded(!isSourceExpanded)}
+                className="inspector-source-toggle"
+              >
+                {isSourceExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                <span>Environment</span>
+              </button>
+              {isSourceExpanded && (
+                <pre className="inspector-source-code">
+                  <code>{account.environment}</code>
+                </pre>
+              )}
+            </div>
+          )}
         </div>
       )}
 
-      {!account && (
+      {!account && !searchError && (
         <div className="inspector-empty">
-          <p>Enter a CNS name or address to inspect account state</p>
+          <p>Enter an account address to inspect state</p>
           <div className="inspector-examples">
             <span>Try:</span>
-            <button onClick={() => setQuery('convex.world')}>convex.world</button>
-            <button onClick={() => setQuery('convex.fungible')}>convex.fungible</button>
+            <button onClick={() => setSearchQuery('9')}>Account #9</button>
+            <button onClick={() => setSearchQuery('12')}>Account #12</button>
           </div>
         </div>
       )}

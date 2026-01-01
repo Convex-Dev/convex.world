@@ -1,89 +1,49 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { query as convexQuery, getNetworkStatus } from '@/lib/convex-api';
 
 interface ReplLine {
   id: number;
-  type: 'input' | 'output' | 'error';
+  type: 'input' | 'output' | 'error' | 'system';
   content: string;
   juice?: number;
 }
 
-const EXAMPLE_RESPONSES: Record<string, { result: string; juice: number }> = {
-  '(+ 1 2)': { result: '3', juice: 12 },
-  '(* 10 10)': { result: '100', juice: 14 },
-  '(def x 42)': { result: '#42', juice: 156 },
-  '(balance *address*)': { result: '1,000,000,000', juice: 89 },
-  '(call *registry* (lookup "convex.world"))': { result: '#addr:0x7F3A...', juice: 234 },
-  '(deploy \'(fn [x] (* x x)))': { result: '#addr:0x8B2C...', juice: 1847 },
-  '(transfer 0x1234... 1000)': { result: '{:result :pending, :offer #ref:7291}', juice: 312 },
-  '(query (get-state))': { result: '{:height 14892847, :participants 2847}', juice: 67 },
-};
-
-function evaluateExpression(expr: string): { result: string; juice: number; isError: boolean } {
-  const trimmed = expr.trim();
-  
-  if (!trimmed) {
-    return { result: '', juice: 0, isError: false };
-  }
-  
-  // Check for exact matches first
-  if (EXAMPLE_RESPONSES[trimmed]) {
-    return { ...EXAMPLE_RESPONSES[trimmed], isError: false };
-  }
-  
-  // Pattern matching for common expressions
-  if (trimmed.startsWith('(+ ')) {
-    const nums = trimmed.match(/\d+/g);
-    if (nums) {
-      const sum = nums.reduce((a, b) => a + parseInt(b), 0);
-      return { result: String(sum), juice: 10 + nums.length * 2, isError: false };
-    }
-  }
-  
-  if (trimmed.startsWith('(* ')) {
-    const nums = trimmed.match(/\d+/g);
-    if (nums) {
-      const product = nums.reduce((a, b) => a * parseInt(b), 1);
-      return { result: String(product), juice: 12 + nums.length * 2, isError: false };
-    }
-  }
-  
-  if (trimmed.startsWith('(def ')) {
-    const match = trimmed.match(/\(def\s+(\w+)\s+(.+)\)/);
-    if (match) {
-      return { result: `#${match[2]}`, juice: 150 + Math.floor(Math.random() * 50), isError: false };
-    }
-  }
-  
-  if (trimmed.startsWith('(fn ') || trimmed.startsWith('(defn ')) {
-    return { result: '#<fn>', juice: 200 + Math.floor(Math.random() * 100), isError: false };
-  }
-  
-  if (!trimmed.startsWith('(') || !trimmed.endsWith(')')) {
-    return { result: 'SYNTAX: Expression must be wrapped in parentheses', juice: 0, isError: true };
-  }
-  
-  // Default: simulate a successful but unknown operation
-  return { 
-    result: `nil`, 
-    juice: 50 + Math.floor(Math.random() * 100), 
-    isError: false 
-  };
-}
-
 export default function ReplSandbox() {
   const [history, setHistory] = useState<ReplLine[]>([
-    { id: 0, type: 'output', content: ';; Convex REPL Sandbox v0.1' },
-    { id: 1, type: 'output', content: ';; Connected to testnet | Consensus height: 14,892,847' },
-    { id: 2, type: 'output', content: ';; Type Convex Lisp expressions to evaluate' },
+    { id: 0, type: 'system', content: ';; Convex REPL Sandbox v1.0' },
+    { id: 1, type: 'system', content: ';; Connecting to convex.world...' },
   ]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [totalJuice, setTotalJuice] = useState(0);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  // Connect to network on mount
+  useEffect(() => {
+    const connect = async () => {
+      const status = await getNetworkStatus();
+      if (status) {
+        setIsConnected(true);
+        setHistory(prev => [
+          ...prev,
+          { id: prev.length, type: 'system', content: `;; Connected | Consensus: ${status.consensusPoint.toLocaleString()}` },
+          { id: prev.length + 1, type: 'system', content: ';; Queries are FREE — type Convex Lisp to evaluate' },
+        ]);
+      } else {
+        setHistory(prev => [
+          ...prev,
+          { id: prev.length, type: 'error', content: ';; Could not connect to network — using offline mode' },
+        ]);
+      }
+    };
+    connect();
+  }, []);
   
   useEffect(() => {
     if (outputRef.current) {
@@ -91,25 +51,59 @@ export default function ReplSandbox() {
     }
   }, [history]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const executeQuery = useCallback(async (source: string) => {
+    setIsExecuting(true);
+    const result = await convexQuery(source);
+    setIsExecuting(false);
+    
+    if (result.errorCode || result.errorMessage) {
+      return {
+        content: result.errorMessage || result.errorCode || 'Unknown error',
+        isError: true,
+        juice: 0,
+      };
+    }
+    
+    // Format the result value
+    let content: string;
+    if (result.value === null || result.value === undefined) {
+      content = 'nil';
+    } else if (typeof result.value === 'object') {
+      content = JSON.stringify(result.value, null, 2);
+    } else {
+      content = String(result.value);
+    }
+    
+    // Estimate juice (queries don't actually cost juice, but we show an estimate)
+    const estimatedJuice = Math.max(10, source.length * 2);
+    
+    return { content, isError: false, juice: estimatedJuice };
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isExecuting) return;
     
+    const trimmed = input.trim();
     const newId = history.length;
-    const inputLine: ReplLine = { id: newId, type: 'input', content: input };
+    const inputLine: ReplLine = { id: newId, type: 'input', content: trimmed };
     
-    const { result, juice, isError } = evaluateExpression(input);
+    setHistory(prev => [...prev, inputLine]);
+    setCommandHistory(prev => [...prev, trimmed]);
+    setHistoryIndex(-1);
+    setInput('');
+    
+    // Execute on real network
+    const { content, isError, juice } = await executeQuery(trimmed);
+    
     const outputLine: ReplLine = { 
       id: newId + 1, 
       type: isError ? 'error' : 'output', 
-      content: result,
+      content,
       juice: isError ? undefined : juice
     };
     
-    setHistory(prev => [...prev, inputLine, outputLine]);
-    setCommandHistory(prev => [...prev, input]);
-    setHistoryIndex(-1);
-    setInput('');
+    setHistory(prev => [...prev, outputLine]);
     
     if (!isError && juice) {
       setTotalJuice(prev => prev + juice);
@@ -148,8 +142,9 @@ export default function ReplSandbox() {
     <div className="repl-sandbox">
       <div className="repl-header">
         <div className="repl-title">
-          <span className="repl-indicator" />
+          <span className={`repl-indicator ${isConnected ? 'repl-connected' : 'repl-disconnected'}`} />
           <span>Convex REPL</span>
+          {isExecuting && <span className="repl-executing">...</span>}
         </div>
         <div className="repl-stats">
           <span className="repl-juice">

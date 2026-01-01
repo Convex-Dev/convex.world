@@ -3813,6 +3813,29 @@ nav .logo {
   animation: replPulse 2s ease-in-out infinite;
 }
 
+.repl-indicator.repl-connected {
+  background: var(--accent-consensus);
+  box-shadow: 0 0 8px var(--accent-consensus);
+}
+
+.repl-indicator.repl-disconnected {
+  background: var(--accent-juice);
+  box-shadow: 0 0 8px var(--accent-juice);
+  animation: none;
+}
+
+.repl-executing {
+  color: var(--accent-highlight);
+  font-size: var(--text-xs);
+  margin-left: var(--space-2);
+  animation: replBlink 0.5s ease-in-out infinite;
+}
+
+@keyframes replBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
 @keyframes replPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
@@ -4235,6 +4258,19 @@ nav .logo {
 
 .inspector-examples button:hover {
   background: var(--accent-primary-muted);
+}
+
+.inspector-error {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--accent-juice);
+  font-size: var(--text-sm);
+}
+
+.pol-indicator.pol-disconnected {
+  background: var(--accent-juice);
+  box-shadow: 0 0 8px var(--accent-juice);
+  animation: none;
 }
 
 /* Inspector Section Layout */
