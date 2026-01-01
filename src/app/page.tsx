@@ -17,7 +17,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-eyebrow">
-          <div className="hero-label">A New Internet of Value</div>
+          <div className="hero-label">The Missing Coordination Primitive</div>
         </div>
         <h1>
           Convex is a deterministic economic system shared by{" "}

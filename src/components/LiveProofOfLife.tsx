@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { getNetworkStatus } from '@/lib/convex-api';
+import { getNetworkStatus, getJuicePrice, getCoinSupply } from '@/lib/convex-api';
 
 interface StatValue {
   current: number;
@@ -16,15 +16,19 @@ export default function LiveProofOfLife() {
       target: 0, 
       format: (v) => v.toLocaleString() 
     },
-    participants: { 
+    supply: { 
       current: 0, 
       target: 0, 
-      format: (v) => v.toLocaleString() 
+      format: (v) => {
+        if (v >= 1e9) return `${(v / 1e9).toFixed(2)}B`;
+        if (v >= 1e6) return `${(v / 1e6).toFixed(1)}M`;
+        return v.toLocaleString();
+      }
     },
-    juice: { 
+    juicePrice: { 
       current: 0, 
       target: 0, 
-      format: (v) => `${v.toFixed(1)}M` 
+      format: (v) => v.toLocaleString()
     },
     convergence: { 
       current: 0, 
@@ -35,35 +39,38 @@ export default function LiveProofOfLife() {
 
   const [pulseKey, setPulseKey] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
-  const [lastUpdate, setLastUpdate] = useState<number>(0);
 
-  // Fetch real network status
+  // Fetch real network status and metrics
   const fetchStatus = useCallback(async () => {
     const startTime = Date.now();
-    const status = await getNetworkStatus();
+    
+    // Fetch all metrics in parallel
+    const [status, juicePrice, coinSupply] = await Promise.all([
+      getNetworkStatus(),
+      getJuicePrice(),
+      getCoinSupply(),
+    ]);
+    
     const latency = Date.now() - startTime;
     
     if (status) {
       setIsConnected(true);
-      setLastUpdate(Date.now());
       setStats(prev => ({
         height: { 
           ...prev.height, 
           target: status.consensusPoint
         },
-        participants: { 
-          ...prev.participants, 
-          // Estimate based on state hash diversity (real value would need different API)
-          target: prev.participants.target || Math.floor(1000 + Math.random() * 2000)
+        supply: { 
+          ...prev.supply, 
+          target: coinSupply || prev.supply.target
         },
-        juice: { 
-          ...prev.juice, 
-          // Cumulative juice would need specific API - estimate growth
-          target: (prev.juice.target || 800) + Math.random() * 0.5
+        juicePrice: { 
+          ...prev.juicePrice, 
+          target: juicePrice || prev.juicePrice.target
         },
         convergence: { 
           ...prev.convergence, 
-          target: Math.min(latency, 500) // Actual network latency
+          target: Math.min(latency, 500)
         },
       }));
       setPulseKey(k => k + 1);
@@ -122,17 +129,17 @@ export default function LiveProofOfLife() {
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">Active Participants</div>
-        <div className="pol-value">{stats.participants.format(Math.floor(stats.participants.current))}</div>
+        <div className="pol-label">Coin Supply</div>
+        <div className="pol-value">{stats.supply.format(stats.supply.current)}</div>
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">Juice Consumed</div>
-        <div className="pol-value">{stats.juice.format(stats.juice.current)}</div>
+        <div className="pol-label">Juice Price</div>
+        <div className="pol-value">{stats.juicePrice.format(stats.juicePrice.current)}</div>
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">State Convergence</div>
+        <div className="pol-label">Latency</div>
         <div className="pol-value">{stats.convergence.format(stats.convergence.current)}</div>
       </div>
     </div>

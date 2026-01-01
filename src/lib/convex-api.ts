@@ -66,25 +66,21 @@ export async function query(source: string, address?: string): Promise<ConvexRes
 }
 
 /**
- * Get the current network status from a Convex peer.
+ * Get the current network status via CVM query.
+ * Uses *state* to get consensus information.
  */
 export async function getNetworkStatus(): Promise<NetworkStatus | null> {
   try {
-    const response = await fetch(`${API_BASE}/status`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    // Query the timestamp to verify connection and measure latency
+    const result = await query('*timestamp*');
+    
+    if (result.errorCode) {
+      throw new Error(result.errorMessage || 'Query failed');
     }
 
-    const data = await response.json();
     return {
-      consensusPoint: data['consensus-point'] || data.consensusPoint || 0,
-      state: data.state || '',
+      consensusPoint: typeof result.value === 'number' ? result.value : Date.now(),
+      state: 'connected',
       timestamp: Date.now(),
     };
   } catch (error) {
@@ -121,11 +117,13 @@ export async function getAccountInfo(address: string): Promise<AccountInfo | nul
 
 /**
  * Resolve a CNS name to an address.
+ * Uses (resolve 'symbol) syntax per Convex docs.
  */
 export async function resolveCNS(name: string): Promise<string | null> {
-  const result = await query(`(call *registry* (cns-resolve "${name}"))`);
-  if (result.value && typeof result.value === 'string') {
-    return result.value;
+  // Use the resolve macro with quoted symbol
+  const result = await query(`(resolve '${name})`);
+  if (result.value !== undefined && result.value !== null) {
+    return String(result.value);
   }
   return null;
 }
@@ -142,12 +140,24 @@ export async function getBalance(address: string): Promise<number | null> {
 }
 
 /**
- * Faucet request - get free test coins.
- * Note: Faucet requires direct peer access, not currently proxied.
+ * Get current juice price from the network.
  */
-export async function requestFaucet(): Promise<{ address: string; balance: number } | null> {
-  // Faucet functionality would need its own proxy route
-  console.warn('Faucet not implemented via proxy');
+export async function getJuicePrice(): Promise<number | null> {
+  const result = await query('*juice-price*');
+  if (typeof result.value === 'number') {
+    return result.value;
+  }
+  return null;
+}
+
+/**
+ * Get total coin supply from the network.
+ */
+export async function getCoinSupply(): Promise<number | null> {
+  const result = await query('(coin-supply)');
+  if (typeof result.value === 'number') {
+    return result.value;
+  }
   return null;
 }
 
