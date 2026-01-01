@@ -45,25 +45,19 @@ export default function LiveProofOfLife() {
   const [pulseKey, setPulseKey] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
 
-  // Fetch real network metrics
+  // Fetch real network metrics with single combined query
   const fetchStatus = useCallback(async () => {
     const startTime = Date.now();
     
     try {
-      // Fetch metrics in parallel
-      const [timestampResult, juicePriceResult, supplyResult] = await Promise.all([
-        query('*timestamp*'),
-        query('*juice-price*'),
-        query('(coin-supply)'),
-      ]);
-      
+      // Single query returning vector of all metrics
+      const result = await query('[*timestamp* *juice-price* (coin-supply)]');
       const latency = Date.now() - startTime;
       
-      const timestamp = typeof timestampResult.value === 'number' ? timestampResult.value : 0;
-      const juicePrice = typeof juicePriceResult.value === 'number' ? juicePriceResult.value : 0;
-      const supply = typeof supplyResult.value === 'number' ? supplyResult.value : 0;
-      
-      if (timestamp > 0) {
+      // Result value is an array: [timestamp, juicePrice, coinSupply]
+      if (Array.isArray(result.value) && result.value.length >= 3) {
+        const [timestamp, juicePrice, supply] = result.value;
+        
         setIsConnected(true);
         setStats(prev => ({
           height: { ...prev.height, target: timestamp },
