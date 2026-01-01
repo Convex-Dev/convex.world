@@ -51,11 +51,17 @@ export async function query(source: string, address?: string): Promise<ConvexRes
       }),
     });
 
+    const data = await response.json();
+    
+    // Handle 400 parse errors gracefully
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+      return {
+        errorCode: 'SYNTAX',
+        errorMessage: data.title || `HTTP ${response.status}`,
+      };
     }
 
-    return await response.json();
+    return data;
   } catch (error) {
     console.error('Convex query error:', error);
     return { 
@@ -67,11 +73,10 @@ export async function query(source: string, address?: string): Promise<ConvexRes
 
 /**
  * Get the current network status via CVM query.
- * Uses *state* to get consensus information.
+ * Uses *timestamp* to verify connection - returns network timestamp in ms.
  */
 export async function getNetworkStatus(): Promise<NetworkStatus | null> {
   try {
-    // Query the timestamp to verify connection and measure latency
     const result = await query('*timestamp*');
     
     if (result.errorCode) {
@@ -79,7 +84,7 @@ export async function getNetworkStatus(): Promise<NetworkStatus | null> {
     }
 
     return {
-      consensusPoint: typeof result.value === 'number' ? result.value : Date.now(),
+      consensusPoint: typeof result.value === 'number' ? result.value : 0,
       state: 'connected',
       timestamp: Date.now(),
     };
@@ -87,6 +92,46 @@ export async function getNetworkStatus(): Promise<NetworkStatus | null> {
     console.error('Convex status error:', error);
     return null;
   }
+}
+
+/**
+ * Get current block/consensus point from the network.
+ */
+export async function getBlockHeight(): Promise<number | null> {
+  try {
+    const response = await fetch('/api/convex/blocks');
+    if (!response.ok) return null;
+    const data = await response.json();
+    // The blocks API returns an array, length indicates block count
+    if (Array.isArray(data)) {
+      return data.length > 0 ? data.length : null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Get total memory size used on the network.
+ */
+export async function getMemorySize(): Promise<number | null> {
+  const result = await query('*memory-size*');
+  if (typeof result.value === 'number') {
+    return result.value;
+  }
+  return null;
+}
+
+/**
+ * Get the current state hash (changes with every state update).
+ */
+export async function getStateHash(): Promise<string | null> {
+  const result = await query('(hash *state*)');
+  if (result.value) {
+    return String(result.value);
+  }
+  return null;
 }
 
 /**
@@ -152,10 +197,14 @@ export async function getJuicePrice(): Promise<number | null> {
 
 /**
  * Get total coin supply from the network.
+ * Returns raw value - Convex Coins are measured in Coppers (smallest unit).
+ * 1 Convex Coin = 10^9 Coppers, so ~1B supply = ~10^18 Coppers.
+ * We return the value formatted for display.
  */
 export async function getCoinSupply(): Promise<number | null> {
   const result = await query('(coin-supply)');
   if (typeof result.value === 'number') {
+    // Return raw value - let the UI format it appropriately
     return result.value;
   }
   return null;

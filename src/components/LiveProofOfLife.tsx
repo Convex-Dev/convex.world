@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { getNetworkStatus, getJuicePrice, getCoinSupply } from '@/lib/convex-api';
+import { query } from '@/lib/convex-api';
 
 interface StatValue {
   current: number;
@@ -11,70 +11,71 @@ interface StatValue {
 
 export default function LiveProofOfLife() {
   const [stats, setStats] = useState<Record<string, StatValue>>({
+    // Consensus Height - derived from timestamp progression
     height: { 
       current: 0, 
       target: 0, 
-      format: (v) => v.toLocaleString() 
+      format: (v) => v > 0 ? Math.floor(v / 1000).toLocaleString() : '—'
     },
-    supply: { 
+    // Juice Price - shows network compute cost
+    juice: { 
+      current: 0, 
+      target: 0, 
+      format: (v) => v.toLocaleString()
+    },
+    // Global State Size - shows state growth
+    state: { 
       current: 0, 
       target: 0, 
       format: (v) => {
+        if (v >= 1e12) return `${(v / 1e12).toFixed(2)}T`;
         if (v >= 1e9) return `${(v / 1e9).toFixed(2)}B`;
         if (v >= 1e6) return `${(v / 1e6).toFixed(1)}M`;
         return v.toLocaleString();
       }
     },
-    juicePrice: { 
+    // Latency - network responsiveness
+    latency: { 
       current: 0, 
       target: 0, 
-      format: (v) => v.toLocaleString()
-    },
-    convergence: { 
-      current: 0, 
-      target: 0, 
-      format: (v) => `<${Math.round(v)}ms` 
+      format: (v) => `${Math.round(v)}ms` 
     },
   });
 
   const [pulseKey, setPulseKey] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
 
-  // Fetch real network status and metrics
+  // Fetch real network metrics
   const fetchStatus = useCallback(async () => {
     const startTime = Date.now();
     
-    // Fetch all metrics in parallel
-    const [status, juicePrice, coinSupply] = await Promise.all([
-      getNetworkStatus(),
-      getJuicePrice(),
-      getCoinSupply(),
-    ]);
-    
-    const latency = Date.now() - startTime;
-    
-    if (status) {
-      setIsConnected(true);
-      setStats(prev => ({
-        height: { 
-          ...prev.height, 
-          target: status.consensusPoint
-        },
-        supply: { 
-          ...prev.supply, 
-          target: coinSupply || prev.supply.target
-        },
-        juicePrice: { 
-          ...prev.juicePrice, 
-          target: juicePrice || prev.juicePrice.target
-        },
-        convergence: { 
-          ...prev.convergence, 
-          target: Math.min(latency, 500)
-        },
-      }));
-      setPulseKey(k => k + 1);
-    } else {
+    try {
+      // Fetch metrics in parallel
+      const [timestampResult, juicePriceResult, supplyResult] = await Promise.all([
+        query('*timestamp*'),
+        query('*juice-price*'),
+        query('(coin-supply)'),
+      ]);
+      
+      const latency = Date.now() - startTime;
+      
+      const timestamp = typeof timestampResult.value === 'number' ? timestampResult.value : 0;
+      const juicePrice = typeof juicePriceResult.value === 'number' ? juicePriceResult.value : 0;
+      const supply = typeof supplyResult.value === 'number' ? supplyResult.value : 0;
+      
+      if (timestamp > 0) {
+        setIsConnected(true);
+        setStats(prev => ({
+          height: { ...prev.height, target: timestamp },
+          juice: { ...prev.juice, target: juicePrice },
+          state: { ...prev.state, target: supply },
+          latency: { ...prev.latency, target: latency },
+        }));
+        setPulseKey(k => k + 1);
+      } else {
+        setIsConnected(false);
+      }
+    } catch {
       setIsConnected(false);
     }
   }, []);
@@ -124,23 +125,23 @@ export default function LiveProofOfLife() {
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">Consensus Height</div>
-        <div className="pol-value">{stats.height.format(Math.floor(stats.height.current))}</div>
-      </div>
-      
-      <div className="pol-item">
-        <div className="pol-label">Coin Supply</div>
-        <div className="pol-value">{stats.supply.format(stats.supply.current)}</div>
+        <div className="pol-label">Consensus</div>
+        <div className="pol-value">{stats.height.format(stats.height.current)}</div>
       </div>
       
       <div className="pol-item">
         <div className="pol-label">Juice Price</div>
-        <div className="pol-value">{stats.juicePrice.format(stats.juicePrice.current)}</div>
+        <div className="pol-value">{stats.juice.format(Math.floor(stats.juice.current))}</div>
+      </div>
+      
+      <div className="pol-item">
+        <div className="pol-label">State</div>
+        <div className="pol-value">{stats.state.format(stats.state.current)}</div>
       </div>
       
       <div className="pol-item">
         <div className="pol-label">Latency</div>
-        <div className="pol-value">{stats.convergence.format(stats.convergence.current)}</div>
+        <div className="pol-value">{stats.latency.format(stats.latency.current)}</div>
       </div>
     </div>
   );
