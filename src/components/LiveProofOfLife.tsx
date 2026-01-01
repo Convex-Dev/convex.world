@@ -77,7 +77,7 @@ export default function LiveProofOfLife() {
   // Initial fetch and polling
   useEffect(() => {
     fetchStatus();
-    const interval = setInterval(fetchStatus, 3000);
+    const interval = setInterval(fetchStatus, 15000); // Poll every 15 seconds
     return () => clearInterval(interval);
   }, [fetchStatus]);
 
