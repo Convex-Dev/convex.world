@@ -29,11 +29,11 @@
   --neutral-200: #e4e4e7;
   --neutral-100: #fafafa;
   
-  /* Functional Accents — Medium Blue (PANTONE 7683 C) as primary accent */
-  --accent-primary: #416BA9;
-  --accent-primary-muted: rgba(65, 107, 169, 0.2);
-  --accent-primary-subtle: rgba(65, 107, 169, 0.1);
-  --accent-primary-glow: rgba(65, 107, 169, 0.3);
+  /* Functional Accents — Medium Blue (brightened for WCAG AA 4.5:1 contrast) */
+  --accent-primary: #5A8AC9;
+  --accent-primary-muted: rgba(90, 138, 201, 0.2);
+  --accent-primary-subtle: rgba(90, 138, 201, 0.1);
+  --accent-primary-glow: rgba(90, 138, 201, 0.3);
   
   /* Sky Blue for highlights (PANTONE 284 C) */
   --accent-highlight: #6AAAEE;
@@ -3931,7 +3931,7 @@ nav .logo {
   border-radius: 8px;
   overflow: hidden;
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
 }
 
 .repl-header {
