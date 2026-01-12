@@ -6,7 +6,8 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     
-    console.log('[Convex Query] Request:', JSON.stringify(body));
+    // Measure server-side latency to peer (actual network finality indicator)
+    const startTime = performance.now();
     
     const response = await fetch(`${CONVEX_PEER_URL}/api/v1/query`, {
       method: 'POST',
@@ -17,9 +18,8 @@ export async function POST(request: Request) {
       body: JSON.stringify(body),
     });
 
+    const peerLatencyMs = Math.round(performance.now() - startTime);
     const responseText = await response.text();
-    console.log('[Convex Query] Response status:', response.status);
-    console.log('[Convex Query] Response body:', responseText);
 
     if (!response.ok) {
       return NextResponse.json(
@@ -30,15 +30,15 @@ export async function POST(request: Request) {
 
     // Handle empty response
     if (!responseText || responseText.trim() === '') {
-      return NextResponse.json({ value: null });
+      return NextResponse.json({ value: null, peerLatencyMs });
     }
 
     try {
       const data = JSON.parse(responseText);
-      return NextResponse.json(data);
+      return NextResponse.json({ ...data, peerLatencyMs });
     } catch {
       // If response isn't JSON, return as value
-      return NextResponse.json({ value: responseText });
+      return NextResponse.json({ value: responseText, peerLatencyMs });
     }
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';

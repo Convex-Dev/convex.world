@@ -42,21 +42,25 @@ export default function LiveProofOfLife() {
 
   // Fetch real network metrics with single combined query
   const fetchStatus = useCallback(async () => {
-    const startTime = Date.now();
-    
     try {
       // Single query returning vector of all metrics
-      const result = await query('[*timestamp* *juice-price* (coin-supply)]');
-      const latency = Date.now() - startTime;
+      // API route returns peerLatencyMs measured server-side for accurate finality
+      const result = await query('[*timestamp* *juice-price* (coin-supply)]') as { 
+        value?: unknown[]; 
+        peerLatencyMs?: number;
+        errorCode?: string;
+      };
       
       // Result value is an array: [timestamp, juicePrice, coinSupply]
       if (Array.isArray(result.value) && result.value.length >= 3) {
-        const [timestamp, juicePrice, supply] = result.value;
+        const [timestamp, juicePrice] = result.value;
+        // Use server-side peer latency for accurate finality measurement
+        const latency = result.peerLatencyMs ?? 0;
         
         setIsConnected(true);
         setStats(prev => ({
-          state: { ...prev.state, target: timestamp },
-          juice: { ...prev.juice, target: juicePrice },
+          state: { ...prev.state, target: timestamp as number },
+          juice: { ...prev.juice, target: juicePrice as number },
           green: { ...prev.green, target: 100 },
           finality: { ...prev.finality, target: latency },
         }));

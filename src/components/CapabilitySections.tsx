@@ -176,7 +176,7 @@ function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
   }, [isVisible, hasAnimated]);
 
   const formatValue = (val: number) => {
-    if (val >= 1000000) return '1M+';
+    if (val >= 1000000) return '1M+ TPS';
     if (val >= 1000) return `${(val / 1000) | 0}K`;
     return String(val);
   };
