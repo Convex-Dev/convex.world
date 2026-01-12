@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Search, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
-import { query as convexQuery, getBalance } from '@/lib/convex-api';
+import { query as convexQuery } from '@/lib/convex-api';
 
 interface AccountData {
   address: string;
@@ -32,35 +32,33 @@ export default function LiveInspector() {
       // Direct address lookup
       address = trimmed.startsWith('#') ? trimmed.slice(1) : trimmed;
     } else {
-      // CNS name lookup - try to resolve
+      // CNS name lookup - try to resolve using @ syntax
       cnsName = trimmed;
-      const cnsResult = await convexQuery(`(call *registry* (cns-resolve '${trimmed}))`);
-      if (cnsResult.errorCode || !cnsResult.value) {
-        // Try alternate CNS lookup format
-        const altResult = await convexQuery(`(lookup *registry* '${trimmed})`);
-        if (altResult.errorCode || !altResult.value) {
-          return null;
-        }
-        address = String(altResult.value);
-      } else {
-        address = String(cnsResult.value);
+      const cnsResult = await convexQuery(`@${trimmed}`);
+      if (cnsResult.errorCode || cnsResult.value === null || cnsResult.value === undefined) {
+        return null;
       }
+      address = String(cnsResult.value).replace('#', '');
     }
     
-    // Get balance
-    const balanceResult = await convexQuery(`(balance ${address})`);
-    const balance = typeof balanceResult.value === 'number' ? balanceResult.value : 0;
+    // Single combined query for balance and account info
+    // Uses vector syntax per Mike's recommendation to minimize API calls
+    const combinedResult = await convexQuery(`[(balance ${address}) (account ${address})]`);
     
-    // Get account info
-    const infoResult = await convexQuery(`(account ${address})`);
+    let balance = 0;
     let memory = 0;
     let environment: string | null = null;
     
-    if (infoResult.value && typeof infoResult.value === 'object') {
-      const info = infoResult.value as Record<string, unknown>;
-      memory = typeof info.memory === 'number' ? info.memory : 0;
-      if (info.environment) {
-        environment = JSON.stringify(info.environment, null, 2);
+    if (Array.isArray(combinedResult.value) && combinedResult.value.length >= 2) {
+      const [balanceVal, accountInfo] = combinedResult.value;
+      balance = typeof balanceVal === 'number' ? balanceVal : 0;
+      
+      if (accountInfo && typeof accountInfo === 'object') {
+        const info = accountInfo as Record<string, unknown>;
+        memory = typeof info.memory === 'number' ? info.memory : 0;
+        if (info.environment) {
+          environment = JSON.stringify(info.environment, null, 2);
+        }
       }
     }
     

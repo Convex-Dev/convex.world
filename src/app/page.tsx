@@ -17,23 +17,30 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-eyebrow">
-          <div className="hero-label">The Missing Coordination Primitive</div>
+          <span className="hero-label">The Missing Coordination Primitive</span>
         </div>
-        <h1>
-          Convex is a deterministic economic system shared by{" "}
-          <span className="hero-accent">humans and autonomous agents</span>
+        
+        <h1 className="hero-title">
+          <span className="hero-title-line">Deterministic Shared State</span>
+          <span className="hero-title-line">for <span className="hero-accent">Humans</span> and <span className="hero-accent">Autonomous Agents</span></span>
         </h1>
-        <p>
-          Both participate under the same rules, the same physics, and the same finality.
+        
+        <p className="hero-subtitle">
+          <span className="hero-subtitle-line">Global finality without blocks.</span>
+          <span className="hero-subtitle-line">Convergent consensus at the speed of light.</span>
+          <span className="hero-subtitle-emphasis">One economic system. Infinite coordination.</span>
         </p>
 
-        <div className="btn-group">
-          <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
-            Read Documentation
+        <div className="hero-cta-group">
+          <Link href="https://docs.convex.world" className="btn btn-primary btn-lg" target="_blank">
+            <span>Explore the Protocol</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
           </Link>
           <Link 
             href="https://github.com/Convex-Dev" 
-            className="btn btn-secondary"
+            className="btn btn-ghost"
             target="_blank"
             rel="noopener noreferrer"
           >

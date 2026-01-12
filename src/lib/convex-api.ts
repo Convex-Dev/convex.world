@@ -136,23 +136,37 @@ export async function getStateHash(): Promise<string | null> {
 
 /**
  * Get account information by address.
- * Uses query to fetch balance and account data.
+ * Uses combined query to fetch balance and account data efficiently.
  */
 export async function getAccountInfo(address: string): Promise<AccountInfo | null> {
   try {
-    // Use query to get balance
-    const balanceResult = await query(`(balance ${address})`);
-    const balance = typeof balanceResult.value === 'number' ? balanceResult.value : 0;
+    // Combined query for balance and account info
+    const result = await query(`[(balance ${address}) (account ${address})]`);
     
-    // Use query to get account info
-    const infoResult = await query(`(account ${address})`);
+    if (!Array.isArray(result.value) || result.value.length < 2) {
+      return null;
+    }
+    
+    const [balance, accountInfo] = result.value;
+    
+    // Extract account details from the account info map
+    let memorySize = 0;
+    let sequence = 0;
+    let type = 'user';
+    
+    if (accountInfo && typeof accountInfo === 'object') {
+      const info = accountInfo as Record<string, unknown>;
+      memorySize = typeof info.memory === 'number' ? info.memory : 0;
+      sequence = typeof info.sequence === 'number' ? info.sequence : 0;
+      type = info.controller === null ? 'actor' : 'user';
+    }
     
     return {
       address: address,
-      balance: balance,
-      memorySize: 0,
-      sequence: 0,
-      type: 'user',
+      balance: typeof balance === 'number' ? balance : 0,
+      memorySize,
+      sequence,
+      type,
     };
   } catch (error) {
     console.error('Convex account error:', error);

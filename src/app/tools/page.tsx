@@ -5,7 +5,8 @@ import {
   Globe, 
   Terminal as TerminalIcon, 
   Boxes,
-  ArrowUpRight
+  ArrowUpRight,
+  LucideIcon
 } from "lucide-react";
 
 interface Tool {
@@ -13,7 +14,7 @@ interface Tool {
   description: string;
   href: string;
   isExternal: boolean;
-  icon: any;
+  icon: LucideIcon;
   number: string;
 }
 

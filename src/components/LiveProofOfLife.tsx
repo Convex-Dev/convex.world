@@ -11,8 +11,8 @@ interface StatValue {
 
 export default function LiveProofOfLife() {
   const [stats, setStats] = useState<Record<string, StatValue>>({
-    // Consensus Height - derived from timestamp progression
-    height: { 
+    // Global State - derived from timestamp progression  
+    state: { 
       current: 0, 
       target: 0, 
       format: (v) => v > 0 ? Math.floor(v / 1000).toLocaleString() : '—'
@@ -23,19 +23,14 @@ export default function LiveProofOfLife() {
       target: 0, 
       format: (v) => v.toLocaleString()
     },
-    // Global State Size - shows state growth
-    state: { 
-      current: 0, 
-      target: 0, 
-      format: (v) => {
-        if (v >= 1e12) return `${(v / 1e12).toFixed(2)}T`;
-        if (v >= 1e9) return `${(v / 1e9).toFixed(2)}B`;
-        if (v >= 1e6) return `${(v / 1e6).toFixed(1)}M`;
-        return v.toLocaleString();
-      }
+    // Green consensus - Convex has lowest energy consumption per transaction
+    green: { 
+      current: 100, 
+      target: 100, 
+      format: () => '100%'
     },
-    // Latency - network responsiveness
-    latency: { 
+    // Finality - deterministic, not probabilistic like PoS chains
+    finality: { 
       current: 0, 
       target: 0, 
       format: (v) => `${Math.round(v)}ms` 
@@ -60,10 +55,10 @@ export default function LiveProofOfLife() {
         
         setIsConnected(true);
         setStats(prev => ({
-          height: { ...prev.height, target: timestamp },
+          state: { ...prev.state, target: timestamp },
           juice: { ...prev.juice, target: juicePrice },
-          state: { ...prev.state, target: supply },
-          latency: { ...prev.latency, target: latency },
+          green: { ...prev.green, target: 100 },
+          finality: { ...prev.finality, target: latency },
         }));
         setPulseKey(k => k + 1);
       } else {
@@ -119,8 +114,8 @@ export default function LiveProofOfLife() {
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">Consensus</div>
-        <div className="pol-value">{stats.height.format(stats.height.current)}</div>
+        <div className="pol-label">Global State</div>
+        <div className="pol-value">{stats.state.format(stats.state.current)}</div>
       </div>
       
       <div className="pol-item">
@@ -129,13 +124,13 @@ export default function LiveProofOfLife() {
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">State</div>
-        <div className="pol-value">{stats.state.format(stats.state.current)}</div>
+        <div className="pol-label">Green Consensus</div>
+        <div className="pol-value">{stats.green.format(stats.green.current)}</div>
       </div>
       
       <div className="pol-item">
-        <div className="pol-label">Latency</div>
-        <div className="pol-value">{stats.latency.format(stats.latency.current)}</div>
+        <div className="pol-label">Finality</div>
+        <div className="pol-value">{stats.finality.format(stats.finality.current)}</div>
       </div>
     </div>
   );
