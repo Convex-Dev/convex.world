@@ -21,8 +21,9 @@ export default function Home() {
         </div>
         
         <h1 className="hero-title">
-          <span className="hero-title-line">Deterministic Shared State</span>
-          <span className="hero-title-line">for <span className="hero-accent">Humans</span> and <span className="hero-accent">Autonomous Agents</span></span>
+          <span className="hero-title-line">Deterministic Shared&nbsp;State</span>
+          <span className="hero-title-line">for <span className="hero-accent">Humans</span> and</span>
+          <span className="hero-title-line"><span className="hero-accent">Autonomous Agents</span></span>
         </h1>
         
         <p className="hero-subtitle">
@@ -44,7 +45,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View Source
+            <span>View Source</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7V17"/>
             </svg>

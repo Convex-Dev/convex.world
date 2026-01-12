@@ -117,24 +117,26 @@ export default function LiveProofOfLife() {
         <span className="pol-status-text">{isConnected ? 'Live' : 'Offline'}</span>
       </div>
       
-      <div className="pol-item">
-        <div className="pol-label">Global State</div>
-        <div className="pol-value">{stats.state.format(stats.state.current)}</div>
-      </div>
-      
-      <div className="pol-item">
-        <div className="pol-label">Juice Price</div>
-        <div className="pol-value">{stats.juice.format(Math.floor(stats.juice.current))}</div>
-      </div>
-      
-      <div className="pol-item">
-        <div className="pol-label">Green Consensus</div>
-        <div className="pol-value">{stats.green.format(stats.green.current)}</div>
-      </div>
-      
-      <div className="pol-item">
-        <div className="pol-label">Finality</div>
-        <div className="pol-value">{stats.finality.format(stats.finality.current)}</div>
+      <div className="pol-metrics">
+        <div className="pol-item">
+          <div className="pol-label">Global State</div>
+          <div className="pol-value">{stats.state.format(stats.state.current)}</div>
+        </div>
+        
+        <div className="pol-item">
+          <div className="pol-label">Juice Price</div>
+          <div className="pol-value">{stats.juice.format(Math.floor(stats.juice.current))}</div>
+        </div>
+        
+        <div className="pol-item">
+          <div className="pol-label">Green Consensus</div>
+          <div className="pol-value">{stats.green.format(stats.green.current)}</div>
+        </div>
+        
+        <div className="pol-item">
+          <div className="pol-label">Finality</div>
+          <div className="pol-value">{stats.finality.format(stats.finality.current)}</div>
+        </div>
       </div>
     </div>
   );

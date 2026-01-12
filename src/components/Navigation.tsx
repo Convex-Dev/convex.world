@@ -77,104 +77,29 @@ export default function Navigation() {
 
       {/* Mobile Navigation - Outside header for proper stacking */}
       {isMenuOpen && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: '#09090b',
-            zIndex: 9999,
-            display: 'flex',
-            flexDirection: 'column',
-            padding: '24px',
-            paddingTop: '80px',
-          }}
-        >
+        <div className="mobile-menu-overlay">
           {/* Close button */}
           <button
             onClick={closeMenu}
             aria-label="Close menu"
-            style={{
-              position: 'absolute',
-              top: '24px',
-              right: '24px',
-              background: 'none',
-              border: 'none',
-              color: '#fafafa',
-              fontSize: '28px',
-              cursor: 'pointer',
-              padding: '8px',
-              lineHeight: 1,
-            }}
+            className="mobile-menu-close"
           >
             ×
           </button>
 
-          <Link 
-            href="/developers" 
-            onClick={closeMenu}
-            style={{
-              color: '#fafafa',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-            }}
-          >
+          <Link href="/developers" onClick={closeMenu} className="mobile-menu-link">
             Developers
           </Link>
-          <Link 
-            href="/tools" 
-            onClick={closeMenu}
-            style={{
-              color: '#fafafa',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-            }}
-          >
+          <Link href="/tools" onClick={closeMenu} className="mobile-menu-link">
             Tools
           </Link>
-          <Link 
-            href="/ecosystem" 
-            onClick={closeMenu}
-            style={{
-              color: '#fafafa',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-            }}
-          >
+          <Link href="/ecosystem" onClick={closeMenu} className="mobile-menu-link">
             Ecosystem
           </Link>
-          <Link 
-            href="/coin" 
-            onClick={closeMenu}
-            style={{
-              color: '#fafafa',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-            }}
-          >
+          <Link href="/coin" onClick={closeMenu} className="mobile-menu-link">
             Coin
           </Link>
-          <Link 
-            href="/developers#sandbox" 
-            onClick={closeMenu}
-            style={{
-              color: '#6AAAEE',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-            }}
-          >
+          <Link href="/developers#sandbox" onClick={closeMenu} className="mobile-menu-link mobile-menu-link-sandbox">
             Sandbox
           </Link>
           <a 
@@ -182,23 +107,14 @@ export default function Navigation() {
             target="_blank" 
             rel="noopener noreferrer"
             onClick={closeMenu}
-            style={{
-              color: '#fafafa',
-              fontSize: '18px',
-              padding: '16px 0',
-              borderBottom: '1px solid rgba(255,255,255,0.1)',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
+            className="mobile-menu-link mobile-menu-link-external"
           >
             Docs
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7V17"/>
             </svg>
           </a>
-          <div style={{ marginTop: 'auto', paddingTop: '24px' }}>
+          <div className="mobile-menu-footer">
             <ColorMode />
           </div>
         </div>
