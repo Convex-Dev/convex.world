@@ -62,7 +62,7 @@ export default function Developer() {
         Billions of writers. Trillions of readers. Zero centralised infrastructure.
         </p>
         <p className="description-text">
-          Lattice technology gives every project a deterministic data fabric. Persist state, stream events, and share
+          Lattice technology gives every project access to global data fabric. Persist state, stream events, and share
           knowledge between services without bolting together custom databases or message queues.
         </p>
       </Card>
