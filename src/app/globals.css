@@ -413,17 +413,20 @@ footer {
 /* Footer Network Status Strip */
 .footer-status {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4) var(--space-6);
   padding: var(--space-4) 0;
   margin-bottom: var(--space-10);
   border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
 }
 
 .footer-status .status-item {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  flex-shrink: 0;
 }
 
 .footer-status .status-indicator {
@@ -2065,16 +2068,18 @@ nav .logo {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--surface-void);
+  background: #09090b;
   flex-direction: column;
   padding: 80px var(--space-6) var(--space-6);
   z-index: 1000;
+  visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .nav-mobile-open {
+  visibility: visible;
   opacity: 1;
   pointer-events: auto;
 }
@@ -3685,9 +3690,19 @@ nav .logo {
   
   /* Proof of Life Strip */
   .proof-of-life {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
+    gap: var(--space-2);
     padding: var(--space-4);
+    text-align: center;
+  }
+  
+  .pol-status {
+    grid-column: 1 / -1;
+    justify-content: center;
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
   }
   
   .pol-item {
