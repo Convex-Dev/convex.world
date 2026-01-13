@@ -1054,6 +1054,16 @@ footer {
   -webkit-backdrop-filter: blur(20px);
 }
 
+/* Light mode adaptation */
+.light .proof-of-life {
+  background: linear-gradient(180deg, 
+    rgba(250, 250, 252, 0.98) 0%, 
+    rgba(245, 245, 248, 0.99) 100%
+  );
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 .proof-of-life::before {
   content: '';
   position: absolute;
@@ -1065,6 +1075,14 @@ footer {
   background: linear-gradient(90deg, 
     transparent 0%, 
     rgba(106, 154, 217, 0.6) 50%, 
+    transparent 100%
+  );
+}
+
+.light .proof-of-life::before {
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(66, 114, 177, 0.4) 50%, 
     transparent 100%
   );
 }
@@ -1135,6 +1153,14 @@ footer {
   background: linear-gradient(180deg, 
     transparent 0%, 
     rgba(255, 255, 255, 0.12) 50%, 
+    transparent 100%
+  );
+}
+
+.light .pol-item:not(:last-child)::after {
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.12) 50%, 
     transparent 100%
   );
 }
