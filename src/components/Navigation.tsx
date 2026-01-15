@@ -35,17 +35,20 @@ export default function Navigation() {
             <Link href="/developers" className="nav-link">
               Developers
             </Link>
+            <Link href="/developers#sandbox" className="nav-link nav-link-sandbox">
+              Sandbox
+            </Link>
             <Link href="/tools" className="nav-link">
               Tools
-            </Link>
-            <Link href="/ecosystem" className="nav-link">
-              Ecosystem
             </Link>
             <Link href="/coin" className="nav-link">
               Coin
             </Link>
-            <Link href="/developers#sandbox" className="nav-link nav-link-sandbox">
-              Sandbox
+            <Link href="/ecosystem" className="nav-link">
+              Ecosystem
+            </Link>
+            <Link href="/community" className="nav-link">
+              Community
             </Link>
             <a 
               href="https://docs.convex.world" 
@@ -90,17 +93,20 @@ export default function Navigation() {
           <Link href="/developers" onClick={closeMenu} className="mobile-menu-link">
             Developers
           </Link>
+          <Link href="/developers#sandbox" onClick={closeMenu} className="mobile-menu-link mobile-menu-link-sandbox">
+            Sandbox
+          </Link>
           <Link href="/tools" onClick={closeMenu} className="mobile-menu-link">
             Tools
-          </Link>
-          <Link href="/ecosystem" onClick={closeMenu} className="mobile-menu-link">
-            Ecosystem
           </Link>
           <Link href="/coin" onClick={closeMenu} className="mobile-menu-link">
             Coin
           </Link>
-          <Link href="/developers#sandbox" onClick={closeMenu} className="mobile-menu-link mobile-menu-link-sandbox">
-            Sandbox
+          <Link href="/ecosystem" onClick={closeMenu} className="mobile-menu-link">
+            Ecosystem
+          </Link>
+          <Link href="/community" onClick={closeMenu} className="mobile-menu-link">
+            Community
           </Link>
           <a 
             href="https://docs.convex.world" 
