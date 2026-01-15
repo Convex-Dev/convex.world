@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 120 120" width="64" height="64">
+  <!-- Convex logo: pointy-top hexagon with three lines from bottom vertex -->
+  <g stroke="#6A9AD9" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Hexagon outline -->
+    <path d="M 0,-52 L 45,-26 L 45,26 L 0,52 L -45,26 L -45,-26 Z"/>
+    <!-- Three lines from bottom (0,52) to top-left (-45,-26), top (0,-52), top-right (45,-26) -->
+    <line x1="0" y1="52" x2="-45" y2="-26"/>
+    <line x1="0" y1="52" x2="0" y2="-52"/>
+    <line x1="0" y1="52" x2="45" y2="-26"/>
+  </g>
+</svg>
