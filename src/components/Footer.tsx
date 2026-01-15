@@ -50,10 +50,6 @@ export default function Footer() {
             <span className="status-value">Operational</span>
           </div>
           <div className="status-item">
-            <span className="status-label">Peers</span>
-            <span className="status-value">24</span>
-          </div>
-          <div className="status-item">
             <span className="status-label">Protocol</span>
             <span className="status-value">v0.7.14</span>
           </div>
