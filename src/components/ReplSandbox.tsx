@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import CVMBalance from '@/components/CVMBalance';
 import PublicKey from '@/components/PublicKey';
-import { getAccountInfo, getNetworkStatus, query as convexQuery } from '@/lib/convex-api';
+import { convex } from '@/lib/convex-api';
 
 interface ReplLine {
   id: number;
@@ -40,7 +40,7 @@ export default function ReplSandbox() {
     }
     setAccountLoading(true);
     const t = setTimeout(async () => {
-      const info = await getAccountInfo(addr);
+      const info = await convex.getAccountInfo(addr);
       setAccountDetails(info ? { balance: info.balance, publicKey: info.publicKey } : null);
       setAccountLoading(false);
     }, 400);
@@ -50,7 +50,7 @@ export default function ReplSandbox() {
   // Connect to network on mount
   useEffect(() => {
     const connect = async () => {
-      const status = await getNetworkStatus();
+      const status = await convex.getNetworkStatus();
       if (status) {
         setIsConnected(true);
         setHistory(prev => [
@@ -76,7 +76,7 @@ export default function ReplSandbox() {
 
   const executeQuery = useCallback(async (source: string, addressArg?: string) => {
     setIsExecuting(true);
-    const result = await convexQuery(source, addressArg || undefined);
+    const result = await convex.query(source, addressArg || undefined);
     setIsExecuting(false);
     
     if (result.errorCode || result.errorMessage) {
@@ -86,21 +86,23 @@ export default function ReplSandbox() {
         juice: 0,
       };
     }
-    
-    // Format the result value
+
+    // Prefer result (actual string from peer); else format value (avoids JSONifying)
     let content: string;
-    if (result.value === null || result.value === undefined) {
+    if (typeof result.result === 'string') {
+      content = result.result;
+    } else if (result.value === null || result.value === undefined) {
       content = 'nil';
     } else if (typeof result.value === 'object') {
       content = JSON.stringify(result.value, null, 2);
     } else {
       content = String(result.value);
     }
-    
-    // Estimate juice (queries don't actually cost juice, but we show an estimate)
-    const estimatedJuice = Math.max(10, source.length * 2);
-    
-    return { content, isError: false, juice: estimatedJuice };
+
+    // Use juice from result.info when provided; otherwise fallback estimate
+    const juice = typeof result.info?.juice === 'number' ? result.info.juice : Math.max(10, source.length * 2);
+
+    return { content, isError: false, juice };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -229,7 +231,7 @@ export default function ReplSandbox() {
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value.replace(/\D/g, ''))}
-            placeholder="13"
+            placeholder="Address"
             className="repl-address-input"
             style={{ width: `${Math.min(22, Math.max(4, (address.length || 0) + 1))}ch` }}
             autoComplete="off"

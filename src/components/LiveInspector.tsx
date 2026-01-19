@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Search, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
-import { query as convexQuery } from '@/lib/convex-api';
+import { convex } from '@/lib/convex-api';
 
 interface AccountData {
   address: string;
@@ -34,7 +34,7 @@ export default function LiveInspector() {
     } else {
       // CNS name lookup - try to resolve using @ syntax
       cnsName = trimmed;
-      const cnsResult = await convexQuery(`@${trimmed}`);
+      const cnsResult = await convex.query(`@${trimmed}`);
       if (cnsResult.errorCode || cnsResult.value === null || cnsResult.value === undefined) {
         return null;
       }
@@ -43,7 +43,7 @@ export default function LiveInspector() {
     
     // Single combined query for balance and account info
     // Uses vector syntax per Mike's recommendation to minimize API calls
-    const combinedResult = await convexQuery(`[(balance ${address}) (account ${address})]`);
+    const combinedResult = await convex.query(`[(balance ${address}) (account ${address})]`);
     
     let balance = 0;
     let memory = 0;

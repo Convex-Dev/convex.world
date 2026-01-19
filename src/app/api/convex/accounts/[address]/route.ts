@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 
-const CONVEX_PEER_URL = 'https://peer.convex.live';
+const DEFAULT_PEER_URL = 'https://peer.convex.live';
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ address: string }> }
 ) {
   try {
@@ -15,7 +15,8 @@ export async function GET(
       );
     }
 
-    const response = await fetch(`${CONVEX_PEER_URL}/api/v1/accounts/${address}`, {
+    const peerUrl = request.headers.get('x-convex-peer') || DEFAULT_PEER_URL;
+    const response = await fetch(`${peerUrl}/api/v1/accounts/${address}`, {
       method: 'GET',
       headers: { Accept: 'application/json' },
     });

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { query } from '@/lib/convex-api';
+import { convex } from '@/lib/convex-api';
 
 interface StatValue {
   current: number;
@@ -45,7 +45,7 @@ export default function LiveProofOfLife() {
     try {
       // Single query returning vector of all metrics
       // API route returns peerLatencyMs measured server-side for accurate finality
-      const result = await query('[*timestamp* *juice-price* (coin-supply)]') as { 
+      const result = await convex.query('[*timestamp* *juice-price* (coin-supply)]') as { 
         value?: unknown[]; 
         peerLatencyMs?: number;
         errorCode?: string;

@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
 
-const CONVEX_PEER_URL = 'https://peer.convex.live';
+const DEFAULT_PEER_URL = 'https://peer.convex.live';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+    const peerUrl = request.headers.get('x-convex-peer') || DEFAULT_PEER_URL;
+
     // Measure server-side latency to peer (actual network finality indicator)
     const startTime = performance.now();
-    
-    const response = await fetch(`${CONVEX_PEER_URL}/api/v1/query`, {
+
+    const response = await fetch(`${peerUrl}/api/v1/query`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
