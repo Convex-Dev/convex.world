@@ -66,7 +66,7 @@ export default function Ecosystem() {
           <span className="hero-accent">Ecosystem</span>
         </h1>
         <p>
-          Pioneering organizations and projects building the future of decentralized 
+          Pioneering organisations and projects building the future of decentralised 
           systems with Convex and Lattice technology.
         </p>
       </section>
@@ -86,7 +86,7 @@ export default function Ecosystem() {
         <div className="section-header">
           <span className="section-number">// 001</span>
           <h2>Featured Projects</h2>
-          <p>Organizations leveraging Convex for real-world impact</p>
+          <p>Organisations leveraging Convex for real-world impact</p>
         </div>
 
         <div className="eco-grid">
