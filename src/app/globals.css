@@ -108,9 +108,9 @@
   --radius-xl: 12px;
 
   /* Transitions */
-  --transition-fast: 100ms ease;
-  --transition-base: 150ms ease;
-  --transition-slow: 200ms ease;
+  --transition-fast: 20ms ease;
+  --transition-base: 50ms ease;
+  --transition-slow: 100ms ease;
 
   /* Layout */
   --container-max: 1200px;

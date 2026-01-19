@@ -21,12 +21,12 @@ export default function Home() {
         </div>
         
         <h1 className="hero-title">
-          <span className="hero-title-line">Deterministic Shared State</span>
+          <span className="hero-title-line">Realtime Economic Systems</span>
           <span className="hero-title-line">for <span className="hero-accent">Humans</span> and <span className="hero-accent">Autonomous Agents</span></span>
         </h1>
         
         <p className="hero-subtitle">
-          <span className="hero-subtitle-line">Global finality without blocks.</span>
+          <span className="hero-subtitle-line">Global finality without a blockchain.</span>
           <span className="hero-subtitle-line">Convergent consensus at the speed of light.</span>
           <span className="hero-subtitle-emphasis">One economic system. Infinite coordination.</span>
         </p>
