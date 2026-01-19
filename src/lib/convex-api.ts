@@ -55,17 +55,25 @@ const DEFAULT_PEER_URL = 'https://peer.convex.live';
  * All requests send X-Convex-Peer so the proxy can forward to the chosen peer.
  */
 export class Convex {
-  readonly peerUrl: string;
+  private _peerUrl: string;
   private _address: string | null = null;
   /** Private key (32-byte Ed25519 seed) as hex, or null. Used to sign transactions. */
   private _privateKey: string | null = null;
 
   constructor(options: ConvexOptions = {}) {
-    this.peerUrl = options.peerUrl ?? DEFAULT_PEER_URL;
+    this._peerUrl = options.peerUrl ?? DEFAULT_PEER_URL;
+  }
+
+  get peerUrl(): string {
+    return this._peerUrl;
+  }
+
+  setPeerUrl(v: string): void {
+    this._peerUrl = v;
   }
 
   private peerHeaders(): Record<string, string> {
-    return { 'X-Convex-Peer': this.peerUrl };
+    return { 'X-Convex-Peer': this._peerUrl };
   }
 
   /** Account address (numeric string) or null. */
@@ -137,7 +145,7 @@ export class Convex {
     if (!address || !privateKeyHex) {
       return {
         errorCode: 'MISSING_ACCOUNT',
-        errorMessage: 'Address and private key required for transact. Set address and connect a key.',
+        errorMessage: 'Address and private key required for transaction. Set address and connect a key.',
       };
     }
 

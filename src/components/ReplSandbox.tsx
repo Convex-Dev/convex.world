@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Key, MoreVertical, Copy } from 'lucide-react';
+import { Key, MoreVertical, Copy, RefreshCw } from 'lucide-react';
 import CVMBalance from '@/components/CVMBalance';
+import ImportKeyDialog from '@/components/ImportKeyDialog';
+import NetworkSelector from '@/components/NetworkSelector';
 import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
@@ -31,10 +33,11 @@ export default function ReplSandbox() {
   const [accountDetails, setAccountDetails] = useState<AccountInfo | null>(null);
   const [accountLoading, setAccountLoading] = useState(false);
   const [showAccountInfo, setShowAccountInfo] = useState(false);
+  const [showImportKey, setShowImportKey] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
   const accountInfoPopoverRef = useRef<HTMLDivElement>(null);
-  const { convex, setAddress, setPrivateKey, address, privateKey } = useConvex();
+  const { convex, setAddress, setPrivateKey, address, privateKey, peerUrl } = useConvex();
   const wallet = useWalletOptional();
 
   const norm = (hex: string) => (hex || '').replace(/^0x/i, '').toLowerCase();
@@ -43,7 +46,7 @@ export default function ReplSandbox() {
     wallet?.publicKeys.some((pk) => norm(pk) === norm(accountDetails.publicKey!));
   const isKeyConnected = !!privateKey;
 
-  // Fetch account details when address is set (debounced)
+  // Fetch account details when address or network (peerUrl) changes (debounced)
   useEffect(() => {
     const addr = address ?? '';
     if (!addr) {
@@ -58,6 +61,15 @@ export default function ReplSandbox() {
       setAccountLoading(false);
     }, 400);
     return () => clearTimeout(t);
+  }, [address, convex, peerUrl]);
+
+  const refreshAccount = useCallback(async () => {
+    const addr = address ?? '';
+    if (!addr) return;
+    setAccountLoading(true);
+    const info = await convex.getAccountInfo(addr);
+    setAccountDetails(info);
+    setAccountLoading(false);
   }, [address, convex]);
 
   // Click outside to close account info popover
@@ -208,10 +220,18 @@ export default function ReplSandbox() {
   const handleConnect = () => {
     if (isKeyConnected) {
       setPrivateKey(null);
-    } else if (hasMatchingKey && accountDetails?.publicKey && wallet) {
+      return;
+    }
+    if (hasMatchingKey && accountDetails?.publicKey && wallet) {
       const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
       const seed = pk ? wallet.getSeed(pk) : undefined;
-      if (seed) setPrivateKey(bytesToHex(seed));
+      if (seed) {
+        setPrivateKey(bytesToHex(seed));
+        return;
+      }
+    }
+    if (accountDetails?.publicKey) {
+      setShowImportKey(true);
     }
   };
 
@@ -225,6 +245,7 @@ export default function ReplSandbox() {
             {isExecuting && <span className="repl-executing">...</span>}
           </div>
           <div className="repl-stats">
+            <NetworkSelector />
             <span className="repl-juice">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -265,11 +286,21 @@ export default function ReplSandbox() {
             type="button"
             className={`repl-account-connect ${isKeyConnected ? 'repl-account-connect-active' : ''}`}
             onClick={handleConnect}
-            disabled={!hasMatchingKey && !isKeyConnected}
-            title={!accountDetails?.publicKey ? 'Account has no key' : !hasMatchingKey ? 'No matching key in wallet' : isKeyConnected ? 'Disconnect key' : 'Use wallet key for Transact'}
+            disabled={!accountDetails?.publicKey}
+            title={!accountDetails?.publicKey ? 'Account has no key' : isKeyConnected ? 'Disconnect key' : hasMatchingKey ? 'Use wallet key for Transact' : 'Import private key for Transact'}
           >
             <Key size={14} />
             {isKeyConnected ? 'Disconnect' : 'Connect'}
+          </button>
+          <button
+            type="button"
+            className="repl-account-refresh"
+            onClick={refreshAccount}
+            disabled={!address || accountLoading}
+            title="Refresh account details"
+            aria-label="Refresh account details"
+          >
+            <RefreshCw size={16} className={accountLoading ? 'repl-account-refresh-spin' : undefined} aria-hidden />
           </button>
           <div className="repl-account-info-wrap" ref={accountInfoPopoverRef}>
             <button
@@ -302,10 +333,16 @@ export default function ReplSandbox() {
                     </>
                   )}
                 </div>
-                <button type="button" className="repl-account-info-copy" onClick={copyAddress}>
-                  <Copy size={14} />
-                  Copy address
-                </button>
+                <div className="repl-account-info-actions">
+                  <button type="button" className="repl-account-info-copy" onClick={copyAddress}>
+                    <Copy size={14} />
+                    Copy address
+                  </button>
+                  <button type="button" className="repl-account-info-refresh" onClick={refreshAccount} disabled={accountLoading} title="Refresh account details">
+                    <RefreshCw size={14} />
+                    Refresh
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -373,6 +410,16 @@ export default function ReplSandbox() {
           </>
         )}
       </div>
+
+      <ImportKeyDialog
+        isOpen={showImportKey}
+        onClose={() => setShowImportKey(false)}
+        accountPublicKey={accountDetails?.publicKey}
+        onImport={(hex) => {
+          setPrivateKey(hex);
+          setShowImportKey(false);
+        }}
+      />
     </div>
   );
 }

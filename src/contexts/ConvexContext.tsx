@@ -7,8 +7,10 @@ type ConvexContextValue = {
   convex: Convex;
   setAddress: (v: string | null) => void;
   setPrivateKey: (v: string | null) => void;
+  setPeerUrl: (v: string) => void;
   address: string | null;
   privateKey: string | null;
+  peerUrl: string;
 };
 
 const ConvexContext = createContext<ConvexContextValue | null>(null);
@@ -39,12 +41,22 @@ export function ConvexProvider({ children, peerUrl }: ConvexProviderProps) {
     [convex]
   );
 
+  const setPeerUrl = useCallback(
+    (v: string) => {
+      convex.setPeerUrl(v);
+      setRevision((r) => r + 1);
+    },
+    [convex]
+  );
+
   const value: ConvexContextValue = {
     convex,
     setAddress,
     setPrivateKey,
+    setPeerUrl,
     address: convex.getAddress(),
     privateKey: convex.getPrivateKey(),
+    peerUrl: convex.peerUrl,
   };
 
   return <ConvexContext.Provider value={value}>{children}</ConvexContext.Provider>;
