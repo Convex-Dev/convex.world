@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@noble/ed25519": "^2.1.0",
     "lucide-react": "^0.562.0",
     "next": "16.0.8",
     "react": "^19.2.0",
