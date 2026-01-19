@@ -25,10 +25,10 @@ const capabilities: CapabilitySection[] = [
   {
     id: 'consensus',
     number: '01',
-    titleHighlight: 'Deterministic',
+    titleHighlight: 'Global',
     titleSuffix: 'Consensus',
     subtitle: 'State Convergence',
-    description: 'Convergent Proof of Stake achieves state convergence in milliseconds. No blocks, no delays—just deterministic finality where all participants observe the same truth.',
+    description: 'Convergent Proof of Stake achieves state convergence in milliseconds. No waiting for confirmation of previous blocks: just deterministic finality where all participants observe the same truth in the Convex global state.',
     cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
   },
   {
@@ -37,7 +37,7 @@ const capabilities: CapabilitySection[] = [
     titleHighlight: 'Lattice',
     titleSuffix: 'Architecture',
     subtitle: 'Global State Fabric',
-    description: 'Every participant shares one deterministic data fabric. No shards, no rollups—true horizontal scalability where compute has weight and storage is recyclable.',
+    description: 'The lattice is a global data fabric. Self-healing, automatically replicated and infinitely scalable on a true P2P, self-sovereign basis.',
     cta: { label: 'Explore Lattice', href: 'https://docs.convex.world/docs/overview/lattice', external: true },
   },
   {

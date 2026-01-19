@@ -22,7 +22,7 @@ const tools: Tool[] = [
   {
     title: "Explorer",
     description: "Explore the Convex network, view transactions, blocks, and network activity in real-time.",
-    href: "https://peer.convex.live",
+    href: "https://peer.convex.live/explorer",
     isExternal: true,
     icon: Compass,
     number: "01"
