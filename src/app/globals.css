@@ -4752,6 +4752,63 @@ nav .logo {
   gap: var(--space-4);
 }
 
+.repl-account-loading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.repl-account-balance {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-consensus);
+}
+
+.repl-account-key {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.cvm-balance {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.cvm-balance-whole {
+  color: var(--accent-juice);
+}
+
+.cvm-balance-frac {
+  color: var(--color-text-tertiary);
+}
+
+.public-key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+}
+
+.public-key-identicon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.public-key-identicon-empty {
+  display: inline-block;
+  background: #000;
+}
+
+.public-key-hex {
+  font-variant-numeric: tabular-nums;
+}
+
 .repl-juice {
   display: flex;
   align-items: center;

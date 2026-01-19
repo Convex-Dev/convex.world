@@ -31,6 +31,8 @@ interface AccountInfo {
   memorySize: number;
   sequence: number;
   type: string;
+  /** Ed25519 public key (hex), if the account has one */
+  publicKey?: string;
 }
 
 /**
@@ -47,7 +49,7 @@ export async function query(source: string, address?: string): Promise<ConvexRes
       },
       body: JSON.stringify({
         source,
-        address: address || '0x0000000000000000000000000000000000000000000000000000000000000000',
+        address: address,
       }),
     });
 
@@ -136,37 +138,33 @@ export async function getStateHash(): Promise<string | null> {
 
 /**
  * Get account information by address.
- * Uses combined query to fetch balance and account data efficiently.
+ * Uses REST /api/v1/accounts/{address} which returns:
+ * { address, sequence, balance, allowance, memorySize, key, type }
  */
 export async function getAccountInfo(address: string): Promise<AccountInfo | null> {
   try {
-    // Combined query for balance and account info
-    const result = await query(`[(balance ${address}) (account ${address})]`);
-    
-    if (!Array.isArray(result.value) || result.value.length < 2) {
+    const res = await fetch(`${API_BASE}/accounts/${encodeURIComponent(address)}`, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (err.errorCode) return null;
       return null;
     }
-    
-    const [balance, accountInfo] = result.value;
-    
-    // Extract account details from the account info map
-    let memorySize = 0;
-    let sequence = 0;
-    let type = 'user';
-    
-    if (accountInfo && typeof accountInfo === 'object') {
-      const info = accountInfo as Record<string, unknown>;
-      memorySize = typeof info.memory === 'number' ? info.memory : 0;
-      sequence = typeof info.sequence === 'number' ? info.sequence : 0;
-      type = info.controller === null ? 'actor' : 'user';
-    }
-    
+
+    const data = (await res.json()) as Record<string, unknown>;
+    const key = data.key;
+    const publicKey = typeof key === 'string' && key.length > 0 ? key : undefined;
+
     return {
-      address: address,
-      balance: typeof balance === 'number' ? balance : 0,
-      memorySize,
-      sequence,
-      type,
+      address: String(data.address ?? address),
+      balance: typeof data.balance === 'number' ? data.balance : 0,
+      memorySize: typeof data.memorySize === 'number' ? data.memorySize : 0,
+      sequence: typeof data.sequence === 'number' ? data.sequence : 0,
+      type: typeof data.type === 'string' ? data.type : 'user',
+      publicKey,
     };
   } catch (error) {
     console.error('Convex account error:', error);

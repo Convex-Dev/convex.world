@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { query as convexQuery, getNetworkStatus } from '@/lib/convex-api';
+import CVMBalance from '@/components/CVMBalance';
+import PublicKey from '@/components/PublicKey';
+import { getAccountInfo, getNetworkStatus, query as convexQuery } from '@/lib/convex-api';
 
 interface ReplLine {
   id: number;
@@ -23,8 +25,27 @@ export default function ReplSandbox() {
   const [isConnected, setIsConnected] = useState(false);
   const [mode, setMode] = useState<'query' | 'transact'>('query');
   const [address, setAddress] = useState('');
+  const [accountDetails, setAccountDetails] = useState<{ balance: number; publicKey?: string } | null>(null);
+  const [accountLoading, setAccountLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+
+  // Fetch account details when address is set (debounced)
+  useEffect(() => {
+    const addr = address.trim();
+    if (!addr) {
+      setAccountDetails(null);
+      setAccountLoading(false);
+      return;
+    }
+    setAccountLoading(true);
+    const t = setTimeout(async () => {
+      const info = await getAccountInfo(addr);
+      setAccountDetails(info ? { balance: info.balance, publicKey: info.publicKey } : null);
+      setAccountLoading(false);
+    }, 400);
+    return () => clearTimeout(t);
+  }, [address]);
 
   // Connect to network on mount
   useEffect(() => {
@@ -160,6 +181,17 @@ export default function ReplSandbox() {
           {isExecuting && <span className="repl-executing">...</span>}
         </div>
         <div className="repl-stats">
+          {accountLoading && <span className="repl-account-loading">account…</span>}
+          {!accountLoading && accountDetails && (
+            <>
+              <span className="repl-account-balance" title="Account balance (CVM)">
+                <CVMBalance value={accountDetails.balance} /> CVM
+              </span>
+              <span className="repl-account-key" title="Public key">
+                <PublicKey value={accountDetails.publicKey} />
+              </span>
+            </>
+          )}
           <span className="repl-juice">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -221,6 +253,7 @@ export default function ReplSandbox() {
             type="button"
             className={`repl-mode-btn ${mode === 'query' ? 'repl-mode-btn-active' : ''}`}
             onClick={() => setMode('query')}
+            title="Run a read-only operation. Cannot modify state, but zero fees"
           >
             Query
           </button>
@@ -228,6 +261,7 @@ export default function ReplSandbox() {
             type="button"
             className={`repl-mode-btn ${mode === 'transact' ? 'repl-mode-btn-active' : ''}`}
             onClick={() => setMode('transact')}
+            title="Execute a signed transaction. Requires an account with CVM and the correct private key."
           >
             Transact
           </button>
