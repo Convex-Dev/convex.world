@@ -21,6 +21,8 @@ export default function ReplSandbox() {
   const [totalJuice, setTotalJuice] = useState(0);
   const [isExecuting, setIsExecuting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
+  const [mode, setMode] = useState<'query' | 'transact'>('query');
+  const [address, setAddress] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
@@ -51,9 +53,9 @@ export default function ReplSandbox() {
     }
   }, [history]);
 
-  const executeQuery = useCallback(async (source: string) => {
+  const executeQuery = useCallback(async (source: string, addressArg?: string) => {
     setIsExecuting(true);
-    const result = await convexQuery(source);
+    const result = await convexQuery(source, addressArg || undefined);
     setIsExecuting(false);
     
     if (result.errorCode || result.errorMessage) {
@@ -93,8 +95,9 @@ export default function ReplSandbox() {
     setHistoryIndex(-1);
     setInput('');
     
-    // Execute on real network
-    const { content, isError, juice } = await executeQuery(trimmed);
+    // Execute on real network (address as #nn, pass the nn part to API)
+    const addr = address.trim() ? address.trim() : undefined;
+    const { content, isError, juice } = await executeQuery(trimmed, addr);
     
     const outputLine: ReplLine = { 
       id: newId + 1, 
@@ -110,7 +113,17 @@ export default function ReplSandbox() {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    // Only handle keys when the command input is the target (has focus)
+    if (e.target !== inputRef.current) return;
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const el = inputRef.current;
+      const atEnd = !el || el.selectionStart == null || el.selectionStart === input.length;
+      if (atEnd) el?.form?.requestSubmit();
+      return;
+    }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (commandHistory.length > 0) {
@@ -177,25 +190,62 @@ export default function ReplSandbox() {
         ))}
       </div>
       
-      <form onSubmit={handleSubmit} className="repl-input-form">
+      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="repl-input-form">
+        <div className="repl-address-field">
+          <span className="repl-address-prefix">#</span>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value.replace(/\D/g, ''))}
+            placeholder="13"
+            className="repl-address-input"
+            style={{ width: `${Math.min(22, Math.max(4, (address.length || 0) + 1))}ch` }}
+            autoComplete="off"
+            spellCheck={false}
+            aria-label="Address"
+          />
+        </div>
         <span className="repl-input-prompt">λ&gt;</span>
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type command here..."
+          placeholder={mode === 'query' ? 'Query (read-only)...' : 'Transact (requires account)...'}
           className="repl-input"
           autoComplete="off"
           spellCheck={false}
         />
+        <div className="repl-mode-selector" role="group" aria-label="Execution mode">
+          <button
+            type="button"
+            className={`repl-mode-btn ${mode === 'query' ? 'repl-mode-btn-active' : ''}`}
+            onClick={() => setMode('query')}
+          >
+            Query
+          </button>
+          <button
+            type="button"
+            className={`repl-mode-btn ${mode === 'transact' ? 'repl-mode-btn-active' : ''}`}
+            onClick={() => setMode('transact')}
+          >
+            Transact
+          </button>
+        </div>
       </form>
       
       <div className="repl-hints">
-        <span>Try: <code>(+ 1 2)</code></span>
-        <span><code>(def x 42)</code></span>
-        <span><code>(balance *address*)</code></span>
+        {mode === 'query' ? (
+          <>
+            <span>Try: <code>(+ 1 2)</code></span>
+            <span><code>(*timestamp*)</code></span>
+            <span><code>(balance *address*)</code></span>
+          </>
+        ) : (
+          <>
+            <span>Transact requires a connected account and costs Juice</span>
+          </>
+        )}
       </div>
     </div>
   );

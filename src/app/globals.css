@@ -4835,6 +4835,41 @@ nav .logo {
   user-select: none;
 }
 
+.repl-address-field {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-void);
+  min-width: 0;
+}
+
+.repl-address-prefix {
+  padding: 2px var(--space-1) 2px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  user-select: none;
+}
+
+.repl-address-input {
+  min-width: 3ch;
+  padding: 2px var(--space-1) 2px 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: var(--accent-primary);
+  box-sizing: content-box;
+}
+
+.repl-address-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
 .repl-input {
   flex: 1;
   background: transparent;
@@ -4848,6 +4883,43 @@ nav .logo {
 
 .repl-input::placeholder {
   color: var(--color-text-tertiary);
+}
+
+.repl-mode-selector {
+  display: flex;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.repl-mode-btn {
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.repl-mode-btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.repl-mode-btn:not(:last-child) {
+  border-right: 1px solid var(--color-border);
+}
+
+.repl-mode-btn-active {
+  color: var(--accent-primary);
+  background: var(--accent-primary-subtle);
+}
+
+.repl-mode-btn-active:hover {
+  color: var(--accent-primary);
 }
 
 .repl-hints {
