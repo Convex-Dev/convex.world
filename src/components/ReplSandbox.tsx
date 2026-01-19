@@ -238,7 +238,7 @@ export default function ReplSandbox() {
         {mode === 'query' ? (
           <>
             <span>Try: <code>(+ 1 2)</code></span>
-            <span><code>(*timestamp*)</code></span>
+            <span><code>*timestamp*</code></span>
             <span><code>(balance *address*)</code></span>
           </>
         ) : (
