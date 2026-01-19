@@ -99,18 +99,20 @@ export default function Ecosystem() {
               className="eco-card"
             >
               <span className="eco-card-category">{item.category}</span>
-              <div className="eco-card-image">
-                {item.image && (
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    width={120}
-                    height={120}
-                    style={{ objectFit: "contain" }}
-                  />
-                )}
+              <div className="eco-card-header">
+                <div className="eco-card-image">
+                  {item.image && (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={120}
+                      height={120}
+                      style={{ objectFit: "contain" }}
+                    />
+                  )}
+                </div>
+                <h3>{item.title}</h3>
               </div>
-              <h3>{item.title}</h3>
               <p>{item.description}</p>
               <div className="eco-card-link">
                 <span>Visit project</span>

@@ -17,18 +17,16 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-eyebrow">
-          <span className="hero-label">The Missing Coordination Primitive</span>
+          <span className="hero-label">The Missing Primitive</span>
         </div>
         
         <h1 className="hero-title">
-          <span className="hero-title-line">Realtime Economic Systems</span>
-          <span className="hero-title-line">for <span className="hero-accent">Humans</span> and <span className="hero-accent">Autonomous Agents</span></span>
+          <span className="hero-title-line">Engine for the</span>
+          <span className="hero-title-line"><span className="hero-accent">Agentic Economy</span></span>
         </h1>
         
         <p className="hero-subtitle">
-          <span className="hero-subtitle-line">Global finality without a blockchain.</span>
-          <span className="hero-subtitle-line">Convergent consensus at the speed of light.</span>
-          <span className="hero-subtitle-emphasis">One economic system. Infinite coordination.</span>
+          <span className="hero-subtitle-line">Self-sovereign, convergent consensus at the speed of light.</span>
         </p>
 
         <div className="hero-cta-group">
@@ -44,7 +42,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View Source
+            <span>View Source</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7V17"/>
             </svg>
