@@ -4694,11 +4694,144 @@ nav .logo {
 
 .repl-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background: var(--surface-elevated);
   border-bottom: 1px solid var(--color-border);
+}
+
+.repl-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.repl-account-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.repl-account-muted {
+  color: var(--color-text-tertiary);
+  font-size: var(--text-xs);
+}
+
+.repl-account-connect {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.repl-account-connect:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.repl-account-connect:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.repl-account-connect-active {
+  color: var(--accent-consensus);
+  border-color: var(--accent-consensus-muted);
+  background: var(--accent-consensus-muted);
+}
+
+.repl-account-info-wrap {
+  position: relative;
+}
+
+.repl-account-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.repl-account-info-btn:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  background: var(--surface-void);
+}
+
+.repl-account-info-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.repl-account-info-popover {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: var(--space-1);
+  z-index: 20;
+  min-width: 260px;
+  padding: var(--space-3);
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.repl-account-info-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  font-size: var(--text-xs);
+  margin-bottom: var(--space-3);
+}
+
+.repl-account-info-label {
+  color: var(--color-text-tertiary);
+}
+
+.repl-account-info-value {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  word-break: break-all;
+}
+
+.repl-account-info-key {
+  font-size: 0.7rem;
+}
+
+.repl-account-info-copy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.repl-account-info-copy:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
 }
 
 .repl-title {

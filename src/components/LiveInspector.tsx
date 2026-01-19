@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { Search, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
-import { convex } from '@/lib/convex-api';
+import { useConvex } from '@/contexts/ConvexContext';
 
 interface AccountData {
   address: string;
@@ -14,6 +14,7 @@ interface AccountData {
 }
 
 export default function LiveInspector() {
+  const { convex } = useConvex();
   const [searchQuery, setSearchQuery] = useState('');
   const [account, setAccount] = useState<AccountData | null>(null);
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
@@ -69,7 +70,7 @@ export default function LiveInspector() {
       memory,
       environment,
     };
-  }, []);
+  }, [convex]);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();

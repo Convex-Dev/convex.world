@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { convex } from '@/lib/convex-api';
+import { useConvex } from '@/contexts/ConvexContext';
 
 interface StatValue {
   current: number;
@@ -10,6 +10,7 @@ interface StatValue {
 }
 
 export default function LiveProofOfLife() {
+  const { convex } = useConvex();
   const [stats, setStats] = useState<Record<string, StatValue>>({
     // Global State - derived from timestamp progression  
     state: { 

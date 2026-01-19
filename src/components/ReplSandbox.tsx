@@ -1,9 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { Key, MoreVertical, Copy } from 'lucide-react';
 import CVMBalance from '@/components/CVMBalance';
 import PublicKey from '@/components/PublicKey';
-import { convex } from '@/lib/convex-api';
+import { useConvex } from '@/contexts/ConvexContext';
+import { useWalletOptional } from '@/contexts/WalletContext';
+import { bytesToHex } from '@/lib/crypto';
+import { type AccountInfo } from '@/lib/convex-api';
 
 interface ReplLine {
   id: number;
@@ -24,15 +28,24 @@ export default function ReplSandbox() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [mode, setMode] = useState<'query' | 'transact'>('query');
-  const [address, setAddress] = useState('');
-  const [accountDetails, setAccountDetails] = useState<{ balance: number; publicKey?: string } | null>(null);
+  const [accountDetails, setAccountDetails] = useState<AccountInfo | null>(null);
   const [accountLoading, setAccountLoading] = useState(false);
+  const [showAccountInfo, setShowAccountInfo] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
+  const accountInfoPopoverRef = useRef<HTMLDivElement>(null);
+  const { convex, setAddress, setPrivateKey, address, privateKey } = useConvex();
+  const wallet = useWalletOptional();
+
+  const norm = (hex: string) => (hex || '').replace(/^0x/i, '').toLowerCase();
+  const hasMatchingKey =
+    accountDetails?.publicKey &&
+    wallet?.publicKeys.some((pk) => norm(pk) === norm(accountDetails.publicKey!));
+  const isKeyConnected = !!privateKey;
 
   // Fetch account details when address is set (debounced)
   useEffect(() => {
-    const addr = address.trim();
+    const addr = address ?? '';
     if (!addr) {
       setAccountDetails(null);
       setAccountLoading(false);
@@ -41,11 +54,24 @@ export default function ReplSandbox() {
     setAccountLoading(true);
     const t = setTimeout(async () => {
       const info = await convex.getAccountInfo(addr);
-      setAccountDetails(info ? { balance: info.balance, publicKey: info.publicKey } : null);
+      setAccountDetails(info);
       setAccountLoading(false);
     }, 400);
     return () => clearTimeout(t);
-  }, [address]);
+  }, [address, convex]);
+
+  // Click outside to close account info popover
+  useEffect(() => {
+    if (!showAccountInfo) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if (accountInfoPopoverRef.current?.contains(e.target as Node)) return;
+      const btn = (e.target as HTMLElement)?.closest?.('button[data-account-info-toggle]');
+      if (btn) return;
+      setShowAccountInfo(false);
+    };
+    document.addEventListener('mousedown', onMouseDown);
+    return () => document.removeEventListener('mousedown', onMouseDown);
+  }, [showAccountInfo]);
 
   // Connect to network on mount
   useEffect(() => {
@@ -74,36 +100,36 @@ export default function ReplSandbox() {
     }
   }, [history]);
 
-  const executeQuery = useCallback(async (source: string, addressArg?: string) => {
-    setIsExecuting(true);
-    const result = await convex.query(source, addressArg || undefined);
-    setIsExecuting(false);
-    
-    if (result.errorCode || result.errorMessage) {
-      return {
-        content: result.errorMessage || result.errorCode || 'Unknown error',
-        isError: true,
-        juice: 0,
-      };
-    }
+  const execute = useCallback(
+    async (source: string, mode: 'query' | 'transact') => {
+      setIsExecuting(true);
+      const result = mode === 'transact' ? await convex.transact(source) : await convex.query(source);
+      setIsExecuting(false);
 
-    // Prefer result (actual string from peer); else format value (avoids JSONifying)
-    let content: string;
-    if (typeof result.result === 'string') {
-      content = result.result;
-    } else if (result.value === null || result.value === undefined) {
-      content = 'nil';
-    } else if (typeof result.value === 'object') {
-      content = JSON.stringify(result.value, null, 2);
-    } else {
-      content = String(result.value);
-    }
+      if (result.errorCode || result.errorMessage) {
+        return {
+          content: result.errorMessage || result.errorCode || 'Unknown error',
+          isError: true,
+          juice: 0,
+        };
+      }
 
-    // Use juice from result.info when provided; otherwise fallback estimate
-    const juice = typeof result.info?.juice === 'number' ? result.info.juice : Math.max(10, source.length * 2);
+      let content: string;
+      if (typeof result.result === 'string') {
+        content = result.result;
+      } else if (result.value === null || result.value === undefined) {
+        content = 'nil';
+      } else if (typeof result.value === 'object') {
+        content = JSON.stringify(result.value, null, 2);
+      } else {
+        content = String(result.value);
+      }
 
-    return { content, isError: false, juice };
-  }, []);
+      const juice = typeof result.info?.juice === 'number' ? result.info.juice : Math.max(10, source.length * 2);
+      return { content, isError: false, juice };
+    },
+    [convex]
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -118,9 +144,7 @@ export default function ReplSandbox() {
     setHistoryIndex(-1);
     setInput('');
     
-    // Execute on real network (address as #nn, pass the nn part to API)
-    const addr = address.trim() ? address.trim() : undefined;
-    const { content, isError, juice } = await executeQuery(trimmed, addr);
+    const { content, isError, juice } = await execute(trimmed, mode);
     
     const outputLine: ReplLine = { 
       id: newId + 1, 
@@ -174,37 +198,117 @@ export default function ReplSandbox() {
     setTotalJuice(0);
   };
 
+  const copyAddress = () => {
+    if (accountDetails?.address) {
+      navigator.clipboard.writeText(`#${accountDetails.address}`);
+      setShowAccountInfo(false);
+    }
+  };
+
+  const handleConnect = () => {
+    if (isKeyConnected) {
+      setPrivateKey(null);
+    } else if (hasMatchingKey && accountDetails?.publicKey && wallet) {
+      const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
+      const seed = pk ? wallet.getSeed(pk) : undefined;
+      if (seed) setPrivateKey(bytesToHex(seed));
+    }
+  };
+
   return (
     <div className="repl-sandbox">
       <div className="repl-header">
-        <div className="repl-title">
-          <span className={`repl-indicator ${isConnected ? 'repl-connected' : 'repl-disconnected'}`} />
-          <span>Convex REPL</span>
-          {isExecuting && <span className="repl-executing">...</span>}
+        <div className="repl-header-top">
+          <div className="repl-title">
+            <span className={`repl-indicator ${isConnected ? 'repl-connected' : 'repl-disconnected'}`} />
+            <span>Convex REPL</span>
+            {isExecuting && <span className="repl-executing">...</span>}
+          </div>
+          <div className="repl-stats">
+            <span className="repl-juice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+              </svg>
+              {totalJuice.toLocaleString()} juice
+            </span>
+            <button onClick={clearHistory} className="repl-clear" title="Clear session">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div className="repl-stats">
-          {accountLoading && <span className="repl-account-loading">account…</span>}
-          {!accountLoading && accountDetails && (
-            <>
-              <span className="repl-account-balance" title="Account balance (CVM)">
-                <CVMBalance value={accountDetails.balance} /> CVM
-              </span>
-              <span className="repl-account-key" title="Public key">
-                <PublicKey value={accountDetails.publicKey} />
-              </span>
-            </>
-          )}
-          <span className="repl-juice">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-            </svg>
-            {totalJuice.toLocaleString()} juice
+        <div className="repl-account-line">
+          <div className="repl-address-field">
+            <span className="repl-address-prefix">#</span>
+            <input
+              type="text"
+              value={address ?? ''}
+              onChange={(e) => setAddress(e.target.value.replace(/\D/g, '') || null)}
+              placeholder="Address"
+              className="repl-address-input"
+              style={{ width: `${Math.min(22, Math.max(4, (address?.length ?? 0) + 1))}ch` }}
+              autoComplete="off"
+              spellCheck={false}
+              aria-label="Address"
+            />
+          </div>
+          <span className="repl-account-balance" title="Account balance (CVM)">
+            {accountLoading && <span className="repl-account-loading">…</span>}
+            {!accountLoading && accountDetails && <><CVMBalance value={accountDetails.balance} /> CVM</>}
+            {!accountLoading && !accountDetails && <span className="repl-account-muted">—</span>}
           </span>
-          <button onClick={clearHistory} className="repl-clear" title="Clear session">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-            </svg>
+          <span className="repl-account-key" title="Public key">
+            <PublicKey value={accountDetails?.publicKey} />
+          </span>
+          <button
+            type="button"
+            className={`repl-account-connect ${isKeyConnected ? 'repl-account-connect-active' : ''}`}
+            onClick={handleConnect}
+            disabled={!hasMatchingKey && !isKeyConnected}
+            title={!accountDetails?.publicKey ? 'Account has no key' : !hasMatchingKey ? 'No matching key in wallet' : isKeyConnected ? 'Disconnect key' : 'Use wallet key for Transact'}
+          >
+            <Key size={14} />
+            {isKeyConnected ? 'Disconnect' : 'Connect'}
           </button>
+          <div className="repl-account-info-wrap" ref={accountInfoPopoverRef}>
+            <button
+              type="button"
+              className="repl-account-info-btn"
+              data-account-info-toggle
+              onClick={() => setShowAccountInfo((v) => !v)}
+              title="Account info & options"
+              disabled={!accountDetails}
+            >
+              <MoreVertical size={16} />
+            </button>
+            {showAccountInfo && accountDetails && (
+              <div className="repl-account-info-popover">
+                <div className="repl-account-info-grid">
+                  <span className="repl-account-info-label">Address</span>
+                  <code className="repl-account-info-value">#{accountDetails.address}</code>
+                  <span className="repl-account-info-label">Balance</span>
+                  <span className="repl-account-info-value"><CVMBalance value={accountDetails.balance} /> CVM</span>
+                  <span className="repl-account-info-label">Memory</span>
+                  <span className="repl-account-info-value">{accountDetails.memorySize.toLocaleString()} bytes</span>
+                  <span className="repl-account-info-label">Sequence</span>
+                  <span className="repl-account-info-value">{accountDetails.sequence}</span>
+                  <span className="repl-account-info-label">Type</span>
+                  <span className="repl-account-info-value">{accountDetails.type}</span>
+                  {accountDetails.publicKey && (
+                    <>
+                      <span className="repl-account-info-label">Key</span>
+                      <code className="repl-account-info-value repl-account-info-key">{accountDetails.publicKey}</code>
+                    </>
+                  )}
+                </div>
+                <button type="button" className="repl-account-info-copy" onClick={copyAddress}>
+                  <Copy size={14} />
+                  Copy address
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       
@@ -225,20 +329,6 @@ export default function ReplSandbox() {
       </div>
       
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="repl-input-form">
-        <div className="repl-address-field">
-          <span className="repl-address-prefix">#</span>
-          <input
-            type="text"
-            value={address}
-            onChange={(e) => setAddress(e.target.value.replace(/\D/g, ''))}
-            placeholder="Address"
-            className="repl-address-input"
-            style={{ width: `${Math.min(22, Math.max(4, (address.length || 0) + 1))}ch` }}
-            autoComplete="off"
-            spellCheck={false}
-            aria-label="Address"
-          />
-        </div>
         <span className="repl-input-prompt">λ&gt;</span>
         <input
           ref={inputRef}

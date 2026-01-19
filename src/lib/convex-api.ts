@@ -10,6 +10,8 @@
  * Peer API Documentation: https://peer.convex.live/swagger
  */
 
+import { bytesToHex, hexToBytes, sign } from '@/lib/crypto';
+
 const API_BASE = '/api/convex';
 
 export interface ConvexResponseInfo {
@@ -54,6 +56,9 @@ const DEFAULT_PEER_URL = 'https://peer.convex.live';
  */
 export class Convex {
   readonly peerUrl: string;
+  private _address: string | null = null;
+  /** Private key (32-byte Ed25519 seed) as hex, or null. Used to sign transactions. */
+  private _privateKey: string | null = null;
 
   constructor(options: ConvexOptions = {}) {
     this.peerUrl = options.peerUrl ?? DEFAULT_PEER_URL;
@@ -63,11 +68,31 @@ export class Convex {
     return { 'X-Convex-Peer': this.peerUrl };
   }
 
+  /** Account address (numeric string) or null. */
+  getAddress(): string | null {
+    return this._address;
+  }
+
+  setAddress(v: string | null): void {
+    this._address = v;
+  }
+
+  /** Private key (seed) hex for signing, or null. */
+  getPrivateKey(): string | null {
+    return this._privateKey;
+  }
+
+  setPrivateKey(v: string | null): void {
+    this._privateKey = v;
+  }
+
   /**
    * Execute a read-only query on the Convex network.
    * Queries are free and don't modify state.
+   * Uses addressOverride ?? this.getAddress() when sending; omit if both null.
    */
-  async query(source: string, address?: string): Promise<ConvexResponse> {
+  async query(source: string, addressOverride?: string): Promise<ConvexResponse> {
+    const address = addressOverride ?? this._address ?? undefined;
     try {
       const response = await fetch(`${API_BASE}/query`, {
         method: 'POST',
@@ -78,7 +103,7 @@ export class Convex {
         },
         body: JSON.stringify({
           source,
-          address: address,
+          address,
         }),
       });
 
@@ -94,6 +119,64 @@ export class Convex {
       return data;
     } catch (error) {
       console.error('Convex query error:', error);
+      return {
+        errorCode: 'NETWORK',
+        errorMessage: error instanceof Error ? error.message : 'Network error',
+      };
+    }
+  }
+
+  /**
+   * Submit a signed transaction. Uses this.getAddress(), this.getPrivateKey(),
+   * and account sequence from getAccountInfo. Costs Juice.
+   * Returns ConvexResponse with result/value and info.juice on success.
+   */
+  async transact(source: string): Promise<ConvexResponse> {
+    const address = this._address;
+    const privateKeyHex = this._privateKey;
+    if (!address || !privateKeyHex) {
+      return {
+        errorCode: 'MISSING_ACCOUNT',
+        errorMessage: 'Address and private key required for transact. Set address and connect a key.',
+      };
+    }
+
+    try {
+      const info = await this.getAccountInfo(address);
+      if (!info) {
+        return { errorCode: 'ACCOUNT_NOT_FOUND', errorMessage: `Account #${address} not found` };
+      }
+      const sequence = info.sequence;
+
+      // Message to sign: canonical form for replay protection. Convex may use a
+      // different encoding; this matches a typical origin+sequence+payload pattern.
+      const message = new TextEncoder().encode(`${address}:${sequence}:${source}`);
+      const seed = hexToBytes(privateKeyHex);
+      const sig = await sign(message, seed);
+      const signature = bytesToHex(sig);
+
+      const response = await fetch(`${API_BASE}/transact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          ...this.peerHeaders(),
+        },
+        body: JSON.stringify({ source, address, sequence, signature }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return {
+          errorCode: 'TRANSACT_FAILED',
+          errorMessage: (data as { errorMessage?: string }).errorMessage ?? data.title ?? `HTTP ${response.status}`,
+        };
+      }
+
+      return data as ConvexResponse;
+    } catch (error) {
+      console.error('Convex transact error:', error);
       return {
         errorCode: 'NETWORK',
         errorMessage: error instanceof Error ? error.message : 'Network error',
@@ -167,10 +250,13 @@ export class Convex {
 
   /**
    * Get account information by address.
-   * Uses REST /api/v1/accounts/{address} which returns:
+   * Uses addressOverride ?? this.getAddress(); returns null if none set.
+   * REST /api/v1/accounts/{address} returns:
    * { address, sequence, balance, allowance, memorySize, key, type }
    */
-  async getAccountInfo(address: string): Promise<AccountInfo | null> {
+  async getAccountInfo(addressOverride?: string): Promise<AccountInfo | null> {
+    const address = addressOverride ?? this._address;
+    if (!address) return null;
     try {
       const res = await fetch(
         `${API_BASE}/accounts/${encodeURIComponent(address)}`,

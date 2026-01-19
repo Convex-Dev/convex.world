@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -95,7 +96,9 @@ export default function RootLayout({
         <Navigation />
         <main>
           <WalletProvider persistKey="convex.world:wallet">
-            {children}
+            <ConvexProvider>
+              {children}
+            </ConvexProvider>
           </WalletProvider>
         </main>
         <Footer />
