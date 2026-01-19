@@ -1,8 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Terminal, Boxes, Zap, Database } from "lucide-react";
+import { BookOpen, Terminal, Boxes, Zap, Code2 } from "lucide-react";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
-import ReplSandbox from "@/components/ReplSandbox";
 
 const heroTerminalSequences = [
   {
@@ -184,40 +183,13 @@ export default function Developer() {
               <p>Libraries for Java, JavaScript, and more</p>
             </div>
           </Link>
-        </div>
-      </section>
-
-      {/* REPL Sandbox Section */}
-      <section id="sandbox" className="dev-section dev-sandbox-section">
-        <div className="section-header">
-          <span className="section-number">// 003</span>
-          <h2>REPL Sandbox</h2>
-          <p>Experiment with Convex Lisp in a live environment</p>
-        </div>
-        
-        <div className="dev-sandbox-container">
-          <ReplSandbox />
-          <div className="dev-sandbox-info">
-            <h4>Interactive Console</h4>
-            <p>
-              This sandbox connects to the Convex testnet. Execute Lisp expressions, 
-              define functions, query state, and observe Juice costs in real-time.
-            </p>
-            <ul className="dev-sandbox-features">
-              <li>
-                <Zap size={14} />
-                <span>Real-time Juice cost estimation</span>
-              </li>
-              <li>
-                <Terminal size={14} />
-                <span>Full Convex Lisp syntax support</span>
-              </li>
-              <li>
-                <Database size={14} />
-                <span>Query global state directly</span>
-              </li>
-            </ul>
-          </div>
+          <Link href="/sandbox" className="dev-resource-card">
+            <Code2 size={20} strokeWidth={1.5} />
+            <div>
+              <h4>REPL Sandbox</h4>
+              <p>Try Convex Lisp in a live console on the testnet</p>
+            </div>
+          </Link>
         </div>
       </section>
 

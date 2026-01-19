@@ -2398,7 +2398,7 @@ nav .logo {
 .dev-section {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-16) var(--space-6);
+  padding: var(--space-8) var(--space-6);
 }
 
 .dev-grid {

@@ -35,7 +35,7 @@ export default function Navigation() {
             <Link href="/developers" className="nav-link">
               Developers
             </Link>
-            <Link href="/developers#sandbox" className="nav-link nav-link-sandbox">
+            <Link href="/sandbox" className="nav-link nav-link-sandbox">
               Sandbox
             </Link>
             <Link href="/tools" className="nav-link">
@@ -93,7 +93,7 @@ export default function Navigation() {
           <Link href="/developers" onClick={closeMenu} className="mobile-menu-link">
             Developers
           </Link>
-          <Link href="/developers#sandbox" onClick={closeMenu} className="mobile-menu-link mobile-menu-link-sandbox">
+          <Link href="/sandbox" onClick={closeMenu} className="mobile-menu-link mobile-menu-link-sandbox">
             Sandbox
           </Link>
           <Link href="/tools" onClick={closeMenu} className="mobile-menu-link">

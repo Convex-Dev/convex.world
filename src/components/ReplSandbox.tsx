@@ -32,7 +32,7 @@ export default function ReplSandbox() {
         setIsConnected(true);
         setHistory(prev => [
           ...prev,
-          { id: prev.length, type: 'system', content: `;; Connected | Consensus: ${status.consensusPoint.toLocaleString()}` },
+          { id: prev.length, type: 'system', content: `;; Connected | Consensus: ${status.consensusPoint}` },
           { id: prev.length + 1, type: 'system', content: ';; Queries are FREE — type Convex Lisp to evaluate' },
         ]);
       } else {
@@ -185,7 +185,7 @@ export default function ReplSandbox() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="(+ 1 2)"
+          placeholder="Type command here..."
           className="repl-input"
           autoComplete="off"
           spellCheck={false}
