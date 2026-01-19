@@ -3305,7 +3305,7 @@ nav .logo {
 }
 
 .coin-free-content {
-  max-width: var(--container-narrow);
+  max-width: var(--container-max);
   margin: 0 auto;
   text-align: center;
 }

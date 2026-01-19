@@ -137,6 +137,13 @@ export default function Coin() {
             <div className="coin-free-item">
               <span className="coin-free-check">✓</span>
               <div>
+                <strong>Agentic Tools</strong>
+                <p>Use agentic tools via MCP</p>
+              </div>
+            </div>
+            <div className="coin-free-item">
+              <span className="coin-free-check">✓</span>
+              <div>
                 <strong>Unlimited Reads</strong>
                 <p>Query the global state at no cost</p>
               </div>
@@ -145,7 +152,7 @@ export default function Coin() {
               <span className="coin-free-check">✓</span>
               <div>
                 <strong>Off-chain Flexibility</strong>
-                <p>Use Lattice Technology without CVM</p>
+                <p>Lattice Technology for everyone</p>
               </div>
             </div>
           </div>
