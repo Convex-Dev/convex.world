@@ -20,7 +20,17 @@ interface ReplLine {
 }
 
 function contentFromConvexResponse(r: ConvexResponse): string {
-  if (r.errorCode || r.errorMessage) return r.errorMessage || r.errorCode || 'Unknown error';
+  if (r.errorCode || r.value) {
+    const text =
+      (typeof r.value === 'string' && r.value) ||
+      (typeof r.result === 'string' && r.result) ||
+      r.value ||
+      '';
+    if (r.errorCode && text) return `${r.errorCode}: ${text}`;
+    if (r.errorCode) return r.errorCode;
+    if (r.value) return r.value as string;
+    return 'Unknown error';
+  }
   if (typeof r.result === 'string') return r.result;
   if (r.value === null || r.value === undefined) return 'nil';
   if (typeof r.value === 'object') return JSON.stringify(r.value, null, 2);
@@ -157,7 +167,7 @@ export default function ReplSandbox() {
 
     const resp = await execute(trimmed, mode);
     const content = contentFromConvexResponse(resp);
-    const isError = !!(resp.errorCode || resp.errorMessage);
+    const isError = !!(resp.errorCode);
 
     if (isError && (resp.errorCode === 'NETWORK' || resp.errorCode === 'PEER_ERROR')) {
       setLastNetworkError(content || resp.errorCode || 'Network error');
@@ -170,6 +180,7 @@ export default function ReplSandbox() {
     if (!isError) {
       const juice = typeof resp.info?.juice === 'number' ? resp.info.juice : Math.max(10, trimmed.length * 2);
       setTotalJuice((prev) => prev + juice);
+      if (mode === 'transact') refreshAccount();
     }
   };
 
@@ -300,9 +311,7 @@ export default function ReplSandbox() {
             />
           </div>
           <span className="repl-account-balance" title="Account balance (CVM)">
-            {accountLoading && <span className="repl-account-loading">…</span>}
-            {!accountLoading && accountDetails && <><CVMBalance value={accountDetails.balance} /> CVM</>}
-            {!accountLoading && !accountDetails && <span className="repl-account-muted">—</span>}
+            {accountDetails ? <><CVMBalance value={accountDetails.balance} /> CVM</> : <span className="repl-account-muted">—</span>}
           </span>
           <span className="repl-account-key" title="Public key">
             <PublicKey value={accountDetails?.publicKey} peerUrl={peerUrl} />
@@ -335,7 +344,7 @@ export default function ReplSandbox() {
             title="Refresh account details"
             aria-label="Refresh account details"
           >
-            <RefreshCw size={16} className={accountLoading ? 'repl-account-refresh-spin' : undefined} aria-hidden />
+            <RefreshCw size={16} aria-hidden />
           </button>
           <div className="repl-account-info-wrap" ref={accountInfoPopoverRef}>
             <button

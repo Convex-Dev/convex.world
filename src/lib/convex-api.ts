@@ -22,7 +22,6 @@ export interface ConvexResponse<T = unknown> {
   result?: string; // CVX expression result from request. More accurate
   info?: ConvexResponseInfo;
   errorCode?: string;
-  errorMessage?: string;
 }
 
 export interface NetworkStatus {
@@ -127,7 +126,7 @@ export class Convex {
       if (!response.ok) {
         return {
           errorCode: 'SYNTAX',
-          errorMessage: data.title || `HTTP ${response.status}`,
+          value: data.title || `HTTP ${response.status}`,
         };
       }
 
@@ -136,7 +135,7 @@ export class Convex {
       console.error('Convex query error:', error);
       return {
         errorCode: 'NETWORK',
-        errorMessage: error instanceof Error ? error.message : 'Network error',
+        value: error instanceof Error ? error.message : 'Network error',
       };
     }
   }
@@ -154,7 +153,7 @@ export class Convex {
     if (!address || !kp) {
       return {
         errorCode: 'MISSING_ACCOUNT',
-        errorMessage: 'Address and KeyPair required for transaction. Set address and connect a key.',
+        value: 'Address and KeyPair required for transaction. Set address and connect a key.',
       };
     }
 
@@ -172,7 +171,7 @@ export class Convex {
       if (!prepareRes.ok) {
         return {
           errorCode: 'PREPARE_FAILED',
-          errorMessage:
+          value:
             (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`,
         };
       }
@@ -182,7 +181,7 @@ export class Convex {
       if (!hash) {
         return {
           errorCode: 'INVALID_PREPARE',
-          errorMessage: 'Prepare did not return a hash (expect hash or transactionHash)',
+          value: 'Prepare did not return a hash (expect hash or transactionHash)',
         };
       }
 
@@ -209,7 +208,7 @@ export class Convex {
       if (!submitRes.ok) {
         return {
           errorCode: 'TRANSACT_FAILED',
-          errorMessage:
+          value:
             (data as { errorMessage?: string }).errorMessage ?? (data as { title?: string }).title ?? `Submit: HTTP ${submitRes.status}`,
         };
       }
@@ -219,7 +218,7 @@ export class Convex {
       console.error('Convex transact error:', error);
       return {
         errorCode: 'NETWORK',
-        errorMessage: error instanceof Error ? error.message : 'Network error',
+        value: error instanceof Error ? error.message : 'Network error',
       };
     }
   }
@@ -233,7 +232,7 @@ export class Convex {
       const result = await this.query('*timestamp*');
 
       if (result.errorCode) {
-        throw new Error(result.errorMessage || 'Query failed');
+        throw new Error(result.value as string || 'Query failed');
       }
 
       return {
