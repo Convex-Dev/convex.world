@@ -49,7 +49,8 @@ const tools: Tool[] = [
     title: "REST API",
     description: "Access Convex network data and functionality through comprehensive REST API endpoints.",
     icon: Globe,
-    links: [{ name: "View docs", href: "/tools/rest-api" }]
+    links: [
+      {name: "Swagger", href: "https://peer.convex.live/swagger", isExternal: true}]
   },
   {
     title: "CLI Tool",
