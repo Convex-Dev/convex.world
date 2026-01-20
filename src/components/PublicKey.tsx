@@ -1,20 +1,25 @@
 'use client';
 
 /**
- * Displays a public key as hex digits and a small identicon from /identicon/{hex}
- * on the Convex peer. When value is nil/empty, shows "(no key)" and a black box.
+ * Displays a public key as hex digits and a small identicon from {peerUrl}/identicon/{hex}.
+ * When value is nil/empty, shows "(no key)" and a black box.
+ * peerUrl is required for the identicon image; if omitted, only the hex is shown.
  */
 export default function PublicKey({
   value,
   digits = 8,
+  peerUrl,
   className,
 }: {
   value: string | null | undefined;
   digits?: number;
+  /** Peer base URL for identicon (e.g. from useConvex().peerUrl). Omit to hide identicon. */
+  peerUrl?: string | null;
   className?: string;
 }) {
   const hex = (value || '').replace(/^0x/i, '').toLowerCase();
   const hasKey = hex.length > 0;
+  const base = (peerUrl || '').replace(/\/$/, '');
 
   const display = hasKey ? hex.slice(0, digits) : '';
   const truncated = hasKey && hex.length > digits;
@@ -23,9 +28,9 @@ export default function PublicKey({
 
   return (
     <span className={className ? `public-key ${className}` : 'public-key'} title={tooltip}>
-      {hasKey ? (
+      {hasKey && base ? (
         <img
-          src={`/api/convex/identicon/${hex}`}
+          src={`${base}/identicon/${hex}`}
           alt=""
           width={16}
           height={16}

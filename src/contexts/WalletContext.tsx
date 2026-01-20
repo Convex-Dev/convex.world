@@ -26,6 +26,8 @@ type WalletContextValue = {
   getSeed: (publicKeyHex: string) => Uint8Array | undefined;
   /** Generate and add a new keypair. Returns the new public key (hex). */
   addKey: () => Promise<string>;
+  /** Add an existing keypair (e.g. from generateKeyPair). Public and seed in hex. */
+  addKeyFromKeypair: (publicKeyHex: string, seedHex: string) => void;
   /** Remove a key by its public key (hex) */
   removeKey: (publicKeyHex: string) => void;
   /** Sign a message with the key for the given public key. Returns raw 64-byte signature. */
@@ -95,6 +97,12 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
     return pubHex;
   }, []);
 
+  const addKeyFromKeypair = useCallback((publicKeyHex: string, seedHex: string) => {
+    const pub = (publicKeyHex || '').replace(/^0x/i, '').toLowerCase();
+    const seed = (seedHex || '').replace(/^0x/i, '').toLowerCase();
+    if (pub && seed) setKeys((prev) => ({ ...prev, [pub]: seed }));
+  }, []);
+
   const removeKey = useCallback((publicKeyHex: string) => {
     setKeys((prev) => {
       const next = { ...prev };
@@ -122,12 +130,13 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
       publicKeys,
       getSeed,
       addKey,
+      addKeyFromKeypair,
       removeKey,
       signWith,
       persist,
       load,
     }),
-    [publicKeys, getSeed, addKey, removeKey, signWith, persist, load]
+    [publicKeys, getSeed, addKey, addKeyFromKeypair, removeKey, signWith, persist, load]
   );
 
   return (

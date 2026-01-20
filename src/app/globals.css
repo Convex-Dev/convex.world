@@ -4719,6 +4719,31 @@ nav .logo {
   font-size: var(--text-xs);
 }
 
+.repl-account-create {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.repl-account-create:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.repl-account-create:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .repl-account-connect {
   display: inline-flex;
   align-items: center;
@@ -5014,6 +5039,18 @@ nav .logo {
   animation: none;
 }
 
+.repl-indicator.repl-error {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: none;
+}
+
+.repl-status-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
 .repl-executing {
   color: var(--accent-highlight);
   font-size: var(--text-xs);
@@ -5239,6 +5276,17 @@ nav .logo {
 
 .repl-clear:hover {
   color: var(--color-text-primary);
+}
+
+.repl-output-wrap {
+  position: relative;
+}
+
+.repl-output-wrap .repl-clear {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  z-index: 10;
 }
 
 .repl-output {

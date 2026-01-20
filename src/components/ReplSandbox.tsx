@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Key, MoreVertical, Copy, RefreshCw } from 'lucide-react';
+import { Key, MoreVertical, Copy, RefreshCw, UserPlus } from 'lucide-react';
 import CVMBalance from '@/components/CVMBalance';
 import ImportKeyDialog from '@/components/ImportKeyDialog';
 import NetworkSelector from '@/components/NetworkSelector';
 import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
-import { bytesToHex } from '@/lib/crypto';
+import { bytesToHex, generateKeyPair } from '@/lib/crypto';
 import { type AccountInfo } from '@/lib/convex-api';
 
 interface ReplLine {
@@ -19,10 +19,7 @@ interface ReplLine {
 }
 
 export default function ReplSandbox() {
-  const [history, setHistory] = useState<ReplLine[]>([
-    { id: 0, type: 'system', content: ';; Convex REPL Sandbox v1.0' },
-    { id: 1, type: 'system', content: ';; Connecting to convex.world...' },
-  ]);
+  const [history, setHistory] = useState<ReplLine[]>([]);
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -34,6 +31,8 @@ export default function ReplSandbox() {
   const [accountLoading, setAccountLoading] = useState(false);
   const [showAccountInfo, setShowAccountInfo] = useState(false);
   const [showImportKey, setShowImportKey] = useState(false);
+  const [lastNetworkError, setLastNetworkError] = useState<string | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
   const accountInfoPopoverRef = useRef<HTMLDivElement>(null);
@@ -85,26 +84,27 @@ export default function ReplSandbox() {
     return () => document.removeEventListener('mousedown', onMouseDown);
   }, [showAccountInfo]);
 
-  // Connect to network on mount
+  // Connect to network on mount (and when peer changes)
   useEffect(() => {
+    const bracket = ` [${convex.getPeerHostname()}]`;
+
     const connect = async () => {
       const status = await convex.getNetworkStatus();
       if (status) {
         setIsConnected(true);
-        setHistory(prev => [
+        setHistory((prev) => [
           ...prev,
-          { id: prev.length, type: 'system', content: `;; Connected | Consensus: ${status.consensusPoint}` },
-          { id: prev.length + 1, type: 'system', content: ';; Queries are FREE — type Convex Lisp to evaluate' },
+          { id: prev.length, type: 'system', content: `;; Connected${bracket}` },
         ]);
       } else {
-        setHistory(prev => [
+        setHistory((prev) => [
           ...prev,
-          { id: prev.length, type: 'error', content: ';; Could not connect to network — using offline mode' },
+          { id: prev.length, type: 'error', content: `;; Could not connect to network — using offline mode${bracket}` },
         ]);
       }
     };
     connect();
-  }, []);
+  }, [convex, peerUrl]);
   
   useEffect(() => {
     if (outputRef.current) {
@@ -123,6 +123,7 @@ export default function ReplSandbox() {
           content: result.errorMessage || result.errorCode || 'Unknown error',
           isError: true,
           juice: 0,
+          errorCode: result.errorCode,
         };
       }
 
@@ -156,8 +157,14 @@ export default function ReplSandbox() {
     setHistoryIndex(-1);
     setInput('');
     
-    const { content, isError, juice } = await execute(trimmed, mode);
+    const { content, isError, juice, errorCode } = await execute(trimmed, mode);
     
+    if (isError && (errorCode === 'NETWORK' || errorCode === 'PEER_ERROR')) {
+      setLastNetworkError(content || errorCode || 'Network error');
+    } else if (!isError) {
+      setLastNetworkError(null);
+    }
+
     const outputLine: ReplLine = { 
       id: newId + 1, 
       type: isError ? 'error' : 'output', 
@@ -235,28 +242,62 @@ export default function ReplSandbox() {
     }
   };
 
+  const handleCreateAccount = async () => {
+    if (!wallet || isCreating) return;
+    setIsCreating(true);
+    try {
+      const { publicKey, seed } = await generateKeyPair();
+      const pubHex = bytesToHex(publicKey);
+      const seedHex = bytesToHex(seed);
+      wallet.addKeyFromKeypair(pubHex, seedHex);
+
+      const res = await convex.createAccount(pubHex);
+      if ('errorCode' in res) {
+        setHistory((prev) => [
+          ...prev,
+          { id: prev.length, type: 'error', content: `;; Create account failed: ${res.errorMessage}` },
+        ]);
+        return;
+      }
+      setAddress(res.address);
+      setPrivateKey(seedHex);
+      const faucetStr =
+        typeof res.faucetAmount === 'number' && res.faucetAmount > 0
+          ? ` (${(res.faucetAmount / 1e9).toFixed(9).replace(/\.?0+$/, '') || '0'} CVM from faucet)`
+          : '';
+      setHistory((prev) => [
+        ...prev,
+        { id: prev.length, type: 'system', content: `;; Created account #${res.address}${faucetStr}` },
+      ]);
+    } catch (e) {
+      setHistory((prev) => [
+        ...prev,
+        { id: prev.length, type: 'error', content: `;; ${e instanceof Error ? e.message : 'Create account failed'}` },
+      ]);
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
   return (
     <div className="repl-sandbox">
       <div className="repl-header">
         <div className="repl-header-top">
           <div className="repl-title">
-            <span className={`repl-indicator ${isConnected ? 'repl-connected' : 'repl-disconnected'}`} />
             <span>Convex REPL</span>
             {isExecuting && <span className="repl-executing">...</span>}
           </div>
           <div className="repl-stats">
-            <NetworkSelector />
+            <span className="repl-status-wrap" title={lastNetworkError ? `Error: ${lastNetworkError}` : isConnected ? 'Connected' : 'Disconnected'}>
+              <span className={`repl-indicator ${lastNetworkError ? 'repl-error' : isConnected ? 'repl-connected' : 'repl-disconnected'}`} aria-label={lastNetworkError ? 'Connection error' : isConnected ? 'Connected' : 'Disconnected'} />
+              <NetworkSelector />
+            </span>
             <span className="repl-juice">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
               </svg>
-              {totalJuice.toLocaleString()} juice
+              {totalJuice.toLocaleString()}
             </span>
-            <button onClick={clearHistory} className="repl-clear" title="Clear session">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-              </svg>
-            </button>
           </div>
         </div>
         <div className="repl-account-line">
@@ -280,8 +321,18 @@ export default function ReplSandbox() {
             {!accountLoading && !accountDetails && <span className="repl-account-muted">—</span>}
           </span>
           <span className="repl-account-key" title="Public key">
-            <PublicKey value={accountDetails?.publicKey} />
+            <PublicKey value={accountDetails?.publicKey} peerUrl={peerUrl} />
           </span>
+          <button
+            type="button"
+            className="repl-account-create"
+            onClick={handleCreateAccount}
+            disabled={!wallet || isCreating}
+            title={!wallet ? 'Wallet required' : isCreating ? 'Creating…' : 'Generate key, create account on network, and set address + key'}
+          >
+            <UserPlus size={14} />
+            {isCreating ? 'Creating…' : 'Create account'}
+          </button>
           <button
             type="button"
             className={`repl-account-connect ${isKeyConnected ? 'repl-account-connect-active' : ''}`}
@@ -349,7 +400,13 @@ export default function ReplSandbox() {
         </div>
       </div>
       
-      <div className="repl-output" ref={outputRef}>
+      <div className="repl-output-wrap">
+        <button onClick={clearHistory} className="repl-clear" title="Clear session" aria-label="Clear session">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+          </svg>
+        </button>
+        <div className="repl-output" ref={outputRef}>
         {history.map((line) => (
           <div key={line.id} className={`repl-line repl-line-${line.type}`}>
             {line.type === 'input' && <span className="repl-prompt">λ&gt;</span>}
@@ -363,6 +420,7 @@ export default function ReplSandbox() {
             )}
           </div>
         ))}
+        </div>
       </div>
       
       <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="repl-input-form">

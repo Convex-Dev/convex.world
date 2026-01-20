@@ -2,7 +2,7 @@
  * Convex Network API Client
  *
  * Connects to the Convex peer network for live data queries.
- * Uses local API routes to proxy requests (avoids CORS issues).
+ * Calls the peer /api/v1 endpoints directly from the client.
  *
  * Queries are FREE and don't require an account or wallet.
  * Transactions (sends) require a signed account and cost Juice.
@@ -11,8 +11,6 @@
  */
 
 import { bytesToHex, hexToBytes, sign } from '@/lib/crypto';
-
-const API_BASE = '/api/convex';
 
 export interface ConvexResponseInfo {
   juice?: number;
@@ -44,15 +42,15 @@ export interface AccountInfo {
 }
 
 export interface ConvexOptions {
-  /** Peer base URL (e.g. https://peer.convex.live). Used in X-Convex-Peer. */
+  /** Peer base URL (e.g. https://peer.convex.live). Requests go to {peerUrl}/api/v1/... */
   peerUrl?: string;
 }
 
-const DEFAULT_PEER_URL = 'https://peer.convex.live';
+const DEFAULT_PEER_URL = 'https://mikera1337-convex-testnet.hf.space';
 
 /**
  * Convex client. Wraps the network/peer base URL so the network is switchable.
- * All requests send X-Convex-Peer so the proxy can forward to the chosen peer.
+ * All requests call {peerUrl}/api/v1/... directly.
  */
 export class Convex {
   private _peerUrl: string;
@@ -72,8 +70,18 @@ export class Convex {
     this._peerUrl = v;
   }
 
-  private peerHeaders(): Record<string, string> {
-    return { 'X-Convex-Peer': this._peerUrl };
+  /** Peer base URL without trailing slash, for building /api/v1 paths. */
+  private baseUrl(): string {
+    return this._peerUrl.replace(/\/$/, '');
+  }
+
+  /** Peer hostname for display (e.g. "peer.convex.live"). Uses "peer" if URL is invalid. */
+  getPeerHostname(): string {
+    try {
+      return new URL(this._peerUrl || 'https://x').hostname;
+    } catch {
+      return 'peer';
+    }
   }
 
   /** Account address (numeric string) or null. */
@@ -102,12 +110,11 @@ export class Convex {
   async query(source: string, addressOverride?: string): Promise<ConvexResponse> {
     const address = addressOverride ?? this._address ?? undefined;
     try {
-      const response = await fetch(`${API_BASE}/query`, {
+      const response = await fetch(this.baseUrl()+'/api/v1/query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          ...this.peerHeaders(),
         },
         body: JSON.stringify({
           source,
@@ -163,12 +170,11 @@ export class Convex {
       const sig = await sign(message, seed);
       const signature = bytesToHex(sig);
 
-      const response = await fetch(`${API_BASE}/transact`, {
+      const response = await fetch(this.baseUrl()+'/api/v1/transact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          ...this.peerHeaders(),
         },
         body: JSON.stringify({ source, address, sequence, signature }),
       });
@@ -220,8 +226,8 @@ export class Convex {
    */
   async getBlockHeight(): Promise<number | null> {
     try {
-      const response = await fetch(`${API_BASE}/blocks`, {
-        headers: this.peerHeaders(),
+      const response = await fetch(this.baseUrl()+'/api/v1/blocks', {
+        headers: { Accept: 'application/json' },
       });
       if (!response.ok) return null;
       const data = await response.json();
@@ -257,6 +263,55 @@ export class Convex {
   }
 
   /**
+   * Create a new account on the network with the given public key.
+   * Uses POST /api/v1/createAccount with { accountKey, faucet }.
+   * Returns { address, faucetAmount? } on success; faucetAmount is the raw units received from the faucet (e.g. for 0.1 CVM).
+   */
+  async createAccount(publicKeyHex: string): Promise<
+    { address: string; faucetAmount?: number } | { errorCode: string; errorMessage: string }
+  > {
+    const key = (publicKeyHex || '').trim().replace(/^0x/i, '');
+    if (!key || !/^[0-9a-fA-F]{64}$/.test(key)) {
+      return { errorCode: 'INVALID_KEY', errorMessage: 'Public key must be 64 hex characters (32 bytes)' };
+    }
+    try {
+      const response = await fetch(`${this.baseUrl()}/api/v1/createAccount`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        // Request account with 0.1 CVM, should be allowed by most faucets
+        body: JSON.stringify({ accountKey: key, faucet: 100000000 }),
+      });
+
+      const data = (await response.json()) as Record<string, unknown>;
+
+      if (!response.ok) {
+        return {
+          errorCode: (data.errorCode as string) || 'CREATE_ACCOUNT_FAILED',
+          errorMessage: (data.errorMessage as string) || (data.title as string) || `HTTP ${response.status}`,
+        };
+      }
+
+      const raw = data.address ?? data;
+      const address = typeof raw === 'number' ? String(raw) : String(raw || '').replace(/^#/, '');
+      if (!address || !/^\d+$/.test(address)) {
+        return { errorCode: 'INVALID_RESPONSE', errorMessage: 'Peer did not return a valid account address' };
+      }
+      const faucetAmount =
+        typeof data.faucet === 'number' ? data.faucet : typeof data.balance === 'number' ? data.balance : undefined;
+      return { address, faucetAmount };
+    } catch (error) {
+      console.error('Convex createAccount error:', error);
+      return {
+        errorCode: 'NETWORK',
+        errorMessage: error instanceof Error ? error.message : 'Network error',
+      };
+    }
+  }
+
+  /**
    * Get account information by address.
    * Uses addressOverride ?? this.getAddress(); returns null if none set.
    * REST /api/v1/accounts/{address} returns:
@@ -267,11 +322,8 @@ export class Convex {
     if (!address) return null;
     try {
       const res = await fetch(
-        `${API_BASE}/accounts/${encodeURIComponent(address)}`,
-        {
-          method: 'GET',
-          headers: { Accept: 'application/json', ...this.peerHeaders() },
-        }
+        `${this.baseUrl()}/api/v1/accounts/${encodeURIComponent(address)}`,
+        { method: 'GET', headers: { Accept: 'application/json' } }
       );
 
       if (!res.ok) {
