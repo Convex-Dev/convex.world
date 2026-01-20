@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { 
+  Code2,
   Compass, 
   Monitor, 
   Globe, 
@@ -9,55 +10,58 @@ import {
   LucideIcon
 } from "lucide-react";
 
+interface ToolLink {
+  name: string;
+  href: string;
+  isExternal?: boolean;
+}
+
 interface Tool {
   title: string;
   description: string;
-  href: string;
-  isExternal: boolean;
   icon: LucideIcon;
-  number: string;
+  links: ToolLink[];
 }
 
 const tools: Tool[] = [
   {
+    title: "Sandbox",
+    description: "Interactive REPL to run Convex Lisp queries and transactions on the testnet. Try examples, inspect state, and observe Juice costs.",
+    icon: Code2,
+    links: [{ name: "Open Sandbox", href: "/sandbox" }]
+  },
+  {
     title: "Explorer",
     description: "Explore the Convex network, view transactions, blocks, and network activity in real-time.",
-    href: "https://peer.convex.live/explorer",
-    isExternal: true,
     icon: Compass,
-    number: "01"
+    links: [
+      { name: "Protonet", href: "https://peer.convex.live/explorer", isExternal: true },
+      { name: "Testnet", href: "https://mikera1337-convex-testnet.hf.space/explorer", isExternal: true }
+    ]
   },
   {
     title: "Convex Desktop",
     description: "Desktop application for power users and developers. Interact as a wallet and run local test networks.",
-    href: "https://docs.convex.world/docs/products/convex-desktop",
-    isExternal: true,
     icon: Monitor,
-    number: "02"
+    links: [{ name: "Docs", href: "https://docs.convex.world/docs/products/convex-desktop", isExternal: true }]
   },
   {
     title: "REST API",
     description: "Access Convex network data and functionality through comprehensive REST API endpoints.",
-    href: "/tools/rest-api",
-    isExternal: false,
     icon: Globe,
-    number: "03"
+    links: [{ name: "View docs", href: "/tools/rest-api" }]
   },
   {
     title: "CLI Tool",
     description: "Command-line interface for interacting with the network, managing accounts, and deploying contracts.",
-    href: "https://docs.convex.world/docs/products/convex-cli",
-    isExternal: true,
     icon: TerminalIcon,
-    number: "04"
+    links: [{ name: "Docs", href: "https://docs.convex.world/docs/products/convex-cli", isExternal: true }]
   },
   {
     title: "Convex SDK",
     description: "Libraries for multiple programming languages to build applications on Convex.",
-    href: "https://docs.convex.world/docs/sdk",
-    isExternal: true,
     icon: Boxes,
-    number: "05"
+    links: [{ name: "Docs", href: "https://docs.convex.world/docs/sdk", isExternal: true }]
   },
 ];
 
@@ -77,55 +81,60 @@ export default function Tools() {
           <div className="hero-label">Developer Resources</div>
         </div>
         <h1>
-          Tools for building on{" "}
           <span className="hero-accent">Convex</span>
+          {" "}Tools
         </h1>
         <p>
-          Everything you need to build, test, and deploy on the Convex network—from 
-          explorers and SDKs to command-line interfaces.
+          Everything you need to explore, build, test, and deploy
         </p>
       </section>
 
       {/* Tools Grid */}
       <section className="tools-section">
-        <div className="section-header">
-          <span className="section-number">// 001</span>
-          <h2>Core Tools</h2>
-          <p>Production-ready tools for Convex development</p>
-        </div>
 
         <div className="tools-grid">
-          {tools.map((tool) => {
+          {tools.map((tool, i) => {
             const IconComponent = tool.icon;
-            const content = (
-              <article className="tool-card">
-                <span className="tool-card-number">{tool.number}</span>
-                <div className="tool-card-icon">
-                  <IconComponent size={24} strokeWidth={1.5} />
-                </div>
-                <h3>{tool.title}</h3>
-                <p>{tool.description}</p>
-                <div className="tool-card-link">
-                  <span>{tool.isExternal ? "Open tool" : "View docs"}</span>
-                  {tool.isExternal && <ArrowUpRight size={14} />}
-                </div>
-              </article>
-            );
-
-            return tool.isExternal ? (
-              <a
-                key={tool.title}
-                href={tool.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="tool-card-wrapper"
-              >
-                {content}
-              </a>
-            ) : (
-              <Link key={tool.title} href={tool.href} className="tool-card-wrapper">
-                {content}
-              </Link>
+            const number = (i + 1).toString().padStart(2, "0");
+            return (
+              <div key={tool.title} className="tool-card-wrapper">
+                <article className="tool-card">
+                  <div className="tool-card-header">
+                    <div className="tool-card-icon">
+                      <IconComponent size={24} strokeWidth={1.5} />
+                    </div>
+                    <h3>{tool.title}</h3>
+                    <span className="tool-card-number">{number}</span>
+                  </div>
+                  <p>{tool.description}</p>
+                  <div className="tool-card-links">
+                    {tool.links.map((link) => {
+                      const ext = link.isExternal ?? false;
+                      const inner = (
+                        <>
+                          <span>{link.name}</span>
+                          {ext && <ArrowUpRight size={14} aria-hidden />}
+                        </>
+                      );
+                      return ext ? (
+                        <a
+                          key={link.href + link.name}
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tool-card-link"
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <Link key={link.href + link.name} href={link.href} className="tool-card-link">
+                          {inner}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </article>
+              </div>
             );
           })}
         </div>
