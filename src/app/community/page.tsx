@@ -1,6 +1,59 @@
 import Link from "next/link";
 import Image from "next/image";
+import Parser from "rss-parser";
 import { ArrowUpRight, Calendar } from "lucide-react";
+
+const RSS_URL = "https://docs.convex.world/blog/rss.xml";
+
+type RecentItem = {
+  type: "blog" | "announcement";
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  href: string;
+  tags: string[];
+};
+
+function formatPubDate(raw: string | undefined): string {
+  if (!raw) return "";
+  try {
+    const d = new Date(raw);
+    return d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+  } catch {
+    return raw;
+  }
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+}
+
+async function fetchRecentFromRss(): Promise<RecentItem[]> {
+  try {
+    const res = await fetch(RSS_URL, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const parser = new Parser();
+    const feed = await parser.parseString(xml);
+    return (feed.items ?? []).slice(0, 6).map((item) => {
+      const link = item.link ?? item.guid ?? "#";
+      const raw = item.contentSnippet ?? item.summary ?? (item as Record<string, unknown>).description;
+      const desc = (typeof raw === "string" ? raw : item.content ? stripHtml(item.content) : "") || "";
+      return {
+        type: "blog" as const,
+        title: item.title ?? "Untitled",
+        description: desc.slice(0, 200) + (desc.length > 200 ? "…" : ""),
+        date: formatPubDate(item.pubDate ?? item.isoDate),
+        author: item.creator ?? "Convex",
+        href: link,
+        tags: item.categories ?? [],
+      };
+    });
+  } catch {
+    return [];
+  }
+}
 
 const socialLinks = [
   {
@@ -37,61 +90,36 @@ const socialLinks = [
   }
 ] as const;
 
-const recentContent = [
+const FALLBACK_RECENT: RecentItem[] = [
   {
-    type: "blog" as const,
+    type: "blog",
     title: "AI Meets the Lattice",
     description: "A new era of autonomous economic agents. Manus AI demonstrates how AI can actively participate as an economic actor on Convex.",
-    date: "2025",
+    date: "Nov 2025",
     author: "Manus AI",
     href: "https://docs.convex.world/blog/ai-meets-convex",
-    tags: ["AI", "MCP", "Digital Assets"]
+    tags: ["AI", "MCP", "Digital Assets"],
   },
   {
-    type: "blog" as const,
+    type: "blog",
     title: "Countdown to Protonet",
-    description: "The groundbreaking Convex Protonet goes live. Everything you need to know about the launch of the world's most powerful platform for decentralised economic systems.",
-    date: "December 2024",
-    author: "Mike Anderson",
+    description: "The groundbreaking Convex Protonet goes live. Everything you need to know about the launch.",
+    date: "Nov 2024",
+    author: "Convex",
     href: "https://docs.convex.world/blog/protonet-countdown",
-    tags: ["Protonet", "Launch", "Lattice"]
+    tags: ["Protonet", "Launch", "Lattice"],
   },
-  {
-    type: "blog" as const,
-    title: "The CAD3 Revolution",
-    description: "Understanding CAD3 encoding—the last significant piece needed before Protonet goes live.",
-    date: "2024",
-    author: "Mike Anderson",
-    href: "https://docs.convex.world/blog/cad3-revolution",
-    tags: ["CAD3", "Technical"]
-  },
-  {
-    type: "blog" as const,
-    title: "Reader Upgrades",
-    description: "The Reader converts text into data. Final touches on this key component for Convex-based apps.",
-    date: "2024",
-    author: "Mike Anderson",
-    href: "https://docs.convex.world/blog/tagged-values",
-    tags: ["Reader", "Lisp", "Technical"]
-  },
-  {
-    type: "announcement" as const,
-    title: "New Documentation Site",
-    description: "A comprehensive new documentation site powered by Docusaurus, making it easier than ever to learn and build with Convex.",
-    date: "2024",
-    author: "Mike Anderson",
-    href: "https://docs.convex.world/blog/first-blog-post",
-    tags: ["Docs", "Community"]
-  }
 ];
 
 const contentTypeLabels = {
   blog: "Blog Post",
   video: "Video",
-  announcement: "Announcement"
+  announcement: "Announcement",
 } as const;
 
-export default function Community() {
+export default async function Community() {
+  const recentContent = await fetchRecentFromRss();
+  const displayContent = recentContent.length > 0 ? recentContent : FALLBACK_RECENT;
   return (
     <main>
       {/* Lattice Background */}
@@ -168,9 +196,9 @@ export default function Community() {
         </div>
 
         <div className="community-timeline">
-          {recentContent.map((item, index) => (
+          {displayContent.map((item, index) => (
             <a
-              key={item.href}
+              key={item.href + index}
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
@@ -178,7 +206,7 @@ export default function Community() {
             >
               <div className="community-timeline-marker">
                 <div className="community-timeline-dot" />
-                {index < recentContent.length - 1 && (
+                {index < displayContent.length - 1 && (
                   <div className="community-timeline-line" />
                 )}
               </div>
@@ -186,7 +214,7 @@ export default function Community() {
                 <div className="community-timeline-meta">
                   <span className="community-timeline-type">
                     <Calendar size={12} />
-                    {contentTypeLabels[item.type]}
+                    {contentTypeLabels[item.type] ?? "Blog Post"}
                   </span>
                   <span className="community-timeline-date">{item.date}</span>
                 </div>
