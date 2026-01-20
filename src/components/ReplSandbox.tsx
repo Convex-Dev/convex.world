@@ -9,13 +9,22 @@ import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
 import { bytesToHex, generateKeyPair } from '@/lib/crypto';
-import { type AccountInfo } from '@/lib/convex-api';
+import { type AccountInfo, type ConvexResponse } from '@/lib/convex-api';
 
 interface ReplLine {
   id: number;
   type: 'input' | 'output' | 'error' | 'system';
   content: string;
-  juice?: number;
+  /** ConvexResponse when this line is from a query/transact (output or error). */
+  result?: ConvexResponse;
+}
+
+function contentFromConvexResponse(r: ConvexResponse): string {
+  if (r.errorCode || r.errorMessage) return r.errorMessage || r.errorCode || 'Unknown error';
+  if (typeof r.result === 'string') return r.result;
+  if (r.value === null || r.value === undefined) return 'nil';
+  if (typeof r.value === 'object') return JSON.stringify(r.value, null, 2);
+  return String(r.value);
 }
 
 export default function ReplSandbox() {
@@ -71,6 +80,10 @@ export default function ReplSandbox() {
     setAccountLoading(false);
   }, [address, convex]);
 
+  const addHistory = useCallback((line: Omit<ReplLine, 'id'>) => {
+    setHistory((prev) => [...prev, { ...line, id: prev.length }]);
+  }, []);
+
   // Click outside to close account info popover
   useEffect(() => {
     if (!showAccountInfo) return;
@@ -84,27 +97,25 @@ export default function ReplSandbox() {
     return () => document.removeEventListener('mousedown', onMouseDown);
   }, [showAccountInfo]);
 
-  // Connect to network on mount (and when peer changes)
+  // Connect to network on mount and when peer is changed/selected. Ignore in-flight
+  // connect() when the effect re-runs (e.g. user switches network before first resolves).
   useEffect(() => {
+    let cancelled = false;
     const bracket = ` [${convex.getPeerHostname()}]`;
 
     const connect = async () => {
       const status = await convex.getNetworkStatus();
+      if (cancelled) return;
       if (status) {
         setIsConnected(true);
-        setHistory((prev) => [
-          ...prev,
-          { id: prev.length, type: 'system', content: `;; Connected${bracket}` },
-        ]);
+        addHistory({ type: 'system', content: `;; Connected${bracket}` });
       } else {
-        setHistory((prev) => [
-          ...prev,
-          { id: prev.length, type: 'error', content: `;; Could not connect to network — using offline mode${bracket}` },
-        ]);
+        addHistory({ type: 'error', content: `;; Could not connect to network — using offline mode${bracket}` });
       }
     };
     connect();
-  }, [convex, peerUrl]);
+    return () => { cancelled = true; };
+  }, [addHistory, convex, peerUrl]);
   
   useEffect(() => {
     if (outputRef.current) {
@@ -113,33 +124,11 @@ export default function ReplSandbox() {
   }, [history]);
 
   const execute = useCallback(
-    async (source: string, mode: 'query' | 'transact') => {
+    async (source: string, mode: 'query' | 'transact'): Promise<ConvexResponse> => {
       setIsExecuting(true);
-      const result = mode === 'transact' ? await convex.transact(source) : await convex.query(source);
+      const resp = mode === 'transact' ? await convex.transact(source) : await convex.query(source);
       setIsExecuting(false);
-
-      if (result.errorCode || result.errorMessage) {
-        return {
-          content: result.errorMessage || result.errorCode || 'Unknown error',
-          isError: true,
-          juice: 0,
-          errorCode: result.errorCode,
-        };
-      }
-
-      let content: string;
-      if (typeof result.result === 'string') {
-        content = result.result;
-      } else if (result.value === null || result.value === undefined) {
-        content = 'nil';
-      } else if (typeof result.value === 'object') {
-        content = JSON.stringify(result.value, null, 2);
-      } else {
-        content = String(result.value);
-      }
-
-      const juice = typeof result.info?.juice === 'number' ? result.info.juice : Math.max(10, source.length * 2);
-      return { content, isError: false, juice };
+      return resp;
     },
     [convex]
   );
@@ -147,35 +136,28 @@ export default function ReplSandbox() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isExecuting) return;
-    
+
     const trimmed = input.trim();
-    const newId = history.length;
-    const inputLine: ReplLine = { id: newId, type: 'input', content: trimmed };
-    
-    setHistory(prev => [...prev, inputLine]);
-    setCommandHistory(prev => [...prev, trimmed]);
+    addHistory({ type: 'input', content: trimmed });
+    setCommandHistory((prev) => [...prev, trimmed]);
     setHistoryIndex(-1);
     setInput('');
-    
-    const { content, isError, juice, errorCode } = await execute(trimmed, mode);
-    
-    if (isError && (errorCode === 'NETWORK' || errorCode === 'PEER_ERROR')) {
-      setLastNetworkError(content || errorCode || 'Network error');
+
+    const resp = await execute(trimmed, mode);
+    const content = contentFromConvexResponse(resp);
+    const isError = !!(resp.errorCode || resp.errorMessage);
+
+    if (isError && (resp.errorCode === 'NETWORK' || resp.errorCode === 'PEER_ERROR')) {
+      setLastNetworkError(content || resp.errorCode || 'Network error');
     } else if (!isError) {
       setLastNetworkError(null);
     }
 
-    const outputLine: ReplLine = { 
-      id: newId + 1, 
-      type: isError ? 'error' : 'output', 
-      content,
-      juice: isError ? undefined : juice
-    };
-    
-    setHistory(prev => [...prev, outputLine]);
-    
-    if (!isError && juice) {
-      setTotalJuice(prev => prev + juice);
+    addHistory({ type: isError ? 'error' : 'output', content, result: resp });
+
+    if (!isError) {
+      const juice = typeof resp.info?.juice === 'number' ? resp.info.juice : Math.max(10, trimmed.length * 2);
+      setTotalJuice((prev) => prev + juice);
     }
   };
 
@@ -211,9 +193,7 @@ export default function ReplSandbox() {
   };
 
   const clearHistory = () => {
-    setHistory([
-      { id: 0, type: 'output', content: ';; Session cleared' },
-    ]);
+    setHistory([{ id: 0, type: 'output', content: ';; Session cleared' }]);
     setTotalJuice(0);
   };
 
@@ -253,10 +233,7 @@ export default function ReplSandbox() {
 
       const res = await convex.createAccount(pubHex);
       if ('errorCode' in res) {
-        setHistory((prev) => [
-          ...prev,
-          { id: prev.length, type: 'error', content: `;; Create account failed: ${res.errorMessage}` },
-        ]);
+        addHistory({ type: 'error', content: `;; Create account failed: ${res.errorMessage}` });
         return;
       }
       setAddress(res.address);
@@ -265,15 +242,9 @@ export default function ReplSandbox() {
         typeof res.faucetAmount === 'number' && res.faucetAmount > 0
           ? ` (${(res.faucetAmount / 1e9).toFixed(9).replace(/\.?0+$/, '') || '0'} CVM from faucet)`
           : '';
-      setHistory((prev) => [
-        ...prev,
-        { id: prev.length, type: 'system', content: `;; Created account #${res.address}${faucetStr}` },
-      ]);
+      addHistory({ type: 'system', content: `;; Created account #${res.address}${faucetStr}` });
     } catch (e) {
-      setHistory((prev) => [
-        ...prev,
-        { id: prev.length, type: 'error', content: `;; ${e instanceof Error ? e.message : 'Create account failed'}` },
-      ]);
+      addHistory({ type: 'error', content: `;; ${e instanceof Error ? e.message : 'Create account failed'}` });
     } finally {
       setIsCreating(false);
     }
@@ -410,13 +381,13 @@ export default function ReplSandbox() {
         {history.map((line) => (
           <div key={line.id} className={`repl-line repl-line-${line.type}`}>
             {line.type === 'input' && <span className="repl-prompt">λ&gt;</span>}
-            {line.type === 'output' && line.juice !== undefined && (
+            {line.type === 'output' && (
               <span className="repl-prompt">=&gt;</span>
             )}
             {line.type === 'error' && <span className="repl-prompt">!!</span>}
             <span className="repl-content">{line.content}</span>
-            {line.juice !== undefined && (
-              <span className="repl-line-juice">[{line.juice} juice]</span>
+            {line.result?.info?.juice != null && (
+              <span className="repl-line-juice">[{line.result.info.juice} juice]</span>
             )}
           </div>
         ))}
