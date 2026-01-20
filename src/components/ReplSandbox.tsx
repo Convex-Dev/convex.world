@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Key, MoreVertical, Copy, RefreshCw, UserPlus, Info } from 'lucide-react';
+import { Key, MoreVertical, Copy, RefreshCw, UserPlus, Info, Check } from 'lucide-react';
 import CVMBalance from '@/components/CVMBalance';
 import ImportKeyDialog from '@/components/ImportKeyDialog';
 import NetworkSelector from '@/components/NetworkSelector';
@@ -37,6 +37,18 @@ function contentFromConvexResponse(r: ConvexResponse): string {
   return String(r.value);
 }
 
+const QUERY_EXAMPLES: { heading: string; code: string; description: string }[] = [
+  { heading: 'Calculation', code: '(+ 1 2)', description: 'Simple arithmetic' },
+  { heading: 'Account balance', code: '(balance #12)', description: 'Get an account balance' },
+  { heading: 'Account details', code: '(account #13)', description: 'Get account details' },
+  { heading: 'Resolve CNS', code: '@convex.fungible', description: 'resolve a CNS address' },
+];
+
+const TRANSACT_EXAMPLES: { heading: string; code: string; description: string }[] = [
+  { heading: 'Send CVM', code: '(transfer #129 1000000)', description: 'send 0.01 CVM to recipient' },
+  { heading: 'Create account', code: '(create-account 0x1d82380b9fd19ff699c96f286b1fa3badd86ba705a1b1e15cd654a678bfd2007)', description: 'create a new account with the given public key' },
+];
+
 export default function ReplSandbox() {
   const [history, setHistory] = useState<ReplLine[]>([]);
   const [input, setInput] = useState('');
@@ -53,6 +65,7 @@ export default function ReplSandbox() {
   const [lastNetworkError, setLastNetworkError] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [openResultId, setOpenResultId] = useState<number | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
   const accountInfoPopoverRef = useRef<HTMLDivElement>(null);
@@ -228,10 +241,6 @@ export default function ReplSandbox() {
   };
 
   const handleConnect = async () => {
-    if (isKeyConnected) {
-      setKeyPair(null);
-      return;
-    }
     if (hasMatchingKey && accountDetails?.publicKey && wallet) {
       const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
       const seed = pk ? wallet.getSeed(pk) : undefined;
@@ -304,38 +313,54 @@ export default function ReplSandbox() {
               onChange={(e) => setAddress(e.target.value.replace(/\D/g, '') || null)}
               placeholder="Address"
               className="repl-address-input"
-              style={{ width: `${Math.min(22, Math.max(4, (address?.length ?? 0) + 1))}ch` }}
+              style={{ width: `${Math.min(22, Math.max(8, (address?.length ?? 0) + 1))}ch` }}
               autoComplete="off"
               spellCheck={false}
               aria-label="Address"
             />
           </div>
-          <span className="repl-account-balance" title="Account balance (CVM)">
-            {accountDetails ? <><CVMBalance value={accountDetails.balance} /> CVM</> : <span className="repl-account-muted">—</span>}
-          </span>
           <span className="repl-account-key" title="Public key">
             <PublicKey value={accountDetails?.publicKey} peerUrl={peerUrl} />
           </span>
-          <button
-            type="button"
-            className="repl-account-create"
-            onClick={handleCreateAccount}
-            disabled={!wallet || isCreating}
-            title={!wallet ? 'Wallet required' : isCreating ? 'Creating…' : 'Generate key, create account on network, and set address + key'}
-          >
-            <UserPlus size={14} />
-            {isCreating ? 'Creating…' : 'Create account'}
-          </button>
-          <button
-            type="button"
-            className={`repl-account-connect ${isKeyConnected ? 'repl-account-connect-active' : ''}`}
-            onClick={handleConnect}
-            disabled={!accountDetails?.publicKey}
-            title={!accountDetails?.publicKey ? 'Account has no key' : isKeyConnected ? 'Disconnect key' : hasMatchingKey ? 'Use wallet key for Transact' : 'Import private key for Transact'}
-          >
-            <Key size={14} />
-            {isKeyConnected ? 'Disconnect' : 'Connect'}
-          </button>
+          <span className="repl-account-balance" title="Account balance (CVM)">
+            {accountDetails ? <><CVMBalance value={accountDetails.balance} /> CVM</> : <span className="repl-account-muted">—</span>}
+          </span>
+          
+       
+          {keyPair && (
+            <button
+              type="button"
+              className="repl-account-connect repl-account-connect-active"
+              onClick={() => setKeyPair(null)}
+              title="Stop using your current key"
+            >
+              <Key size={14} />
+              Disconnect
+            </button>
+          )}
+          {!keyPair && accountDetails?.publicKey && (
+            <button
+              type="button"
+              className="repl-account-connect"
+              onClick={handleConnect}
+              title={hasMatchingKey ? 'Use wallet key for Transact' : 'Import private key for Transact'}
+            >
+              <Key size={14} />
+              Connect
+            </button>
+          )}
+             {(!address || !keyPair) && (
+            <button
+              type="button"
+              className="repl-account-create"
+              onClick={handleCreateAccount}
+              disabled={!wallet || isCreating}
+              title="Create a new account (Test networks with faucet enabled only)"
+            >
+              <UserPlus size={14} />
+              {isCreating ? 'Creating…' : 'Create account'}
+            </button>
+          )}
           <button
             type="button"
             className="repl-account-refresh"
@@ -382,6 +407,17 @@ export default function ReplSandbox() {
                     <Copy size={14} />
                     Copy address
                   </button>
+                  {accountDetails.publicKey && !keyPair && (
+                    <button
+                      type="button"
+                      className="repl-account-info-import"
+                      onClick={() => { setShowImportKey(true); setShowAccountInfo(false); }}
+                      title="Import private key for Transact"
+                    >
+                      <Key size={14} />
+                      Import key
+                    </button>
+                  )}
                   <button type="button" className="repl-account-info-refresh" onClick={refreshAccount} disabled={accountLoading} title="Refresh account details">
                     <RefreshCw size={14} />
                     Refresh
@@ -460,7 +496,7 @@ export default function ReplSandbox() {
             type="button"
             className={`repl-mode-btn ${mode === 'query' ? 'repl-mode-btn-active' : ''}`}
             onClick={() => setMode('query')}
-            title="Run a read-only operation. Cannot modify state, but zero fees"
+            title="Run a read-only operation. Cannot modify state. Zero fees!"
           >
             Query
           </button>
@@ -468,26 +504,46 @@ export default function ReplSandbox() {
             type="button"
             className={`repl-mode-btn ${mode === 'transact' ? 'repl-mode-btn-active' : ''}`}
             onClick={() => setMode('transact')}
-            title="Execute a signed transaction. Requires an account with CVM and the correct private key."
+            title="Execute a signed transaction. Requires an account with the correct private key. Transaction fees are charged"
           >
             Transact
           </button>
         </div>
       </form>
       
-      <div className="repl-hints">
-        {mode === 'query' ? (
-          <>
-            <span>Try: <code>(+ 1 2)</code></span>
-            <span><code>*timestamp*</code></span>
-            <span><code>(balance *address*)</code></span>
-          </>
-        ) : (
-          <>
-            <span>Transact requires a connected account and costs Juice</span>
-          </>
-        )}
-      </div>
+
+
+      <section className="repl-examples" aria-label="Examples">
+        <div className="repl-examples-group">
+          <h4 className="repl-examples-mode">{mode === 'query' ? 'Query Examples' : 'Transact Examples'}</h4>
+          <ul className="repl-examples-list">
+            {(mode === 'query' ? QUERY_EXAMPLES : TRANSACT_EXAMPLES).map((ex, i) => {
+              const id = `${mode === 'query' ? 'q' : 't'}-${i}`;
+              return (
+                <li key={id} className="repl-examples-item">
+                  <span className="repl-examples-heading">{ex.heading}</span>
+                  <code className="repl-examples-code">
+                    {ex.code} <span className="repl-examples-comment">;; {ex.description}</span>
+                  </code>
+                  <button
+                    type="button"
+                    className="repl-examples-copy"
+                    onClick={() => {
+                      void navigator.clipboard.writeText(ex.code);
+                      setCopiedId(id);
+                      setTimeout(() => setCopiedId(null), 1500);
+                    }}
+                    title="Copy"
+                    aria-label={`Copy ${ex.heading}`}
+                  >
+                    {copiedId === id ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
 
       <ImportKeyDialog
         isOpen={showImportKey}

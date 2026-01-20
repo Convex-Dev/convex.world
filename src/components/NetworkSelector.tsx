@@ -5,8 +5,8 @@ import { ChevronDown } from 'lucide-react';
 import { useConvex } from '@/contexts/ConvexContext';
 
 const PRESETS: { label: string; url: string }[] = [
-  { label: 'Convex Live', url: 'https://peer.convex.live' },
-  { label: 'Convex Testnet', url: 'https://mikera1337-convex-testnet.hf.space' },
+  { label: 'Protonet (convex.live)', url: 'https://peer.convex.live' },
+  { label: 'Testnet', url: 'https://mikera1337-convex-testnet.hf.space' },
 ];
 
 function normalizeUrl(u: string): string {

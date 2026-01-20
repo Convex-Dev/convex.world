@@ -4878,6 +4878,7 @@ nav .logo {
 }
 
 .repl-account-info-copy,
+.repl-account-info-import,
 .repl-account-info-refresh {
   display: flex;
   align-items: center;
@@ -4893,6 +4894,7 @@ nav .logo {
 }
 
 .repl-account-info-copy:hover,
+.repl-account-info-import:hover,
 .repl-account-info-refresh:hover:not(:disabled) {
   color: var(--color-text-primary);
   border-color: var(--color-border-hover);
@@ -5531,6 +5533,91 @@ nav .logo {
   background: var(--accent-primary-subtle);
   padding: 0 var(--space-1);
   border-radius: 2px;
+}
+
+/* Examples */
+.repl-examples {
+  padding: var(--space-4);
+  background: var(--surface-base);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.repl-examples-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.repl-examples-mode {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.repl-examples-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.repl-examples-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.repl-examples-heading {
+  flex-shrink: 0;
+  min-width: 8.5rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.repl-examples-code {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: var(--text-xs);
+  color: var(--accent-primary);
+  background: var(--surface-elevated);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.repl-examples-comment {
+  color: var(--color-text-tertiary);
+  font-weight: 400;
+}
+
+.repl-examples-copy {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.repl-examples-copy:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+  background: var(--surface-elevated);
 }
 
 /* Sandbox Section */

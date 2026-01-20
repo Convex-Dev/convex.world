@@ -154,14 +154,19 @@ export class Convex {
    * Returns ConvexResponse with result/value and info.juice on success.
    */
   async transact(source: string): Promise<ConvexResponse> {
-    const start = performance.now();
     const address = this._address;
     const kp = this._keyPair;
-    if (!address || !kp) {
+    if (!address) {
       return {
-        errorCode: 'MISSING_ACCOUNT',
-        value: 'Address and KeyPair required for transaction. Set address and connect a key.',
-        latencyMs: Math.round(performance.now() - start),
+        errorCode: 'NO_ADDRESS',
+        value: 'Transaction require an address. Set an address (e.g. #56757).'
+      };
+    }
+
+    if (!kp) {
+      return {
+        errorCode: 'NO_KEY',
+        value: 'Transactions must be signed. Connect a key pair to execute.'
       };
     }
 
@@ -180,8 +185,7 @@ export class Convex {
         return {
           errorCode: 'PREPARE_FAILED',
           value:
-            (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`,
-          latencyMs: Math.round(performance.now() - start),
+            (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`
         };
       }
 
@@ -190,8 +194,7 @@ export class Convex {
       if (!hash) {
         return {
           errorCode: 'INVALID_PREPARE',
-          value: 'Prepare did not return a hash (expect hash or transactionHash)',
-          latencyMs: Math.round(performance.now() - start),
+          value: 'Prepare did not return a hash (expect hash or transactionHash)'
         };
       }
 
@@ -199,6 +202,9 @@ export class Convex {
       const hashBytes = hexToBytes(hashHex);
       const sig = await sign(hashBytes, kp.seed);
       const signature = bytesToHex(sig);
+
+      // Start time for TX execution (before submit request is sent)
+      const start = performance.now();
 
       const submitRes = await fetch(`${this.baseUrl()}/api/v1/transaction/submit`, {
         method: 'POST',
@@ -230,8 +236,7 @@ export class Convex {
       console.error('Convex transact error:', error);
       return {
         errorCode: 'NETWORK',
-        value: error instanceof Error ? error.message : 'Network error',
-        latencyMs: Math.round(performance.now() - start),
+        value: error instanceof Error ? error.message : 'Network error'
       };
     }
   }
