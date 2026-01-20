@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Convex",
   },
   description:
-    "Create, collaborate, and ship production-grade decentralised economic systems using the Convex lattice technology.",
+    "Decentralised agentic economic systems using Convex lattice technology.",
   keywords: [
     "blockchain",
     "decentralized",
@@ -26,19 +26,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://convex.world"),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Convex – Decentralised Economic Systems",
+    title: "Convex – Engine for the Agentic Economy",
     description:
-      "Create, collaborate, and ship production-grade decentralised economic systems.",
+      "Agentic economic systems built on lattice technology.",
     url: "https://convex.world",
     siteName: "Convex",
     locale: "en_US",
     type: "website",
+    // Absolute URLs required for Discord; 1200×630 recommended. Use social_card.webp if you add one.
     images: [
       {
-        url: "/images/social_card.webp",
+        url: "https://convex.world/images/logo_dark_blue.svg",
         width: 1200,
         height: 630,
-        alt: "Convex – Build the future of decentralised economies",
+        alt: "Convex – Engine for the agentic economy",
       },
     ],
   },
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     title: "Convex",
     description:
       "Build production-grade decentralised economic systems using Convex lattice technology.",
-    images: ["/images/social_twitter.webp"],
+    images: ["https://convex.world/images/logo_dark_blue.svg"],
     creator: "@convex_world",
   },
   robots: {
@@ -73,7 +74,7 @@ const jsonLd = {
   "@type": "Organization",
   name: "Convex",
   url: "https://convex.world",
-  logo: "https://convex.world/images/logo.webp",
+  logo: "https://convex.world/images/convex.svg",
   sameAs: [
     "https://twitter.com/convex_world",
     "https://github.com/convex-dev",
