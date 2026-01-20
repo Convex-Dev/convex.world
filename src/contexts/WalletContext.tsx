@@ -90,8 +90,8 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
   );
 
   const addKey = useCallback(async (): Promise<string> => {
-    const { publicKey, seed } = await generateKeyPair();
-    const pubHex = bytesToHex(publicKey);
+    const { seed, accountKey } = await generateKeyPair();
+    const pubHex = bytesToHex(accountKey);
     const seedHex = bytesToHex(seed);
     setKeys((prev) => ({ ...prev, [pubHex]: seedHex }));
     return pubHex;

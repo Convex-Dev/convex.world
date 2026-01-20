@@ -2398,7 +2398,7 @@ nav .logo {
 .dev-section {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-md);
 }
 
 .dev-grid {
@@ -5291,11 +5291,31 @@ nav .logo {
 
 .repl-output {
   padding: var(--space-4);
-  height: 280px;
-  overflow-y: auto;
+  height: 420px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-hover) var(--surface-overlay);
+}
+
+.repl-output::-webkit-scrollbar {
+  width: 10px;
+}
+
+.repl-output::-webkit-scrollbar-track {
+  background: var(--surface-overlay);
+}
+
+.repl-output::-webkit-scrollbar-thumb {
+  background: var(--color-border-hover);
+  border-radius: 5px;
+  border: 2px solid var(--surface-overlay);
+}
+
+.repl-output::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
 }
 
 .repl-line {
@@ -5327,11 +5347,68 @@ nav .logo {
   color: var(--accent-juice);
 }
 
-.repl-line-juice {
-  color: var(--color-text-tertiary);
-  font-size: var(--text-xs);
+.repl-line-juice-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   margin-left: auto;
   flex-shrink: 0;
+}
+
+.repl-line-juice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--accent-juice);
+  font-size: var(--text-xs);
+}
+
+.repl-line-result-info-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.repl-line-result-info-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.repl-line-result-info-btn[aria-expanded="true"] {
+  color: var(--accent-primary);
+}
+
+.repl-line-result-popover {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: var(--space-1);
+  z-index: 50;
+  min-width: 200px;
+  max-width: 420px;
+  max-height: 280px;
+  overflow: auto;
+  padding: var(--space-3);
+  background: var(--surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.repl-line-result-popover pre {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .repl-input-form {

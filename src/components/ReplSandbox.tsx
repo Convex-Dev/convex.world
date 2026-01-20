@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Key, MoreVertical, Copy, RefreshCw, UserPlus } from 'lucide-react';
+import { Key, MoreVertical, Copy, RefreshCw, UserPlus, Info } from 'lucide-react';
 import CVMBalance from '@/components/CVMBalance';
 import ImportKeyDialog from '@/components/ImportKeyDialog';
 import NetworkSelector from '@/components/NetworkSelector';
 import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
-import { bytesToHex, generateKeyPair } from '@/lib/crypto';
+import { bytesToHex, generateKeyPair, keyPairFromSeed, keyPairFromSeedHex } from '@/lib/crypto';
 import { type AccountInfo, type ConvexResponse } from '@/lib/convex-api';
 
 interface ReplLine {
@@ -42,17 +42,18 @@ export default function ReplSandbox() {
   const [showImportKey, setShowImportKey] = useState(false);
   const [lastNetworkError, setLastNetworkError] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [openResultId, setOpenResultId] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
   const accountInfoPopoverRef = useRef<HTMLDivElement>(null);
-  const { convex, setAddress, setPrivateKey, address, privateKey, peerUrl } = useConvex();
+  const { convex, setAddress, setKeyPair, address, keyPair, peerUrl } = useConvex();
   const wallet = useWalletOptional();
 
   const norm = (hex: string) => (hex || '').replace(/^0x/i, '').toLowerCase();
   const hasMatchingKey =
     accountDetails?.publicKey &&
     wallet?.publicKeys.some((pk) => norm(pk) === norm(accountDetails.publicKey!));
-  const isKeyConnected = !!privateKey;
+  const isKeyConnected = !!keyPair;
 
   // Fetch account details when address or network (peerUrl) changes (debounced)
   useEffect(() => {
@@ -122,6 +123,17 @@ export default function ReplSandbox() {
       outputRef.current.scrollTop = outputRef.current.scrollHeight;
     }
   }, [history]);
+
+  // Close result-details popover when clicking outside
+  useEffect(() => {
+    if (openResultId == null) return;
+    const onMouseDown = (e: MouseEvent) => {
+      if ((e.target as HTMLElement)?.closest?.('[data-result-info]')) return;
+      setOpenResultId(null);
+    };
+    document.addEventListener('mousedown', onMouseDown);
+    return () => document.removeEventListener('mousedown', onMouseDown);
+  }, [openResultId]);
 
   const execute = useCallback(
     async (source: string, mode: 'query' | 'transact'): Promise<ConvexResponse> => {
@@ -204,16 +216,17 @@ export default function ReplSandbox() {
     }
   };
 
-  const handleConnect = () => {
+  const handleConnect = async () => {
     if (isKeyConnected) {
-      setPrivateKey(null);
+      setKeyPair(null);
       return;
     }
     if (hasMatchingKey && accountDetails?.publicKey && wallet) {
       const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
       const seed = pk ? wallet.getSeed(pk) : undefined;
       if (seed) {
-        setPrivateKey(bytesToHex(seed));
+        const kp = await keyPairFromSeed(seed);
+        setKeyPair(kp);
         return;
       }
     }
@@ -226,9 +239,9 @@ export default function ReplSandbox() {
     if (!wallet || isCreating) return;
     setIsCreating(true);
     try {
-      const { publicKey, seed } = await generateKeyPair();
-      const pubHex = bytesToHex(publicKey);
-      const seedHex = bytesToHex(seed);
+      const kp = await generateKeyPair();
+      const pubHex = bytesToHex(kp.accountKey);
+      const seedHex = bytesToHex(kp.seed);
       wallet.addKeyFromKeypair(pubHex, seedHex);
 
       const res = await convex.createAccount(pubHex);
@@ -237,7 +250,7 @@ export default function ReplSandbox() {
         return;
       }
       setAddress(res.address);
-      setPrivateKey(seedHex);
+      setKeyPair(kp);
       const faucetStr =
         typeof res.faucetAmount === 'number' && res.faucetAmount > 0
           ? ` (${(res.faucetAmount / 1e9).toFixed(9).replace(/\.?0+$/, '') || '0'} CVM from faucet)`
@@ -386,8 +399,30 @@ export default function ReplSandbox() {
             )}
             {line.type === 'error' && <span className="repl-prompt">!!</span>}
             <span className="repl-content">{line.content}</span>
-            {line.result?.info?.juice != null && (
-              <span className="repl-line-juice">[{line.result.info.juice} juice]</span>
+            {line.result && (
+              <span className="repl-line-juice-wrap" data-result-info>
+                <span className="repl-line-juice">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                  </svg>
+                  {(line.result.info?.juice ?? 0).toLocaleString()}
+                </span>
+                <button
+                  type="button"
+                  className="repl-line-result-info-btn"
+                  onClick={() => setOpenResultId((id) => (id === line.id ? null : line.id))}
+                  title="Response details"
+                  aria-label="Response details"
+                  aria-expanded={openResultId === line.id}
+                >
+                  <Info size={12} aria-hidden />
+                </button>
+                {openResultId === line.id && (
+                  <div className="repl-line-result-popover">
+                    <pre>{JSON.stringify(line.result, null, 2)}</pre>
+                  </div>
+                )}
+              </span>
             )}
           </div>
         ))}
@@ -444,8 +479,9 @@ export default function ReplSandbox() {
         isOpen={showImportKey}
         onClose={() => setShowImportKey(false)}
         accountPublicKey={accountDetails?.publicKey}
-        onImport={(hex) => {
-          setPrivateKey(hex);
+        onImport={async (hex) => {
+          const kp = await keyPairFromSeedHex(hex);
+          setKeyPair(kp);
           setShowImportKey(false);
         }}
       />

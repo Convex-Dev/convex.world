@@ -6,6 +6,18 @@
 import * as ed from "@noble/ed25519";
 
 // ---------------------------------------------------------------------------
+// KeyPair type
+// ---------------------------------------------------------------------------
+
+/** Ed25519 keypair: 32-byte seed (private) and 32-byte accountKey (public). */
+export type KeyPair = {
+  /** 32-byte Ed25519 seed (private key). */
+  seed: Uint8Array;
+  /** 32-byte Ed25519 public key (account key). */
+  accountKey: Uint8Array;
+};
+
+// ---------------------------------------------------------------------------
 // Hex <-> bytes
 // ---------------------------------------------------------------------------
 
@@ -40,12 +52,32 @@ export async function getPublicKeyFromSeed(seed: Uint8Array): Promise<Uint8Array
 }
 
 /**
- * Generate a new keypair. Returns { publicKey, seed } as Uint8Arrays.
+ * Generate a new keypair. Returns KeyPair { seed, accountKey }.
  */
-export async function generateKeyPair(): Promise<{ publicKey: Uint8Array; seed: Uint8Array }> {
+export async function generateKeyPair(): Promise<KeyPair> {
   const seed = generateSeed();
-  const publicKey = await getPublicKeyFromSeed(seed);
-  return { publicKey, seed };
+  const accountKey = await getPublicKeyFromSeed(seed);
+  return { seed, accountKey };
+}
+
+/**
+ * Build a KeyPair from an existing seed (e.g. from a wallet).
+ */
+export async function keyPairFromSeed(seed: Uint8Array): Promise<KeyPair> {
+  const accountKey = await getPublicKeyFromSeed(seed);
+  return { seed, accountKey };
+}
+
+/**
+ * Build a KeyPair from a seed in hex (64 hex chars, optional 0x prefix).
+ */
+export async function keyPairFromSeedHex(seedHex: string): Promise<KeyPair> {
+  const raw = (seedHex || '').trim().replace(/^0x/i, '');
+  if (!raw || !/^[0-9a-fA-F]{64}$/.test(raw)) {
+    throw new Error('Seed must be 64 hex characters (32 bytes)');
+  }
+  const seed = hexToBytes(raw);
+  return keyPairFromSeed(seed);
 }
 
 // ---------------------------------------------------------------------------

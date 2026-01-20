@@ -10,7 +10,7 @@
  * Peer API Documentation: https://peer.convex.live/swagger
  */
 
-import { bytesToHex, hexToBytes, sign } from '@/lib/crypto';
+import { type KeyPair, bytesToHex, hexToBytes, sign } from '@/lib/crypto';
 
 export interface ConvexResponseInfo {
   juice?: number;
@@ -55,8 +55,8 @@ const DEFAULT_PEER_URL = 'https://mikera1337-convex-testnet.hf.space';
 export class Convex {
   private _peerUrl: string;
   private _address: string | null = null;
-  /** Private key (32-byte Ed25519 seed) as hex, or null. Used to sign transactions. */
-  private _privateKey: string | null = null;
+  /** KeyPair for signing transactions, or null. */
+  private _keyPair: KeyPair | null = null;
 
   constructor(options: ConvexOptions = {}) {
     this._peerUrl = options.peerUrl ?? DEFAULT_PEER_URL;
@@ -93,13 +93,13 @@ export class Convex {
     this._address = v;
   }
 
-  /** Private key (seed) hex for signing, or null. */
-  getPrivateKey(): string | null {
-    return this._privateKey;
+  /** KeyPair for signing, or null. */
+  getKeyPair(): KeyPair | null {
+    return this._keyPair;
   }
 
-  setPrivateKey(v: string | null): void {
-    this._privateKey = v;
+  setKeyPair(k: KeyPair | null): void {
+    this._keyPair = k;
   }
 
   /**
@@ -142,49 +142,75 @@ export class Convex {
   }
 
   /**
-   * Submit a signed transaction. Uses this.getAddress(), this.getPrivateKey(),
-   * and account sequence from getAccountInfo. Costs Juice.
+   * Submit a signed transaction:
+   * 1. POST /api/v1/transaction/prepare with { address, source } to get a hash
+   * 2. Sign the hash with the account's KeyPair.seed
+   * 3. POST /api/v1/transaction/submit with { hash, sig, accountKey } (sig = signature hex, accountKey = public key hex for validation)
    * Returns ConvexResponse with result/value and info.juice on success.
    */
   async transact(source: string): Promise<ConvexResponse> {
     const address = this._address;
-    const privateKeyHex = this._privateKey;
-    if (!address || !privateKeyHex) {
+    const kp = this._keyPair;
+    if (!address || !kp) {
       return {
         errorCode: 'MISSING_ACCOUNT',
-        errorMessage: 'Address and private key required for transaction. Set address and connect a key.',
+        errorMessage: 'Address and KeyPair required for transaction. Set address and connect a key.',
       };
     }
 
     try {
-      const info = await this.getAccountInfo(address);
-      if (!info) {
-        return { errorCode: 'ACCOUNT_NOT_FOUND', errorMessage: `Account #${address} not found` };
-      }
-      const sequence = info.sequence;
-
-      // Message to sign: canonical form for replay protection. Convex may use a
-      // different encoding; this matches a typical origin+sequence+payload pattern.
-      const message = new TextEncoder().encode(`${address}:${sequence}:${source}`);
-      const seed = hexToBytes(privateKeyHex);
-      const sig = await sign(message, seed);
-      const signature = bytesToHex(sig);
-
-      const response = await fetch(this.baseUrl()+'/api/v1/transact', {
+      const prepareRes = await fetch(`${this.baseUrl()}/api/v1/transaction/prepare`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({ source, address, sequence, signature }),
+        body: JSON.stringify({ address, source }),
       });
 
-      const data = await response.json();
+      const prepareData = (await prepareRes.json()) as Record<string, unknown>;
+      if (!prepareRes.ok) {
+        return {
+          errorCode: 'PREPARE_FAILED',
+          errorMessage:
+            (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`,
+        };
+      }
 
-      if (!response.ok) {
+      const rawHash = prepareData.hash ?? prepareData.transactionHash ?? prepareData;
+      const hash = typeof rawHash === 'string' ? rawHash : String(rawHash ?? '').trim();
+      if (!hash) {
+        return {
+          errorCode: 'INVALID_PREPARE',
+          errorMessage: 'Prepare did not return a hash (expect hash or transactionHash)',
+        };
+      }
+
+      const hashHex = hash.replace(/^0x/i, '');
+      const hashBytes = hexToBytes(hashHex);
+      const sig = await sign(hashBytes, kp.seed);
+      const signature = bytesToHex(sig);
+
+      const submitRes = await fetch(`${this.baseUrl()}/api/v1/transaction/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          hash,
+          sig: signature,
+          accountKey: bytesToHex(kp.accountKey),
+        }),
+      });
+
+      const data = await submitRes.json();
+
+      if (!submitRes.ok) {
         return {
           errorCode: 'TRANSACT_FAILED',
-          errorMessage: (data as { errorMessage?: string }).errorMessage ?? data.title ?? `HTTP ${response.status}`,
+          errorMessage:
+            (data as { errorMessage?: string }).errorMessage ?? (data as { title?: string }).title ?? `Submit: HTTP ${submitRes.status}`,
         };
       }
 

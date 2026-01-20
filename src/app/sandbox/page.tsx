@@ -22,7 +22,6 @@ export default function SandboxPage() {
       <section className="dev-section" >
         <div className="section-header">
           <span className="section-number">// Sandbox</span>
-          <p>Experiment with Convex live!</p>
         </div>
 
         <div className="dev-sandbox-container">

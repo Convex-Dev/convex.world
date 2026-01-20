@@ -1,15 +1,16 @@
 'use client';
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
+import { type KeyPair } from '@/lib/crypto';
 import { Convex } from '@/lib/convex-api';
 
 type ConvexContextValue = {
   convex: Convex;
   setAddress: (v: string | null) => void;
-  setPrivateKey: (v: string | null) => void;
+  setKeyPair: (k: KeyPair | null) => void;
   setPeerUrl: (v: string) => void;
   address: string | null;
-  privateKey: string | null;
+  keyPair: KeyPair | null;
   peerUrl: string;
 };
 
@@ -33,9 +34,9 @@ export function ConvexProvider({ children, peerUrl }: ConvexProviderProps) {
     [convex]
   );
 
-  const setPrivateKey = useCallback(
-    (v: string | null) => {
-      convex.setPrivateKey(v);
+  const setKeyPair = useCallback(
+    (k: KeyPair | null) => {
+      convex.setKeyPair(k);
       setRevision((r) => r + 1);
     },
     [convex]
@@ -52,10 +53,10 @@ export function ConvexProvider({ children, peerUrl }: ConvexProviderProps) {
   const value: ConvexContextValue = {
     convex,
     setAddress,
-    setPrivateKey,
+    setKeyPair,
     setPeerUrl,
     address: convex.getAddress(),
-    privateKey: convex.getPrivateKey(),
+    keyPair: convex.getKeyPair(),
     peerUrl: convex.peerUrl,
   };
 
