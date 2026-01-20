@@ -22,6 +22,8 @@ export interface ConvexResponse<T = unknown> {
   result?: string; // CVX expression result from request. More accurate
   info?: ConvexResponseInfo;
   errorCode?: string;
+  /** Client-measured round-trip latency in milliseconds (set by query/transact). */
+  latencyMs?: number;
 }
 
 export interface NetworkStatus {
@@ -108,6 +110,7 @@ export class Convex {
    */
   async query(source: string, addressOverride?: string): Promise<ConvexResponse> {
     const address = addressOverride ?? this._address ?? undefined;
+    const start = performance.now();
     try {
       const response = await fetch(this.baseUrl()+'/api/v1/query', {
         method: 'POST',
@@ -122,20 +125,23 @@ export class Convex {
       });
 
       const data = await response.json();
+      const latencyMs = Math.round(performance.now() - start);
 
       if (!response.ok) {
         return {
           errorCode: 'SYNTAX',
           value: data.title || `HTTP ${response.status}`,
+          latencyMs,
         };
       }
 
-      return data;
+      return { ...data, latencyMs };
     } catch (error) {
       console.error('Convex query error:', error);
       return {
         errorCode: 'NETWORK',
         value: error instanceof Error ? error.message : 'Network error',
+        latencyMs: Math.round(performance.now() - start),
       };
     }
   }
@@ -148,12 +154,14 @@ export class Convex {
    * Returns ConvexResponse with result/value and info.juice on success.
    */
   async transact(source: string): Promise<ConvexResponse> {
+    const start = performance.now();
     const address = this._address;
     const kp = this._keyPair;
     if (!address || !kp) {
       return {
         errorCode: 'MISSING_ACCOUNT',
         value: 'Address and KeyPair required for transaction. Set address and connect a key.',
+        latencyMs: Math.round(performance.now() - start),
       };
     }
 
@@ -173,6 +181,7 @@ export class Convex {
           errorCode: 'PREPARE_FAILED',
           value:
             (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`,
+          latencyMs: Math.round(performance.now() - start),
         };
       }
 
@@ -182,6 +191,7 @@ export class Convex {
         return {
           errorCode: 'INVALID_PREPARE',
           value: 'Prepare did not return a hash (expect hash or transactionHash)',
+          latencyMs: Math.round(performance.now() - start),
         };
       }
 
@@ -204,21 +214,24 @@ export class Convex {
       });
 
       const data = await submitRes.json();
+      const latencyMs = Math.round(performance.now() - start);
 
       if (!submitRes.ok) {
         return {
           errorCode: 'TRANSACT_FAILED',
           value:
             (data as { errorMessage?: string }).errorMessage ?? (data as { title?: string }).title ?? `Submit: HTTP ${submitRes.status}`,
+          latencyMs,
         };
       }
 
-      return data as ConvexResponse;
+      return { ...data, latencyMs } as ConvexResponse;
     } catch (error) {
       console.error('Convex transact error:', error);
       return {
         errorCode: 'NETWORK',
         value: error instanceof Error ? error.message : 'Network error',
+        latencyMs: Math.round(performance.now() - start),
       };
     }
   }

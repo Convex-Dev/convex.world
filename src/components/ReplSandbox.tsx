@@ -216,7 +216,7 @@ export default function ReplSandbox() {
   };
 
   const clearHistory = () => {
-    setHistory([{ id: 0, type: 'output', content: ';; Session cleared' }]);
+    setHistory([{ id: 0, type: 'system', content: 'Session cleared' }]);
     setTotalJuice(0);
   };
 
@@ -410,12 +410,17 @@ export default function ReplSandbox() {
             <span className="repl-content">{line.content}</span>
             {line.result && (
               <span className="repl-line-juice-wrap" data-result-info>
-                <span className="repl-line-juice">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                  </svg>
-                  {(line.result.info?.juice ?? 0).toLocaleString()}
-                </span>
+                {!line.result.errorCode && (
+                  <span className="repl-line-juice">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    {(line.result.info?.juice ?? 0).toLocaleString()}
+                    {typeof line.result?.latencyMs === 'number' && (
+                      <span className="repl-line-latency"> · {line.result.latencyMs}ms</span>
+                    )}
+                  </span>
+                )}
                 <button
                   type="button"
                   className="repl-line-result-info-btn"

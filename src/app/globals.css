@@ -5364,6 +5364,10 @@ nav .logo {
   font-size: var(--text-xs);
 }
 
+.repl-line-latency {
+  color: var(--color-text-secondary);
+}
+
 .repl-line-result-info-btn {
   display: flex;
   align-items: center;
