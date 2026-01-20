@@ -1,0 +1,10 @@
+<svg  viewBox="-60 -50 120 100" 
+  preserveAspectRatio="xMaxYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <polygon
+    id="hex-polygon"
+    points="0,-57.74 50,-28.87 50,28.87 0,57.74 -50,28.87 -50,-28.87"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+  />
+</svg>

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ConvexProvider } from "@/contexts/ConvexContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/social_card.png",
+        url: "/images/social_card.webp",
         width: 1200,
         height: 630,
         alt: "Convex – Build the future of decentralised economies",
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
     title: "Convex",
     description:
       "Build production-grade decentralised economic systems using Convex lattice technology.",
-    images: ["/images/social_twitter.png"],
+    images: ["/images/social_twitter.webp"],
     creator: "@convex_world",
   },
   robots: {
@@ -71,7 +73,7 @@ const jsonLd = {
   "@type": "Organization",
   name: "Convex",
   url: "https://convex.world",
-  logo: "https://convex.world/images/logo.png",
+  logo: "https://convex.world/images/logo.webp",
   sameAs: [
     "https://twitter.com/convex_world",
     "https://github.com/convex-dev",
@@ -93,7 +95,11 @@ export default function RootLayout({
         />
         <Navigation />
         <main>
-          {children}
+          <WalletProvider persistKey="convex.world:wallet">
+            <ConvexProvider>
+              {children}
+            </ConvexProvider>
+          </WalletProvider>
         </main>
         <Footer />
       </body>
