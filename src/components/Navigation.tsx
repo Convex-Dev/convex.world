@@ -27,7 +27,7 @@ export default function Navigation() {
       <header>
         <nav>
           <Link href="/" aria-label="Convex home">
-            <Logo priority />
+            <Logo priority width={280} height={84} className="nav-logo" />
           </Link>
           
           {/* Desktop Navigation */}
