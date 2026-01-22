@@ -21,19 +21,9 @@ interface CapabilitySection {
   secondaryCta?: CtaLink;
 }
 
-const capabilities: CapabilitySection[] = [
-  {
-    id: 'consensus',
-    number: '01',
-    titleHighlight: 'Global',
-    titleSuffix: 'Consensus',
-    subtitle: 'State Convergence',
-    description: 'Convergent Proof of Stake achieves state convergence in milliseconds. No waiting for confirmation of previous blocks: just deterministic finality where all participants observe the same truth in the Convex global state.',
-    cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
-  },
+const capabilities: Omit<CapabilitySection, 'number'>[] = [
   {
     id: 'scale',
-    number: '02',
     titleHighlight: 'Lattice',
     titleSuffix: 'Architecture',
     subtitle: 'Global State Fabric',
@@ -41,8 +31,25 @@ const capabilities: CapabilitySection[] = [
     cta: { label: 'Explore Lattice', href: 'https://docs.convex.world/docs/overview/lattice', external: true },
   },
   {
+    id: 'agentic',
+    titleHighlight: 'Agentic',
+    titleSuffix: 'Economics',
+    subtitle: 'AI economic participants',
+    description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
+    cta: { label: 'Agent Architecture', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
+  },
+ 
+  {
+    id: 'consensus',
+    titleHighlight: 'Realtime',
+    titleSuffix: 'Consensus',
+    subtitle: 'State Convergence',
+    description: 'The breakthrough Convergent Proof of Stake algorithm achieves state convergence in milliseconds. No waiting for confirmation of previous blocks: just deterministic finality where all participants observe the same truth in the Convex global state.',
+    cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
+  },
+
+  {
     id: 'performance',
-    number: '03',
     titleHighlight: 'Economic',
     titleSuffix: 'Physics',
     subtitle: 'Compute Has Weight',
@@ -51,7 +58,6 @@ const capabilities: CapabilitySection[] = [
   },
   {
     id: 'developer',
-    number: '04',
     titlePrefix: 'Convex',
     titleHighlight: 'Lisp',
     subtitle: 'Functional Economics',
@@ -59,18 +65,9 @@ const capabilities: CapabilitySection[] = [
     cta: { label: 'Read Documentation', href: 'https://docs.convex.world', external: true },
     secondaryCta: { label: 'View Source', href: 'https://github.com/Convex-Dev', external: true },
   },
-  {
-    id: 'agentic',
-    number: '05',
-    titleHighlight: 'Autonomous',
-    titleSuffix: 'Agents',
-    subtitle: 'Economic Participants',
-    description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
-    cta: { label: 'Agent Architecture', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
-  },
+
   {
     id: 'mission',
-    number: '06',
     titleHighlight: 'Public',
     titleSuffix: 'Infrastructure',
     subtitle: 'Non-Profit Governance',
@@ -397,6 +394,7 @@ export default function CapabilitySections() {
     <div className="capabilities-journey">
       {capabilities.map((cap, index) => {
         const isEven = index % 2 === 0;
+        const number = (index + 1).toString().padStart(2, '0');
         
         return (
           <section
@@ -407,7 +405,7 @@ export default function CapabilitySections() {
             <div className="cap-container">
               <div className="cap-content">
                 <div className="cap-header">
-                  <span className="cap-number">{cap.number}</span>
+                  <span className="cap-number">{number}</span>
                   <span className="cap-subtitle">{cap.subtitle}</span>
                 </div>
                 <h2 className="cap-title">

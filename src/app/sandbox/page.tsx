@@ -5,7 +5,7 @@ import ReplSandbox from "@/components/ReplSandbox";
 export const metadata = {
   title: "REPL Sandbox | Convex",
   description:
-    "Experiment with Convex Lisp in a live environment. Execute expressions, define functions, query state, and observe Juice costs in real-time on the Convex testnet.",
+    "Experiment with Convex Lisp in a live environment. Execute expressions, define functions, query state, and observe results in real-time.",
 };
 
 export default function SandboxPage() {
