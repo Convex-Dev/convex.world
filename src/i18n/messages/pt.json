@@ -221,8 +221,8 @@
         "desc": "Aprenda a linguagem com exemplos práticos"
       },
       "sdk": {
-        "title": "SDKs e Ferramentas",
-        "desc": "Bibliotecas para Java, JavaScript e mais"
+        "title": "Java Client API",
+        "desc": "Biblioteca cliente para aplicações Java/JVM"
       },
       "sandbox": {
         "title": "Sandbox REPL",

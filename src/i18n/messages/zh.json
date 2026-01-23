@@ -221,8 +221,8 @@
         "desc": "通过实践示例学习语言"
       },
       "sdk": {
-        "title": "SDK和工具",
-        "desc": "Java、JavaScript等库"
+        "title": "Java Client API",
+        "desc": "Java/JVM应用程序客户端库"
       },
       "sandbox": {
         "title": "REPL沙盒",

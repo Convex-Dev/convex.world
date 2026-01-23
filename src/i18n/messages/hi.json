@@ -221,8 +221,8 @@
         "desc": "व्यावहारिक उदाहरणों के साथ भाषा सीखें"
       },
       "sdk": {
-        "title": "SDKs और टूल्स",
-        "desc": "Java, JavaScript और अधिक के लिए लाइब्रेरीज"
+        "title": "Java Client API",
+        "desc": "Java/JVM अनुप्रयोगों के लिए क्लाइंट लाइब्रेरी"
       },
       "sandbox": {
         "title": "REPL सैंडबॉक्स",

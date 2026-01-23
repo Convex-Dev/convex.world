@@ -221,8 +221,8 @@
         "desc": "Learn the language with hands-on examples"
       },
       "sdk": {
-        "title": "SDKs & Tools",
-        "desc": "Libraries for Java, JavaScript, and more"
+        "title": "Java Client API",
+        "desc": "Client library for Java/JVM applications"
       },
       "sandbox": {
         "title": "REPL Sandbox",

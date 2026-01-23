@@ -221,8 +221,8 @@
         "desc": "Изучите язык на практических примерах"
       },
       "sdk": {
-        "title": "SDK и инструменты",
-        "desc": "Библиотеки для Java, JavaScript и других"
+        "title": "Java Client API",
+        "desc": "Клиентская библиотека для приложений Java/JVM"
       },
       "sandbox": {
         "title": "Песочница REPL",

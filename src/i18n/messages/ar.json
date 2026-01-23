@@ -221,8 +221,8 @@
         "desc": "تعلم اللغة بأمثلة عملية"
       },
       "sdk": {
-        "title": "SDKs والأدوات",
-        "desc": "مكتبات لـ Java و JavaScript والمزيد"
+        "title": "Java Client API",
+        "desc": "مكتبة العميل لتطبيقات Java/JVM"
       },
       "sandbox": {
         "title": "صندوق رمل REPL",

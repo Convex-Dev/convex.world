@@ -78,12 +78,9 @@ export default function Tools() {
 
       {/* Hero Section */}
       <section className="tools-hero">
-        <div className="hero-eyebrow">
-          <div className="hero-label">Developer Resources</div>
-        </div>
+        <span className="dev-hero-tag">//Network Resources</span>
         <h1>
-          <span className="hero-accent">Convex</span>
-          {" "}Tools
+          Convex Tools
         </h1>
         <p>
           Everything you need to explore, build, test, and deploy

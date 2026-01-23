@@ -158,14 +158,14 @@ export default async function Developer({ params }: Props) {
               <p>{t('started.docs.desc')}</p>
             </div>
           </Link>
-          <Link href="https://docs.convex.world/docs/tutorial/convex-lisp" className="dev-resource-card" target="_blank">
+          <Link href="https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp" className="dev-resource-card" target="_blank">
             <Terminal size={20} strokeWidth={1.5} />
             <div>
               <h4>{t('started.tutorial.title')}</h4>
               <p>{t('started.tutorial.desc')}</p>
             </div>
           </Link>
-          <Link href="https://docs.convex.world/docs/tools" className="dev-resource-card" target="_blank">
+          <Link href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card" target="_blank">
             <Boxes size={20} strokeWidth={1.5} />
             <div>
               <h4>{t('started.sdk.title')}</h4>

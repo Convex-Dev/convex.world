@@ -221,8 +221,8 @@
         "desc": "実践的な例で言語を学ぶ"
       },
       "sdk": {
-        "title": "SDKとツール",
-        "desc": "Java、JavaScriptなどのライブラリ"
+        "title": "Java Client API",
+        "desc": "Java/JVMアプリケーション用クライアントライブラリ"
       },
       "sandbox": {
         "title": "REPLサンドボックス",

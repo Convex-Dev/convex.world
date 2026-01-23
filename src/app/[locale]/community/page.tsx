@@ -133,12 +133,10 @@ export default async function Community({ params }: Props) {
 
       {/* Hero Section */}
       <section className="community-hero">
-        <div className="hero-eyebrow">
-          <div className="hero-label">{t('hero.label')}</div>
-        </div>
+        <span className="dev-hero-tag">// {t('hero.label')}</span>
         <h1>
           {t('hero.title')}{" "}
-          <span className="hero-accent">{t('hero.titleAccent')}</span>
+          {t('hero.titleAccent')}
         </h1>
         <p className="community-hero-text">{t('hero.subtitle')}</p>
       </section>

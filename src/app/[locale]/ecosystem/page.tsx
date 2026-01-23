@@ -52,12 +52,10 @@ export default async function Ecosystem({ params }: Props) {
 
       {/* Hero Section */}
       <section className="eco-hero">
-        <div className="hero-eyebrow">
-          <div className="hero-label">{t('hero.label')}</div>
-        </div>
+        <span className="dev-hero-tag">// {t('hero.label')}</span>
         <h1>
           {t('hero.title')}{" "}
-          <span className="hero-accent">{t('hero.titleAccent')}</span>
+          {t('hero.titleAccent')}
         </h1>
         <p>{t('hero.subtitle')}</p>
       </section>
