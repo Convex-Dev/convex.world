@@ -855,20 +855,21 @@ footer {
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   max-width: 720px;
   margin-bottom: var(--space-10);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   line-height: 1.6;
   padding: 0 var(--space-4);
   font-weight: 450;
+  opacity: 0.85;
 }
 
-/* Hero background logo */
+/* Hero background logo - faint, behind text */
 .hero-logo-bg {
   position: absolute;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(80vw, 550px);
-  height: min(80vw, 550px);
+  width: min(95vw, 620px);
+  height: min(95vw, 620px);
   z-index: 1;
   pointer-events: none;
 }
@@ -900,7 +901,7 @@ footer {
     opacity: 0.08;
   }
   50% { 
-    opacity: 0.35;
+    opacity: 0.22;
   }
 }
 
