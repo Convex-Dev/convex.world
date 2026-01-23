@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { Search, ChevronDown, ChevronRight, Copy, Check } from 'lucide-react';
 import { useConvex } from '@/contexts/ConvexContext';
+import { useTranslations } from 'next-intl';
 
 interface AccountData {
   address: string;
@@ -15,6 +16,7 @@ interface AccountData {
 
 export default function LiveInspector() {
   const { convex } = useConvex();
+  const t = useTranslations('inspector');
   const [searchQuery, setSearchQuery] = useState('');
   const [account, setAccount] = useState<AccountData | null>(null);
   const [isSourceExpanded, setIsSourceExpanded] = useState(false);
@@ -113,8 +115,8 @@ export default function LiveInspector() {
   return (
     <div className="live-inspector">
       <div className="inspector-header">
-        <h3>State Inspector</h3>
-        <span className="inspector-badge">Read-only</span>
+        <h3>{t('stateInspector')}</h3>
+        <span className="inspector-badge">{t('readOnly')}</span>
       </div>
 
       <form onSubmit={handleSearch} className="inspector-search">
@@ -123,11 +125,11 @@ export default function LiveInspector() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Address (e.g., 9, 12) or account number"
+          placeholder={t('placeholder')}
           className="inspector-input"
         />
         <button type="submit" className="inspector-search-btn" disabled={isSearching}>
-          {isSearching ? 'Looking...' : 'Lookup'}
+          {isSearching ? t('looking') : t('lookup')}
         </button>
       </form>
 
@@ -142,7 +144,7 @@ export default function LiveInspector() {
           <div className="inspector-identity">
             <div className="inspector-address-row">
               <code className="inspector-address">#{account.address}</code>
-              <button onClick={copyAddress} className="inspector-copy" title="Copy address">
+              <button onClick={copyAddress} className="inspector-copy" title={t('copyAddress')}>
                 {copied ? <Check size={14} /> : <Copy size={14} />}
               </button>
             </div>
@@ -153,12 +155,12 @@ export default function LiveInspector() {
 
           <div className="inspector-stats">
             <div className="inspector-stat">
-              <span className="inspector-stat-label">Balance</span>
+              <span className="inspector-stat-label">{t('balance')}</span>
               <span className="inspector-stat-value">{formatNumber(account.balance)}</span>
             </div>
             <div className="inspector-stat">
-              <span className="inspector-stat-label">Memory</span>
-              <span className="inspector-stat-value">{formatNumber(account.memory)} bytes</span>
+              <span className="inspector-stat-label">{t('memory')}</span>
+              <span className="inspector-stat-value">{formatNumber(account.memory)} {t('bytes')}</span>
             </div>
           </div>
 
@@ -169,7 +171,7 @@ export default function LiveInspector() {
                 className="inspector-source-toggle"
               >
                 {isSourceExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                <span>Environment</span>
+                <span>{t('environment')}</span>
               </button>
               {isSourceExpanded && (
                 <pre className="inspector-source-code">
@@ -183,11 +185,11 @@ export default function LiveInspector() {
 
       {!account && !searchError && (
         <div className="inspector-empty">
-          <p>Enter an account address to inspect state</p>
+          <p>{t('emptyMessage')}</p>
           <div className="inspector-examples">
-            <span>Try:</span>
-            <button onClick={() => setSearchQuery('9')}>Account #9</button>
-            <button onClick={() => setSearchQuery('12')}>Account #12</button>
+            <span>{t('try')}</span>
+            <button onClick={() => setSearchQuery('9')}>{t('account')} #9</button>
+            <button onClick={() => setSearchQuery('12')}>{t('account')} #12</button>
           </div>
         </div>
       )}

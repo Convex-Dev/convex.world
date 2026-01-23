@@ -2,21 +2,21 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface CtaLink {
-  label: string;
+  labelKey: string;
   href: string;
   external?: boolean;
 }
 
 interface CapabilitySection {
   id: string;
-  number: string;
-  titlePrefix?: string;
-  titleHighlight: string;
-  titleSuffix?: string;
-  subtitle: string;
-  description: string;
+  numberKey: string;
+  titleHighlightKey: string;
+  titleSuffixKey?: string;
+  subtitleKey: string;
+  descriptionKey: string;
   cta: CtaLink;
   secondaryCta?: CtaLink;
 }
@@ -24,59 +24,59 @@ interface CapabilitySection {
 const capabilities: CapabilitySection[] = [
   {
     id: 'consensus',
-    number: '01',
-    titleHighlight: 'Converge',
-    titleSuffix: 'to Truth',
-    subtitle: 'No Chains, No Delays',
-    description: 'Convergent Proof of Stake achieves deterministic finality in milliseconds. Not a linear chain—a lattice where all participants observe the same truth simultaneously.',
-    cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
+    numberKey: 'consensus.number',
+    titleHighlightKey: 'consensus.titleHighlight',
+    titleSuffixKey: 'consensus.titleSuffix',
+    subtitleKey: 'consensus.subtitle',
+    descriptionKey: 'consensus.description',
+    cta: { labelKey: 'consensus.cta', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
   },
   {
     id: 'scale',
-    number: '02',
-    titleHighlight: 'Scale',
-    titleSuffix: 'Without Limits',
-    subtitle: 'Lattice Data Fabric',
-    description: 'No shards, no rollups—true horizontal scalability. The lattice is a global data fabric: self-healing, automatically replicated, and infinitely scalable on a P2P, self-sovereign basis.',
-    cta: { label: 'Explore Lattice', href: 'https://docs.convex.world/docs/overview/lattice', external: true },
+    numberKey: 'scale.number',
+    titleHighlightKey: 'scale.titleHighlight',
+    titleSuffixKey: 'scale.titleSuffix',
+    subtitleKey: 'scale.subtitle',
+    descriptionKey: 'scale.description',
+    cta: { labelKey: 'scale.cta', href: 'https://docs.convex.world/docs/overview/lattice', external: true },
   },
   {
     id: 'performance',
-    number: '03',
-    titleHighlight: 'Execute',
-    titleSuffix: 'Predictably',
-    subtitle: 'Economic Physics',
-    description: 'Juice measures computational cost. Memory is recyclable. State converges deterministically. The CVM executes millions of operations with predictable, accountable resource consumption.',
-    cta: { label: 'View Benchmarks', href: 'https://docs.convex.world/docs/overview/performance', external: true },
+    numberKey: 'performance.number',
+    titleHighlightKey: 'performance.titleHighlight',
+    titleSuffixKey: 'performance.titleSuffix',
+    subtitleKey: 'performance.subtitle',
+    descriptionKey: 'performance.description',
+    cta: { labelKey: 'performance.cta', href: 'https://docs.convex.world/docs/overview/performance', external: true },
   },
   {
     id: 'developer',
-    number: '04',
-    titleHighlight: 'Express',
-    titleSuffix: 'Economic Logic',
-    subtitle: 'Convex Lisp',
-    description: 'One line can define a complete economic transaction. Offers resolve to settlements. Constraints are visible. Build systems where humans and autonomous agents participate under the same rules.',
-    cta: { label: 'Language Guide', href: 'https://docs.convex.world/docs/cad/lisp', external: true },
-    secondaryCta: { label: 'Try in Sandbox', href: '/sandbox', external: false },
+    numberKey: 'developer.number',
+    titleHighlightKey: 'developer.titleHighlight',
+    titleSuffixKey: 'developer.titleSuffix',
+    subtitleKey: 'developer.subtitle',
+    descriptionKey: 'developer.description',
+    cta: { labelKey: 'developer.cta', href: 'https://docs.convex.world/docs/cad/lisp', external: true },
+    secondaryCta: { labelKey: 'developer.secondaryCta', href: '/sandbox', external: false },
   },
   {
     id: 'agentic',
-    number: '05',
-    titleHighlight: 'Coordinate',
-    titleSuffix: 'Autonomously',
-    subtitle: 'Human + Agent Co-Participation',
-    description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
-    cta: { label: 'Agent Architecture', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
+    numberKey: 'agentic.number',
+    titleHighlightKey: 'agentic.titleHighlight',
+    titleSuffixKey: 'agentic.titleSuffix',
+    subtitleKey: 'agentic.subtitle',
+    descriptionKey: 'agentic.description',
+    cta: { labelKey: 'agentic.cta', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
   },
   {
     id: 'mission',
-    number: '06',
-    titleHighlight: 'Govern',
-    titleSuffix: 'for All',
-    subtitle: 'Public Infrastructure',
-    description: 'Convex Foundation operates for the benefit of all participants. Open-source, inspectable, and accountable—infrastructure for deterministic economic systems.',
-    cta: { label: 'Governance Model', href: 'https://docs.convex.world/docs/overview/governance', external: true },
-    secondaryCta: { label: 'Read Manifesto', href: 'https://docs.convex.world/docs/overview/manifesto', external: true },
+    numberKey: 'mission.number',
+    titleHighlightKey: 'mission.titleHighlight',
+    titleSuffixKey: 'mission.titleSuffix',
+    subtitleKey: 'mission.subtitle',
+    descriptionKey: 'mission.description',
+    cta: { labelKey: 'mission.cta', href: 'https://docs.convex.world/docs/overview/governance', external: true },
+    secondaryCta: { labelKey: 'mission.secondaryCta', href: 'https://docs.convex.world/docs/overview/manifesto', external: true },
   },
 ];
 
@@ -358,6 +358,7 @@ function MissionGraphic() {
 }
 
 export default function CapabilitySections() {
+  const t = useTranslations('capabilitySections');
   const [perfVisible, setPerfVisible] = useState(false);
   const perfRef = useRef<HTMLDivElement>(null);
   
@@ -407,15 +408,14 @@ export default function CapabilitySections() {
             <div className="cap-container">
               <div className="cap-content">
                 <div className="cap-header">
-                  <span className="cap-number">{cap.number}</span>
-                  <span className="cap-subtitle">{cap.subtitle}</span>
+                  <span className="cap-number">{t(cap.numberKey)}</span>
+                  <span className="cap-subtitle">{t(cap.subtitleKey)}</span>
                 </div>
                 <h2 className="cap-title">
-                  {cap.titlePrefix && <>{cap.titlePrefix} </>}
-                  <span className="cap-title-highlight">{cap.titleHighlight}</span>
-                  {cap.titleSuffix && <> {cap.titleSuffix}</>}
+                  <span className="cap-title-highlight">{t(cap.titleHighlightKey)}</span>
+                  {cap.titleSuffixKey && <> {t(cap.titleSuffixKey)}</>}
                 </h2>
-                <p className="cap-description">{cap.description}</p>
+                <p className="cap-description">{t(cap.descriptionKey)}</p>
                 <div className="cap-cta-group">
                   <Link
                     href={cap.cta.href}
@@ -423,7 +423,7 @@ export default function CapabilitySections() {
                     target={cap.cta.external ? '_blank' : undefined}
                     rel={cap.cta.external ? 'noopener noreferrer' : undefined}
                   >
-                    {cap.cta.label}
+                    {t(cap.cta.labelKey)}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
@@ -435,7 +435,7 @@ export default function CapabilitySections() {
                       target={cap.secondaryCta.external ? '_blank' : undefined}
                       rel={cap.secondaryCta.external ? 'noopener noreferrer' : undefined}
                     >
-                      {cap.secondaryCta.label}
+                      {t(cap.secondaryCta.labelKey)}
                     </Link>
                   )}
                 </div>
