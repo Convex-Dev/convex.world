@@ -1,0 +1,527 @@
+{
+  "metadata": {
+    "title": "Convex",
+    "description": "使用Convex格子技术构建的去中心化代理经济系统。"
+  },
+  "nav": {
+    "developers": "开发者",
+    "network": "网络",
+    "ecosystem": "生态系统",
+    "community": "社区",
+    "docs": "文档",
+    "language": "语言",
+    "dropdown": {
+      "developers": { "label": "开发者" },
+      "network": { "label": "网络" },
+      "ecosystem": { "label": "生态系统" },
+      "community": { "label": "社区" },
+      "sections": {
+        "startBuilding": "开始构建",
+        "resources": "资源",
+        "tools": "工具",
+        "inspect": "检查",
+        "explore": "探索",
+        "learn": "学习",
+        "connect": "连接",
+        "content": "内容"
+      },
+      "items": {
+        "developerOverview": { "label": "开发者概述", "description": "Convex开发入门" },
+        "documentation": { "label": "文档", "description": "全面的指南和参考" },
+        "lispTutorial": { "label": "Convex Lisp教程", "description": "学习语言" },
+        "sdkLibraries": { "label": "SDK和库", "description": "Java、JavaScript等" },
+        "sandboxRepl": { "label": "沙盒REPL", "description": "在线试用Convex Lisp" },
+        "cads": { "label": "CADs", "description": "Convex架构文档" },
+        "github": { "label": "GitHub", "description": "源代码和示例" },
+        "toolsOverview": { "label": "工具概述", "description": "探索所有开发者工具" },
+        "sandbox": { "label": "沙盒", "description": "交互式REPL控制台" },
+        "restApi": { "label": "REST API", "description": "API参考" },
+        "cliTool": { "label": "CLI工具", "description": "命令行界面" },
+        "protonetExplorer": { "label": "Protonet浏览器" },
+        "testnetExplorer": { "label": "测试网浏览器" },
+        "convexDesktop": { "label": "Convex桌面版" },
+        "ecosystemOverview": { "label": "生态系统概述", "description": "在Convex上构建的项目" },
+        "convexCoin": { "label": "Convex代币", "description": "CVM代币经济学和实用性" },
+        "governance": { "label": "治理", "description": "基金会和治理模型" },
+        "whitepaper": { "label": "白皮书" },
+        "latticeTechnology": { "label": "Lattice技术" },
+        "architecture": { "label": "架构" },
+        "communityHub": { "label": "社区中心", "description": "加入对话" },
+        "discord": { "label": "Discord", "description": "与建设者聊天" },
+        "twitterX": { "label": "Twitter / X", "description": "最新更新" },
+        "youtube": { "label": "YouTube", "description": "教程和演示" },
+        "blog": { "label": "博客" },
+        "stackOverflow": { "label": "Stack Overflow" }
+      }
+    }
+  },
+  "hero": {
+    "title": "驱动引擎",
+    "titleSuffix": "代理经济的未来",
+    "subtitle": "AI代理与人类在此共建、交易、协作——即时、透明、无摩擦。",
+    "cta": {
+      "protocol": "协议",
+      "coin": "代币"
+    }
+  },
+  "capabilities": {
+    "converge": {
+      "number": "001",
+      "title": "收敛真相",
+      "subtitle": "无需中央权威的自主共识",
+      "description": "Convex虚拟机通过收敛权益证明实现全球共识——状态通过密码学验证而非信任收敛至真相。",
+      "cta": "探索共识"
+    },
+    "execute": {
+      "number": "002",
+      "title": "确定性执行",
+      "subtitle": "全球规模的确定性计算",
+      "description": "每笔交易都以数学确定性执行。CVM提供图灵完备环境，结果可在所有节点间验证和重现。",
+      "cta": "查看架构"
+    },
+    "compose": {
+      "number": "003",
+      "title": "无限组合",
+      "subtitle": "用简单原语构建复杂系统",
+      "description": "Convex Lisp支持可组合的经济逻辑。将代币、治理和自主代理组合成以前无法构建的系统。",
+      "cta": "开始构建"
+    }
+  },
+  "inspector": {
+    "title": "检查实时状态",
+    "subtitle": "直接接入全球共识",
+    "observe": "观察",
+    "stateInspector": "状态检查器",
+    "readOnly": "只读",
+    "placeholder": "地址（如9、12）或账户号码",
+    "looking": "查找中...",
+    "lookup": "查询",
+    "balance": "余额",
+    "memory": "内存",
+    "bytes": "字节",
+    "environment": "环境",
+    "emptyMessage": "输入账户地址以检查状态",
+    "try": "试试：",
+    "account": "账户",
+    "copyAddress": "复制地址",
+    "accountNotFound": "未找到账户"
+  },
+  "gauges": {
+    "title": "资源监控",
+    "monitoring": "监控中",
+    "juiceConsumption": "Juice 消耗",
+    "memoryAllocation": "内存分配",
+    "units": "单位",
+    "bytes": "字节",
+    "juiceInfo": "Juice = 预测计算成本",
+    "memoryInfo": "内存 = 可回收存储"
+  },
+  "capabilitySections": {
+    "consensus": {
+      "number": "01",
+      "titleHighlight": "收敛",
+      "titleSuffix": "至真理",
+      "subtitle": "无链、无延迟",
+      "description": "收敛式权益证明在毫秒内实现确定性最终性。不是线性链——而是所有参与者同时观察到相同真理的格子网络。",
+      "cta": "阅读白皮书"
+    },
+    "scale": {
+      "number": "02",
+      "titleHighlight": "无限",
+      "titleSuffix": "扩展",
+      "subtitle": "格子数据织物",
+      "description": "无分片、无Rollup——真正的水平扩展。格子是全球数据织物：自我修复、自动复制，在P2P自主主权基础上无限扩展。",
+      "cta": "探索格子网络"
+    },
+    "performance": {
+      "number": "03",
+      "titleHighlight": "可预测",
+      "titleSuffix": "执行",
+      "subtitle": "经济物理学",
+      "description": "Juice衡量计算成本。内存可回收。状态确定性收敛。CVM以可预测、可追责的资源消耗执行数百万次操作。",
+      "cta": "查看基准测试"
+    },
+    "developer": {
+      "number": "04",
+      "titleHighlight": "表达",
+      "titleSuffix": "经济逻辑",
+      "subtitle": "Convex Lisp",
+      "description": "一行代码可以定义完整的经济交易。报价解析为结算。约束可见。构建人类和自主代理在相同规则下参与的系统。",
+      "cta": "语言指南",
+      "secondaryCta": "在沙盒中尝试"
+    },
+    "agentic": {
+      "number": "05",
+      "titleHighlight": "自主",
+      "titleSuffix": "协调",
+      "subtitle": "人类+代理协作",
+      "description": "人类定义意图和约束。自主代理持续执行逻辑。双方共享相同的成本、相同的最终性、相同的责任。",
+      "cta": "代理架构"
+    },
+    "mission": {
+      "number": "06",
+      "titleHighlight": "治理",
+      "titleSuffix": "为所有人",
+      "subtitle": "公共基础设施",
+      "description": "Convex基金会为所有参与者的利益运营。开源、可检查、可问责——确定性经济系统的基础设施。",
+      "cta": "治理模型",
+      "secondaryCta": "阅读宣言"
+    }
+  },
+  "developers": {
+    "hero": {
+      "tag": "构建者接口",
+      "title": "在",
+      "titleAccent": "格子网络",
+      "subtitle": "构建经济系统，让人类和自主代理在相同规则、相同成本和相同最终性下参与。",
+      "cta": {
+        "docs": "阅读文档",
+        "source": "查看源码"
+      }
+    },
+    "core": {
+      "number": "001",
+      "title": "核心技术",
+      "subtitle": "驱动Convex网络的基础层",
+      "cvm": {
+        "number": "01",
+        "title": "Convex虚拟机",
+        "description": "确定性、高性能的去中心化运行时引擎，管理可信全球状态——适用于智能合约、数字资产、自主代理和信任注册表。",
+        "features": {
+          "turing": "图灵完备执行",
+          "tps": "100万+每秒交易",
+          "green": "100%绿色共识",
+          "compiler": "链上编译器"
+        }
+      },
+      "lisp": {
+        "number": "02",
+        "title": "Convex Lisp",
+        "description": "受Clojure启发的现代Lisp方言——强大、富有表现力，专为人类和自主代理都能理解的可组合经济系统设计。",
+        "codeDesc": "在CVM上表达确定性执行的经济逻辑：",
+        "highlight": "报价解析为结算——单个表达式可以代表完整的经济交易。"
+      },
+      "lattice": {
+        "number": "03",
+        "title": "格子数据",
+        "tagline": "一个全球数据结构。数十亿写入者。数万亿读取者。零中心化基础设施。",
+        "description": "格子技术为每个项目提供确定性数据结构。无需自定义数据库或消息队列即可持久化状态、流式事件并在服务间共享知识。"
+      }
+    },
+    "started": {
+      "number": "002",
+      "title": "开始使用",
+      "subtitle": "在Convex上构建所需的一切",
+      "docs": {
+        "title": "文档",
+        "desc": "全面的指南和API参考"
+      },
+      "tutorial": {
+        "title": "Convex Lisp教程",
+        "desc": "通过实践示例学习语言"
+      },
+      "sdk": {
+        "title": "SDK和工具",
+        "desc": "Java、JavaScript等库"
+      },
+      "sandbox": {
+        "title": "REPL沙盒",
+        "desc": "在测试网实时控制台中尝试Convex Lisp"
+      }
+    },
+    "cta": {
+      "title": "构建经济系统",
+      "description": "Convex适用于构建人类和自主代理必须安全共存的经济系统。成本和约束可见。状态确定性收敛。",
+      "docs": "阅读文档",
+      "community": "加入社区"
+    }
+  },
+  "ecosystem": {
+    "hero": {
+      "label": "在Convex上构建",
+      "title": "Convex",
+      "titleAccent": "生态系统",
+      "subtitle": "开创性的组织和项目正在用Convex和格子技术构建去中心化系统的未来。"
+    },
+    "stats": {
+      "projects": {
+        "value": "5+",
+        "label": "活跃项目"
+      },
+      "continents": {
+        "value": "3",
+        "label": "大洲"
+      },
+      "possibilities": {
+        "value": "∞",
+        "label": "可能性"
+      }
+    },
+    "featured": {
+      "number": "001",
+      "title": "精选项目",
+      "subtitle": "利用Convex产生实际影响的组织",
+      "visitProject": "访问项目"
+    },
+    "join": {
+      "number": "002",
+      "title": "加入生态系统",
+      "subtitle": "与我们一起构建，成为下一代去中心化系统的一部分",
+      "enterprise": {
+        "title": "企业用户",
+        "description": "在Convex基础设施上部署生产就绪的解决方案。",
+        "cta": "了解更多"
+      },
+      "developers": {
+        "title": "开发者",
+        "description": "使用我们全面的SDK和文档开始构建。",
+        "cta": "开始使用"
+      },
+      "communities": {
+        "title": "社区",
+        "description": "加入Discord，与全球构建者建立联系。",
+        "cta": "加入Discord"
+      }
+    },
+    "cta": {
+      "title": "在Convex上构建？",
+      "description": "如果您正在Convex上构建并希望在此展示，请联系我们，我们会将您添加到生态系统中。",
+      "button": "联系我们"
+    },
+    "projects": {
+      "covia": {
+        "title": "Covia.ai",
+        "description": "构建AI通用网格，实现跨组织边界的强大AI代理生态系统。",
+        "category": "AI基础设施"
+      },
+      "paisley": {
+        "title": "Paisley",
+        "description": "会员所有的合作平台，为自由职业者和创意人士构建更美好的未来。",
+        "category": "创作者经济"
+      },
+      "eu": {
+        "title": "欧盟",
+        "description": "下一代互联网计划的一部分，专注于高效可扩展的DLT基础设施和可互操作的代币交换。",
+        "category": "政府"
+      },
+      "lumoza": {
+        "title": "Lumoza",
+        "description": "通过帮助艺术家注册和管理版权的解决方案改变音乐行业。",
+        "category": "音乐与知识产权"
+      },
+      "remelife": {
+        "title": "ReMeLife",
+        "description": "首个AI-Web3 Care-2-Earn社区生态系统，构建ReMeGrid——去中心化的奖励型护理社区。",
+        "category": "医疗保健"
+      }
+    }
+  },
+  "community": {
+    "hero": {
+      "label": "Convex的核心",
+      "title": "加入",
+      "titleAccent": "社区",
+      "subtitle": "Convex不仅仅是技术——它是一场开源运动。来自世界各地的构建者、研究者、梦想家和先驱正在塑造去中心化协调的未来。"
+    },
+    "connect": {
+      "number": "001",
+      "title": "与我们联系",
+      "subtitle": "在Convex社区找到您的位置"
+    },
+    "social": {
+      "discord": {
+        "name": "Discord",
+        "description": "与构建者、研究者和爱好者交流。",
+        "action": "加入"
+      },
+      "youtube": {
+        "name": "YouTube",
+        "description": "观看教程、演示和Convex技术深度解析。",
+        "action": "访问"
+      },
+      "x": {
+        "name": "X",
+        "description": "关注最新更新、公告和社区亮点。",
+        "action": "探索"
+      },
+      "blog": {
+        "name": "博客",
+        "description": "关于技术、路线图和生态系统发展的深度文章。",
+        "action": "阅读"
+      }
+    },
+    "contentTypes": {
+      "blogPost": "博客文章",
+      "video": "视频",
+      "announcement": "公告"
+    },
+    "activity": {
+      "number": "002",
+      "title": "最新动态",
+      "subtitle": "来自Convex生态系统的最新消息",
+      "viewAll": "查看所有文章",
+      "by": "作者"
+    },
+    "cta": {
+      "title": "准备好构建未来了吗？",
+      "description": "无论您是开发者、研究者，还是对去中心化系统感到好奇——这里有您的位置。",
+      "discord": "加入Discord",
+      "build": "开始构建"
+    }
+  },
+  "coin": {
+    "hero": {
+      "ticker": "CVM",
+      "title": "Convex代币",
+      "tagline": "驱动世界上最高效去中心化执行引擎的原生实用代币",
+      "stats": {
+        "supply": {
+          "value": "1B",
+          "label": "最大供应量"
+        },
+        "coppers": {
+          "label": "每币铜币数"
+        },
+        "fees": {
+          "value": "0",
+          "label": "读取费用"
+        }
+      },
+      "cta": {
+        "buy": "购买CVM",
+        "tokenomics": "代币经济学"
+      }
+    },
+    "value": {
+      "fuel": {
+        "title": "交易燃料",
+        "description": "仅对状态变更交易收取少量CVM费用——在确保公平访问的同时保护网络安全。"
+      },
+      "stake": {
+        "title": "质押与安全",
+        "description": "通过收敛权益证明在可信节点上质押CVM，在加强网络安全的同时获得奖励。"
+      },
+      "currency": {
+        "title": "数字货币",
+        "description": "使用CVM作为便捷的自主数字货币，在整个生态系统中进行价值交换。"
+      },
+      "rewards": {
+        "title": "获得奖励",
+        "description": "网络和生态系统的贡献者会因其参与而获得CVM奖励。"
+      }
+    },
+    "free": {
+      "title": "大多数交互都是",
+      "titleAccent": "免费的",
+      "agentic": {
+        "title": "代理工具",
+        "description": "通过MCP使用代理工具"
+      },
+      "reads": {
+        "title": "无限读取",
+        "description": "免费查询全球状态"
+      },
+      "offchain": {
+        "title": "链下灵活性",
+        "description": "人人可用的格子技术"
+      }
+    },
+    "tokenomics": {
+      "number": "001",
+      "title": "代币经济学",
+      "subtitle": "由非营利性Convex基金会管理的公平分配",
+      "maxSupply": "最大供应量",
+      "development": {
+        "percent": "25%",
+        "title": "开发与资助",
+        "description": "用于加速核心开发、工具和dapp创新的赏金和奖励。"
+      },
+      "release": {
+        "percent": "75%",
+        "title": "公开发行曲线",
+        "description": "随时间公平透明地发行——确保广泛参与和激励一致。"
+      }
+    },
+    "curve": {
+      "number": "002",
+      "title": "发行曲线",
+      "subtitle": "随采用率增长的动态定价",
+      "formula": {
+        "basePrice": "$100基础价格",
+        "proportion": "已售出比例"
+      },
+      "description": "CVM的供应量趋向于10亿CVM的理论硬上限。收敛速度由发行曲线的经济学决定。",
+      "chartLabels": {
+        "price": "代币价格",
+        "released": "发行比例"
+      }
+    },
+    "cta": {
+      "title": "准备好参与了吗？",
+      "description": "加入Convex生态系统，成为去中心化系统未来的一部分。",
+      "buy": "购买CVM",
+      "community": "加入社区",
+      "tokenomicsLink": "CAD020 代币经济学",
+      "whitepaperLink": "白皮书"
+    }
+  },
+  "sandbox": {
+    "title": "沙盒",
+    "console": {
+      "title": "交互式控制台",
+      "description": "此沙盒连接到Convex测试网。实时执行Lisp表达式、定义函数、查询状态并观察Juice成本。",
+      "features": {
+        "juice": "实时Juice成本估算",
+        "syntax": "完整的Convex Lisp语法支持",
+        "query": "直接查询全球状态"
+      },
+      "back": "返回开发者页面"
+    }
+  },
+  "footer": {
+    "tagline": "Convex基金会 — 确定性经济系统的基础设施",
+    "status": {
+      "network": "网络",
+      "operational": "运行中",
+      "protocol": "协议"
+    },
+    "columns": {
+      "documentation": "文档",
+      "participate": "参与",
+      "resources": "资源"
+    },
+    "links": {
+      "introduction": "简介",
+      "whitepaper": "白皮书",
+      "coreConcepts": "核心概念",
+      "tutorials": "教程",
+      "apiReference": "API参考",
+      "discord": "Discord",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "blog": "博客",
+      "ecosystem": "生态系统",
+      "brandAssets": "品牌资源",
+      "reportIssue": "报告问题"
+    },
+    "copyright": "© {year} Convex基金会。保留所有权利。"
+  },
+  "common": {
+    "learnMore": "了解更多",
+    "getStarted": "开始使用",
+    "viewAll": "查看全部",
+    "readMore": "阅读更多",
+    "back": "返回",
+    "next": "下一步",
+    "loading": "加载中...",
+    "error": "发生错误",
+    "retry": "重试",
+    "close": "关闭",
+    "open": "打开",
+    "yes": "是",
+    "no": "否",
+    "search": "搜索",
+    "filter": "筛选",
+    "sort": "排序"
+  }
+}
