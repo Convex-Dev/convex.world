@@ -58,8 +58,8 @@ const navDropdownsData: NavDropdownData[] = [
         items: [
           { labelKey: 'developerOverview', href: '/developers', descriptionKey: 'developerOverviewDesc', icon: <Code2 size={18} /> },
           { labelKey: 'documentation', href: 'https://docs.convex.world/docs/intro', external: true, descriptionKey: 'documentationDesc', icon: <BookOpen size={18} /> },
-          { labelKey: 'lispTutorial', href: 'https://docs.convex.world/docs/tutorial/convex-lisp', external: true, descriptionKey: 'lispTutorialDesc', icon: <GraduationCap size={18} /> },
-          { labelKey: 'sdkLibraries', href: 'https://docs.convex.world/docs/sdk', external: true, descriptionKey: 'sdkLibrariesDesc', icon: <Package size={18} /> },
+          { labelKey: 'lispTutorial', href: 'https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp', external: true, descriptionKey: 'lispTutorialDesc', icon: <GraduationCap size={18} /> },
+          { labelKey: 'sdkLibraries', href: 'https://github.com/Convex-Dev/convex/tree/develop/convex-java', external: true, descriptionKey: 'sdkLibrariesDesc', icon: <Package size={18} /> },
         ]
       },
       {

@@ -29,7 +29,7 @@
         "developerOverview": { "label": "开发者概述", "description": "Convex开发入门" },
         "documentation": { "label": "文档", "description": "全面的指南和参考" },
         "lispTutorial": { "label": "Convex Lisp教程", "description": "学习语言" },
-        "sdkLibraries": { "label": "SDK和库", "description": "Java、JavaScript等" },
+        "sdkLibraries": { "label": "Java客户端API", "description": "Java/JVM客户端库" },
         "sandboxRepl": { "label": "沙盒REPL", "description": "在线试用Convex Lisp" },
         "cads": { "label": "CADs", "description": "Convex架构文档" },
         "github": { "label": "GitHub", "description": "源代码和示例" },

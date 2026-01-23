@@ -29,7 +29,7 @@
         "developerOverview": { "label": "نظرة عامة للمطورين", "description": "مقدمة للبناء على Convex" },
         "documentation": { "label": "التوثيق", "description": "أدلة ومراجع شاملة" },
         "lispTutorial": { "label": "درس Convex Lisp", "description": "تعلم اللغة" },
-        "sdkLibraries": { "label": "SDK والمكتبات", "description": "Java وJavaScript والمزيد" },
+        "sdkLibraries": { "label": "Java Client API", "description": "مكتبة العميل لـ Java/JVM" },
         "sandboxRepl": { "label": "Sandbox REPL", "description": "جرب Convex Lisp مباشرة" },
         "cads": { "label": "CADs", "description": "وثائق هندسة Convex" },
         "github": { "label": "GitHub", "description": "الكود المصدري والأمثلة" },

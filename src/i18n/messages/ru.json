@@ -29,7 +29,7 @@
         "developerOverview": { "label": "Обзор для разработчиков", "description": "Введение в разработку на Convex" },
         "documentation": { "label": "Документация", "description": "Полные руководства и справочники" },
         "lispTutorial": { "label": "Учебник Convex Lisp", "description": "Изучить язык" },
-        "sdkLibraries": { "label": "SDK и библиотеки", "description": "Java, JavaScript и другие" },
+        "sdkLibraries": { "label": "Java Client API", "description": "Клиентская библиотека для Java/JVM" },
         "sandboxRepl": { "label": "Sandbox REPL", "description": "Попробовать Convex Lisp онлайн" },
         "cads": { "label": "CADs", "description": "Документы архитектуры Convex" },
         "github": { "label": "GitHub", "description": "Исходный код и примеры" },
