@@ -1,9 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { ConvexProvider } from "@/contexts/ConvexContext";
-import { WalletProvider } from "@/contexts/WalletContext";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
@@ -88,21 +84,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navigation />
-        <main>
-          <WalletProvider persistKey="convex.world:wallet">
-            <ConvexProvider>
-              {children}
-            </ConvexProvider>
-          </WalletProvider>
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
