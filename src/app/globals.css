@@ -2592,6 +2592,7 @@ nav .logo {
   left: 0;
   padding-top: 8px;
   z-index: 1000;
+  max-width: calc(100vw - 32px);
 }
 
 .nav-dropdown-menu::before {
@@ -2610,6 +2611,7 @@ nav .logo {
   padding: var(--space-6);
   padding-right: 240px;
   min-width: 520px;
+  max-width: calc(100vw - 32px);
   display: flex;
   gap: var(--space-8);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);

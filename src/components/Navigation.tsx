@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ColorMode from './ColorMode';
@@ -146,6 +146,7 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  const dropdownRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const getDropdownLabel = (key: string) => t(`dropdown.${key}.label`);
   const getSectionTitle = (key: string) => t(`dropdown.sections.${key}`);
@@ -159,6 +160,42 @@ export default function Navigation() {
   };
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  // Adjust dropdown position to stay within viewport
+  const adjustDropdownPosition = useCallback(() => {
+    if (openDropdown) {
+      const dropdownMenu = dropdownRefs.current[openDropdown];
+      if (dropdownMenu) {
+        const rect = dropdownMenu.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const padding = 16; // Padding from screen edge
+        
+        // Check if dropdown overflows to the right
+        if (rect.right > viewportWidth - padding) {
+          const overflow = rect.right - (viewportWidth - padding);
+          dropdownMenu.style.left = `-${overflow}px`;
+        } else {
+          dropdownMenu.style.left = '';
+        }
+        
+        // Also check if it overflows to the left (shouldn't happen, but safety check)
+        if (rect.left < padding) {
+          dropdownMenu.style.left = `${padding}px`;
+        }
+      }
+    }
+  }, [openDropdown]);
+
+  useEffect(() => {
+    // Use requestAnimationFrame to ensure DOM is updated
+    requestAnimationFrame(() => {
+      adjustDropdownPosition();
+    });
+    
+    // Recalculate on window resize
+    window.addEventListener('resize', adjustDropdownPosition);
+    return () => window.removeEventListener('resize', adjustDropdownPosition);
+  }, [openDropdown, adjustDropdownPosition]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -212,7 +249,10 @@ export default function Navigation() {
                   </Link>
                   
                   {openDropdown === dropdown.key && (
-                    <div className="nav-dropdown-menu">
+                    <div 
+                      className="nav-dropdown-menu"
+                      ref={(el) => { dropdownRefs.current[dropdown.key] = el; }}
+                    >
                       <div className="nav-dropdown-menu-inner">
                         {dropdown.sections.map((section, idx) => (
                           <div key={idx} className="nav-dropdown-section">
