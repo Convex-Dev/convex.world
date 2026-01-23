@@ -260,7 +260,7 @@
     "featured": {
       "number": "001",
       "title": "Featured Projects",
-      "subtitle": "Organisations leveraging Convex for real-world impact",
+      "subtitle": "using Convex for real-world impact",
       "visitProject": "Visit project"
     },
     "join": {
@@ -373,7 +373,7 @@
     "hero": {
       "ticker": "CVM",
       "title": "Convex Coin",
-      "tagline": "The native utility token powering the world's most efficient decentralized execution engine",
+      "tagline": "The native utility token powering the world's most efficient decentralised execution engine",
       "stats": {
         "supply": {
           "value": "1B",
