@@ -21,59 +21,55 @@ interface CapabilitySection {
   secondaryCta?: CtaLink;
 }
 
-const capabilities: CapabilitySection[] = [
-  {
-    id: 'consensus',
-    number: '01',
-    titleHighlight: 'Converge',
-    titleSuffix: 'to Truth',
-    subtitle: 'No Chains, No Delays',
-    description: 'Convergent Proof of Stake achieves deterministic finality in milliseconds. Not a linear chain—a lattice where all participants observe the same truth simultaneously.',
-    cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
-  },
+const capabilities: Omit<CapabilitySection, 'number'>[] = [
   {
     id: 'scale',
-    number: '02',
-    titleHighlight: 'Scale',
-    titleSuffix: 'Without Limits',
-    subtitle: 'Lattice Data Fabric',
-    description: 'No shards, no rollups—true horizontal scalability. The lattice is a global data fabric: self-healing, automatically replicated, and infinitely scalable on a P2P, self-sovereign basis.',
+    titleHighlight: 'Lattice',
+    titleSuffix: 'Architecture',
+    subtitle: 'Global State Fabric',
+    description: 'The lattice is a global data fabric. Self-healing, automatically replicated and infinitely scalable on a true P2P, self-sovereign basis.',
     cta: { label: 'Explore Lattice', href: 'https://docs.convex.world/docs/overview/lattice', external: true },
   },
   {
+    id: 'agentic',
+    titleHighlight: 'Agentic',
+    titleSuffix: 'Economics',
+    subtitle: 'AI economic participants',
+    description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
+    cta: { label: 'Agent Architecture', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
+  },
+ 
+  {
+    id: 'consensus',
+    titleHighlight: 'Realtime',
+    titleSuffix: 'Consensus',
+    subtitle: 'State Convergence',
+    description: 'The breakthrough Convergent Proof of Stake algorithm achieves state convergence in milliseconds. No waiting for confirmation of previous blocks: just deterministic finality where all participants observe the same truth in the Convex global state.',
+    cta: { label: 'Read Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true },
+  },
+
+  {
     id: 'performance',
-    number: '03',
-    titleHighlight: 'Execute',
-    titleSuffix: 'Predictably',
-    subtitle: 'Economic Physics',
-    description: 'Juice measures computational cost. Memory is recyclable. State converges deterministically. The CVM executes millions of operations with predictable, accountable resource consumption.',
+    titleHighlight: 'Economic',
+    titleSuffix: 'Physics',
+    subtitle: 'Compute Has Weight',
+    description: 'Juice measures computational cost. Memory is recyclable. State converges deterministically. The CVM executes millions of operations with predictable resource consumption.',
     cta: { label: 'View Benchmarks', href: 'https://docs.convex.world/docs/overview/performance', external: true },
   },
   {
     id: 'developer',
-    number: '04',
-    titleHighlight: 'Express',
-    titleSuffix: 'Economic Logic',
-    subtitle: 'Convex Lisp',
-    description: 'One line can define a complete economic transaction. Offers resolve to settlements. Constraints are visible. Build systems where humans and autonomous agents participate under the same rules.',
-    cta: { label: 'Language Guide', href: 'https://docs.convex.world/docs/cad/lisp', external: true },
-    secondaryCta: { label: 'Try in Sandbox', href: '/sandbox', external: false },
-  },
-  {
-    id: 'agentic',
-    number: '05',
-    titleHighlight: 'Coordinate',
-    titleSuffix: 'Autonomously',
-    subtitle: 'Human + Agent Co-Participation',
-    description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
-    cta: { label: 'Agent Architecture', href: 'https://docs.convex.world/docs/overview/agentic-architecture', external: true },
+    titlePrefix: 'Convex',
+    titleHighlight: 'Lisp',
+    subtitle: 'Functional Economics',
+    description: 'Express economic logic in a single line. Offers resolve to settlements. Constraints are visible. Build systems where humans and autonomous agents participate under the same rules.',
+    cta: { label: 'Read Documentation', href: 'https://docs.convex.world', external: true },
+    secondaryCta: { label: 'View Source', href: 'https://github.com/Convex-Dev', external: true },
   },
   {
     id: 'mission',
-    number: '06',
-    titleHighlight: 'Govern',
-    titleSuffix: 'for All',
-    subtitle: 'Public Infrastructure',
+    titleHighlight: 'Public',
+    titleSuffix: 'Infrastructure',
+    subtitle: 'Non-Profit Governance',
     description: 'Convex Foundation operates for the benefit of all participants. Open-source, inspectable, and accountable—infrastructure for deterministic economic systems.',
     cta: { label: 'Governance Model', href: 'https://docs.convex.world/docs/overview/governance', external: true },
     secondaryCta: { label: 'Read Manifesto', href: 'https://docs.convex.world/docs/overview/manifesto', external: true },
@@ -397,6 +393,7 @@ export default function CapabilitySections() {
     <div className="capabilities-journey">
       {capabilities.map((cap, index) => {
         const isEven = index % 2 === 0;
+        const number = (index + 1).toString().padStart(2, '0');
         
         return (
           <section
@@ -407,7 +404,7 @@ export default function CapabilitySections() {
             <div className="cap-container">
               <div className="cap-content">
                 <div className="cap-header">
-                  <span className="cap-number">{cap.number}</span>
+                  <span className="cap-number">{number}</span>
                   <span className="cap-subtitle">{cap.subtitle}</span>
                 </div>
                 <h2 className="cap-title">
