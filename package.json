@@ -12,6 +12,7 @@
     "@noble/ed25519": "^2.3.0",
     "lucide-react": "^0.562.0",
     "next": "16.1.4",
+    "next-intl": "^4.7.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "rss-parser": "^3.13.0"

@@ -1,5 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { locales, type Locale } from '@/i18n/config';
+import "../globals.css";
+import { ConvexProvider } from "@/contexts/ConvexContext";
+import { WalletProvider } from "@/contexts/WalletContext";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +41,6 @@ export const metadata: Metadata = {
     siteName: "Convex",
     locale: "en_US",
     type: "website",
-    // Absolute URLs required for Discord; 1200×630 recommended. Use social_card.webp if you add one.
     images: [
       {
         url: "https://convex.world/images/logo_dark_blue.svg",
@@ -78,20 +89,32 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type Props = {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
+  
+  if (!locales.includes(locale as Locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {children}
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <Navigation />
+      <main>
+        <WalletProvider persistKey="convex.world:wallet">
+          <ConvexProvider>
+            {children}
+          </ConvexProvider>
+        </WalletProvider>
+      </main>
+      <Footer />
+    </NextIntlClientProvider>
   );
 }

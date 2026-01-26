@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "title": "Convex",
+    "description": "Sistemas económicos agénticos descentralizados utilizando tecnología de red Convex."
+  },
+  "nav": {
+    "developers": "Desarrolladores",
+    "network": "Red",
+    "ecosystem": "Ecosistema",
+    "community": "Comunidad",
+    "docs": "Documentación",
+    "language": "Idioma",
+    "dropdown": {
+      "developers": { "label": "Desarrolladores" },
+      "network": { "label": "Red" },
+      "ecosystem": { "label": "Ecosistema" },
+      "community": { "label": "Comunidad" },
+      "sections": {
+        "startBuilding": "Comenzar a Construir",
+        "resources": "Recursos",
+        "tools": "Herramientas",
+        "inspect": "Inspeccionar",
+        "explore": "Explorar",
+        "learn": "Aprender",
+        "connect": "Conectar",
+        "content": "Contenido"
+      },
+      "items": {
+        "developerOverview": { "label": "Vista General del Desarrollador", "description": "Introducción a construir en Convex" },
+        "documentation": { "label": "Documentación", "description": "Guías y referencias completas" },
+        "lispTutorial": { "label": "Tutorial de Convex Lisp", "description": "Aprende el lenguaje" },
+        "sdkLibraries": { "label": "API Cliente Java", "description": "Biblioteca cliente para Java/JVM" },
+        "sandboxRepl": { "label": "Sandbox REPL", "description": "Prueba Convex Lisp en vivo" },
+        "cads": { "label": "CADs", "description": "Documentos de Arquitectura Convex" },
+        "github": { "label": "GitHub", "description": "Código fuente y ejemplos" },
+        "toolsOverview": { "label": "Resumen de Herramientas", "description": "Explora todas las herramientas de desarrollo" },
+        "sandbox": { "label": "Sandbox", "description": "Consola REPL interactiva" },
+        "restApi": { "label": "REST API", "description": "Referencia de API" },
+        "cliTool": { "label": "Herramienta CLI", "description": "Interfaz de línea de comandos" },
+        "protonetExplorer": { "label": "Explorador Protonet" },
+        "testnetExplorer": { "label": "Explorador Testnet" },
+        "convexDesktop": { "label": "Convex Desktop" },
+        "ecosystemOverview": { "label": "Vista del Ecosistema", "description": "Proyectos construyendo en Convex" },
+        "convexCoin": { "label": "Convex Coin", "description": "Tokenomics y utilidad de CVM" },
+        "governance": { "label": "Gobernanza", "description": "Fundación y modelo de gobernanza" },
+        "whitepaper": { "label": "Whitepaper" },
+        "latticeTechnology": { "label": "Tecnología Lattice" },
+        "architecture": { "label": "Arquitectura" },
+        "communityHub": { "label": "Hub de la Comunidad", "description": "Únete a la conversación" },
+        "discord": { "label": "Discord", "description": "Chatea con constructores" },
+        "twitterX": { "label": "Twitter / X", "description": "Últimas actualizaciones" },
+        "youtube": { "label": "YouTube", "description": "Tutoriales y demos" },
+        "blog": { "label": "Blog" },
+        "stackOverflow": { "label": "Stack Overflow" }
+      }
+    }
+  },
+  "hero": {
+    "title": "El motor",
+    "titleSuffix": "de la Economía Agéntica",
+    "subtitle": "Donde agentes de IA y humanos construyen, comercian y colaboran—instantáneamente, con transparencia y sin fricción.",
+    "cta": {
+      "protocol": "Protocolo",
+      "coin": "Moneda"
+    }
+  },
+  "capabilities": {
+    "converge": {
+      "number": "001",
+      "title": "Converger a la Verdad",
+      "subtitle": "Consenso autónomo sin autoridad central",
+      "description": "La Máquina Virtual Convex logra consenso global mediante Prueba de Participación Convergente—donde el estado converge a la verdad a través de verificación criptográfica, no confianza.",
+      "cta": "Explorar Consenso"
+    },
+    "execute": {
+      "number": "002",
+      "title": "Ejecutar con Certeza",
+      "subtitle": "Computación determinista a escala global",
+      "description": "Cada transacción se ejecuta con certeza matemática. La CVM proporciona un entorno Turing-completo donde los resultados son verificables y reproducibles en todos los nodos.",
+      "cta": "Ver Arquitectura"
+    },
+    "compose": {
+      "number": "003",
+      "title": "Componer sin Límites",
+      "subtitle": "Construir sistemas complejos desde primitivos simples",
+      "description": "Convex Lisp permite lógica económica componible. Combina tokens, gobernanza y agentes autónomos en sistemas que antes eran imposibles de construir.",
+      "cta": "Empezar a Construir"
+    }
+  },
+  "inspector": {
+    "title": "Inspeccionar Estado en Vivo",
+    "subtitle": "Instrumentación directa en el consenso global",
+    "observe": "Observar",
+    "stateInspector": "Inspector de Estado",
+    "readOnly": "Solo lectura",
+    "placeholder": "Dirección (ej. 9, 12) o número de cuenta",
+    "looking": "Buscando...",
+    "lookup": "Buscar",
+    "balance": "Saldo",
+    "memory": "Memoria",
+    "bytes": "bytes",
+    "environment": "Entorno",
+    "emptyMessage": "Ingresa una dirección de cuenta para inspeccionar estado",
+    "try": "Prueba:",
+    "account": "Cuenta",
+    "copyAddress": "Copiar dirección",
+    "accountNotFound": "Cuenta no encontrada"
+  },
+  "gauges": {
+    "title": "Instrumentación de Recursos",
+    "monitoring": "Monitoreando",
+    "juiceConsumption": "Consumo de Juice",
+    "memoryAllocation": "Asignación de Memoria",
+    "units": "unidades",
+    "bytes": "bytes",
+    "juiceInfo": "Juice = costo de cómputo predictivo",
+    "memoryInfo": "Memoria = almacenamiento reciclable"
+  },
+  "capabilitySections": {
+    "consensus": {
+      "number": "01",
+      "titleHighlight": "Converger",
+      "titleSuffix": "a la Verdad",
+      "subtitle": "Sin Cadenas, Sin Retrasos",
+      "description": "Proof of Stake Convergente logra finalidad determinista en milisegundos. No es una cadena lineal—es una red lattice donde todos los participantes observan la misma verdad simultáneamente.",
+      "cta": "Leer Whitepaper"
+    },
+    "scale": {
+      "number": "02",
+      "titleHighlight": "Escalar",
+      "titleSuffix": "Sin Límites",
+      "subtitle": "Tejido de Datos Lattice",
+      "description": "Sin fragmentos, sin rollups—verdadera escalabilidad horizontal. El lattice es un tejido de datos global: auto-reparable, replicado automáticamente e infinitamente escalable en base P2P y auto-soberana.",
+      "cta": "Explorar Lattice"
+    },
+    "performance": {
+      "number": "03",
+      "titleHighlight": "Ejecutar",
+      "titleSuffix": "Predeciblemente",
+      "subtitle": "Física Económica",
+      "description": "Juice mide el costo computacional. La memoria es reciclable. El estado converge determinísticamente. La CVM ejecuta millones de operaciones con consumo de recursos predecible y contable.",
+      "cta": "Ver Benchmarks"
+    },
+    "developer": {
+      "number": "04",
+      "titleHighlight": "Expresar",
+      "titleSuffix": "Lógica Económica",
+      "subtitle": "Convex Lisp",
+      "description": "Una línea puede definir una transacción económica completa. Las ofertas se resuelven en liquidaciones. Las restricciones son visibles. Construye sistemas donde humanos y agentes autónomos participan bajo las mismas reglas.",
+      "cta": "Guía del Lenguaje",
+      "secondaryCta": "Probar en Sandbox"
+    },
+    "agentic": {
+      "number": "05",
+      "titleHighlight": "Coordinar",
+      "titleSuffix": "Autónomamente",
+      "subtitle": "Co-Participación Humano + Agente",
+      "description": "Los humanos definen intención y restricciones. Los agentes autónomos ejecutan lógica continuamente. Ambos comparten los mismos costos, la misma finalidad, la misma responsabilidad.",
+      "cta": "Arquitectura de Agentes"
+    },
+    "mission": {
+      "number": "06",
+      "titleHighlight": "Gobernar",
+      "titleSuffix": "para Todos",
+      "subtitle": "Infraestructura Pública",
+      "description": "La Fundación Convex opera para el beneficio de todos los participantes. Código abierto, inspeccionable y responsable—infraestructura para sistemas económicos deterministas.",
+      "cta": "Modelo de Gobernanza",
+      "secondaryCta": "Leer Manifiesto"
+    }
+  },
+  "developers": {
+    "hero": {
+      "tag": "Interfaz de Constructor",
+      "title": "Construye en la",
+      "titleAccent": "Red Lattice",
+      "subtitle": "Construye sistemas económicos donde humanos y agentes autónomos participan bajo las mismas reglas, los mismos costos y la misma finalidad.",
+      "cta": {
+        "docs": "Leer Documentación",
+        "source": "Ver Código Fuente"
+      }
+    },
+    "core": {
+      "number": "001",
+      "title": "Tecnologías Centrales",
+      "subtitle": "Las capas fundamentales que impulsan la red Convex",
+      "cvm": {
+        "number": "01",
+        "title": "Máquina Virtual Convex",
+        "description": "Un motor de ejecución descentralizado determinista y de alto rendimiento que gestiona estado global confiable—adecuado para contratos inteligentes, activos digitales, agentes autónomos y registros de confianza.",
+        "features": {
+          "turing": "Ejecución Turing Completa",
+          "tps": "1M+ transacciones por segundo",
+          "green": "100% consenso verde",
+          "compiler": "Compilador en cadena"
+        }
+      },
+      "lisp": {
+        "number": "02",
+        "title": "Convex Lisp",
+        "description": "Un dialecto Lisp moderno inspirado en Clojure—potente, expresivo y diseñado para sistemas económicos componibles que tanto humanos como agentes autónomos pueden entender.",
+        "codeDesc": "Expresa lógica económica que se ejecuta determinísticamente en la CVM:",
+        "highlight": "Las ofertas se resuelven en liquidaciones — una sola expresión puede representar una transacción económica completa."
+      },
+      "lattice": {
+        "number": "03",
+        "title": "Datos Lattice",
+        "tagline": "Una estructura de datos global. Miles de millones de escritores. Billones de lectores. Cero infraestructura centralizada.",
+        "description": "La tecnología Lattice da a cada proyecto una estructura de datos determinista. Persiste estado, transmite eventos y comparte conocimiento entre servicios sin bases de datos personalizadas ni colas de mensajes."
+      }
+    },
+    "started": {
+      "number": "002",
+      "title": "Primeros Pasos",
+      "subtitle": "Todo lo que necesitas para empezar a construir en Convex",
+      "docs": {
+        "title": "Documentación",
+        "desc": "Guías completas y referencias de API"
+      },
+      "tutorial": {
+        "title": "Tutorial Convex Lisp",
+        "desc": "Aprende el lenguaje con ejemplos prácticos"
+      },
+      "sdk": {
+        "title": "Java Client API",
+        "desc": "Biblioteca cliente para aplicaciones Java/JVM"
+      },
+      "sandbox": {
+        "title": "Sandbox REPL",
+        "desc": "Prueba Convex Lisp en una consola en vivo en testnet"
+      }
+    },
+    "cta": {
+      "title": "Construir Sistemas Económicos",
+      "description": "Convex es para personas que construyen sistemas económicos donde humanos y agentes autónomos deben coexistir de forma segura. Los costos y restricciones son visibles. El estado converge determinísticamente.",
+      "docs": "Leer Documentación",
+      "community": "Unirse a la Comunidad"
+    }
+  },
+  "ecosystem": {
+    "hero": {
+      "label": "Construyendo en Convex",
+      "title": "El",
+      "titleAccent": "Ecosistema Convex",
+      "subtitle": "Organizaciones y proyectos pioneros construyendo el futuro de los sistemas descentralizados con tecnología Convex y Lattice."
+    },
+    "stats": {
+      "projects": {
+        "value": "5+",
+        "label": "Proyectos Activos"
+      },
+      "continents": {
+        "value": "3",
+        "label": "Continentes"
+      },
+      "possibilities": {
+        "value": "∞",
+        "label": "Posibilidades"
+      }
+    },
+    "featured": {
+      "number": "001",
+      "title": "Proyectos Destacados",
+      "subtitle": "Organizaciones aprovechando Convex para impacto real",
+      "visitProject": "Visitar proyecto"
+    },
+    "join": {
+      "number": "002",
+      "title": "Únete al Ecosistema",
+      "subtitle": "Construye con nosotros y sé parte de la próxima generación de sistemas descentralizados",
+      "enterprise": {
+        "title": "Para Empresas",
+        "description": "Despliega soluciones listas para producción en infraestructura Convex.",
+        "cta": "Saber Más"
+      },
+      "developers": {
+        "title": "Para Desarrolladores",
+        "description": "Comienza a construir con nuestro SDK y documentación completos.",
+        "cta": "Comenzar"
+      },
+      "communities": {
+        "title": "Para Comunidades",
+        "description": "Únete a nuestro Discord y conecta con constructores de todo el mundo.",
+        "cta": "Unirse a Discord"
+      }
+    },
+    "cta": {
+      "title": "¿Construyendo en Convex?",
+      "description": "Si estás construyendo en Convex y quieres aparecer aquí, contáctanos y te añadiremos al ecosistema.",
+      "button": "Contactar"
+    },
+    "projects": {
+      "covia": {
+        "title": "Covia.ai",
+        "description": "Construyendo la red universal para IA, habilitando potentes ecosistemas de agentes de IA a través de fronteras organizacionales.",
+        "category": "Infraestructura IA"
+      },
+      "paisley": {
+        "title": "Paisley",
+        "description": "Una plataforma cooperativa propiedad de los miembros para freelancers y creativos construyendo un futuro mejor para todos.",
+        "category": "Economía Creadora"
+      },
+      "eu": {
+        "title": "Unión Europea",
+        "description": "Parte del programa Next Generation Internet, enfocado en infraestructura DLT eficiente y escalable e intercambio de tokens interoperable.",
+        "category": "Gobierno"
+      },
+      "lumoza": {
+        "title": "Lumoza",
+        "description": "Transformando la industria musical con soluciones para ayudar a artistas a registrar y gestionar sus derechos de autor.",
+        "category": "Música y PI"
+      },
+      "remelife": {
+        "title": "ReMeLife",
+        "description": "El primer ecosistema comunitario AI-Web3 Care-2-Earn, construyendo ReMeGrid—una comunidad de cuidado descentralizada basada en recompensas.",
+        "category": "Salud"
+      }
+    }
+  },
+  "community": {
+    "hero": {
+      "label": "El Corazón de Convex",
+      "title": "Únete a la",
+      "titleAccent": "Comunidad",
+      "subtitle": "Convex no es solo tecnología—es un movimiento de código abierto. Constructores, investigadores, soñadores y pioneros de todo el mundo están dando forma al futuro de la coordinación descentralizada."
+    },
+    "connect": {
+      "number": "001",
+      "title": "Conéctate con Nosotros",
+      "subtitle": "Encuentra tu lugar en la comunidad Convex"
+    },
+    "social": {
+      "discord": {
+        "name": "Discord",
+        "description": "Únete a la conversación con constructores, investigadores y entusiastas.",
+        "action": "Unirse"
+      },
+      "youtube": {
+        "name": "YouTube",
+        "description": "Mira tutoriales, demos y profundizaciones en la tecnología Convex.",
+        "action": "Visitar"
+      },
+      "x": {
+        "name": "X",
+        "description": "Sigue para las últimas actualizaciones, anuncios y destacados de la comunidad.",
+        "action": "Explorar"
+      },
+      "blog": {
+        "name": "Blog",
+        "description": "Artículos en profundidad sobre tecnología, hoja de ruta y desarrollos del ecosistema.",
+        "action": "Leer"
+      }
+    },
+    "contentTypes": {
+      "blogPost": "Artículo del Blog",
+      "video": "Video",
+      "announcement": "Anuncio"
+    },
+    "activity": {
+      "number": "002",
+      "title": "Actividad Reciente",
+      "subtitle": "Lo último del ecosistema Convex",
+      "viewAll": "Ver Todas las Publicaciones",
+      "by": "Por"
+    },
+    "cta": {
+      "title": "¿Listo para Construir el Futuro?",
+      "description": "Ya seas desarrollador, investigador, o simplemente curioso sobre sistemas descentralizados—hay un lugar para ti aquí.",
+      "discord": "Unirse a Discord",
+      "build": "Empezar a Construir"
+    }
+  },
+  "coin": {
+    "hero": {
+      "ticker": "CVM",
+      "title": "Convex Coin",
+      "tagline": "El token de utilidad nativo que impulsa el motor de ejecución descentralizado más eficiente del mundo",
+      "stats": {
+        "supply": {
+          "value": "1B",
+          "label": "Suministro Máximo"
+        },
+        "coppers": {
+          "label": "Coppers por Moneda"
+        },
+        "fees": {
+          "value": "0",
+          "label": "Tarifas de Lectura"
+        }
+      },
+      "cta": {
+        "buy": "Comprar CVM",
+        "tokenomics": "Tokenomics"
+      }
+    },
+    "value": {
+      "fuel": {
+        "title": "Combustible de Transacción",
+        "description": "Una pequeña tarifa CVM se aplica solo a transacciones que cambian estado—protegiendo la red mientras asegura acceso equitativo."
+      },
+      "stake": {
+        "title": "Stake y Seguridad",
+        "description": "Haz stake de CVM en peers confiables mediante Prueba de Participación Convergente, ganando recompensas mientras fortaleces la seguridad de la red."
+      },
+      "currency": {
+        "title": "Moneda Digital",
+        "description": "Usa CVM como una moneda digital conveniente y auto-soberana para intercambio de valor en todo el ecosistema."
+      },
+      "rewards": {
+        "title": "Gana Recompensas",
+        "description": "Los contribuidores a la red y ecosistema son recompensados con CVM por su participación."
+      }
+    },
+    "free": {
+      "title": "La Mayoría de Interacciones Son",
+      "titleAccent": "Gratis",
+      "agentic": {
+        "title": "Herramientas Agénticas",
+        "description": "Usa herramientas agénticas vía MCP"
+      },
+      "reads": {
+        "title": "Lecturas Ilimitadas",
+        "description": "Consulta el estado global sin costo"
+      },
+      "offchain": {
+        "title": "Flexibilidad Off-chain",
+        "description": "Tecnología Lattice para todos"
+      }
+    },
+    "tokenomics": {
+      "number": "001",
+      "title": "Tokenomics",
+      "subtitle": "Distribución justa gobernada por la Fundación Convex sin fines de lucro",
+      "development": {
+        "percent": "25%",
+        "title": "Desarrollo y Subvenciones",
+        "description": "Recompensas y premios para acelerar el desarrollo central, herramientas e innovación de dapps."
+      },
+      "release": {
+        "percent": "75%",
+        "title": "Curva de Liberación Pública",
+        "description": "Liberación justa y transparente a lo largo del tiempo—asegurando amplia participación e incentivos alineados."
+      }
+    },
+    "curve": {
+      "number": "002",
+      "title": "Curva de Liberación",
+      "subtitle": "Precio dinámico que crece con la adopción",
+      "formula": {
+        "basePrice": "$100 precio base",
+        "proportion": "proporción ya vendida"
+      },
+      "description": "El suministro de CVM converge hacia un tope duro teórico de 1,000,000,000 CVM. La tasa de convergencia está determinada por la economía de la curva de liberación.",
+      "chartLabels": {
+        "price": "Precio de Moneda",
+        "released": "Proporción Liberada"
+      }
+    },
+    "finalCta": {
+      "title": "¿Listo para participar?",
+      "description": "Únete al ecosistema Convex y sé parte del futuro de los sistemas descentralizados.",
+      "buy": "Comprar CVM",
+      "community": "Unirse a la Comunidad"
+    }
+  },
+  "sandbox": {
+    "title": "Sandbox",
+    "console": {
+      "title": "Consola Interactiva",
+      "description": "Este sandbox se conecta a la testnet de Convex. Ejecuta expresiones Lisp, define funciones, consulta estado y observa costos de Juice en tiempo real.",
+      "features": {
+        "juice": "Estimación de costo de Juice en tiempo real",
+        "syntax": "Soporte completo de sintaxis Convex Lisp",
+        "query": "Consulta estado global directamente"
+      },
+      "back": "Volver a Desarrolladores"
+    }
+  },
+  "footer": {
+    "tagline": "Convex Foundation — Infraestructura para sistemas económicos deterministas",
+    "status": {
+      "network": "Red",
+      "operational": "Operativo",
+      "protocol": "Protocolo"
+    },
+    "columns": {
+      "documentation": "Documentación",
+      "participate": "Participar",
+      "resources": "Recursos"
+    },
+    "links": {
+      "introduction": "Introducción",
+      "whitepaper": "Whitepaper",
+      "coreConcepts": "Conceptos Clave",
+      "tutorials": "Tutoriales",
+      "apiReference": "Referencia API",
+      "discord": "Discord",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "blog": "Blog",
+      "ecosystem": "Ecosistema",
+      "brandAssets": "Recursos de Marca",
+      "reportIssue": "Reportar un Problema"
+    },
+    "copyright": "© {year} Convex Foundation. Todos los derechos reservados."
+  },
+  "common": {
+    "learnMore": "Saber Más",
+    "getStarted": "Comenzar",
+    "viewAll": "Ver Todo",
+    "readMore": "Leer Más",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "yes": "Sí",
+    "no": "No",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar"
+  }
+}

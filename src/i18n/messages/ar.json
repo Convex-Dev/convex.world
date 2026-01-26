@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "title": "Convex",
+    "description": "أنظمة اقتصادية وكيلة لامركزية باستخدام تقنية شبكة Convex."
+  },
+  "nav": {
+    "developers": "المطورون",
+    "network": "الشبكة",
+    "ecosystem": "النظام البيئي",
+    "community": "المجتمع",
+    "docs": "التوثيق",
+    "language": "اللغة",
+    "dropdown": {
+      "developers": { "label": "المطورون" },
+      "network": { "label": "الشبكة" },
+      "ecosystem": { "label": "النظام البيئي" },
+      "community": { "label": "المجتمع" },
+      "sections": {
+        "startBuilding": "ابدأ البناء",
+        "resources": "الموارد",
+        "tools": "الأدوات",
+        "inspect": "فحص",
+        "explore": "استكشاف",
+        "learn": "تعلم",
+        "connect": "اتصل",
+        "content": "المحتوى"
+      },
+      "items": {
+        "developerOverview": { "label": "نظرة عامة للمطورين", "description": "مقدمة للبناء على Convex" },
+        "documentation": { "label": "التوثيق", "description": "أدلة ومراجع شاملة" },
+        "lispTutorial": { "label": "درس Convex Lisp", "description": "تعلم اللغة" },
+        "sdkLibraries": { "label": "Java Client API", "description": "مكتبة العميل لـ Java/JVM" },
+        "sandboxRepl": { "label": "Sandbox REPL", "description": "جرب Convex Lisp مباشرة" },
+        "cads": { "label": "CADs", "description": "وثائق هندسة Convex" },
+        "github": { "label": "GitHub", "description": "الكود المصدري والأمثلة" },
+        "toolsOverview": { "label": "نظرة عامة على الأدوات", "description": "استكشف جميع أدوات المطورين" },
+        "sandbox": { "label": "Sandbox", "description": "وحدة تحكم REPL تفاعلية" },
+        "restApi": { "label": "REST API", "description": "مرجع API" },
+        "cliTool": { "label": "أداة CLI", "description": "واجهة سطر الأوامر" },
+        "protonetExplorer": { "label": "مستكشف Protonet" },
+        "testnetExplorer": { "label": "مستكشف Testnet" },
+        "convexDesktop": { "label": "Convex Desktop" },
+        "ecosystemOverview": { "label": "نظرة على النظام البيئي", "description": "مشاريع تبني على Convex" },
+        "convexCoin": { "label": "Convex Coin", "description": "اقتصاديات وفائدة CVM" },
+        "governance": { "label": "الحوكمة", "description": "المؤسسة ونموذج الحوكمة" },
+        "whitepaper": { "label": "الورقة البيضاء" },
+        "latticeTechnology": { "label": "تقنية Lattice" },
+        "architecture": { "label": "الهندسة المعمارية" },
+        "communityHub": { "label": "مركز المجتمع", "description": "انضم للمحادثة" },
+        "discord": { "label": "Discord", "description": "تحدث مع البناة" },
+        "twitterX": { "label": "Twitter / X", "description": "آخر التحديثات" },
+        "youtube": { "label": "YouTube", "description": "دروس وعروض" },
+        "blog": { "label": "المدونة" },
+        "stackOverflow": { "label": "Stack Overflow" }
+      }
+    }
+  },
+  "hero": {
+    "title": "المحرك",
+    "titleSuffix": "للاقتصاد الوكيل",
+    "subtitle": "حيث يبني وكلاء الذكاء الاصطناعي والبشر ويتداولون ويتعاونون—فوراً وبشفافية وبدون احتكاك.",
+    "cta": {
+      "protocol": "البروتوكول",
+      "coin": "العملة"
+    }
+  },
+  "capabilities": {
+    "converge": {
+      "number": "001",
+      "title": "التقارب نحو الحقيقة",
+      "subtitle": "إجماع مستقل بدون سلطة مركزية",
+      "description": "تحقق آلة Convex الافتراضية إجماعاً عالمياً من خلال إثبات الحصة المتقارب—حيث تتقارب الحالة نحو الحقيقة عبر التحقق التشفيري، وليس الثقة.",
+      "cta": "استكشف الإجماع"
+    },
+    "execute": {
+      "number": "002",
+      "title": "التنفيذ بيقين",
+      "subtitle": "حوسبة حتمية على نطاق عالمي",
+      "description": "كل معاملة تُنفذ بيقين رياضي. توفر CVM بيئة تورينج كاملة حيث النتائج قابلة للتحقق وقابلة للتكرار عبر جميع العقد.",
+      "cta": "عرض الهندسة المعمارية"
+    },
+    "compose": {
+      "number": "003",
+      "title": "التركيب بلا حدود",
+      "subtitle": "بناء أنظمة معقدة من بدائيات بسيطة",
+      "description": "يتيح Convex Lisp منطقاً اقتصادياً قابلاً للتركيب. ادمج الرموز والحوكمة والوكلاء المستقلين في أنظمة كان من المستحيل بناؤها سابقاً.",
+      "cta": "ابدأ البناء"
+    }
+  },
+  "inspector": {
+    "title": "فحص الحالة المباشرة",
+    "subtitle": "أدوات مباشرة للإجماع العالمي",
+    "observe": "راقب",
+    "stateInspector": "مفتش الحالة",
+    "readOnly": "للقراءة فقط",
+    "placeholder": "العنوان (مثل 9، 12) أو رقم الحساب",
+    "looking": "جاري البحث...",
+    "lookup": "بحث",
+    "balance": "الرصيد",
+    "memory": "الذاكرة",
+    "bytes": "بايت",
+    "environment": "البيئة",
+    "emptyMessage": "أدخل عنوان حساب لفحص الحالة",
+    "try": "جرب:",
+    "account": "حساب",
+    "copyAddress": "نسخ العنوان",
+    "accountNotFound": "الحساب غير موجود"
+  },
+  "gauges": {
+    "title": "مراقبة الموارد",
+    "monitoring": "المراقبة",
+    "juiceConsumption": "استهلاك Juice",
+    "memoryAllocation": "تخصيص الذاكرة",
+    "units": "وحدات",
+    "bytes": "بايت",
+    "juiceInfo": "Juice = تكلفة الحوسبة التنبؤية",
+    "memoryInfo": "الذاكرة = تخزين قابل لإعادة التدوير"
+  },
+  "capabilitySections": {
+    "consensus": {
+      "number": "01",
+      "titleHighlight": "التقارب",
+      "titleSuffix": "نحو الحقيقة",
+      "subtitle": "بدون سلاسل، بدون تأخير",
+      "description": "يحقق إثبات الحصة المتقارب النهائية الحتمية في أجزاء من الثانية. ليست سلسلة خطية—بل شبكة حيث يراقب جميع المشاركين نفس الحقيقة في وقت واحد.",
+      "cta": "اقرأ الورقة البيضاء"
+    },
+    "scale": {
+      "number": "02",
+      "titleHighlight": "التوسع",
+      "titleSuffix": "بلا حدود",
+      "subtitle": "نسيج بيانات الشبكة",
+      "description": "لا تجزئة، لا rollups—قابلية توسع أفقية حقيقية. الشبكة هي نسيج بيانات عالمي: ذاتي الإصلاح، يتكرر تلقائياً، وقابل للتوسع اللانهائي على أساس P2P ذاتي السيادة.",
+      "cta": "استكشف الشبكة"
+    },
+    "performance": {
+      "number": "03",
+      "titleHighlight": "التنفيذ",
+      "titleSuffix": "بشكل متوقع",
+      "subtitle": "الفيزياء الاقتصادية",
+      "description": "Juice يقيس التكلفة الحسابية. الذاكرة قابلة لإعادة التدوير. الحالة تتقارب حتمياً. CVM تنفذ ملايين العمليات باستهلاك موارد متوقع ومحاسب.",
+      "cta": "عرض المعايير"
+    },
+    "developer": {
+      "number": "04",
+      "titleHighlight": "التعبير عن",
+      "titleSuffix": "المنطق الاقتصادي",
+      "subtitle": "Convex Lisp",
+      "description": "سطر واحد يمكن أن يحدد معاملة اقتصادية كاملة. العروض تتحول إلى تسويات. القيود مرئية. ابنِ أنظمة حيث يشارك البشر والوكلاء المستقلون تحت نفس القواعد.",
+      "cta": "دليل اللغة",
+      "secondaryCta": "جرب في صندوق الرمل"
+    },
+    "agentic": {
+      "number": "05",
+      "titleHighlight": "التنسيق",
+      "titleSuffix": "بشكل مستقل",
+      "subtitle": "مشاركة الإنسان + الوكيل",
+      "description": "البشر يحددون النية والقيود. الوكلاء المستقلون ينفذون المنطق باستمرار. كلاهما يتشاركان نفس التكاليف، نفس النهائية، نفس المسؤولية.",
+      "cta": "بنية الوكلاء"
+    },
+    "mission": {
+      "number": "06",
+      "titleHighlight": "الحوكمة",
+      "titleSuffix": "للجميع",
+      "subtitle": "البنية التحتية العامة",
+      "description": "تعمل مؤسسة Convex لصالح جميع المشاركين. مفتوحة المصدر، قابلة للفحص، ومسؤولة—بنية تحتية للأنظمة الاقتصادية الحتمية.",
+      "cta": "نموذج الحوكمة",
+      "secondaryCta": "اقرأ البيان"
+    }
+  },
+  "developers": {
+    "hero": {
+      "tag": "واجهة البناء",
+      "title": "ابنِ على",
+      "titleAccent": "شبكة Lattice",
+      "subtitle": "ابنِ أنظمة اقتصادية حيث يشارك البشر والوكلاء المستقلون تحت نفس القواعد ونفس التكاليف ونفس النهائية.",
+      "cta": {
+        "docs": "اقرأ الوثائق",
+        "source": "عرض الكود المصدري"
+      }
+    },
+    "core": {
+      "number": "001",
+      "title": "التقنيات الأساسية",
+      "subtitle": "الطبقات الأساسية التي تدعم شبكة Convex",
+      "cvm": {
+        "number": "01",
+        "title": "آلة Convex الافتراضية",
+        "description": "محرك تشغيل لامركزي حتمي عالي الأداء يدير حالة عالمية موثوقة—مناسب للعقود الذكية والأصول الرقمية والوكلاء المستقلين وسجلات الثقة.",
+        "features": {
+          "turing": "تنفيذ تورينج كامل",
+          "tps": "1M+ معاملة في الثانية",
+          "green": "إجماع أخضر 100%",
+          "compiler": "مترجم على السلسلة"
+        }
+      },
+      "lisp": {
+        "number": "02",
+        "title": "Convex Lisp",
+        "description": "لهجة Lisp حديثة مستوحاة من Clojure—قوية ومعبرة ومصممة لأنظمة اقتصادية قابلة للتركيب يمكن للبشر والوكلاء المستقلين فهمها.",
+        "codeDesc": "عبّر عن منطق اقتصادي يُنفذ بشكل حتمي على CVM:",
+        "highlight": "العروض تتحول إلى تسويات — تعبير واحد يمكن أن يمثل معاملة اقتصادية كاملة."
+      },
+      "lattice": {
+        "number": "03",
+        "title": "بيانات Lattice",
+        "tagline": "هيكل بيانات عالمي واحد. مليارات الكتّاب. تريليونات القراء. صفر بنية تحتية مركزية.",
+        "description": "تمنح تقنية Lattice كل مشروع نسيج بيانات حتمي. احتفظ بالحالة وبث الأحداث وشارك المعرفة بين الخدمات بدون قواعد بيانات مخصصة أو طوابير رسائل."
+      }
+    },
+    "started": {
+      "number": "002",
+      "title": "البدء",
+      "subtitle": "كل ما تحتاجه لبدء البناء على Convex",
+      "docs": {
+        "title": "الوثائق",
+        "desc": "أدلة شاملة ومراجع API"
+      },
+      "tutorial": {
+        "title": "دورة Convex Lisp",
+        "desc": "تعلم اللغة بأمثلة عملية"
+      },
+      "sdk": {
+        "title": "Java Client API",
+        "desc": "مكتبة العميل لتطبيقات Java/JVM"
+      },
+      "sandbox": {
+        "title": "صندوق رمل REPL",
+        "desc": "جرب Convex Lisp في وحدة تحكم مباشرة على testnet"
+      }
+    },
+    "cta": {
+      "title": "بناء أنظمة اقتصادية",
+      "description": "Convex للأشخاص الذين يبنون أنظمة اقتصادية حيث يجب أن يتعايش البشر والوكلاء المستقلون بأمان. التكاليف والقيود مرئية. الحالة تتقارب بشكل حتمي.",
+      "docs": "اقرأ الوثائق",
+      "community": "انضم للمجتمع"
+    }
+  },
+  "ecosystem": {
+    "hero": {
+      "label": "البناء على Convex",
+      "title": "نظام",
+      "titleAccent": "Convex البيئي",
+      "subtitle": "منظمات ومشاريع رائدة تبني مستقبل الأنظمة اللامركزية بتقنية Convex و Lattice."
+    },
+    "stats": {
+      "projects": {
+        "value": "5+",
+        "label": "مشاريع نشطة"
+      },
+      "continents": {
+        "value": "3",
+        "label": "قارات"
+      },
+      "possibilities": {
+        "value": "∞",
+        "label": "إمكانيات"
+      }
+    },
+    "featured": {
+      "number": "001",
+      "title": "مشاريع مميزة",
+      "subtitle": "منظمات تستفيد من Convex لتأثير حقيقي",
+      "visitProject": "زيارة المشروع"
+    },
+    "join": {
+      "number": "002",
+      "title": "انضم للنظام البيئي",
+      "subtitle": "ابنِ معنا وكن جزءاً من الجيل القادم من الأنظمة اللامركزية",
+      "enterprise": {
+        "title": "للمؤسسات",
+        "description": "انشر حلولاً جاهزة للإنتاج على بنية Convex التحتية.",
+        "cta": "اعرف المزيد"
+      },
+      "developers": {
+        "title": "للمطورين",
+        "description": "ابدأ البناء مع SDK والوثائق الشاملة.",
+        "cta": "ابدأ الآن"
+      },
+      "communities": {
+        "title": "للمجتمعات",
+        "description": "انضم لـ Discord وتواصل مع البناة حول العالم.",
+        "cta": "انضم لـ Discord"
+      }
+    },
+    "cta": {
+      "title": "تبني على Convex؟",
+      "description": "إذا كنت تبني على Convex وتريد الظهور هنا، تواصل معنا وسنضيفك للنظام البيئي.",
+      "button": "تواصل معنا"
+    },
+    "projects": {
+      "covia": {
+        "title": "Covia.ai",
+        "description": "بناء الشبكة العالمية للذكاء الاصطناعي، تمكين أنظمة وكلاء AI قوية عبر الحدود التنظيمية.",
+        "category": "بنية AI التحتية"
+      },
+      "paisley": {
+        "title": "Paisley",
+        "description": "منصة تعاونية مملوكة للأعضاء للمستقلين والمبدعين يبنون مستقبلاً أفضل للجميع.",
+        "category": "اقتصاد المبدعين"
+      },
+      "eu": {
+        "title": "الاتحاد الأوروبي",
+        "description": "جزء من برنامج الجيل القادم للإنترنت، يركز على بنية DLT تحتية فعالة وقابلة للتطوير وتبادل رموز قابل للتشغيل البيني.",
+        "category": "حكومة"
+      },
+      "lumoza": {
+        "title": "Lumoza",
+        "description": "تحويل صناعة الموسيقى بحلول لمساعدة الفنانين على تسجيل وإدارة حقوق النشر.",
+        "category": "موسيقى وملكية فكرية"
+      },
+      "remelife": {
+        "title": "ReMeLife",
+        "description": "أول نظام بيئي مجتمعي AI-Web3 Care-2-Earn، يبني ReMeGrid—مجتمع رعاية لامركزي قائم على المكافآت.",
+        "category": "رعاية صحية"
+      }
+    }
+  },
+  "community": {
+    "hero": {
+      "label": "قلب Convex",
+      "title": "انضم إلى",
+      "titleAccent": "المجتمع",
+      "subtitle": "Convex ليست مجرد تقنية—إنها حركة مفتوحة المصدر. البناة والباحثون والحالمون والرواد من جميع أنحاء العالم يشكلون مستقبل التنسيق اللامركزي."
+    },
+    "connect": {
+      "number": "001",
+      "title": "تواصل معنا",
+      "subtitle": "اعثر على مكانك في مجتمع Convex"
+    },
+    "social": {
+      "discord": {
+        "name": "Discord",
+        "description": "انضم للحوار مع البناة والباحثين والمتحمسين.",
+        "action": "انضم"
+      },
+      "youtube": {
+        "name": "YouTube",
+        "description": "شاهد الدروس والعروض التوضيحية والتعمق في تقنية Convex.",
+        "action": "زيارة"
+      },
+      "x": {
+        "name": "X",
+        "description": "تابع لآخر التحديثات والإعلانات وأبرز المجتمع.",
+        "action": "استكشف"
+      },
+      "blog": {
+        "name": "المدونة",
+        "description": "مقالات معمقة عن التقنية وخارطة الطريق وتطورات النظام البيئي.",
+        "action": "اقرأ"
+      }
+    },
+    "contentTypes": {
+      "blogPost": "مقالة مدونة",
+      "video": "فيديو",
+      "announcement": "إعلان"
+    },
+    "activity": {
+      "number": "002",
+      "title": "النشاط الأخير",
+      "subtitle": "آخر الأخبار من نظام Convex البيئي",
+      "viewAll": "عرض جميع المنشورات",
+      "by": "بواسطة"
+    },
+    "cta": {
+      "title": "مستعد لبناء المستقبل؟",
+      "description": "سواء كنت مطوراً أو باحثاً أو مجرد فضولي حول الأنظمة اللامركزية—هناك مكان لك هنا.",
+      "discord": "انضم لـ Discord",
+      "build": "ابدأ البناء"
+    }
+  },
+  "coin": {
+    "hero": {
+      "ticker": "CVM",
+      "title": "عملة Convex",
+      "tagline": "الرمز المميز الأصلي الذي يدعم أكثر محركات التنفيذ اللامركزية كفاءة في العالم",
+      "stats": {
+        "supply": {
+          "value": "1B",
+          "label": "الحد الأقصى للعرض"
+        },
+        "coppers": {
+          "label": "Coppers لكل عملة"
+        },
+        "fees": {
+          "value": "0",
+          "label": "رسوم القراءة"
+        }
+      },
+      "cta": {
+        "buy": "شراء CVM",
+        "tokenomics": "اقتصاديات التوكن"
+      }
+    },
+    "value": {
+      "fuel": {
+        "title": "وقود المعاملات",
+        "description": "رسوم CVM صغيرة تُطبق فقط على المعاملات التي تغير الحالة—حماية الشبكة مع ضمان الوصول العادل."
+      },
+      "stake": {
+        "title": "التخزين والأمان",
+        "description": "خزّن CVM على أقران موثوقين عبر إثبات الحصة المتقارب، واكسب مكافآت مع تعزيز أمان الشبكة."
+      },
+      "currency": {
+        "title": "عملة رقمية",
+        "description": "استخدم CVM كعملة رقمية مريحة وذاتية السيادة لتبادل القيمة عبر النظام البيئي."
+      },
+      "rewards": {
+        "title": "اكسب مكافآت",
+        "description": "المساهمون في الشبكة والنظام البيئي يُكافأون بـ CVM لمشاركتهم."
+      }
+    },
+    "free": {
+      "title": "معظم التفاعلات",
+      "titleAccent": "مجانية",
+      "agentic": {
+        "title": "أدوات الوكلاء",
+        "description": "استخدم أدوات الوكلاء عبر MCP"
+      },
+      "reads": {
+        "title": "قراءات غير محدودة",
+        "description": "استعلم عن الحالة العالمية بدون تكلفة"
+      },
+      "offchain": {
+        "title": "مرونة خارج السلسلة",
+        "description": "تقنية Lattice للجميع"
+      }
+    },
+    "tokenomics": {
+      "number": "001",
+      "title": "اقتصاديات الرمز",
+      "subtitle": "توزيع عادل تحكمه مؤسسة Convex غير الربحية",
+      "development": {
+        "percent": "25%",
+        "title": "التطوير والمنح",
+        "description": "مكافآت وجوائز لتسريع التطوير الأساسي والأدوات وابتكار التطبيقات اللامركزية."
+      },
+      "release": {
+        "percent": "75%",
+        "title": "منحنى الإصدار العام",
+        "description": "إصدار عادل وشفاف بمرور الوقت—ضمان مشاركة واسعة وحوافز متوافقة."
+      }
+    },
+    "curve": {
+      "number": "002",
+      "title": "منحنى الإصدار",
+      "subtitle": "تسعير ديناميكي ينمو مع التبني",
+      "formula": {
+        "basePrice": "سعر أساسي 100$",
+        "proportion": "النسبة المباعة بالفعل"
+      },
+      "description": "يتقارب إمداد CVM نحو سقف صلب نظري يبلغ 1,000,000,000 CVM. يُحدد معدل التقارب باقتصاديات منحنى الإصدار.",
+      "chartLabels": {
+        "price": "سعر العملة",
+        "released": "النسبة المُصدرة"
+      }
+    },
+    "finalCta": {
+      "title": "مستعد للمشاركة؟",
+      "description": "انضم لنظام Convex البيئي وكن جزءاً من مستقبل الأنظمة اللامركزية.",
+      "buy": "شراء CVM",
+      "community": "انضم للمجتمع"
+    }
+  },
+  "sandbox": {
+    "title": "صندوق الرمل",
+    "console": {
+      "title": "وحدة تحكم تفاعلية",
+      "description": "هذا الصندوق يتصل بشبكة Convex التجريبية. نفّذ تعبيرات Lisp وعرّف دوال واستعلم عن الحالة وراقب تكاليف Juice في الوقت الفعلي.",
+      "features": {
+        "juice": "تقدير تكلفة Juice في الوقت الفعلي",
+        "syntax": "دعم كامل لصيغة Convex Lisp",
+        "query": "استعلم عن الحالة العالمية مباشرة"
+      },
+      "back": "العودة للمطورين"
+    }
+  },
+  "footer": {
+    "tagline": "مؤسسة Convex — البنية التحتية للأنظمة الاقتصادية الحتمية",
+    "status": {
+      "network": "الشبكة",
+      "operational": "تعمل",
+      "protocol": "البروتوكول"
+    },
+    "columns": {
+      "documentation": "الوثائق",
+      "participate": "المشاركة",
+      "resources": "الموارد"
+    },
+    "links": {
+      "introduction": "مقدمة",
+      "whitepaper": "الورقة البيضاء",
+      "coreConcepts": "المفاهيم الأساسية",
+      "tutorials": "دروس تعليمية",
+      "apiReference": "مرجع API",
+      "discord": "Discord",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "blog": "المدونة",
+      "ecosystem": "النظام البيئي",
+      "brandAssets": "موارد العلامة التجارية",
+      "reportIssue": "الإبلاغ عن مشكلة"
+    },
+    "copyright": "© {year} مؤسسة Convex. جميع الحقوق محفوظة."
+  },
+  "common": {
+    "learnMore": "اعرف المزيد",
+    "getStarted": "ابدأ الآن",
+    "viewAll": "عرض الكل",
+    "readMore": "اقرأ المزيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "close": "إغلاق",
+    "open": "فتح",
+    "yes": "نعم",
+    "no": "لا",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب"
+  }
+}

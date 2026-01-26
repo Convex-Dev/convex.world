@@ -115,7 +115,7 @@ export default function LiveProofOfLife() {
     <div className="proof-of-life">
       <div className="pol-status">
         <span className={`pol-indicator ${isConnected ? '' : 'pol-disconnected'}`} key={pulseKey} />
-        <span className="pol-status-text">{isConnected ? 'Live' : 'Offline'}</span>
+        <span className="pol-status-text">{isConnected ? 'Online' : 'Offline'}</span>
       </div>
       
       <div className="pol-metrics">

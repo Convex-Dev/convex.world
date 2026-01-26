@@ -1,3 +1,4 @@
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import Link from "next/link";
 import Image from "next/image";
 import Parser from "rss-parser";
@@ -57,36 +58,28 @@ async function fetchRecentFromRss(): Promise<RecentItem[]> {
 
 const socialLinks = [
   {
-    name: "Discord",
-    description: "Join the conversation with builders, researchers, and enthusiasts.",
+    key: "discord",
     logo: "/images/social_discord.webp",
     href: "https://discord.com/invite/xfYGq4CT7v",
-    color: "discord",
-    action: "Join"
+    color: "discord"
   },
   {
-    name: "YouTube",
-    description: "Watch tutorials, demos, and deep dives into Convex technology.",
+    key: "youtube",
     logo: "/images/youtube.svg",
     href: "https://www.youtube.com/@convex-world",
-    color: "youtube",
-    action: "Visit"
+    color: "youtube"
   },
   {
-    name: "X",
-    description: "Follow for the latest updates, announcements, and community highlights.",
+    key: "x",
     logo: "/images/x-logo.svg",
     href: "https://x.com/convex_world",
-    color: "twitter",
-    action: "Explore"
+    color: "twitter"
   },
   {
-    name: "Blog",
-    description: "In-depth articles on technology, roadmap, and ecosystem developments.",
+    key: "blog",
     logo: "/images/convex-blue.svg",
     href: "https://docs.convex.world/blog",
-    color: "blog",
-    action: "Read"
+    color: "blog"
   }
 ] as const;
 
@@ -111,17 +104,26 @@ const FALLBACK_RECENT: RecentItem[] = [
   },
 ];
 
-const contentTypeLabels = {
-  blog: "Blog Post",
-  video: "Video",
-  announcement: "Announcement",
+const contentTypeKeys = {
+  blog: "blogPost",
+  video: "video",
+  announcement: "announcement",
 } as const;
 
-export default async function Community() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function Community({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('community');
+  
   const recentContent = await fetchRecentFromRss();
   const displayContent = recentContent.length > 0 ? recentContent : FALLBACK_RECENT;
+  
   return (
-    <main>
+    <>
       {/* Lattice Background */}
       <div className="lattice-bg" aria-hidden="true">
         <div className="lattice-node lattice-node-1" />
@@ -131,32 +133,26 @@ export default async function Community() {
 
       {/* Hero Section */}
       <section className="community-hero">
-        <div className="hero-eyebrow">
-          <div className="hero-label">The Heart of Convex</div>
-        </div>
+        <span className="dev-hero-tag">// {t('hero.label')}</span>
         <h1>
-          Join the{" "}
-          <span className="hero-accent">Community</span>
+          {t('hero.title')}{" "}
+          {t('hero.titleAccent')}
         </h1>
-        <p className="community-hero-text">
-          Convex isn&apos;t just technology—it&apos;s an open-source movement. Builders, researchers, 
-          dreamers, and pioneers from around the world are shaping the future of 
-          decentralised coordination.
-        </p>
+        <p className="community-hero-text">{t('hero.subtitle')}</p>
       </section>
 
       {/* Social Links */}
       <section className="community-section">
         <div className="section-header">
-          <span className="section-number">// 001</span>
-          <h2>Connect With Us</h2>
-          <p>Find your place in the Convex community</p>
+          <span className="section-number">// {t('connect.number')}</span>
+          <h2>{t('connect.title')}</h2>
+          <p>{t('connect.subtitle')}</p>
         </div>
 
         <div className="community-social-grid">
           {socialLinks.map((social) => (
             <a
-              key={social.name}
+              key={social.key}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
@@ -166,20 +162,20 @@ export default async function Community() {
                 <div className="community-social-icon">
                   <Image 
                     src={social.logo} 
-                    alt={social.name}
+                    alt={t(`social.${social.key}.name`)}
                     width={48}
                     height={48}
                     style={{ objectFit: "contain" }}
                     className={social.color === "twitter" ? "x-logo" : ""}
                   />
                 </div>
-                <h3>{social.name}</h3>
+                <h3>{t(`social.${social.key}.name`)}</h3>
               </div>
               <div className="community-social-content">
-                <p>{social.description}</p>
+                <p>{t(`social.${social.key}.description`)}</p>
               </div>
               <div className="community-social-footer">
-                <span>{social.action}</span>
+                <span>{t(`social.${social.key}.action`)}</span>
                 <ArrowUpRight size={16} className="community-social-arrow" />
               </div>
             </a>
@@ -190,9 +186,9 @@ export default async function Community() {
       {/* Activity Timeline */}
       <section className="community-section">
         <div className="section-header">
-          <span className="section-number">// 002</span>
-          <h2>Recent Activity</h2>
-          <p>The latest from the Convex ecosystem</p>
+          <span className="section-number">// {t('activity.number')}</span>
+          <h2>{t('activity.title')}</h2>
+          <p>{t('activity.subtitle')}</p>
         </div>
 
         <div className="community-timeline">
@@ -214,14 +210,14 @@ export default async function Community() {
                 <div className="community-timeline-meta">
                   <span className="community-timeline-type">
                     <Calendar size={12} />
-                    {contentTypeLabels[item.type] ?? "Blog Post"}
+                    {t(`contentTypes.${contentTypeKeys[item.type]}`)}
                   </span>
                   <span className="community-timeline-date">{item.date}</span>
                 </div>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <div className="community-timeline-footer">
-                  <span className="community-timeline-author">By {item.author}</span>
+                  <span className="community-timeline-author">{t('activity.by')} {item.author}</span>
                   <div className="community-timeline-tags">
                     {item.tags.slice(0, 3).map((tag) => (
                       <span key={tag} className="community-timeline-tag">{tag}</span>
@@ -240,7 +236,7 @@ export default async function Community() {
             className="btn btn-secondary"
             target="_blank"
           >
-            View All Posts
+            {t('activity.viewAll')}
             <ArrowUpRight size={14} />
           </Link>
         </div>
@@ -249,28 +245,25 @@ export default async function Community() {
       {/* Community CTA */}
       <section className="community-cta">
         <div className="community-cta-content">
-          <h3>Ready to Build the Future?</h3>
-          <p>
-            Whether you&apos;re a developer, researcher, or just curious about 
-            decentralised systems—there&apos;s a place for you here.
-          </p>
+          <h3>{t('cta.title')}</h3>
+          <p>{t('cta.description')}</p>
           <div className="community-cta-buttons">
             <Link 
               href="https://discord.com/invite/xfYGq4CT7v" 
               className="btn btn-primary"
               target="_blank"
             >
-              Join Discord
+              {t('cta.discord')}
               <ArrowUpRight size={14} />
             </Link>
             <Link href="/developers" className="btn btn-secondary">
-              Start Building
+              {t('cta.build')}
             </Link>
           </div>
         </div>
       </section>
 
       <div className="geo-line" aria-hidden="true" />
-    </main>
+    </>
   );
 }

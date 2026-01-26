@@ -1,3 +1,4 @@
+import { setRequestLocale } from 'next-intl/server';
 import Link from "next/link";
 import { Zap, Terminal, Database } from "lucide-react";
 import ReplSandbox from "@/components/ReplSandbox";
@@ -8,9 +9,16 @@ export const metadata = {
     "Experiment with Convex Lisp in a live environment. Execute expressions, define functions, query state, and observe results in real-time.",
 };
 
-export default function SandboxPage() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function SandboxPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
-    <main>
+    <>
       {/* Lattice Background */}
       <div className="lattice-bg" aria-hidden="true">
         <div className="lattice-node lattice-node-1" />
@@ -56,6 +64,6 @@ export default function SandboxPage() {
       </section>
 
       <div className="geo-line" aria-hidden="true" />
-    </main>
+    </>
   );
 }
