@@ -5,11 +5,11 @@
   },
   {
     "title":"Virtual Machine",
-    "desc":"High performance execution for decentralised smart contracts and trusted assets"
+    "desc":"High performance execution for smart contracts and trusted assets"
   },
   {
     "title":"CAD3 Data",
-    "desc":"Revolutionary encoding format for self-replicating, cryptographically verified data" 
+    "desc":"Revolutionary encoding format for self-replicated, cryptographically verified data" 
   },
   {
     "title": "CPoS",
@@ -45,7 +45,7 @@
   },
   {
     "title": "DIDs",
-    "desc": "Decentralised identifiers for users, autonomous agents and digital assets"
+    "desc": "Decentralised identity for users, autonomous agents and digital assets"
   },
   {
     "title": "Memory Accounting",
