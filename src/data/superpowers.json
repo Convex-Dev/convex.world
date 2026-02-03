@@ -1,0 +1,70 @@
+[
+  {
+    "title": "Agent Ready",
+    "desc": "All the power of the lattice with agentic tools using the Model Context Protocol"
+  },
+  {
+    "title":"Virtual Machine",
+    "desc":"High performance execution for decentralised smart contracts and trusted assets"
+  },
+  {
+    "title":"CAD3 Data",
+    "desc":"Revolutionary encoding format for self-replicating, cryptographically verified data" 
+  },
+  {
+    "title": "CPoS",
+    "desc": "Realtime convergent consensus algorithm for shared global state: faster than any blockchain"
+  },
+  {
+    "title": "Lattice CRDTs",
+    "desc": "Replicated, self-healing, off-chain application backends with lattice technology"
+  },
+  {
+    "title": "On-Chain Compiler",
+    "desc": "Dynamic compilation with no external toolchains, no build pipelines: perfect for agentic systems"
+  },
+  {
+    "title": "Convex Lisp",
+    "desc": "Powerful, expressive functional programming with the lambda calculus: code is data"
+  },
+  {
+    "title": "Data Lattice",
+    "desc": "Global, replicated, self-healing, content-addressable data fabric"
+  },
+  {
+    "title": "Convex Coin",
+    "desc": "A utility token for global state transactions with fair economics"
+  },
+  {
+    "title": "Digital Assets",
+    "desc": "Create fungible tokens, NFTs, and complex financial instruments in a single expression"
+  },
+  {
+    "title": "CNS",
+    "desc": "A global, content-addressable name service for decentralised applications"
+  },
+  {
+    "title": "DIDs",
+    "desc": "Decentralised identifiers for users, autonomous agents and digital assets"
+  },
+  {
+    "title": "Memory Accounting",
+    "desc": "Global memory as a digital asset: incentives for efficient use and recycling"
+  },
+  {
+    "title": "One Line DeFi",
+    "description": "Execute powerful, end-to-end economic transactions with one command"
+  },
+  {
+    "title": "DLFS",
+    "desc": "Distributed filesystems on the lattice: Dropbox meets BitTorrent meets IPFS"
+  },
+  {
+    "title": "Open source",
+    "desc": "Fully open-source, developer-friendly"
+  },
+  {
+    "title": "Non-Profit",
+    "description": "Governed by a non-profit foundation, built for public benefit in the age of AI"
+  }
+]
