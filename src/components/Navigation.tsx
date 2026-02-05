@@ -11,8 +11,6 @@ import {
   FileText, Layers, Box, Users, MessageCircle, Twitter, Youtube, 
   Newspaper, HelpCircle
 } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
-import { useTranslations } from 'next-intl';
 
 interface DropdownItem {
   label: string;
@@ -28,113 +26,104 @@ interface DropdownSection {
 }
 
 interface NavDropdown {
+  key: string;
   label: string;
   href: string;
   sections: DropdownSection[];
 }
 
-interface NavDropdownData {
-  key: string;
-  href: string;
-  sections: {
-    titleKey?: string;
-    items: {
-      labelKey: string;
-      href: string;
-      external?: boolean;
-      descriptionKey?: string;
-      icon: React.ReactNode;
-    }[];
-  }[];
-}
-
-const navDropdownsData: NavDropdownData[] = [
+const navDropdowns: NavDropdown[] = [
   {
     key: 'developers',
+    label: 'Developers',
     href: '/developers',
     sections: [
       {
-        titleKey: 'startBuilding',
+        title: 'Start Building',
         items: [
-          { labelKey: 'developerOverview', href: '/developers', descriptionKey: 'developerOverviewDesc', icon: <Code2 size={18} /> },
-          { labelKey: 'documentation', href: 'https://docs.convex.world/docs/intro', external: true, descriptionKey: 'documentationDesc', icon: <BookOpen size={18} /> },
-          { labelKey: 'lispTutorial', href: 'https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp', external: true, descriptionKey: 'lispTutorialDesc', icon: <GraduationCap size={18} /> },
-          { labelKey: 'sdkLibraries', href: 'https://github.com/Convex-Dev/convex/tree/develop/convex-java', external: true, descriptionKey: 'sdkLibrariesDesc', icon: <Package size={18} /> },
+          { label: 'Developer Overview', href: '/developers', description: 'Introduction to building on Convex', icon: <Code2 size={18} /> },
+          { label: 'Documentation', href: 'https://docs.convex.world/docs/intro', external: true, description: 'Comprehensive guides and references', icon: <BookOpen size={18} /> },
+          { label: 'Convex Lisp Tutorial', href: 'https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp', external: true, description: 'Learn the language', icon: <GraduationCap size={18} /> },
+          { label: 'Java Client API', href: 'https://github.com/Convex-Dev/convex/tree/develop/convex-java', external: true, description: 'Client library for Java/JVM', icon: <Package size={18} /> },
         ]
       },
       {
-        titleKey: 'resources',
+        title: 'Resources',
         items: [
-          { labelKey: 'sandboxRepl', href: '/sandbox', descriptionKey: 'sandboxReplDesc', icon: <Terminal size={18} /> },
-          { labelKey: 'cads', href: 'https://docs.convex.world/docs/cad/0000cads', external: true, descriptionKey: 'cadsDesc', icon: <FileCode size={18} /> },
-          { labelKey: 'github', href: 'https://github.com/Convex-Dev', external: true, descriptionKey: 'githubDesc', icon: <Github size={18} /> },
+          { label: 'Sandbox REPL', href: '/sandbox', description: 'Try Convex Lisp live', icon: <Terminal size={18} /> },
+          { label: 'CADs', href: 'https://docs.convex.world/docs/cad/0000cads', external: true, description: 'Convex Architecture Documents', icon: <FileCode size={18} /> },
+          { label: 'GitHub', href: 'https://github.com/Convex-Dev', external: true, description: 'Source code and examples', icon: <Github size={18} /> },
+          { label: 'Full Docs', href: 'https://docs.convex.world', external: true, description: 'Complete documentation site', icon: <BookOpen size={18} /> },
         ]
       }
     ]
   },
   {
     key: 'network',
+    label: 'Network',
     href: '/tools',
     sections: [
       {
-        titleKey: 'tools',
+        title: 'Tools',
         items: [
-          { labelKey: 'toolsOverview', href: '/tools', descriptionKey: 'toolsOverviewDesc', icon: <Compass size={18} /> },
-          { labelKey: 'sandbox', href: '/sandbox', descriptionKey: 'sandboxDesc', icon: <Terminal size={18} /> },
-          { labelKey: 'restApi', href: 'https://peer.convex.live/swagger', external: true, descriptionKey: 'restApiDesc', icon: <Server size={18} /> },
-          { labelKey: 'cliTool', href: 'https://docs.convex.world/docs/products/convex-cli', external: true, descriptionKey: 'cliToolDesc', icon: <Terminal size={18} /> },
+          { label: 'Tools Overview', href: '/tools', description: 'Explore all developer tools', icon: <Compass size={18} /> },
+          { label: 'Sandbox', href: '/sandbox', description: 'Interactive REPL console', icon: <Terminal size={18} /> },
+          { label: 'REST API', href: 'https://peer.convex.live/swagger', external: true, description: 'API reference', icon: <Server size={18} /> },
+          { label: 'CLI Tool', href: 'https://docs.convex.world/docs/products/convex-cli', external: true, description: 'Command-line interface', icon: <Terminal size={18} /> },
         ]
       },
       {
-        titleKey: 'inspect',
+        title: 'Inspect',
         items: [
-          { labelKey: 'protonetExplorer', href: 'https://peer.convex.live/explorer', external: true, icon: <Globe size={18} /> },
-          { labelKey: 'testnetExplorer', href: 'https://mikera1337-convex-testnet.hf.space/explorer', external: true, icon: <Globe size={18} /> },
-          { labelKey: 'convexDesktop', href: 'https://docs.convex.world/docs/products/convex-desktop', external: true, icon: <MonitorSmartphone size={18} /> },
+          { label: 'Protonet Explorer', href: 'https://peer.convex.live/explorer', external: true, icon: <Globe size={18} /> },
+          { label: 'Testnet Explorer', href: 'https://mikera1337-convex-testnet.hf.space/explorer', external: true, icon: <Globe size={18} /> },
+          { label: 'Convex Desktop', href: 'https://docs.convex.world/docs/products/convex-desktop', external: true, icon: <MonitorSmartphone size={18} /> },
         ]
       }
     ]
   },
   {
     key: 'ecosystem',
+    label: 'Ecosystem',
     href: '/ecosystem',
     sections: [
       {
-        titleKey: 'explore',
+        title: 'Explore',
         items: [
-          { labelKey: 'ecosystemOverview', href: '/ecosystem', descriptionKey: 'ecosystemOverviewDesc', icon: <Compass size={18} /> },
-          { labelKey: 'convexCoin', href: '/coin', descriptionKey: 'convexCoinDesc', icon: <Coins size={18} /> },
-          { labelKey: 'governance', href: 'https://docs.convex.world/docs/overview/governance', external: true, descriptionKey: 'governanceDesc', icon: <Scale size={18} /> },
+          { label: 'Ecosystem Overview', href: '/ecosystem', description: 'Projects building on Convex', icon: <Compass size={18} /> },
+          { label: 'Convex Coin', href: '/coin', description: 'CVM tokenomics and utility', icon: <Coins size={18} /> },
+          { label: 'Governance', href: 'https://docs.convex.world/docs/overview/governance', external: true, description: 'Foundation and governance model', icon: <Scale size={18} /> },
         ]
       },
       {
-        titleKey: 'learn',
+        title: 'Learn',
         items: [
-          { labelKey: 'whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true, icon: <FileText size={18} /> },
-          { labelKey: 'latticeTechnology', href: 'https://docs.convex.world/docs/overview/lattice', external: true, icon: <Layers size={18} /> },
-          { labelKey: 'architecture', href: 'https://docs.convex.world/docs/overview/concepts', external: true, icon: <Box size={18} /> },
+          { label: 'Whitepaper', href: 'https://docs.convex.world/docs/overview/convex-whitepaper', external: true, icon: <FileText size={18} /> },
+          { label: 'Lattice Technology', href: 'https://docs.convex.world/docs/overview/lattice', external: true, icon: <Layers size={18} /> },
+          { label: 'Architecture', href: 'https://docs.convex.world/docs/overview/concepts', external: true, icon: <Box size={18} /> },
         ]
       }
     ]
   },
   {
     key: 'community',
+    label: 'Community',
     href: '/community',
     sections: [
       {
-        titleKey: 'connect',
+        title: 'Connect',
         items: [
-          { labelKey: 'communityHub', href: '/community', descriptionKey: 'communityHubDesc', icon: <Users size={18} /> },
-          { labelKey: 'discord', href: 'https://discord.com/invite/xfYGq4CT7v', external: true, descriptionKey: 'discordDesc', icon: <MessageCircle size={18} /> },
-          { labelKey: 'twitterX', href: 'https://x.com/convex_world', external: true, descriptionKey: 'twitterXDesc', icon: <Twitter size={18} /> },
-          { labelKey: 'youtube', href: 'https://www.youtube.com/@convex-world', external: true, descriptionKey: 'youtubeDesc', icon: <Youtube size={18} /> },
+          { label: 'Community Hub', href: '/community', description: 'Join the conversation', icon: <Users size={18} /> },
+          { label: 'Discord', href: 'https://discord.com/invite/xfYGq4CT7v', external: true, description: 'Chat with builders', icon: <MessageCircle size={18} /> },
+          { label: 'Twitter / X', href: 'https://x.com/convex_world', external: true, description: 'Latest updates', icon: <Twitter size={18} /> },
+          { label: 'YouTube', href: 'https://www.youtube.com/@convex-world', external: true, description: 'Tutorials and demos', icon: <Youtube size={18} /> },
         ]
       },
       {
-        titleKey: 'content',
+        title: 'Content',
         items: [
-          { labelKey: 'blog', href: 'https://docs.convex.world/blog', external: true, icon: <Newspaper size={18} /> },
-          { labelKey: 'stackOverflow', href: 'https://stackoverflow.com/questions/tagged/convex', external: true, icon: <HelpCircle size={18} /> },
+          { label: 'Blog', href: 'https://docs.convex.world/blog', external: true, icon: <Newspaper size={18} /> },
+          { label: 'Stack Overflow', href: 'https://stackoverflow.com/questions/tagged/convex', external: true, icon: <HelpCircle size={18} /> },
         ]
       }
     ]
@@ -142,21 +131,9 @@ const navDropdownsData: NavDropdownData[] = [
 ];
 
 export default function Navigation() {
-  const t = useTranslations('nav');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
-
-  const getDropdownLabel = (key: string) => t(`dropdown.${key}.label`);
-  const getSectionTitle = (key: string) => t(`dropdown.sections.${key}`);
-  const getItemLabel = (key: string) => t(`dropdown.items.${key}.label`);
-  const getItemDesc = (key: string) => {
-    try {
-      return t(`dropdown.items.${key}.description`);
-    } catch {
-      return undefined;
-    }
-  };
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -194,7 +171,7 @@ export default function Navigation() {
           {/* Desktop Navigation with Dropdowns */}
           <div className="nav-desktop">
             <div className="nav-links-group">
-              {navDropdownsData.map((dropdown) => (
+              {navDropdowns.map((dropdown) => (
                 <div 
                   key={dropdown.key} 
                   className="nav-dropdown-container"
@@ -205,7 +182,7 @@ export default function Navigation() {
                     href={dropdown.href}
                     className={`nav-link nav-dropdown-trigger ${openDropdown === dropdown.key ? 'active' : ''} ${dropdown.key === 'developers' ? 'nav-link-bold' : ''}`}
                   >
-                    {getDropdownLabel(dropdown.key)}
+                    {dropdown.label}
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="nav-dropdown-arrow">
                       <path d="M6 9l6 6 6-6"/>
                     </svg>
@@ -216,11 +193,9 @@ export default function Navigation() {
                       <div className="nav-dropdown-menu-inner">
                         {dropdown.sections.map((section, idx) => (
                           <div key={idx} className="nav-dropdown-section">
-                            {section.titleKey && <span className="nav-dropdown-title">{getSectionTitle(section.titleKey)}</span>}
+                            {section.title && <span className="nav-dropdown-title">{section.title}</span>}
                             {section.items.map((item) => {
                               const isCurrentPage = item.href === dropdown.href;
-                              const itemLabel = getItemLabel(item.labelKey);
-                              const itemDesc = item.descriptionKey ? getItemDesc(item.labelKey) : undefined;
                               return item.external ? (
                                 <a
                                   key={item.href}
@@ -232,8 +207,8 @@ export default function Navigation() {
                                 >
                                   <span className="nav-dropdown-item-icon">{item.icon}</span>
                                   <span className="nav-dropdown-item-content">
-                                    <span className="nav-dropdown-item-label">{itemLabel}</span>
-                                    {itemDesc && <span className="nav-dropdown-item-desc">{itemDesc}</span>}
+                                    <span className="nav-dropdown-item-label">{item.label}</span>
+                                    {item.description && <span className="nav-dropdown-item-desc">{item.description}</span>}
                                   </span>
                                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="nav-external-icon">
                                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
@@ -248,8 +223,8 @@ export default function Navigation() {
                                 >
                                   <span className="nav-dropdown-item-icon">{item.icon}</span>
                                   <span className="nav-dropdown-item-content">
-                                    <span className="nav-dropdown-item-label">{itemLabel}</span>
-                                    {itemDesc && <span className="nav-dropdown-item-desc">{itemDesc}</span>}
+                                    <span className="nav-dropdown-item-label">{item.label}</span>
+                                    {item.description && <span className="nav-dropdown-item-desc">{item.description}</span>}
                                   </span>
                                 </Link>
                               );
@@ -260,7 +235,7 @@ export default function Navigation() {
                         <div className="nav-dropdown-graphic">
                           <Image
                             src={`/images/navbar/${dropdown.key === 'developers' ? 'Developers' : dropdown.key}.webp`}
-                            alt={getDropdownLabel(dropdown.key)}
+                            alt={dropdown.label}
                             width={440}
                             height={700}
                             className="nav-dropdown-graphic-img"
@@ -272,21 +247,9 @@ export default function Navigation() {
                 </div>
               ))}
               
-              <a 
-                href="https://docs.convex.world" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="nav-link"
-              >
-                {t('docs')}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                </svg>
-              </a>
             </div>
             
             <div className="nav-utils-group">
-              <LanguageSwitcher />
               <ColorMode />
             </div>
           </div>
@@ -308,59 +271,40 @@ export default function Navigation() {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="mobile-menu-overlay">
-          <button
-            onClick={closeMenu}
-            aria-label="Close menu"
-            className="mobile-menu-close"
-          >
-            ×
-          </button>
-
-          {navDropdownsData.map((dropdown) => (
+          {navDropdowns.map((dropdown) => (
             <div key={dropdown.key} className="mobile-menu-section">
               <Link href={dropdown.href} onClick={closeMenu} className="mobile-menu-link mobile-menu-link-main">
-                {getDropdownLabel(dropdown.key)}
+                {dropdown.label}
               </Link>
               <div className="mobile-menu-subitems">
-                {dropdown.sections.flatMap(section => section.items.slice(0, 3)).map((item, idx) => (
-                  item.external ? (
+                {dropdown.sections.flatMap(section => section.items.slice(0, 3)).map((item, idx) => {
+                  const isOverview = item.label.toLowerCase().includes('overview') || item.label === 'Community Hub';
+                  return item.external ? (
                     <a
-                      key={`${dropdown.key}-${item.labelKey}-${idx}`}
+                      key={`${dropdown.key}-${item.label}-${idx}`}
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={closeMenu}
-                      className="mobile-menu-sublink"
+                      className={`mobile-menu-sublink ${isOverview ? 'mobile-menu-sublink-overview' : ''}`}
                     >
-                      {getItemLabel(item.labelKey)}
+                      {item.label}
                     </a>
                   ) : (
                     <Link
-                      key={`${dropdown.key}-${item.labelKey}-${idx}`}
+                      key={`${dropdown.key}-${item.label}-${idx}`}
                       href={item.href}
                       onClick={closeMenu}
-                      className="mobile-menu-sublink"
+                      className={`mobile-menu-sublink ${isOverview ? 'mobile-menu-sublink-overview' : ''}`}
                     >
-                      {getItemLabel(item.labelKey)}
+                      {item.label}
                     </Link>
-                  )
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}
           
-          <a 
-            href="https://docs.convex.world" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            onClick={closeMenu}
-            className="mobile-menu-link mobile-menu-link-external"
-          >
-            {t('docs')}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M7 17L17 7M17 7H7M17 7V17"/>
-            </svg>
-          </a>
           <div className="mobile-menu-footer">
             <ColorMode />
           </div>
