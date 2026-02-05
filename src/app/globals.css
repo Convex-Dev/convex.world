@@ -852,7 +852,7 @@ footer {
 }
 
 .light .hex-superpower-title {
-  fill: rgba(15, 23, 42, 1);
+  color: rgba(15, 23, 42, 1);
   font-weight: 700;
 }
 
@@ -873,7 +873,7 @@ footer {
 }
 
 .light .hex-superpower-dimmed .hex-superpower-title {
-  fill: rgba(15, 23, 42, 0.4) !important;
+  color: rgba(15, 23, 42, 0.4) !important;
 }
 
 /* Superpower Hex Tiles */
@@ -972,16 +972,29 @@ footer {
   filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.4));
 }
 
+.hex-superpower-foreign {
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  animation: hexTitleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
 .hex-superpower-title {
   font-family: var(--font-display);
   font-size: 3.5rem;
   font-weight: 700;
-  fill: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
   pointer-events: none;
   transition: all 0.2s ease;
   letter-spacing: -0.02em;
-  opacity: 0;
-  animation: hexTitleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  text-wrap: balance;
+  line-height: 1.5;
 }
 
 @keyframes hexTitleIn {
@@ -1017,7 +1030,7 @@ footer {
 }
 
 .hex-superpower-dimmed .hex-superpower-title {
-  fill: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .hex-superpower-cta {
@@ -2418,8 +2431,6 @@ footer {
   }
   
   .hex-superpower-title {
-    width: 80%;
-    white-space: wrap;
     font-size: 38px;
   }
   

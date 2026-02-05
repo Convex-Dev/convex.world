@@ -226,14 +226,18 @@ export default function HexGridBackground() {
                         className={`hex-superpower-path ${isHovered ? 'hex-superpower-path-hovered' : ''}`}
                         style={{ animationDelay: `${superpowerDelay}s` }}
                       />
-                      <text
-                        className="hex-superpower-title"
-                        textAnchor="middle"
-                        dominantBaseline="middle"
+                      <foreignObject
+                        x={-SIZE * 0.95 * SQRT3 * 0.85 / 2}
+                        y={-SIZE * 0.5}
+                        width={SIZE * 0.95 * SQRT3 * 0.85}
+                        height={SIZE}
+                        className="hex-superpower-foreign"
                         style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
                       >
-                        {cell.superpower.title}
-                      </text>
+                        <div className="hex-superpower-title">
+                          {cell.superpower.title}
+                        </div>
+                      </foreignObject>
                     </a>
                   </g>
                 );
