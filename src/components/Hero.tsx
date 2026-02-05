@@ -12,15 +12,15 @@ export default function Hero() {
         </h1>
         
         <p className="hero-subtitle">
-          The open, decentralised full-stack for data and value exchange in an agentic world
+          The open network for data and value exchange in an agentic world
         </p>
 
         <div className="hero-cta-group">
           <Link href="https://docs.convex.world/docs/overview/concepts" className="btn btn-primary btn-lg" target="_blank">
-            <span>Explore Protocol</span>
+            <span>Vision</span>
           </Link>
           <Link href="/developers" className="btn btn-sandbox btn-lg">
-            <span>Start Building</span>
+            <span>Sandbox</span>
           </Link>
         </div>
         
