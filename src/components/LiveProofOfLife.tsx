@@ -115,27 +115,27 @@ export default function LiveProofOfLife() {
     <div className="proof-of-life">
       <div className="pol-status">
         <span className={`pol-indicator ${isConnected ? '' : 'pol-disconnected'}`} key={pulseKey} />
-        <span className="pol-status-text">{isConnected ? 'Live' : 'Offline'}</span>
+        <span className="pol-status-text">{isConnected ? 'Online' : 'Offline'}</span>
       </div>
       
       <div className="pol-metrics">
         <div className="pol-item">
-          <div className="pol-label">Global State</div>
+          <div className="pol-label">Consensus State</div>
           <div className="pol-value">{stats.state.format(stats.state.current)}</div>
         </div>
         
         <div className="pol-item">
-          <div className="pol-label">Juice Price</div>
+          <div className="pol-label">Compute Cost</div>
           <div className="pol-value">{stats.juice.format(Math.floor(stats.juice.current))}</div>
         </div>
         
         <div className="pol-item">
-          <div className="pol-label">Green Consensus</div>
+          <div className="pol-label">Energy Efficiency</div>
           <div className="pol-value">{stats.green.format(stats.green.current)}</div>
         </div>
         
         <div className="pol-item">
-          <div className="pol-label">Finality</div>
+          <div className="pol-label">Query Latency</div>
           <div className="pol-value">{stats.finality.format(stats.finality.current)}</div>
         </div>
       </div>

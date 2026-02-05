@@ -1,0 +1,524 @@
+{
+  "metadata": {
+    "title": "Convex",
+    "description": "Convexラティス技術を使用した分散型エージェンティック経済システム。"
+  },
+  "nav": {
+    "developers": "開発者",
+    "network": "ネットワーク",
+    "ecosystem": "エコシステム",
+    "community": "コミュニティ",
+    "docs": "ドキュメント",
+    "language": "言語",
+    "dropdown": {
+      "developers": { "label": "開発者" },
+      "network": { "label": "ネットワーク" },
+      "ecosystem": { "label": "エコシステム" },
+      "community": { "label": "コミュニティ" },
+      "sections": {
+        "startBuilding": "構築を始める",
+        "resources": "リソース",
+        "tools": "ツール",
+        "inspect": "検査",
+        "explore": "探索",
+        "learn": "学ぶ",
+        "connect": "つながる",
+        "content": "コンテンツ"
+      },
+      "items": {
+        "developerOverview": { "label": "開発者概要", "description": "Convexでの構築入門" },
+        "documentation": { "label": "ドキュメント", "description": "包括的なガイドとリファレンス" },
+        "lispTutorial": { "label": "Convex Lispチュートリアル", "description": "言語を学ぶ" },
+        "sdkLibraries": { "label": "Java クライアントAPI", "description": "Java/JVM用クライアントライブラリ" },
+        "sandboxRepl": { "label": "サンドボックスREPL", "description": "Convex Lispをライブで試す" },
+        "cads": { "label": "CADs", "description": "Convexアーキテクチャドキュメント" },
+        "github": { "label": "GitHub", "description": "ソースコードとサンプル" },
+        "toolsOverview": { "label": "ツール概要", "description": "すべての開発者ツールを探索" },
+        "sandbox": { "label": "サンドボックス", "description": "インタラクティブREPLコンソール" },
+        "restApi": { "label": "REST API", "description": "APIリファレンス" },
+        "cliTool": { "label": "CLIツール", "description": "コマンドラインインターフェース" },
+        "protonetExplorer": { "label": "Protonetエクスプローラー" },
+        "testnetExplorer": { "label": "テストネットエクスプローラー" },
+        "convexDesktop": { "label": "Convex Desktop" },
+        "ecosystemOverview": { "label": "エコシステム概要", "description": "Convexで構築中のプロジェクト" },
+        "convexCoin": { "label": "Convex Coin", "description": "CVMトケノミクスとユーティリティ" },
+        "governance": { "label": "ガバナンス", "description": "財団とガバナンスモデル" },
+        "whitepaper": { "label": "ホワイトペーパー" },
+        "latticeTechnology": { "label": "Lattice技術" },
+        "architecture": { "label": "アーキテクチャ" },
+        "communityHub": { "label": "コミュニティハブ", "description": "会話に参加" },
+        "discord": { "label": "Discord", "description": "ビルダーとチャット" },
+        "twitterX": { "label": "Twitter / X", "description": "最新アップデート" },
+        "youtube": { "label": "YouTube", "description": "チュートリアルとデモ" },
+        "blog": { "label": "ブログ" },
+        "stackOverflow": { "label": "Stack Overflow" }
+      }
+    }
+  },
+  "hero": {
+    "title": "エンジン",
+    "titleSuffix": "エージェンティック経済の",
+    "subtitle": "AIエージェントと人間が共に構築、取引、協力する場所—即座に、透明に、摩擦なく。",
+    "cta": {
+      "protocol": "プロトコル",
+      "coin": "コイン"
+    }
+  },
+  "capabilities": {
+    "converge": {
+      "number": "001",
+      "title": "真実への収束",
+      "subtitle": "中央権力なしの自律的コンセンサス",
+      "description": "Convex仮想マシンは収束型プルーフ・オブ・ステークを通じてグローバルコンセンサスを達成—信頼ではなく暗号学的検証を通じて状態が真実に収束します。",
+      "cta": "コンセンサスを探索"
+    },
+    "execute": {
+      "number": "002",
+      "title": "確実な実行",
+      "subtitle": "グローバルスケールの決定論的計算",
+      "description": "すべてのトランザクションは数学的確実性で実行されます。CVMはチューリング完全環境を提供し、結果はすべてのノードで検証可能かつ再現可能です。",
+      "cta": "アーキテクチャを見る"
+    },
+    "compose": {
+      "number": "003",
+      "title": "無限の組み合わせ",
+      "subtitle": "シンプルなプリミティブから複雑なシステムを構築",
+      "description": "Convex Lispは組み合わせ可能な経済ロジックを可能にします。トークン、ガバナンス、自律エージェントを以前は構築不可能だったシステムに組み合わせます。",
+      "cta": "構築を始める"
+    }
+  },
+  "inspector": {
+    "title": "ライブ状態を検査",
+    "subtitle": "グローバルコンセンサスへの直接計装",
+    "observe": "観察",
+    "stateInspector": "状態インスペクター",
+    "readOnly": "読み取り専用",
+    "placeholder": "アドレス（例：9、12）またはアカウント番号",
+    "looking": "検索中...",
+    "lookup": "検索",
+    "balance": "残高",
+    "memory": "メモリ",
+    "bytes": "バイト",
+    "environment": "環境",
+    "emptyMessage": "状態を検査するにはアカウントアドレスを入力してください",
+    "try": "試す：",
+    "account": "アカウント",
+    "copyAddress": "アドレスをコピー",
+    "accountNotFound": "アカウントが見つかりません"
+  },
+  "gauges": {
+    "title": "リソース計装",
+    "monitoring": "モニタリング",
+    "juiceConsumption": "Juice消費",
+    "memoryAllocation": "メモリ割り当て",
+    "units": "ユニット",
+    "bytes": "バイト",
+    "juiceInfo": "Juice = 予測計算コスト",
+    "memoryInfo": "メモリ = リサイクル可能なストレージ"
+  },
+  "capabilitySections": {
+    "consensus": {
+      "number": "01",
+      "titleHighlight": "収束",
+      "titleSuffix": "真実へ",
+      "subtitle": "チェーンなし、遅延なし",
+      "description": "コンバージェントProof of Stakeはミリ秒で決定論的ファイナリティを達成します。線形チェーンではなく、すべての参加者が同時に同じ真実を観察するラティスです。",
+      "cta": "ホワイトペーパーを読む"
+    },
+    "scale": {
+      "number": "02",
+      "titleHighlight": "スケール",
+      "titleSuffix": "無制限に",
+      "subtitle": "ラティスデータファブリック",
+      "description": "シャードなし、ロールアップなし—真の水平スケーラビリティ。ラティスはグローバルなデータファブリック：自己修復、自動複製、P2P自己主権ベースで無限にスケーラブル。",
+      "cta": "ラティスを探索"
+    },
+    "performance": {
+      "number": "03",
+      "titleHighlight": "実行",
+      "titleSuffix": "予測可能に",
+      "subtitle": "経済物理学",
+      "description": "Juiceは計算コストを測定します。メモリはリサイクル可能。状態は決定論的に収束。CVMは予測可能で説明責任のあるリソース消費で数百万の操作を実行します。",
+      "cta": "ベンチマークを見る"
+    },
+    "developer": {
+      "number": "04",
+      "titleHighlight": "表現",
+      "titleSuffix": "経済ロジック",
+      "subtitle": "Convex Lisp",
+      "description": "1行で完全な経済取引を定義できます。オファーは決済に解決されます。制約は可視化されています。人間と自律エージェントが同じルールで参加するシステムを構築します。",
+      "cta": "言語ガイド",
+      "secondaryCta": "サンドボックスで試す"
+    },
+    "agentic": {
+      "number": "05",
+      "titleHighlight": "調整",
+      "titleSuffix": "自律的に",
+      "subtitle": "人間+エージェント共同参加",
+      "description": "人間が意図と制約を定義します。自律エージェントが継続的にロジックを実行します。両者は同じコスト、同じファイナリティ、同じ責任を共有します。",
+      "cta": "エージェントアーキテクチャ"
+    },
+    "mission": {
+      "number": "06",
+      "titleHighlight": "ガバナンス",
+      "titleSuffix": "すべての人のために",
+      "subtitle": "公共インフラストラクチャ",
+      "description": "Convex Foundationはすべての参加者の利益のために運営されています。オープンソース、検査可能、説明責任—決定論的経済システムのためのインフラストラクチャ。",
+      "cta": "ガバナンスモデル",
+      "secondaryCta": "マニフェストを読む"
+    }
+  },
+  "developers": {
+    "hero": {
+      "tag": "ビルダーインターフェース",
+      "title": "で構築",
+      "titleAccent": "ラティス",
+      "subtitle": "人間と自律エージェントが同じルール、同じコスト、同じファイナリティの下で参加する経済システムを構築します。",
+      "cta": {
+        "docs": "ドキュメントを読む",
+        "source": "ソースを見る"
+      }
+    },
+    "core": {
+      "number": "001",
+      "title": "コアテクノロジー",
+      "subtitle": "Convexネットワークを支える基盤レイヤー",
+      "cvm": {
+        "number": "01",
+        "title": "Convex仮想マシン",
+        "description": "信頼されたグローバル状態を管理する決定論的で高性能な分散ランタイムエンジン—スマートコントラクト、デジタルアセット、自律エージェント、トラストレジストリに適しています。",
+        "features": {
+          "turing": "チューリング完全実行",
+          "tps": "100万+トランザクション/秒",
+          "green": "100%グリーンコンセンサス",
+          "compiler": "オンチェーンコンパイラ"
+        }
+      },
+      "lisp": {
+        "number": "02",
+        "title": "Convex Lisp",
+        "description": "Clojureにインスパイアされた現代的なLisp方言—パワフルで表現力があり、人間と自律エージェントの両方が理解できる組み合わせ可能な経済システムのために設計されています。",
+        "codeDesc": "CVM上で決定論的に実行される経済ロジックを表現:",
+        "highlight": "オファーは決済に変換されます—単一の式が完全な経済トランザクションを表すことができます。"
+      },
+      "lattice": {
+        "number": "03",
+        "title": "ラティスデータ",
+        "tagline": "1つのグローバルデータ構造。数十億の書き込み。数兆の読み取り。中央集権インフラゼロ。",
+        "description": "ラティス技術はすべてのプロジェクトに決定論的データファブリックを提供します。カスタムデータベースやメッセージキューなしで、状態を永続化し、イベントをストリーミングし、サービス間で知識を共有します。"
+      }
+    },
+    "started": {
+      "number": "002",
+      "title": "はじめに",
+      "subtitle": "Convexで構築を始めるために必要なすべて",
+      "docs": {
+        "title": "ドキュメント",
+        "desc": "包括的なガイドとAPIリファレンス"
+      },
+      "tutorial": {
+        "title": "Convex Lispチュートリアル",
+        "desc": "実践的な例で言語を学ぶ"
+      },
+      "sdk": {
+        "title": "Java Client API",
+        "desc": "Java/JVMアプリケーション用クライアントライブラリ"
+      },
+      "sandbox": {
+        "title": "REPLサンドボックス",
+        "desc": "テストネットのライブコンソールでConvex Lispを試す"
+      }
+    },
+    "cta": {
+      "title": "経済システムを構築",
+      "description": "Convexは、人間と自律エージェントが安全に共存しなければならない経済システムを構築する人のためのものです。コストと制約は可視化されています。状態は決定論的に収束します。",
+      "docs": "ドキュメントを読む",
+      "community": "コミュニティに参加"
+    }
+  },
+  "ecosystem": {
+    "hero": {
+      "label": "Convexで構築中",
+      "title": "Convex",
+      "titleAccent": "エコシステム",
+      "subtitle": "ConvexとLattice技術で分散型システムの未来を構築する先駆的な組織とプロジェクト。"
+    },
+    "stats": {
+      "projects": {
+        "value": "5+",
+        "label": "アクティブプロジェクト"
+      },
+      "continents": {
+        "value": "3",
+        "label": "大陸"
+      },
+      "possibilities": {
+        "value": "∞",
+        "label": "可能性"
+      }
+    },
+    "featured": {
+      "number": "001",
+      "title": "注目のプロジェクト",
+      "subtitle": "実際のインパクトのためにConvexを活用している組織",
+      "visitProject": "プロジェクトを訪問"
+    },
+    "join": {
+      "number": "002",
+      "title": "エコシステムに参加",
+      "subtitle": "私たちと一緒に構築し、次世代の分散型システムの一部になりましょう",
+      "enterprise": {
+        "title": "企業向け",
+        "description": "Convexインフラ上に本番対応のソリューションをデプロイ。",
+        "cta": "詳細を見る"
+      },
+      "developers": {
+        "title": "開発者向け",
+        "description": "包括的なSDKとドキュメントで構築を始めましょう。",
+        "cta": "始める"
+      },
+      "communities": {
+        "title": "コミュニティ向け",
+        "description": "Discordに参加して世界中のビルダーとつながりましょう。",
+        "cta": "Discordに参加"
+      }
+    },
+    "cta": {
+      "title": "Convexで構築していますか？",
+      "description": "Convexで構築していてここに掲載されたい場合は、お問い合わせください。エコシステムに追加します。",
+      "button": "お問い合わせ"
+    },
+    "projects": {
+      "covia": {
+        "title": "Covia.ai",
+        "description": "AIのためのユニバーサルグリッドを構築し、組織の境界を超えた強力なAIエージェントエコシステムを実現。",
+        "category": "AIインフラ"
+      },
+      "paisley": {
+        "title": "Paisley",
+        "description": "フリーランサーとクリエイターのための、すべての人にとってより良い未来を構築するメンバー所有の協同プラットフォーム。",
+        "category": "クリエイターエコノミー"
+      },
+      "eu": {
+        "title": "欧州連合",
+        "description": "効率的でスケーラブルなDLTインフラと相互運用可能なトークン交換に焦点を当てたNext Generation Internetプログラムの一部。",
+        "category": "政府"
+      },
+      "lumoza": {
+        "title": "Lumoza",
+        "description": "アーティストが著作権を登録・管理するためのソリューションで音楽業界を変革。",
+        "category": "音楽とIP"
+      },
+      "remelife": {
+        "title": "ReMeLife",
+        "description": "初のAI-Web3 Care-2-Earnコミュニティエコシステム、ReMeGrid—分散型報酬ベースのケアコミュニティを構築。",
+        "category": "ヘルスケア"
+      }
+    }
+  },
+  "community": {
+    "hero": {
+      "label": "Convexの心臓部",
+      "title": "参加する",
+      "titleAccent": "コミュニティ",
+      "subtitle": "Convexは単なる技術ではありません—オープンソースムーブメントです。世界中のビルダー、研究者、夢想家、パイオニアが分散型コーディネーションの未来を形作っています。"
+    },
+    "connect": {
+      "number": "001",
+      "title": "つながる",
+      "subtitle": "Convexコミュニティであなたの場所を見つけましょう"
+    },
+    "social": {
+      "discord": {
+        "name": "Discord",
+        "description": "ビルダー、研究者、愛好家との会話に参加。",
+        "action": "参加"
+      },
+      "youtube": {
+        "name": "YouTube",
+        "description": "チュートリアル、デモ、Convex技術の深掘りを視聴。",
+        "action": "訪問"
+      },
+      "x": {
+        "name": "X",
+        "description": "最新のアップデート、お知らせ、コミュニティハイライトをフォロー。",
+        "action": "探索"
+      },
+      "blog": {
+        "name": "ブログ",
+        "description": "技術、ロードマップ、エコシステムの発展に関する詳細な記事。",
+        "action": "読む"
+      }
+    },
+    "contentTypes": {
+      "blogPost": "ブログ記事",
+      "video": "動画",
+      "announcement": "お知らせ"
+    },
+    "activity": {
+      "number": "002",
+      "title": "最近のアクティビティ",
+      "subtitle": "Convexエコシステムからの最新情報",
+      "viewAll": "すべての投稿を見る",
+      "by": "投稿者"
+    },
+    "cta": {
+      "title": "未来を構築する準備はできましたか？",
+      "description": "開発者でも、研究者でも、分散型システムに興味があるだけでも—ここにはあなたの場所があります。",
+      "discord": "Discordに参加",
+      "build": "構築を始める"
+    }
+  },
+  "coin": {
+    "hero": {
+      "ticker": "CVM",
+      "title": "Convex Coin",
+      "tagline": "世界で最も効率的な分散実行エンジンを支えるネイティブユーティリティトークン",
+      "stats": {
+        "supply": {
+          "value": "1B",
+          "label": "最大供給量"
+        },
+        "coppers": {
+          "label": "コインあたりのCoppers"
+        },
+        "fees": {
+          "value": "0",
+          "label": "読み取り手数料"
+        }
+      },
+      "cta": {
+        "buy": "CVMを購入",
+        "tokenomics": "トケノミクス"
+      }
+    },
+    "value": {
+      "fuel": {
+        "title": "トランザクション燃料",
+        "description": "状態を変更するトランザクションにのみ少額のCVM手数料が適用され—公平なアクセスを確保しながらネットワークを保護します。"
+      },
+      "stake": {
+        "title": "ステーキングとセキュリティ",
+        "description": "収束型プルーフ・オブ・ステークを通じて信頼できるピアにCVMをステークし、ネットワークセキュリティを強化しながら報酬を獲得。"
+      },
+      "currency": {
+        "title": "デジタル通貨",
+        "description": "エコシステム全体での価値交換のための便利で自己主権的なデジタル通貨としてCVMを使用。"
+      },
+      "rewards": {
+        "title": "報酬を獲得",
+        "description": "ネットワークとエコシステムへの貢献者は、参加に対してCVMで報酬を受け取ります。"
+      }
+    },
+    "free": {
+      "title": "ほとんどのインタラクションは",
+      "titleAccent": "無料",
+      "agentic": {
+        "title": "エージェンティックツール",
+        "description": "MCPを通じてエージェンティックツールを使用"
+      },
+      "reads": {
+        "title": "無制限の読み取り",
+        "description": "グローバル状態を無料でクエリ"
+      },
+      "offchain": {
+        "title": "オフチェーンの柔軟性",
+        "description": "すべての人のためのLattice技術"
+      }
+    },
+    "tokenomics": {
+      "number": "001",
+      "title": "トークノミクス",
+      "subtitle": "非営利のConvex Foundationが管理する公正な分配",
+      "development": {
+        "percent": "25%",
+        "title": "開発とグラント",
+        "description": "コア開発、ツーリング、dappイノベーションを加速するための報奨金と賞金。"
+      },
+      "release": {
+        "percent": "75%",
+        "title": "公開リリース曲線",
+        "description": "時間をかけた公正で透明なリリース—広範な参加と整合したインセンティブを確保。"
+      }
+    },
+    "curve": {
+      "number": "002",
+      "title": "リリース曲線",
+      "subtitle": "採用とともに成長する動的価格設定",
+      "formula": {
+        "basePrice": "$100基本価格",
+        "proportion": "すでに販売された比率"
+      },
+      "description": "CVMの供給は理論上のハードキャップ10億CVMに収束します。収束率はリリース曲線の経済学によって決定されます。",
+      "chartLabels": {
+        "price": "コイン価格",
+        "released": "リリース比率"
+      }
+    },
+    "finalCta": {
+      "title": "参加する準備はできましたか？",
+      "description": "Convexエコシステムに参加して、分散型システムの未来の一部になりましょう。",
+      "buy": "CVMを購入",
+      "community": "コミュニティに参加"
+    }
+  },
+  "sandbox": {
+    "title": "サンドボックス",
+    "console": {
+      "title": "インタラクティブコンソール",
+      "description": "このサンドボックスはConvexテストネットに接続します。Lisp式を実行し、関数を定義し、状態をクエリし、Juiceコストをリアルタイムで観察します。",
+      "features": {
+        "juice": "リアルタイムJuiceコスト見積もり",
+        "syntax": "完全なConvex Lisp構文サポート",
+        "query": "グローバル状態を直接クエリ"
+      },
+      "back": "開発者に戻る"
+    }
+  },
+  "footer": {
+    "tagline": "Convex Foundation — 決定論的経済システムのインフラストラクチャ",
+    "status": {
+      "network": "ネットワーク",
+      "operational": "稼働中",
+      "protocol": "プロトコル"
+    },
+    "columns": {
+      "documentation": "ドキュメント",
+      "participate": "参加",
+      "resources": "リソース"
+    },
+    "links": {
+      "introduction": "はじめに",
+      "whitepaper": "ホワイトペーパー",
+      "coreConcepts": "コアコンセプト",
+      "tutorials": "チュートリアル",
+      "apiReference": "APIリファレンス",
+      "discord": "Discord",
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "blog": "ブログ",
+      "ecosystem": "エコシステム",
+      "brandAssets": "ブランドアセット",
+      "reportIssue": "問題を報告"
+    },
+    "copyright": "© {year} Convex Foundation. All rights reserved."
+  },
+  "common": {
+    "learnMore": "詳細を見る",
+    "getStarted": "始める",
+    "viewAll": "すべて見る",
+    "readMore": "続きを読む",
+    "back": "戻る",
+    "next": "次へ",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "close": "閉じる",
+    "open": "開く",
+    "yes": "はい",
+    "no": "いいえ",
+    "search": "検索",
+    "filter": "フィルター",
+    "sort": "並べ替え"
+  }
+}

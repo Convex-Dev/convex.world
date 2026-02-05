@@ -1,4 +1,8 @@
 import Image from "next/image";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { ConvexProvider } from "@/contexts/ConvexContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 
 interface TeamMember {
   name: string;
@@ -57,96 +61,106 @@ const teamMembers: TeamMember[] = [
 
 export default function Team() {
   return (
-      <div className="container">
-        <div className="hero-section">
-          <h1>Our Team</h1>
-          <p className="intro-text">
-            Meet the people building the future of decentralised economic systems
-          </p>
-        </div>
+    <>
+      <Navigation />
+      <main>
+        <WalletProvider persistKey="convex.world:wallet">
+          <ConvexProvider>
+            <div className="container">
+              <div className="hero-section">
+                <h1>Our Team</h1>
+                <p className="intro-text">
+                  Meet the people building the future of decentralised economic systems
+                </p>
+              </div>
 
-        <div className="tools-grid">
-          {teamMembers.map((member) => (
-            <article
-              key={member.name}
-              className="card"
-            >
-              <div className="endpoint-header">
-                <div>
-                  <h3>{member.name}</h3>
-                  <p className="role-text">
-                    {member.role}
-                  </p>
-                </div>
-                <Image
-                  src={member.imageUrl}
-                  alt={`${member.name} Icon`}
-                  width={70}
-                  height={40}
-                />
+              <div className="tools-grid">
+                {teamMembers.map((member) => (
+                  <article
+                    key={member.name}
+                    className="card"
+                  >
+                    <div className="endpoint-header">
+                      <div>
+                        <h3>{member.name}</h3>
+                        <p className="role-text">
+                          {member.role}
+                        </p>
+                      </div>
+                      <Image
+                        src={member.imageUrl}
+                        alt={`${member.name} Icon`}
+                        width={70}
+                        height={40}
+                      />
+                    </div>
+                    <p className="description-text">{member.description}</p>
+                    <div>
+                      {member.links.github && (
+                        <a
+                          href={member.links.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src="/images/social_github.webp"
+                            alt="GitHub"
+                            width={24}
+                            height={24}
+                          />
+                        </a>
+                      )}
+                      {member.links.linkedin && (
+                        <a
+                          href={member.links.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src="/images/social_linkedin.webp"
+                            alt="LinkedIn"
+                            width={24}
+                            height={24}
+                          />
+                        </a>
+                      )}
+                      {member.links.twitter && (
+                        <a
+                          href={member.links.twitter}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src="/images/social_twitter.webp"
+                            alt="Twitter"
+                            width={24}
+                            height={24}
+                          />
+                        </a>
+                      )}
+                      {member.links.discord && (
+                        <a
+                          href={member.links.discord}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Image
+                            src="/images/social_discord.webp"
+                            alt="Discord"
+                            width={24}
+                            height={24}
+                          />
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                ))}
               </div>
-              <p className="description-text">{member.description}</p>
-              <div>
-                {member.links.github && (
-                  <a
-                    href={member.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/social_github.webp"
-                      alt="GitHub"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                )}
-                {member.links.linkedin && (
-                  <a
-                    href={member.links.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/social_linkedin.webp"
-                      alt="LinkedIn"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                )}
-                {member.links.twitter && (
-                  <a
-                    href={member.links.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/social_twitter.webp"
-                      alt="Twitter"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                )}
-                {member.links.discord && (
-                  <a
-                    href={member.links.discord}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/social_discord.webp"
-                      alt="Discord"
-                      width={24}
-                      height={24}
-                    />
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
+            </div>
+          </ConvexProvider>
+        </WalletProvider>
+      </main>
+      <Footer />
+    </>
   );
-} 
+}

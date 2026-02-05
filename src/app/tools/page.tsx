@@ -9,6 +9,10 @@ import {
   ArrowUpRight,
   LucideIcon
 } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import { ConvexProvider } from "@/contexts/ConvexContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 
 interface ToolLink {
   name: string;
@@ -68,156 +72,161 @@ const tools: Tool[] = [
 
 export default function Tools() {
   return (
-    <main>
-      {/* Lattice Background */}
-      <div className="lattice-bg" aria-hidden="true">
-        <div className="lattice-node lattice-node-1" />
-        <div className="lattice-node lattice-node-2" />
-        <div className="lattice-node lattice-node-3" />
-      </div>
+    <>
+      <Navigation />
+      <main>
+        <WalletProvider persistKey="convex.world:wallet">
+          <ConvexProvider>
+            {/* Lattice Background */}
+            <div className="lattice-bg" aria-hidden="true">
+              <div className="lattice-node lattice-node-1" />
+              <div className="lattice-node lattice-node-2" />
+              <div className="lattice-node lattice-node-3" />
+            </div>
 
-      {/* Hero Section */}
-      <section className="tools-hero">
-        <div className="hero-eyebrow">
-          <div className="hero-label">Developer Resources</div>
-        </div>
-        <h1>
-          <span className="hero-accent">Convex</span>
-          {" "}Tools
-        </h1>
-        <p>
-          Everything you need to explore, build, test, and deploy
-        </p>
-      </section>
+            {/* Hero Section */}
+            <section className="tools-hero">
+              <span className="dev-hero-tag">//Network Resources</span>
+              <h1>
+                Convex Tools
+              </h1>
+              <p>
+                Everything you need to explore, build, test, and deploy
+              </p>
+            </section>
 
-      {/* Tools Grid */}
-      <section className="tools-section">
+            {/* Tools Grid */}
+            <section className="tools-section">
 
-        <div className="tools-grid">
-          {tools.map((tool, i) => {
-            const IconComponent = tool.icon;
-            const number = (i + 1).toString().padStart(2, "0");
-            return (
-              <div key={tool.title} className="tool-card-wrapper">
-                <article className="tool-card">
-                  <div className="tool-card-header">
-                    <div className="tool-card-icon">
-                      <IconComponent size={24} strokeWidth={1.5} />
+              <div className="tools-grid">
+                {tools.map((tool, i) => {
+                  const IconComponent = tool.icon;
+                  const number = (i + 1).toString().padStart(2, "0");
+                  return (
+                    <div key={tool.title} className="tool-card-wrapper">
+                      <article className="tool-card">
+                        <div className="tool-card-header">
+                          <div className="tool-card-icon">
+                            <IconComponent size={24} strokeWidth={1.5} />
+                          </div>
+                          <h3>{tool.title}</h3>
+                          <span className="tool-card-number">{number}</span>
+                        </div>
+                        <p>{tool.description}</p>
+                        <div className="tool-card-links">
+                          {tool.links.map((link) => {
+                            const ext = link.isExternal ?? false;
+                            const inner = (
+                              <>
+                                <span>{link.name}</span>
+                                {ext && <ArrowUpRight size={14} aria-hidden />}
+                              </>
+                            );
+                            return ext ? (
+                              <a
+                                key={link.href + link.name}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="tool-card-link"
+                              >
+                                {inner}
+                              </a>
+                            ) : (
+                              <Link key={link.href + link.name} href={link.href} className="tool-card-link">
+                                {inner}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </article>
                     </div>
-                    <h3>{tool.title}</h3>
-                    <span className="tool-card-number">{number}</span>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Quick Start Section */}
+            <section className="tools-section">
+              <div className="section-header">
+                <span className="section-number">// 002</span>
+                <h2>Quick Start</h2>
+                <p>Get up and running with the Convex CLI</p>
+              </div>
+
+              <div className="tools-quickstart">
+                <div className="quickstart-step">
+                  <span className="quickstart-number">1</span>
+                  <div className="quickstart-content">
+                    <h4>Install Java 21+</h4>
+                    <div className="quickstart-code">
+                      <code>java --version</code>
+                    </div>
+                    <p className="quickstart-note">
+                      Download from{" "}
+                      <a href="https://adoptium.net/temurin/releases/" target="_blank" rel="noopener noreferrer">
+                        Eclipse Temurin
+                      </a>
+                      {" "}or{" "}
+                      <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer">
+                        Oracle JDK
+                      </a>
+                    </p>
                   </div>
-                  <p>{tool.description}</p>
-                  <div className="tool-card-links">
-                    {tool.links.map((link) => {
-                      const ext = link.isExternal ?? false;
-                      const inner = (
-                        <>
-                          <span>{link.name}</span>
-                          {ext && <ArrowUpRight size={14} aria-hidden />}
-                        </>
-                      );
-                      return ext ? (
-                        <a
-                          key={link.href + link.name}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="tool-card-link"
-                        >
-                          {inner}
-                        </a>
-                      ) : (
-                        <Link key={link.href + link.name} href={link.href} className="tool-card-link">
-                          {inner}
-                        </Link>
-                      );
-                    })}
+                </div>
+                <div className="quickstart-step">
+                  <span className="quickstart-number">2</span>
+                  <div className="quickstart-content">
+                    <h4>Download convex.jar</h4>
+                    <div className="quickstart-code">
+                      <code>curl -O https://convex.world/convex.jar</code>
+                    </div>
+                    <p className="quickstart-note">
+                      Or download from the{" "}
+                      <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
+                        CLI documentation
+                      </a>
+                    </p>
                   </div>
-                </article>
+                </div>
+                <div className="quickstart-step">
+                  <span className="quickstart-number">3</span>
+                  <div className="quickstart-content">
+                    <h4>Run the CLI</h4>
+                    <div className="quickstart-code">
+                      <code>java -jar convex.jar</code>
+                    </div>
+                    <p className="quickstart-note">
+                      See{" "}
+                      <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
+                        full CLI docs
+                      </a>
+                      {" "}for commands and setup aliases
+                    </p>
+                  </div>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      </section>
+            </section>
 
-      {/* Quick Start Section */}
-      <section className="tools-section">
-        <div className="section-header">
-          <span className="section-number">// 002</span>
-          <h2>Quick Start</h2>
-          <p>Get up and running with the Convex CLI</p>
-        </div>
-
-        <div className="tools-quickstart">
-          <div className="quickstart-step">
-            <span className="quickstart-number">1</span>
-            <div className="quickstart-content">
-              <h4>Install Java 21+</h4>
-              <div className="quickstart-code">
-                <code>java --version</code>
+            {/* CTA */}
+            <section className="tools-cta">
+              <h3>Ready to build?</h3>
+              <p>Explore the documentation for in-depth guides and API references.</p>
+              <div className="btn-group">
+                <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
+                  Read the Docs
+                </Link>
+                <Link href="/developers" className="btn btn-secondary">
+                  Developer Overview
+                </Link>
               </div>
-              <p className="quickstart-note">
-                Download from{" "}
-                <a href="https://adoptium.net/temurin/releases/" target="_blank" rel="noopener noreferrer">
-                  Eclipse Temurin
-                </a>
-                {" "}or{" "}
-                <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer">
-                  Oracle JDK
-                </a>
-              </p>
-            </div>
-          </div>
-          <div className="quickstart-step">
-            <span className="quickstart-number">2</span>
-            <div className="quickstart-content">
-              <h4>Download convex.jar</h4>
-              <div className="quickstart-code">
-                <code>curl -O https://convex.world/convex.jar</code>
-              </div>
-              <p className="quickstart-note">
-                Or download from the{" "}
-                <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
-                  CLI documentation
-                </a>
-              </p>
-            </div>
-          </div>
-          <div className="quickstart-step">
-            <span className="quickstart-number">3</span>
-            <div className="quickstart-content">
-              <h4>Run the CLI</h4>
-              <div className="quickstart-code">
-                <code>java -jar convex.jar</code>
-              </div>
-              <p className="quickstart-note">
-                See{" "}
-                <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
-                  full CLI docs
-                </a>
-                {" "}for commands and setup aliases
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
 
-      {/* CTA */}
-      <section className="tools-cta">
-        <h3>Ready to build?</h3>
-        <p>Explore the documentation for in-depth guides and API references.</p>
-        <div className="btn-group">
-          <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
-            Read the Docs
-          </Link>
-          <Link href="/developers" className="btn btn-secondary">
-            Developer Overview
-          </Link>
-        </div>
-      </section>
-
-      <div className="geo-line" aria-hidden="true" />
-    </main>
+            <div className="geo-line" aria-hidden="true" />
+          </ConvexProvider>
+        </WalletProvider>
+      </main>
+      <Footer />
+    </>
   );
 }
