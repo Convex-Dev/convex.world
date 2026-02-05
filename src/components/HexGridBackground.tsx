@@ -39,13 +39,13 @@ interface Superpower {
 }
 
 const SUPERPOWER_HEXES: Record<string, Superpower & { order: number }> = {
-  '1,0': { title: "Data Lattice", desc: "Global self-healing fabric", href: "https://docs.convex.world/docs/overview/lattice", order: 0 },
+  '1,0': { title: "Lattice", desc: "Global self-healing fabric", href: "https://docs.convex.world/docs/overview/lattice", order: 0 },
   '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 1 },
   '2,0': { title: "Digital Assets", desc: "Tokens & NFTs in one line", href: "https://docs.convex.world/docs/tutorial/coins", order: 2 },
   '1,1': { title: "Virtual Machine", desc: "High performance execution", href: "https://docs.convex.world/docs/overview/concepts", order: 3 },
-  '0,1': { title: "Agent Ready", desc: "Agentic tools with MCP", href: "/developers", order: 4 },
-  '0,0': { title: "On-Chain Compiler", desc: "No external toolchains", href: "/sandbox", order: 5 },
-  '1,-1': { title: "CPoS Consensus", desc: "Realtime convergent consensus", href: "https://docs.convex.world/docs/overview/concepts#convergent-proof-of-stake-cpos", order: 6 },
+  '0,1': { title: "Agent Native", desc: "Agentic tools with MCP", href: "/developers", order: 4 },
+  '0,2': { title: "On-Chain Compiler", desc: "No external toolchains", href: "/sandbox", order: 5 },
+  '1,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "https://docs.convex.world/docs/overview/concepts#convergent-proof-of-stake-cpos", order: 6 },
 };
 
 interface GridCell {
@@ -230,31 +230,10 @@ export default function HexGridBackground() {
                         className="hex-superpower-title"
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        y={isHovered ? -80 : 0}
                         style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
                       >
                         {cell.superpower.title}
                       </text>
-                      {isHovered && (
-                        <>
-                          <text
-                            className="hex-superpower-desc"
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            y={30}
-                          >
-                            {cell.superpower.desc}
-                          </text>
-                          <text
-                            className="hex-superpower-cta"
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            y={120}
-                          >
-                            Learn more →
-                          </text>
-                        </>
-                      )}
                     </a>
                   </g>
                 );

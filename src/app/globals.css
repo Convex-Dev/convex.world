@@ -974,7 +974,7 @@ footer {
 
 .hex-superpower-title {
   font-family: var(--font-display);
-  font-size: 52px;
+  font-size: 3.5rem;
   font-weight: 700;
   fill: rgba(255, 255, 255, 1);
   pointer-events: none;
@@ -2418,6 +2418,8 @@ footer {
   }
   
   .hex-superpower-title {
+    width: 80%;
+    white-space: wrap;
     font-size: 38px;
   }
   

@@ -1,6 +1,6 @@
 [
   {
-    "title": "Agent Ready",
+    "title": "Agent Native",
     "desc": "All the power of the lattice with agentic tools using the Model Context Protocol"
   },
   {
@@ -20,8 +20,8 @@
     "desc": "Replicated, self-healing, off-chain application backends with lattice technology"
   },
   {
-    "title": "On-Chain Compiler",
-    "desc": "Dynamic compilation with no external toolchains, no build pipelines: perfect for agentic systems"
+    "title": "Live Compiler",
+    "desc": "Dynamic on-chain compilation with no external toolchains, no build pipelines: perfect for agentic systems"
   },
   {
     "title": "Convex Lisp",

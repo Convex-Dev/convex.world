@@ -12,7 +12,7 @@ export default function Hero() {
         </h1>
         
         <p className="hero-subtitle">
-          The open, decentralised full-stack for value exchange in an agentic world. Deterministic shared state where humans and autonomous agents operate under the same rules, costs, and finality.
+          The open, decentralised full-stack for data and value exchange in an agentic world
         </p>
 
         <div className="hero-cta-group">
