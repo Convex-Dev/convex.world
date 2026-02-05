@@ -1,8 +1,48 @@
-import { redirect } from 'next/navigation';
-import { defaultLocale } from '@/i18n/config';
+import CapabilitySections from "@/components/CapabilitySections";
+import LiveInspector from "@/components/LiveInspector";
+import ResourceGauges from "@/components/ResourceGauges";
+import Hero from "@/components/Hero";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import HexGridBackground from "@/components/HexGridBackground";
+import { ConvexProvider } from "@/contexts/ConvexContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 
-// With localePrefix: 'always', this page shouldn't be hit
-// But if it is, redirect to the default locale
-export default function RootPage() {
-  redirect(`/${defaultLocale}`);
+export default function Home() {
+  return (
+    <>
+      <Navigation />
+      <main>
+        <WalletProvider persistKey="convex.world:wallet">
+          <ConvexProvider>
+            {/* Hexagon Grid Background */}
+            <HexGridBackground />
+
+            {/* Hero — Single focused message */}
+            <Hero />
+
+            {/* Capabilities Journey */}
+            <CapabilitySections />
+
+            {/* Live Tools Section — Expressions layer: evidence of capabilities */}
+            <section className="inspector-section">
+              <div className="section-header">
+                <span className="section-number">// Observe</span>
+                <h2>Inspect Live State</h2>
+                <p>Direct instrumentation into the global consensus</p>
+              </div>
+              <div className="live-tools-grid">
+                <LiveInspector />
+                <ResourceGauges />
+              </div>
+            </section>
+
+            {/* Geometric separator */}
+            <div className="geo-line" aria-hidden="true" />
+          </ConvexProvider>
+        </WalletProvider>
+      </main>
+      <Footer />
+    </>
+  );
 }
