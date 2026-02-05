@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useTranslations } from 'next-intl';
 
 interface GaugeProps {
   label: string;
@@ -51,7 +50,6 @@ function Gauge({ label, value, max, unit, color }: GaugeProps) {
 }
 
 export default function ResourceGauges() {
-  const t = useTranslations('gauges');
   const [juiceUsed, setJuiceUsed] = useState(234567);
   const [memoryUsed, setMemoryUsed] = useState(1847);
   
@@ -77,26 +75,26 @@ export default function ResourceGauges() {
   return (
     <div className="resource-gauges">
       <div className="gauges-header">
-        <h4>{t('title')}</h4>
+        <h4>Resource Instrumentation</h4>
         <span className="gauges-status">
           <span className="gauges-indicator" />
-          {t('monitoring')}
+          Monitoring
         </span>
       </div>
       
       <div className="gauges-grid">
         <Gauge 
-          label={t('juiceConsumption')} 
+          label="Juice Consumption" 
           value={juiceUsed} 
           max={juiceMax} 
-          unit={t('units')}
+          unit="units"
           color="juice"
         />
         <Gauge 
-          label={t('memoryAllocation')} 
+          label="Memory Allocation" 
           value={memoryUsed} 
           max={memoryMax} 
-          unit={t('bytes')}
+          unit="bytes"
           color="memory"
         />
       </div>
@@ -104,11 +102,11 @@ export default function ResourceGauges() {
       <div className="gauges-info">
         <div className="gauge-info-item">
           <span className="gauge-info-dot" style={{ background: 'var(--accent-juice)' }} />
-          <span>{t('juiceInfo')}</span>
+          <span>Juice = predictive compute cost</span>
         </div>
         <div className="gauge-info-item">
           <span className="gauge-info-dot" style={{ background: 'var(--accent-consensus)' }} />
-          <span>{t('memoryInfo')}</span>
+          <span>Memory = recyclable storage</span>
         </div>
       </div>
     </div>
