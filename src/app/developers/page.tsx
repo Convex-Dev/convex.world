@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Terminal, Boxes, Zap, Code2 } from "lucide-react";
+import { BookOpen, Terminal, Boxes, Zap, Code2, Github, FileCode } from "lucide-react";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -173,11 +173,11 @@ export default function Developer() {
                     <p>Learn the language with hands-on examples</p>
                   </div>
                 </Link>
-                <Link href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card" target="_blank">
-                  <Boxes size={20} strokeWidth={1.5} />
+                <Link href="https://github.com/Convex-Dev" className="dev-resource-card" target="_blank">
+                  <Github size={20} strokeWidth={1.5} />
                   <div>
-                    <h4>Java Client API</h4>
-                    <p>Client library for Java/JVM applications</p>
+                    <h4>GitHub</h4>
+                    <p>Source code and examples</p>
                   </div>
                 </Link>
                 <Link href="/sandbox" className="dev-resource-card">
@@ -185,6 +185,20 @@ export default function Developer() {
                   <div>
                     <h4>REPL Sandbox</h4>
                     <p>Try Convex Lisp in a live console on the testnet</p>
+                  </div>
+                </Link>
+                <Link href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card" target="_blank">
+                  <Boxes size={20} strokeWidth={1.5} />
+                  <div>
+                    <h4>Java Client API</h4>
+                    <p>Client library for Java/JVM applications</p>
+                  </div>
+                </Link>
+                <Link href="https://docs.convex.world/docs/cad/0000cads" className="dev-resource-card" target="_blank">
+                  <FileCode size={20} strokeWidth={1.5} />
+                  <div>
+                    <h4>CADs</h4>
+                    <p>Convex Architecture Documents</p>
                   </div>
                 </Link>
               </div>
