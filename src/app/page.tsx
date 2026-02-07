@@ -24,21 +24,26 @@ export default function Home() {
             {/* Capabilities Journey */}
             <CapabilitySections />
 
-            {/* Live Tools Section — Expressions layer: evidence of capabilities */}
-            <section className="inspector-section">
-              <div className="section-header">
-                <span className="section-number">// Observe</span>
-                <h2>Inspect Live State</h2>
-                <p>Direct instrumentation into the global consensus</p>
-              </div>
-              <div className="live-tools-grid">
-                <LiveInspector />
-                <ResourceGauges />
-              </div>
-            </section>
+            {/* Bottom grid background — starts behind bottom capabilities, extends to footer */}
+            <div className="home-bottom-grid-wrapper">
+              <div className="lattice-bg lattice-bg-home" aria-hidden="true" />
 
-            {/* Geometric separator */}
-            <div className="geo-line" aria-hidden="true" />
+              {/* Live Tools Section — Expressions layer: evidence of capabilities */}
+              <section className="inspector-section">
+                <div className="section-header">
+                  <span className="section-number">// Observe</span>
+                  <h2>Inspect Live State</h2>
+                  <p>Direct instrumentation into the global consensus</p>
+                </div>
+                <div className="live-tools-grid">
+                  <LiveInspector />
+                  <ResourceGauges />
+                </div>
+              </section>
+
+              {/* Geometric separator */}
+              <div className="geo-line" aria-hidden="true" />
+            </div>
           </ConvexProvider>
         </WalletProvider>
       </main>
