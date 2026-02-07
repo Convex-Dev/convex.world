@@ -13,9 +13,11 @@ const SQRT3 = Math.sqrt(3);
 const SIZE = 72; // Larger size for mobile hexagons
 const GAP = 0.04;
 const VIEWPORT_WIDTH = 420; // Target mobile viewport width
+const HEX_SCALE = 0.95;  // Shrink factor so adjacent hexes don't touch
+const TEXT_INSET = 0.85;  // Text area as fraction of hex width
 
 function createHexPath(size: number): string {
-  const s = size * 0.95;
+  const s = size * HEX_SCALE;
   const points: string[] = [];
   for (let i = 0; i < 6; i++) {
     const angleDeg = 60 * i - 90;
@@ -43,17 +45,21 @@ interface Superpower {
   order: number;
 }
 
+// Clockwise order starting from Lattice (center), then spreading outward
 const SUPERPOWER_HEXES: Record<string, Superpower> = {
-  '1,0': { title: "Data Lattice", desc: "Global self-healing fabric", href: "https://docs.convex.world/docs/overview/lattice", order: 0 },
-  '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 1 },
-  '2,0': { title: "Digital Assets", desc: "Tokens & NFTs", href: "https://docs.convex.world/docs/tutorial/coins", order: 2 },
-  '1,1': { title: "Virtual Machine", desc: "High performance", href: "https://docs.convex.world/docs/overview/concepts", order: 3 },
-  '0,1': { title: "Agent Ready", desc: "Agentic tools", href: "/developers", order: 4 },
-  '0,0': { title: "On-Chain Compiler", desc: "No toolchains", href: "/sandbox", order: 5 },
-  '1,-1': { title: "CPoS Consensus", desc: "Realtime consensus", href: "https://docs.convex.world/docs/overview/concepts#convergent-proof-of-stake-cpos", order: 6 },
+  '1,0': { title: "Lattice", desc: "Global self-healing fabric", href: "/lattice", order: 0 },
+  '1,-1': { title: "Convergent Consensus", desc: "Realtime consensus", href: "/cpos", order: 1 },
+  '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 2 },
+  '3,-1': { title: "DIDs", desc: "Decentralised identity", href: "https://docs.convex.world/docs/cad/did", order: 3 },
+  '2,0': { title: "Digital Assets", desc: "Tokens & NFTs", href: "https://docs.convex.world/docs/tutorial/coins", order: 4 },
+  '1,1': { title: "Virtual Machine", desc: "High performance", href: "https://docs.convex.world/docs/overview/concepts", order: 5 },
+  '0,1': { title: "Agent Native", desc: "Agentic tools", href: "/developers", order: 6 },
+  '-1,1': { title: "Live Compiler", desc: "No toolchains", href: "/sandbox", order: 7 },
+  '0,0': { title: "Convex Coin", desc: "Utility token", href: "/coin", order: 8 },
 };
 
-const ANIMATION_COMPLETE_DELAY = 2000;
+// Animation duration: 9 superpowers * 0.15s delay + 0.5s animation + buffer
+const ANIMATION_COMPLETE_DELAY = 3000;
 
 // Generate background hexes - full grid extending in all directions
 function generateBackgroundHexes(): Array<{q: number, r: number}> {
@@ -170,15 +176,18 @@ export default function HexGridMobile() {
                     className="hex-superpower-path"
                     style={{ animationDelay: `${superpowerDelay}s` }}
                   />
-                  <text
-                    className="hex-superpower-title"
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    y={0}
+                  <foreignObject
+                    x={-SIZE * HEX_SCALE * SQRT3 * TEXT_INSET / 2}
+                    y={-SIZE * 0.5}
+                    width={SIZE * HEX_SCALE * SQRT3 * TEXT_INSET}
+                    height={SIZE}
+                    className="hex-superpower-foreign"
                     style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
                   >
-                    {superpower.title}
-                  </text>
+                    <div className="hex-superpower-title">
+                      {superpower.title}
+                    </div>
+                  </foreignObject>
                 </a>
               </g>
             );
