@@ -113,7 +113,7 @@ export default function Ecosystem() {
               <div className="section-header">
                 <span className="section-number">// 002</span>
                 <h2>Join the Ecosystem</h2>
-                <p>Build with us and be part of the next generation of decentralized systems</p>
+                <p>Build with us and be part of the next generation of decentralised systems</p>
               </div>
 
               <div className="eco-join-grid">

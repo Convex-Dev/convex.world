@@ -50,7 +50,7 @@ export default function Coin() {
             <section className="coin-hero">
               <span className="coin-ticker">CVM</span>
               <h1>Convex Coin</h1>
-              <p className="coin-tagline">The native utility token powering the world&apos;s most efficient decentralized execution engine</p>
+              <p className="coin-tagline">The native utility token powering the world&apos;s most efficient decentralised execution engine</p>
               <div className="coin-hero-stats">
                 <div className="coin-hero-stat">
                   <span className="coin-hero-stat-value">1B</span>
@@ -260,7 +260,7 @@ export default function Coin() {
 
             <section className="coin-cta">
               <h3>Ready to participate?</h3>
-              <p>Join the Convex ecosystem and be part of the future of decentralized systems.</p>
+              <p>Join the Convex ecosystem and be part of the future of decentralised systems.</p>
               <div className="btn-group">
                 <Link href="https://app.paisley.io" className="btn btn-primary" target="_blank">
                   Buy CVM

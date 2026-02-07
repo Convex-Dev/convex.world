@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Decentralised agentic economic systems using Convex lattice technology.",
   keywords: [
     "blockchain",
-    "decentralized",
+    "decentralised",
     "convex",
     "web3",
     "consensus",

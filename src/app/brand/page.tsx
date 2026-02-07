@@ -31,7 +31,7 @@ const logoAssets = [
 ];
 
 const brandColors = [
-  { name: "Convex Blue", hex: "#0066FF", usage: "Primary brand color" },
+  { name: "Convex Blue", hex: "#0066FF", usage: "Primary brand colour" },
   { name: "Deep Blue", hex: "#001133", usage: "Dark backgrounds, text" },
   { name: "Electric Cyan", hex: "#00D4FF", usage: "Accent, highlights" },
   { name: "Lattice Purple", hex: "#7B61FF", usage: "Secondary accent" },
@@ -53,7 +53,7 @@ const guidelines = [
   },
   {
     title: "No Modifications",
-    description: "Do not stretch, rotate, add effects, or alter the logo colors outside of approved variants."
+    description: "Do not stretch, rotate, add effects, or alter the logo colours outside of approved variants."
   }
 ];
 
@@ -81,7 +81,7 @@ export default function Brand() {
                 <span className="hero-accent">Assets</span>
               </h1>
               <p>
-                Official logos, colors, and guidelines for representing Convex 
+                Official logos, colours, and guidelines for representing Convex 
                 in media, presentations, and partner materials.
               </p>
             </section>
@@ -133,8 +133,8 @@ export default function Brand() {
             <section className="brand-section">
               <div className="section-header">
                 <span className="section-number">// 002</span>
-                <h2>Brand Colors</h2>
-                <p>The official Convex color palette</p>
+                <h2>Brand Colours</h2>
+                <p>The official Convex colour palette</p>
               </div>
 
               <div className="brand-colors-grid">
