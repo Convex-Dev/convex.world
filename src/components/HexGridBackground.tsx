@@ -11,9 +11,11 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 const SQRT3 = Math.sqrt(3);
 const SIZE = 360;
 const GAP = 0.04;
+const HEX_SCALE = 0.95;  // Shrink factor so adjacent hexes don't touch
+const TEXT_INSET = 0.85;  // Text area as fraction of hex width
 
 const HEX_PATH = (() => {
-  const s = SIZE * 0.95;
+  const s = SIZE * HEX_SCALE;
   const points: string[] = [];
   for (let i = 0; i < 6; i++) {
     const angleDeg = 60 * i - 90;
@@ -38,14 +40,17 @@ interface Superpower {
   href: string;
 }
 
+// Clockwise order starting from Lattice (center), then spreading outward
 const SUPERPOWER_HEXES: Record<string, Superpower & { order: number }> = {
-  '1,0': { title: "Lattice", desc: "Global self-healing fabric", href: "https://docs.convex.world/docs/overview/lattice", order: 0 },
-  '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 1 },
-  '2,0': { title: "Digital Assets", desc: "Tokens & NFTs in one line", href: "https://docs.convex.world/docs/tutorial/coins", order: 2 },
-  '1,1': { title: "Virtual Machine", desc: "High performance execution", href: "https://docs.convex.world/docs/overview/concepts", order: 3 },
-  '0,1': { title: "Agent Native", desc: "Agentic tools with MCP", href: "/developers", order: 4 },
-  '0,2': { title: "On-Chain Compiler", desc: "No external toolchains", href: "/sandbox", order: 5 },
-  '1,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "https://docs.convex.world/docs/overview/concepts#convergent-proof-of-stake-cpos", order: 6 },
+  '1,0': { title: "Lattice", desc: "Global self-healing fabric", href: "/lattice", order: 0 },
+  '1,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "/cpos", order: 1 },
+  '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 2 },
+  '3,-1': { title: "DIDs", desc: "Decentralised identity", href: "https://docs.convex.world/docs/cad/did", order: 3 },
+  '2,0': { title: "Digital Assets", desc: "Tokens & NFTs in one line", href: "https://docs.convex.world/docs/tutorial/coins", order: 4 },
+  '1,1': { title: "Virtual Machine", desc: "High performance execution", href: "https://docs.convex.world/docs/overview/concepts", order: 5 },
+  '0,1': { title: "Agent Native", desc: "Agentic tools with MCP", href: "/developers", order: 6 },
+  '-1,1': { title: "Live Compiler", desc: "No external toolchains", href: "/sandbox", order: 7 },
+  '0,0': { title: "Convex Coin", desc: "Utility token for global state", href: "/coin", order: 8 },
 };
 
 interface GridCell {
@@ -63,8 +68,8 @@ function pixelToAxial(px: number, py: number): { q: number; r: number } {
   return { q: Math.round(q), r: Math.round(r) };
 }
 
-// Animation duration: 7 superpowers * 0.15s delay + 0.5s animation + buffer
-const ANIMATION_COMPLETE_DELAY = 2500;
+// Animation duration: 9 superpowers * 0.15s delay + 0.5s animation + buffer
+const ANIMATION_COMPLETE_DELAY = 3000;
 
 export default function HexGridBackground() {
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
@@ -227,9 +232,9 @@ export default function HexGridBackground() {
                         style={{ animationDelay: `${superpowerDelay}s` }}
                       />
                       <foreignObject
-                        x={-SIZE * 0.95 * SQRT3 * 0.85 / 2}
+                        x={-SIZE * HEX_SCALE * SQRT3 * TEXT_INSET / 2}
                         y={-SIZE * 0.5}
-                        width={SIZE * 0.95 * SQRT3 * 0.85}
+                        width={SIZE * HEX_SCALE * SQRT3 * TEXT_INSET}
                         height={SIZE}
                         className="hex-superpower-foreign"
                         style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
@@ -243,7 +248,8 @@ export default function HexGridBackground() {
                 );
               }
               
-              const gridDelay = 1.2 + delay;
+              // Grid animates after all 9 superpowers complete (9 * 0.15s = 1.35s + 0.5s animation buffer)
+              const gridDelay = 1.85 + delay;
               const isBright = isInSuperpowerArea;
               
               return (
