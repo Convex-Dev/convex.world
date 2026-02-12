@@ -166,7 +166,7 @@ export default function Developer() {
                     <p>Comprehensive guides and API references</p>
                   </div>
                 </Link>
-                <Link href="https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp" className="dev-resource-card" target="_blank">
+                <Link href="https://docs.convex.world/docs/tutorial/convex-lisp" className="dev-resource-card" target="_blank">
                   <Terminal size={20} strokeWidth={1.5} />
                   <div>
                     <h4>Convex Lisp Tutorial</h4>
