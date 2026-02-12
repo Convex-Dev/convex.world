@@ -44,6 +44,7 @@ const navDropdowns: NavDropdown[] = [
           { label: 'Developer Overview', href: '/developers', description: 'Introduction to building on Convex', icon: <Code2 size={18} /> },
           { label: 'Documentation', href: 'https://docs.convex.world/docs/intro', external: true, description: 'Comprehensive guides and references', icon: <BookOpen size={18} /> },
           { label: 'Convex Lisp Tutorial', href: 'https://docs.convex.world/docs/tutorial/convex-lisp/convex-lisp', external: true, description: 'Learn the language', icon: <GraduationCap size={18} /> },
+          { label: 'TypeScript SDK', href: 'https://docs.convex.world/docs/tutorial/client-sdks/typescript', external: true, description: 'Client library for JS/TS', icon: <Package size={18} /> },
           { label: 'Java Client API', href: 'https://github.com/Convex-Dev/convex/tree/develop/convex-java', external: true, description: 'Client library for Java/JVM', icon: <Package size={18} /> },
         ]
       },

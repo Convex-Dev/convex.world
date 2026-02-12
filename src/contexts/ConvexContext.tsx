@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
-import { type KeyPair } from '@/lib/crypto';
+import { type KeyPair } from '@convex-world/convex-ts';
 import { Convex } from '@/lib/convex-api';
 
 type ConvexContextValue = {

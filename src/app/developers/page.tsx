@@ -187,6 +187,13 @@ export default function Developer() {
                     <p>Try Convex Lisp in a live console on the testnet</p>
                   </div>
                 </Link>
+                <Link href="https://docs.convex.world/docs/tutorial/client-sdks/typescript" className="dev-resource-card" target="_blank">
+                  <Boxes size={20} strokeWidth={1.5} />
+                  <div>
+                    <h4>TypeScript SDK</h4>
+                    <p>Client library for JavaScript and TypeScript</p>
+                  </div>
+                </Link>
                 <Link href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card" target="_blank">
                   <Boxes size={20} strokeWidth={1.5} />
                   <div>

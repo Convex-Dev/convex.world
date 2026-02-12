@@ -8,7 +8,7 @@ import NetworkSelector from '@/components/NetworkSelector';
 import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
-import { bytesToHex, generateKeyPair, keyPairFromSeed, keyPairFromSeedHex } from '@/lib/crypto';
+import { KeyPair } from '@convex-world/convex-ts';
 import { type AccountInfo, type ConvexResponse } from '@/lib/convex-api';
 
 interface ReplLine {
@@ -240,12 +240,12 @@ export default function ReplSandbox() {
     }
   };
 
-  const handleConnect = async () => {
+  const handleConnect = () => {
     if (hasMatchingKey && accountDetails?.publicKey && wallet) {
       const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
       const seed = pk ? wallet.getSeed(pk) : undefined;
       if (seed) {
-        const kp = await keyPairFromSeed(seed);
+        const kp = KeyPair.fromSeed(seed);
         setKeyPair(kp);
         return;
       }
@@ -259,12 +259,12 @@ export default function ReplSandbox() {
     if (!wallet || isCreating) return;
     setIsCreating(true);
     try {
-      const kp = await generateKeyPair();
-      const pubHex = bytesToHex(kp.accountKey);
-      const seedHex = bytesToHex(kp.seed);
+      const kp = KeyPair.generate();
+      const pubHex = kp.publicKeyHex;
+      const seedHex = kp.privateKeyHex;
       wallet.addKeyFromKeypair(pubHex, seedHex);
 
-      const res = await convex.createAccount(pubHex);
+      const res = await convex.createAccount(kp);
       if ('errorCode' in res) {
         addHistory({ type: 'error', content: `;; Create account failed: ${res.errorMessage}` });
         return;
@@ -549,8 +549,8 @@ export default function ReplSandbox() {
         isOpen={showImportKey}
         onClose={() => setShowImportKey(false)}
         accountPublicKey={accountDetails?.publicKey}
-        onImport={async (hex) => {
-          const kp = await keyPairFromSeedHex(hex);
+        onImport={(hex) => {
+          const kp = KeyPair.fromSeed(hex);
           setKeyPair(kp);
           setShowImportKey(false);
         }}

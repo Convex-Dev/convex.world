@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { hexToBytes, getPublicKeyFromSeed, bytesToHex } from '@/lib/crypto';
+import { KeyPair, bytesToHex } from '@convex-world/convex-ts';
 
 type ImportKeyDialogProps = {
   isOpen: boolean;
@@ -56,9 +56,8 @@ export default function ImportKeyDialog({
 
     setIsVerifying(true);
     try {
-      const seed = hexToBytes(raw);
-      const derived = await getPublicKeyFromSeed(seed);
-      const derivedHex = bytesToHex(derived);
+      const kp = KeyPair.fromSeed(raw);
+      const derivedHex = kp.publicKeyHex;
       if (norm(derivedHex) !== norm(accountPublicKey)) {
         setError("Key does not match this account's public key");
         return;

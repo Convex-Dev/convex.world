@@ -10,11 +10,11 @@ import {
   type ReactNode,
 } from "react";
 import {
+  KeyPair,
   bytesToHex,
-  generateKeyPair,
   hexToBytes,
   sign,
-} from "@/lib/crypto";
+} from "@convex-world/convex-ts";
 
 // Map: publicKey (hex) -> seed (hex). Stored as a plain object for JSON/localStorage.
 type KeysMap = Record<string, string>;
@@ -90,9 +90,9 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
   );
 
   const addKey = useCallback(async (): Promise<string> => {
-    const { seed, accountKey } = await generateKeyPair();
-    const pubHex = bytesToHex(accountKey);
-    const seedHex = bytesToHex(seed);
+    const kp = KeyPair.generate();
+    const pubHex = kp.publicKeyHex;
+    const seedHex = kp.privateKeyHex;
     setKeys((prev) => ({ ...prev, [pubHex]: seedHex }));
     return pubHex;
   }, []);

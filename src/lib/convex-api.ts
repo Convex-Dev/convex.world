@@ -1,28 +1,36 @@
 /**
- * Convex Network API Client
+ * Convex Network API Client — thin adapter over @convex-world/convex-ts
  *
- * Connects to the Convex peer network for live data queries.
- * Calls the peer /api/v1 endpoints directly from the client.
- *
- * Queries are FREE and don't require an account or wallet.
- * Transactions (sends) require a signed account and cost Juice.
+ * Adds site-specific features on top of the official library:
+ *   - setPeerUrl() — switch networks without creating a new instance
+ *   - latencyMs    — client-measured round-trip timing on every result
+ *   - Error-returning API (never throws; returns errorCode instead)
+ *   - Convenience query wrappers (getNetworkStatus, getBalance, etc.)
  *
  * Peer API Documentation: https://peer.convex.live/swagger
  */
 
-import { type KeyPair, bytesToHex, hexToBytes, sign } from '@/lib/crypto';
+import {
+  Convex as ConvexClient,
+  KeyPair,
+  ConvexError,
+  type Result,
+  type ResultInfo,
+} from '@convex-world/convex-ts';
 
-export interface ConvexResponseInfo {
-  juice?: number;
-  source?: string;
-}
+// Re-export KeyPair so consumers don't need a second import source
+export { KeyPair } from '@convex-world/convex-ts';
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
 
 export interface ConvexResponse<T = unknown> {
-  value?: T; // JSON value from request, may lose some type info
-  result?: string; // CVX expression result from request. More accurate
-  info?: ConvexResponseInfo;
+  value?: T;
+  result?: string;
+  info?: ResultInfo;
   errorCode?: string;
-  /** Client-measured round-trip latency in milliseconds (set by query/transact). */
+  /** Client-measured round-trip latency in milliseconds. */
   latencyMs?: number;
 }
 
@@ -43,25 +51,34 @@ export interface AccountInfo {
 }
 
 export interface ConvexOptions {
-  /** Peer base URL (e.g. https://peer.convex.live). Requests go to {peerUrl}/api/v1/... */
+  /** Peer base URL (e.g. https://peer.convex.live). */
   peerUrl?: string;
 }
+
+// ---------------------------------------------------------------------------
+// Client
+// ---------------------------------------------------------------------------
 
 const DEFAULT_PEER_URL = 'https://mikera1337-convex-testnet.hf.space';
 
 /**
- * Convex client. Wraps the network/peer base URL so the network is switchable.
- * All requests call {peerUrl}/api/v1/... directly.
+ * Convex client for the website.
+ *
+ * Wraps {@link ConvexClient} from `@convex-world/convex-ts` and adds
+ * setPeerUrl(), latencyMs measurement, and error-returning (non-throwing) API.
  */
 export class Convex {
+  private _client: ConvexClient;
   private _peerUrl: string;
   private _address: string | null = null;
-  /** KeyPair for signing transactions, or null. */
   private _keyPair: KeyPair | null = null;
 
   constructor(options: ConvexOptions = {}) {
     this._peerUrl = options.peerUrl ?? DEFAULT_PEER_URL;
+    this._client = new ConvexClient(this._peerUrl);
   }
+
+  // -- Peer URL -------------------------------------------------------------
 
   get peerUrl(): string {
     return this._peerUrl;
@@ -69,14 +86,11 @@ export class Convex {
 
   setPeerUrl(v: string): void {
     this._peerUrl = v;
+    this._client = new ConvexClient(v);
+    this._syncAccount();
   }
 
-  /** Peer base URL without trailing slash, for building /api/v1 paths. */
-  private baseUrl(): string {
-    return this._peerUrl.replace(/\/$/, '');
-  }
-
-  /** Peer hostname for display (e.g. "peer.convex.live"). Uses "peer" if URL is invalid. */
+  /** Peer hostname for display (e.g. "peer.convex.live"). */
   getPeerHostname(): string {
     try {
       return new URL(this._peerUrl || 'https://x').hostname;
@@ -85,369 +99,204 @@ export class Convex {
     }
   }
 
-  /** Account address (numeric string) or null. */
+  // -- Account management ---------------------------------------------------
+
   getAddress(): string | null {
     return this._address;
   }
 
   setAddress(v: string | null): void {
     this._address = v;
+    if (v) this._client.setAddress(v);
   }
 
-  /** KeyPair for signing, or null. */
   getKeyPair(): KeyPair | null {
     return this._keyPair;
   }
 
   setKeyPair(k: KeyPair | null): void {
     this._keyPair = k;
+    if (k) this._client.setSigner(k);
   }
 
+  /** Re-apply address and signer after creating a new internal client. */
+  private _syncAccount(): void {
+    if (this._address) this._client.setAddress(this._address);
+    if (this._keyPair) this._client.setSigner(this._keyPair);
+  }
+
+  // -- Query ----------------------------------------------------------------
+
   /**
-   * Execute a read-only query on the Convex network.
-   * Queries are free and don't modify state.
-   * Uses addressOverride ?? this.getAddress() when sending; omit if both null.
+   * Execute a read-only query (free, no signing required).
+   * Returns a {@link ConvexResponse} with latencyMs — never throws.
    */
   async query(source: string, addressOverride?: string): Promise<ConvexResponse> {
     const address = addressOverride ?? this._address ?? undefined;
     const start = performance.now();
     try {
-      const response = await fetch(this.baseUrl()+'/api/v1/query', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          source,
-          address,
-        }),
-      });
-
-      const data = await response.json();
-      const latencyMs = Math.round(performance.now() - start);
-
-      if (!response.ok) {
-        return {
-          errorCode: 'SYNTAX',
-          value: data.title || `HTTP ${response.status}`,
-          latencyMs,
-        };
-      }
-
-      return { ...data, latencyMs };
+      const params = address ? { source, address } : source;
+      const result: Result = await this._client.query(params);
+      return { ...result, latencyMs: Math.round(performance.now() - start) };
     } catch (error) {
-      console.error('Convex query error:', error);
+      const latencyMs = Math.round(performance.now() - start);
+      if (error instanceof ConvexError) {
+        return { errorCode: error.code, value: error.message, latencyMs };
+      }
       return {
         errorCode: 'NETWORK',
         value: error instanceof Error ? error.message : 'Network error',
-        latencyMs: Math.round(performance.now() - start),
+        latencyMs,
       };
     }
   }
 
+  // -- Transact -------------------------------------------------------------
+
   /**
-   * Submit a signed transaction:
-   * 1. POST /api/v1/transaction/prepare with { address, source } to get a hash
-   * 2. Sign the hash with the account's KeyPair.seed
-   * 3. POST /api/v1/transaction/submit with { hash, sig, accountKey } (sig = signature hex, accountKey = public key hex for validation)
-   * Returns ConvexResponse with result/value and info.juice on success.
+   * Submit a signed transaction.
+   * Returns a {@link ConvexResponse} with latencyMs — never throws.
    */
   async transact(source: string): Promise<ConvexResponse> {
-    const address = this._address;
-    const kp = this._keyPair;
-    if (!address) {
+    if (!this._address) {
       return {
         errorCode: 'NO_ADDRESS',
-        value: 'Transaction require an address. Set an address (e.g. #56757).'
+        value: 'Transaction requires an address. Set an address (e.g. #56757).',
       };
     }
-
-    if (!kp) {
+    if (!this._keyPair) {
       return {
         errorCode: 'NO_KEY',
-        value: 'Transactions must be signed. Connect a key pair to execute.'
+        value: 'Transactions must be signed. Connect a key pair to execute.',
       };
     }
 
+    const start = performance.now();
     try {
-      const prepareRes = await fetch(`${this.baseUrl()}/api/v1/transaction/prepare`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({ address, source }),
-      });
-
-      const prepareData = (await prepareRes.json()) as Record<string, unknown>;
-      if (!prepareRes.ok) {
-        return {
-          errorCode: 'PREPARE_FAILED',
-          value:
-            (prepareData.errorMessage as string) ?? (prepareData.title as string) ?? `Prepare: HTTP ${prepareRes.status}`
-        };
-      }
-
-      const rawHash = prepareData.hash ?? prepareData.transactionHash ?? prepareData;
-      const hash = typeof rawHash === 'string' ? rawHash : String(rawHash ?? '').trim();
-      if (!hash) {
-        return {
-          errorCode: 'INVALID_PREPARE',
-          value: 'Prepare did not return a hash (expect hash or transactionHash)'
-        };
-      }
-
-      const hashHex = hash.replace(/^0x/i, '');
-      const hashBytes = hexToBytes(hashHex);
-      const sig = await sign(hashBytes, kp.seed);
-      const signature = bytesToHex(sig);
-
-      // Start time for TX execution (before submit request is sent)
-      const start = performance.now();
-
-      const submitRes = await fetch(`${this.baseUrl()}/api/v1/transaction/submit`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          hash,
-          sig: signature,
-          accountKey: bytesToHex(kp.accountKey),
-        }),
-      });
-
-      const data = await submitRes.json();
+      const result: Result = await this._client.transact(source);
+      return { ...result, latencyMs: Math.round(performance.now() - start) };
+    } catch (error) {
       const latencyMs = Math.round(performance.now() - start);
-
-      if (!submitRes.ok) {
-        return {
-          errorCode: 'TRANSACT_FAILED',
-          value:
-            (data as { errorMessage?: string }).errorMessage ?? (data as { title?: string }).title ?? `Submit: HTTP ${submitRes.status}`,
-          latencyMs,
-        };
+      if (error instanceof ConvexError) {
+        return { errorCode: error.code, value: error.message, latencyMs };
       }
-
-      return { ...data, latencyMs } as ConvexResponse;
-    } catch (error) {
-      console.error('Convex transact error:', error);
       return {
         errorCode: 'NETWORK',
-        value: error instanceof Error ? error.message : 'Network error'
+        value: error instanceof Error ? error.message : 'Network error',
+        latencyMs,
       };
     }
   }
 
-  /**
-   * Get the current network status via CVM query.
-   * Uses *timestamp* to verify connection - returns network timestamp in ms.
-   */
-  async getNetworkStatus(): Promise<NetworkStatus | null> {
-    try {
-      const result = await this.query('*timestamp*');
-
-      if (result.errorCode) {
-        throw new Error(result.value as string || 'Query failed');
-      }
-
-      return {
-        consensusPoint: typeof result.value === 'number' ? result.value : 0,
-        state: 'connected',
-        timestamp: Date.now(),
-      };
-    } catch (error) {
-      console.error('Convex status error:', error);
-      return null;
-    }
-  }
-
-  /**
-   * Get current block/consensus point from the network.
-   */
-  async getBlockHeight(): Promise<number | null> {
-    try {
-      const response = await fetch(this.baseUrl()+'/api/v1/blocks', {
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) return null;
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        return data.length > 0 ? data.length : null;
-      }
-      return null;
-    } catch {
-      return null;
-    }
-  }
-
-  /**
-   * Get total memory size used on the network.
-   */
-  async getMemorySize(): Promise<number | null> {
-    const result = await this.query('*memory-size*');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
-  }
-
-  /**
-   * Get the current state hash (changes with every state update).
-   */
-  async getStateHash(): Promise<string | null> {
-    const result = await this.query('(hash *state*)');
-    if (result.value) {
-      return String(result.value);
-    }
-    return null;
-  }
-
-  /**
-   * Create a new account on the network with the given public key.
-   * Uses POST /api/v1/createAccount with { accountKey, faucet }.
-   * Returns { address, faucetAmount? } on success; faucetAmount is the raw units received from the faucet (e.g. for 0.1 CVM).
-   */
-  async createAccount(publicKeyHex: string): Promise<
-    { address: string; faucetAmount?: number } | { errorCode: string; errorMessage: string }
-  > {
-    const key = (publicKeyHex || '').trim().replace(/^0x/i, '');
-    if (!key || !/^[0-9a-fA-F]{64}$/.test(key)) {
-      return { errorCode: 'INVALID_KEY', errorMessage: 'Public key must be 64 hex characters (32 bytes)' };
-    }
-    try {
-      const response = await fetch(`${this.baseUrl()}/api/v1/createAccount`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        // Request account with 0.1 CVM, should be allowed by most faucets
-        body: JSON.stringify({ accountKey: key, faucet: 100000000 }),
-      });
-
-      const data = (await response.json()) as Record<string, unknown>;
-
-      if (!response.ok) {
-        return {
-          errorCode: (data.errorCode as string) || 'CREATE_ACCOUNT_FAILED',
-          errorMessage: (data.errorMessage as string) || (data.title as string) || `HTTP ${response.status}`,
-        };
-      }
-
-      const raw = data.address ?? data;
-      const address = typeof raw === 'number' ? String(raw) : String(raw || '').replace(/^#/, '');
-      if (!address || !/^\d+$/.test(address)) {
-        return { errorCode: 'INVALID_RESPONSE', errorMessage: 'Peer did not return a valid account address' };
-      }
-      const faucetAmount =
-        typeof data.faucet === 'number' ? data.faucet : typeof data.balance === 'number' ? data.balance : undefined;
-      return { address, faucetAmount };
-    } catch (error) {
-      console.error('Convex createAccount error:', error);
-      return {
-        errorCode: 'NETWORK',
-        errorMessage: error instanceof Error ? error.message : 'Network error',
-      };
-    }
-  }
+  // -- Account info ---------------------------------------------------------
 
   /**
    * Get account information by address.
-   * Uses addressOverride ?? this.getAddress(); returns null if none set.
-   * REST /api/v1/accounts/{address} returns:
-   * { address, sequence, balance, allowance, memorySize, key, type }
+   * Uses the REST /api/v1/accounts/{address} endpoint for full details
+   * (memorySize, type, etc.) beyond what convex-ts getAccountInfo returns.
    */
   async getAccountInfo(addressOverride?: string): Promise<AccountInfo | null> {
     const address = addressOverride ?? this._address;
     if (!address) return null;
     try {
+      const baseUrl = this._peerUrl.replace(/\/$/, '');
       const res = await fetch(
-        `${this.baseUrl()}/api/v1/accounts/${encodeURIComponent(address)}`,
-        { method: 'GET', headers: { Accept: 'application/json' } }
+        `${baseUrl}/api/v1/accounts/${encodeURIComponent(address)}`,
+        { method: 'GET', headers: { Accept: 'application/json' } },
       );
-
-      if (!res.ok) {
-        await res.json().catch(() => ({}));
-        return null;
-      }
+      if (!res.ok) return null;
 
       const data = (await res.json()) as Record<string, unknown>;
       const key = data.key;
-      const publicKey =
-        typeof key === 'string' && key.length > 0 ? key : undefined;
-
       return {
         address: String(data.address ?? address),
         balance: typeof data.balance === 'number' ? data.balance : 0,
         memorySize: typeof data.memorySize === 'number' ? data.memorySize : 0,
         sequence: typeof data.sequence === 'number' ? data.sequence : 0,
         type: typeof data.type === 'string' ? data.type : 'user',
-        publicKey,
+        publicKey: typeof key === 'string' && key.length > 0 ? key : undefined,
       };
-    } catch (error) {
-      console.error('Convex account error:', error);
+    } catch {
       return null;
     }
   }
 
-  /**
-   * Resolve a CNS name to an address.
-   * Uses (resolve 'symbol) syntax per Convex docs.
-   */
-  async resolveCNS(name: string): Promise<string | null> {
-    const result = await this.query(`(resolve '${name})`);
-    if (result.value !== undefined && result.value !== null) {
-      return String(result.value);
-    }
-    return null;
-  }
+  // -- Create account -------------------------------------------------------
 
   /**
-   * Get balance for an address.
+   * Create a new account on the network with the given public key.
+   * Accepts a hex string or a KeyPair (only the public key is sent).
    */
+  async createAccount(
+    publicKeyOrKeyPair: string | KeyPair,
+  ): Promise<
+    { address: string; faucetAmount?: number } | { errorCode: string; errorMessage: string }
+  > {
+    try {
+      const accountKey =
+        publicKeyOrKeyPair instanceof KeyPair
+          ? publicKeyOrKeyPair   // convex-ts createAccount accepts KeyPair
+          : publicKeyOrKeyPair;
+      const info = await this._client.createAccount(accountKey, 100_000_000);
+      return {
+        address: String(info.address),
+        faucetAmount: info.balance > 0 ? info.balance : undefined,
+      };
+    } catch (error) {
+      return {
+        errorCode: 'CREATE_ACCOUNT_FAILED',
+        errorMessage: error instanceof Error ? error.message : 'Failed to create account',
+      };
+    }
+  }
+
+  // -- Convenience queries --------------------------------------------------
+
+  /** Verify connection by querying *timestamp*. */
+  async getNetworkStatus(): Promise<NetworkStatus | null> {
+    try {
+      const result = await this.query('*timestamp*');
+      if (result.errorCode) return null;
+      return {
+        consensusPoint: typeof result.value === 'number' ? result.value : 0,
+        state: 'connected',
+        timestamp: Date.now(),
+      };
+    } catch {
+      return null;
+    }
+  }
+
   async getBalance(address: string): Promise<number | null> {
     const result = await this.query(`(balance ${address})`);
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
+    return typeof result.value === 'number' ? result.value : null;
   }
 
-  /**
-   * Get current juice price from the network.
-   */
   async getJuicePrice(): Promise<number | null> {
     const result = await this.query('*juice-price*');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
+    return typeof result.value === 'number' ? result.value : null;
   }
 
-  /**
-   * Get total coin supply from the network.
-   * Returns raw value - Convex Coins are measured in Coppers (smallest unit).
-   * 1 Convex Coin = 10^9 Coppers, so ~1B supply = ~10^18 Coppers.
-   */
   async getCoinSupply(): Promise<number | null> {
     const result = await this.query('(coin-supply)');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
+    return typeof result.value === 'number' ? result.value : null;
   }
 
-  /**
-   * Execute a transaction (costs Juice, requires account).
-   * For the sandbox, we use query for evaluation since it's free.
-   */
-  async evaluateExpression(source: string): Promise<ConvexResponse> {
-    return this.query(source);
+  async getMemorySize(): Promise<number | null> {
+    const result = await this.query('*memory-size*');
+    return typeof result.value === 'number' ? result.value : null;
+  }
+
+  async getStateHash(): Promise<string | null> {
+    const result = await this.query('(hash *state*)');
+    return result.value ? String(result.value) : null;
+  }
+
+  async resolveCNS(name: string): Promise<string | null> {
+    const result = await this.query(`(resolve '${name})`);
+    return result.value != null ? String(result.value) : null;
   }
 }
 
-/** Default Convex instance using https://peer.convex.live */
+/** Default Convex instance. */
 export const convex = new Convex();

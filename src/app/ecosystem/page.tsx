@@ -46,6 +46,14 @@ const ecosystemItems = [
     category: "Healthcare",
     image: "/images/remelife.webp",
     link: "https://remelife.com"
+  },
+  {
+    key: "alphacards",
+    title: "Alpha Cards",
+    description: "A satirical collectible trading card game parodying luxury finance culture, with on-chain card forging and trading powered by Convex.",
+    category: "Gaming",
+    image: "/images/alphacards.webp",
+    link: "https://mikera.github.io/alpha-cards/"
   }
 ];
 
