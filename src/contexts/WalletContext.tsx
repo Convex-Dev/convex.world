@@ -48,37 +48,36 @@ type WalletProviderProps = {
 
 export function WalletProvider({ children, persistKey = null }: WalletProviderProps) {
   const [keys, setKeys] = useState<KeysMap>(() => ({}));
-  const storageKey = persistKey ?? null;
 
   const load = useCallback(() => {
-    if (!storageKey || typeof window === "undefined") return;
+    if (!persistKey || typeof window === "undefined") return;
     try {
-      const raw = window.localStorage.getItem(storageKey);
+      const raw = window.localStorage.getItem(persistKey);
       if (raw) {
-        const parsed = JSON.parse(raw) as KeysMap;
-        if (parsed && typeof parsed === "object") setKeys(parsed);
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === "object") setKeys(parsed as KeysMap);
       }
     } catch {
       // ignore
     }
-  }, [storageKey]);
+  }, [persistKey]);
 
   const persist = useCallback(() => {
-    if (!storageKey || typeof window === "undefined") return;
+    if (!persistKey || typeof window === "undefined") return;
     try {
-      window.localStorage.setItem(storageKey, JSON.stringify(keys));
+      window.localStorage.setItem(persistKey, JSON.stringify(keys));
     } catch {
       // ignore
     }
-  }, [storageKey, keys]);
+  }, [persistKey, keys]);
 
   useEffect(() => {
     load();
   }, [load]);
 
   useEffect(() => {
-    if (storageKey) persist();
-  }, [storageKey, keys, persist]);
+    if (persistKey) persist();
+  }, [persistKey, keys, persist]);
 
   const getSeed = useCallback(
     (publicKeyHex: string): Uint8Array | undefined => {
@@ -142,12 +141,6 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
   return (
     <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
   );
-}
-
-export function useWallet(): WalletContextValue {
-  const ctx = useContext(WalletContext);
-  if (!ctx) throw new Error("useWallet must be used within a WalletProvider");
-  return ctx;
 }
 
 export function useWalletOptional(): WalletContextValue | null {
