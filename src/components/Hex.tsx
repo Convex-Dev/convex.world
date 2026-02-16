@@ -9,14 +9,12 @@ type HexProps = Omit<ComponentProps<'div'>, 'children'> & {
 export default function Hex({
   width = 100,
   height = 100,
-  className = '',
+  className,
   children,
   ...props
 }: HexProps) {
-  const composedClassName = className ? `hex-icon ${className}` : 'hex-icon';
-
   return (
-    <div>
+    <div className={className ? `hex-icon ${className}` : 'hex-icon'} {...props}>
       <svg
         style={{
           position: 'absolute',
