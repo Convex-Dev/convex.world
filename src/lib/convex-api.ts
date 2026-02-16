@@ -79,7 +79,7 @@ export class Convex {
   /** Peer hostname for display (e.g. "peer.convex.live"). Uses "peer" if URL is invalid. */
   getPeerHostname(): string {
     try {
-      return new URL(this._peerUrl || 'https://x').hostname;
+      return new URL(this._peerUrl).hostname;
     } catch {
       return 'peer';
     }
@@ -222,11 +222,12 @@ export class Convex {
       const data = await submitRes.json();
       const latencyMs = Math.round(performance.now() - start);
 
+      const submitData = data as Record<string, unknown>;
       if (!submitRes.ok) {
         return {
           errorCode: 'TRANSACT_FAILED',
           value:
-            (data as { errorMessage?: string }).errorMessage ?? (data as { title?: string }).title ?? `Submit: HTTP ${submitRes.status}`,
+            (submitData.errorMessage as string) ?? (submitData.title as string) ?? `Submit: HTTP ${submitRes.status}`,
           latencyMs,
         };
       }
@@ -262,47 +263,6 @@ export class Convex {
       console.error('Convex status error:', error);
       return null;
     }
-  }
-
-  /**
-   * Get current block/consensus point from the network.
-   */
-  async getBlockHeight(): Promise<number | null> {
-    try {
-      const response = await fetch(this.baseUrl()+'/api/v1/blocks', {
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) return null;
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        return data.length > 0 ? data.length : null;
-      }
-      return null;
-    } catch {
-      return null;
-    }
-  }
-
-  /**
-   * Get total memory size used on the network.
-   */
-  async getMemorySize(): Promise<number | null> {
-    const result = await this.query('*memory-size*');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
-  }
-
-  /**
-   * Get the current state hash (changes with every state update).
-   */
-  async getStateHash(): Promise<string | null> {
-    const result = await this.query('(hash *state*)');
-    if (result.value) {
-      return String(result.value);
-    }
-    return null;
   }
 
   /**
@@ -393,61 +353,4 @@ export class Convex {
     }
   }
 
-  /**
-   * Resolve a CNS name to an address.
-   * Uses (resolve 'symbol) syntax per Convex docs.
-   */
-  async resolveCNS(name: string): Promise<string | null> {
-    const result = await this.query(`(resolve '${name})`);
-    if (result.value !== undefined && result.value !== null) {
-      return String(result.value);
-    }
-    return null;
-  }
-
-  /**
-   * Get balance for an address.
-   */
-  async getBalance(address: string): Promise<number | null> {
-    const result = await this.query(`(balance ${address})`);
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
-  }
-
-  /**
-   * Get current juice price from the network.
-   */
-  async getJuicePrice(): Promise<number | null> {
-    const result = await this.query('*juice-price*');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
-  }
-
-  /**
-   * Get total coin supply from the network.
-   * Returns raw value - Convex Coins are measured in Coppers (smallest unit).
-   * 1 Convex Coin = 10^9 Coppers, so ~1B supply = ~10^18 Coppers.
-   */
-  async getCoinSupply(): Promise<number | null> {
-    const result = await this.query('(coin-supply)');
-    if (typeof result.value === 'number') {
-      return result.value;
-    }
-    return null;
-  }
-
-  /**
-   * Execute a transaction (costs Juice, requires account).
-   * For the sandbox, we use query for evaluation since it's free.
-   */
-  async evaluateExpression(source: string): Promise<ConvexResponse> {
-    return this.query(source);
-  }
 }
-
-/** Default Convex instance using https://peer.convex.live */
-export const convex = new Convex();
