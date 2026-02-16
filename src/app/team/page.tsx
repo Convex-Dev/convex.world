@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ConvexProvider } from "@/contexts/ConvexContext";
-import { WalletProvider } from "@/contexts/WalletContext";
 
 interface TeamMember {
   name: string;
@@ -64,8 +62,6 @@ export default function Team() {
     <>
       <Navigation />
       <main>
-        <WalletProvider persistKey="convex.world:wallet">
-          <ConvexProvider>
             <div className="container">
               <div className="hero-section">
                 <h1>Our Team</h1>
@@ -157,8 +153,6 @@ export default function Team() {
                 ))}
               </div>
             </div>
-          </ConvexProvider>
-        </WalletProvider>
       </main>
       <Footer />
     </>
