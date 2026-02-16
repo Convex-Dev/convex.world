@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { hexToBytes, getPublicKeyFromSeed, bytesToHex } from '@/lib/crypto';
+import { hexToBytes, getPublicKeyFromSeed, bytesToHex, normaliseHex } from '@/lib/crypto';
 
 type ImportKeyDialogProps = {
   isOpen: boolean;
@@ -10,8 +10,6 @@ type ImportKeyDialogProps = {
   accountPublicKey: string | null | undefined;
   onImport: (privateKeyHex: string) => void;
 };
-
-const norm = (hex: string) => (hex || '').replace(/^0x/i, '').toLowerCase();
 
 export default function ImportKeyDialog({
   isOpen,
@@ -59,7 +57,7 @@ export default function ImportKeyDialog({
       const seed = hexToBytes(raw);
       const derived = await getPublicKeyFromSeed(seed);
       const derivedHex = bytesToHex(derived);
-      if (norm(derivedHex) !== norm(accountPublicKey)) {
+      if (normaliseHex(derivedHex) !== normaliseHex(accountPublicKey)) {
         setError("Key does not match this account's public key");
         return;
       }
