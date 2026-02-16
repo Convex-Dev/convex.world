@@ -7,7 +7,7 @@ import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 
 export const metadata = {
-  title: "REPL Sandbox | Convex",
+  title: "REPL Sandbox",
   description:
     "Experiment with Convex Lisp in a live environment. Execute expressions, define functions, query state, and observe results in real-time.",
 };
@@ -19,12 +19,7 @@ export default function SandboxPage() {
       <main>
         <WalletProvider persistKey="convex.world:wallet">
           <ConvexProvider>
-            {/* Lattice Background */}
-            <div className="lattice-bg" aria-hidden="true">
-              <div className="lattice-node lattice-node-1" />
-              <div className="lattice-node lattice-node-2" />
-              <div className="lattice-node lattice-node-3" />
-            </div>
+            <div className="lattice-bg" aria-hidden="true" />
 
             {/* Hero */}
             <section className="dev-section" >
