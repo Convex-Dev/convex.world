@@ -53,7 +53,7 @@
   },
   {
     "title": "One Line DeFi",
-    "description": "Execute powerful, end-to-end economic transactions with one command"
+    "desc": "Execute powerful, end-to-end economic transactions with one command"
   },
   {
     "title": "DLFS",
@@ -65,6 +65,6 @@
   },
   {
     "title": "Non-Profit",
-    "description": "Governed by a non-profit foundation, built for public benefit in the age of AI"
+    "desc": "Governed by a non-profit foundation, built for public benefit in the age of AI"
   }
 ]
