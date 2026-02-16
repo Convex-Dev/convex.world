@@ -1,11 +1,10 @@
 import type { MetadataRoute } from "next";
 
 export const dynamic = "force-static";
-export const revalidate = false;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://convex.world";
-  const buildDate = new Date(); // Evaluated once at build time?
+  const buildDate = new Date();
 
   return [
     {
@@ -43,6 +42,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: buildDate,
       changeFrequency: "weekly",
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/vision`,
+      lastModified: buildDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/cpos`,
+      lastModified: buildDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/lattice`,
+      lastModified: buildDate,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/community`,
+      lastModified: buildDate,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
+      url: `${baseUrl}/team`,
+      lastModified: buildDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/brand`,
+      lastModified: buildDate,
+      changeFrequency: "monthly",
+      priority: 0.5,
     },
   ];
 }
