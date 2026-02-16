@@ -11,8 +11,6 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ConvexProvider } from "@/contexts/ConvexContext";
-import { WalletProvider } from "@/contexts/WalletContext";
 
 interface ToolLink {
   name: string;
@@ -75,14 +73,7 @@ export default function Tools() {
     <>
       <Navigation />
       <main>
-        <WalletProvider persistKey="convex.world:wallet">
-          <ConvexProvider>
-            {/* Lattice Background */}
-            <div className="lattice-bg" aria-hidden="true">
-              <div className="lattice-node lattice-node-1" />
-              <div className="lattice-node lattice-node-2" />
-              <div className="lattice-node lattice-node-3" />
-            </div>
+            <div className="lattice-bg" aria-hidden="true" />
 
             {/* Hero Section */}
             <section className="tools-hero">
@@ -223,8 +214,6 @@ export default function Tools() {
             </section>
 
             <div className="geo-line" aria-hidden="true" />
-          </ConvexProvider>
-        </WalletProvider>
       </main>
       <Footer />
     </>
