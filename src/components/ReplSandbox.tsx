@@ -8,7 +8,7 @@ import NetworkSelector from '@/components/NetworkSelector';
 import PublicKey from '@/components/PublicKey';
 import { useConvex } from '@/contexts/ConvexContext';
 import { useWalletOptional } from '@/contexts/WalletContext';
-import { bytesToHex, generateKeyPair, keyPairFromSeed, keyPairFromSeedHex } from '@/lib/crypto';
+import { bytesToHex, generateKeyPair, keyPairFromSeed, keyPairFromSeedHex, normaliseHex } from '@/lib/crypto';
 import { type AccountInfo, type ConvexResponse } from '@/lib/convex-api';
 
 interface ReplLine {
@@ -72,10 +72,9 @@ export default function ReplSandbox() {
   const { convex, setAddress, setKeyPair, address, keyPair, peerUrl } = useConvex();
   const wallet = useWalletOptional();
 
-  const norm = (hex: string) => (hex || '').replace(/^0x/i, '').toLowerCase();
   const hasMatchingKey =
     accountDetails?.publicKey &&
-    wallet?.publicKeys.some((pk) => norm(pk) === norm(accountDetails.publicKey!));
+    wallet?.publicKeys.some((pk) => normaliseHex(pk) === normaliseHex(accountDetails.publicKey!));
   const isKeyConnected = !!keyPair;
 
   // Fetch account details when address or network (peerUrl) changes (debounced)
@@ -159,9 +158,9 @@ export default function ReplSandbox() {
   }, [openResultId]);
 
   const execute = useCallback(
-    async (source: string, mode: 'query' | 'transact'): Promise<ConvexResponse> => {
+    async (source: string, execMode: 'query' | 'transact'): Promise<ConvexResponse> => {
       setIsExecuting(true);
-      const resp = mode === 'transact' ? await convex.transact(source) : await convex.query(source);
+      const resp = execMode === 'transact' ? await convex.transact(source) : await convex.query(source);
       setIsExecuting(false);
       return resp;
     },
@@ -242,7 +241,7 @@ export default function ReplSandbox() {
 
   const handleConnect = async () => {
     if (hasMatchingKey && accountDetails?.publicKey && wallet) {
-      const pk = wallet.publicKeys.find((p) => norm(p) === norm(accountDetails!.publicKey!));
+      const pk = wallet.publicKeys.find((p) => normaliseHex(p) === normaliseHex(accountDetails!.publicKey!));
       const seed = pk ? wallet.getSeed(pk) : undefined;
       if (seed) {
         const kp = await keyPairFromSeed(seed);
@@ -552,7 +551,6 @@ export default function ReplSandbox() {
         onImport={async (hex) => {
           const kp = await keyPairFromSeedHex(hex);
           setKeyPair(kp);
-          setShowImportKey(false);
         }}
       />
     </div>
