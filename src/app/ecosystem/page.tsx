@@ -3,8 +3,6 @@ import Image from "next/image";
 import { ArrowUpRight, Users, Building2, Globe2 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ConvexProvider } from "@/contexts/ConvexContext";
-import { WalletProvider } from "@/contexts/WalletContext";
 
 const ecosystemItems = [
   {
@@ -54,14 +52,7 @@ export default function Ecosystem() {
     <>
       <Navigation />
       <main>
-        <WalletProvider persistKey="convex.world:wallet">
-          <ConvexProvider>
-            {/* Lattice Background */}
-            <div className="lattice-bg" aria-hidden="true">
-              <div className="lattice-node lattice-node-1" />
-              <div className="lattice-node lattice-node-2" />
-              <div className="lattice-node lattice-node-3" />
-            </div>
+            <div className="lattice-bg" aria-hidden="true" />
 
             {/* Hero Section */}
             <section className="community-hero">
@@ -160,8 +151,6 @@ export default function Ecosystem() {
             </section>
 
             <div className="geo-line" aria-hidden="true" />
-          </ConvexProvider>
-        </WalletProvider>
       </main>
       <Footer />
     </>
