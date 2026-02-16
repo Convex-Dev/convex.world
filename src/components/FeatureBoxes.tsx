@@ -1,12 +1,6 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
-import { 
-  Waves, 
-  Orbit, 
-  Gauge, 
-  Code2, 
-  Bot, 
-  Landmark 
-} from 'lucide-react';
+import { Waves, Orbit, Gauge, Code2, Bot, Landmark } from 'lucide-react';
 
 interface FeatureLink {
   label: string;
@@ -17,7 +11,7 @@ interface FeatureLink {
 interface FeatureBox {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   links?: FeatureLink[];
 }
 
