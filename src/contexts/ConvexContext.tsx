@@ -23,7 +23,7 @@ type ConvexProviderProps = {
 };
 
 export function ConvexProvider({ children, peerUrl }: ConvexProviderProps) {
-  const [convex] = useState(() => new Convex(peerUrl != null ? { peerUrl } : {}));
+  const [convex] = useState(() => new Convex({ peerUrl }));
   const [, setRevision] = useState(0);
 
   const setAddress = useCallback(
@@ -67,8 +67,4 @@ export function useConvex(): ConvexContextValue {
   const ctx = useContext(ConvexContext);
   if (!ctx) throw new Error('useConvex must be used within a ConvexProvider');
   return ctx;
-}
-
-export function useConvexOptional(): ConvexContextValue | null {
-  return useContext(ConvexContext);
 }

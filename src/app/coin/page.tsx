@@ -2,8 +2,6 @@ import Link from "next/link";
 import { ArrowUpRight, Shield, Coins, TrendingUp, Zap } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { ConvexProvider } from "@/contexts/ConvexContext";
-import { WalletProvider } from "@/contexts/WalletContext";
 
 function ConvexLogoAnimated() {
   return (
@@ -43,8 +41,6 @@ export default function Coin() {
     <>
       <Navigation />
       <main className="coin-page">
-        <WalletProvider persistKey="convex.world:wallet">
-          <ConvexProvider>
             <ConvexLogoAnimated />
 
             <section className="coin-hero">
@@ -281,8 +277,6 @@ export default function Coin() {
             </section>
 
             <div className="geo-line" aria-hidden="true" />
-          </ConvexProvider>
-        </WalletProvider>
       </main>
       <Footer />
     </>

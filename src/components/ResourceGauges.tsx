@@ -49,23 +49,23 @@ function Gauge({ label, value, max, unit, color }: GaugeProps) {
   );
 }
 
+const JUICE_MAX = 1000000;
+const MEMORY_MAX = 4096;
+
 export default function ResourceGauges() {
   const [juiceUsed, setJuiceUsed] = useState(234567);
   const [memoryUsed, setMemoryUsed] = useState(1847);
-  
-  const juiceMax = 1000000;
-  const memoryMax = 4096;
 
   // Simulate live updates
   useEffect(() => {
     const interval = setInterval(() => {
       setJuiceUsed(prev => {
         const delta = Math.floor(Math.random() * 5000) - 1000;
-        return Math.max(0, Math.min(juiceMax, prev + delta));
+        return Math.max(0, Math.min(JUICE_MAX, prev + delta));
       });
       setMemoryUsed(prev => {
         const delta = Math.floor(Math.random() * 100) - 30;
-        return Math.max(0, Math.min(memoryMax, prev + delta));
+        return Math.max(0, Math.min(MEMORY_MAX, prev + delta));
       });
     }, 2000);
 
@@ -86,14 +86,14 @@ export default function ResourceGauges() {
         <Gauge 
           label="Juice Consumption" 
           value={juiceUsed} 
-          max={juiceMax} 
+          max={JUICE_MAX} 
           unit="units"
           color="juice"
         />
         <Gauge 
           label="Memory Allocation" 
           value={memoryUsed} 
-          max={memoryMax} 
+          max={MEMORY_MAX} 
           unit="bytes"
           color="memory"
         />

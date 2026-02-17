@@ -1,64 +1,25 @@
 'use client';
 
 import { useMemo, useState, useRef, useEffect } from 'react';
+import { SQRT3, hexPath, axialToPixel as axialToPixelBase, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
 
-/**
- * HexGridBackground - A seamless hexagonal grid using proper hex math.
- * Generates a full-viewport grid of pointy-top hexagons (like Convex logo).
- * Some hexes are "superpowers" with interactive content.
- */
-
-const SQRT3 = Math.sqrt(3);
 const SIZE = 360;
 const GAP = 0.04;
-const HEX_SCALE = 0.95;  // Shrink factor so adjacent hexes don't touch
-const TEXT_INSET = 0.85;  // Text area as fraction of hex width
+const HEX_SCALE = 0.95;
+const TEXT_INSET = 0.85;
 
-const HEX_PATH = (() => {
-  const s = SIZE * HEX_SCALE;
-  const points: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const angleDeg = 60 * i - 90;
-    const angleRad = (Math.PI / 180) * angleDeg;
-    const x = Math.round(s * Math.cos(angleRad) * 1000) / 1000;
-    const y = Math.round(s * Math.sin(angleRad) * 1000) / 1000;
-    points.push(`${i === 0 ? 'M' : 'L'} ${x} ${y}`);
-  }
-  return points.join(' ') + ' Z';
-})();
+const HEX_PATH = hexPath(SIZE * HEX_SCALE);
 
-function axialToPixel(q: number, r: number): { x: number; y: number } {
-  const gapFactor = 1 + GAP;
-  const x = SQRT3 * SIZE * (q + r / 2) * gapFactor;
-  const y = 1.5 * SIZE * r * gapFactor;
-  return { x, y };
+function toPixel(q: number, r: number) {
+  return axialToPixelBase(q, r, SIZE, GAP);
 }
-
-interface Superpower {
-  title: string;
-  desc: string;
-  href: string;
-}
-
-// Clockwise order starting from Lattice (center), then spreading outward
-const SUPERPOWER_HEXES: Record<string, Superpower & { order: number }> = {
-  '1,0': { title: "Lattice", desc: "Global self-healing fabric", href: "/lattice", order: 0 },
-  '1,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "/cpos", order: 1 },
-  '2,-1': { title: "Convex Lisp", desc: "Functional programming", href: "https://docs.convex.world/docs/cad/lisp", order: 2 },
-  '3,-1': { title: "DIDs", desc: "Decentralised identity", href: "https://docs.convex.world/docs/cad/did", order: 3 },
-  '2,0': { title: "Digital Assets", desc: "Tokens & NFTs in one line", href: "https://docs.convex.world/docs/tutorial/coins", order: 4 },
-  '1,1': { title: "Virtual Machine", desc: "High performance execution", href: "https://docs.convex.world/docs/overview/concepts", order: 5 },
-  '0,1': { title: "Agent Native", desc: "Agentic tools with MCP", href: "/developers", order: 6 },
-  '-1,1': { title: "Live Compiler", desc: "No external toolchains", href: "/sandbox", order: 7 },
-  '0,0': { title: "Convex Coin", desc: "Utility token for global state", href: "/coin", order: 8 },
-};
 
 interface GridCell {
   q: number;
   r: number;
   x: number;
   y: number;
-  superpower: (Superpower & { order: number }) | null;
+  superpower: (typeof SUPERPOWER_HEXES)[string] | null;
 }
 
 function pixelToAxial(px: number, py: number): { q: number; r: number } {
@@ -147,7 +108,7 @@ export default function HexGridBackground() {
         
         if (!seen.has(key)) {
           seen.add(key);
-          const { x, y } = axialToPixel(q, r);
+          const { x, y } = toPixel(q, r);
           const superpower = SUPERPOWER_HEXES[key] || null;
           cells.push({ q, r, x, y, superpower });
         }
@@ -159,18 +120,7 @@ export default function HexGridBackground() {
 
   const bounds = useMemo(() => {
     if (gridCells.length === 0) return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    
-    const hexWidth = SQRT3 * SIZE;
-    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    
-    gridCells.forEach(({ x, y }) => {
-      minX = Math.min(minX, x - hexWidth / 2);
-      maxX = Math.max(maxX, x + hexWidth / 2);
-      minY = Math.min(minY, y - SIZE);
-      maxY = Math.max(maxY, y + SIZE);
-    });
-    
-    return { minX, maxX, minY, maxY };
+    return hexBounds(gridCells, SIZE);
   }, [gridCells]);
 
   const svgWidth = bounds.maxX - bounds.minX;
@@ -200,7 +150,7 @@ export default function HexGridBackground() {
         </defs>
         <g transform={`translate(${offsetX}, ${offsetY})`}>
           {(() => {
-            const dataLatticePos = axialToPixel(1, 0);
+            const dataLatticePos = toPixel(1, 0);
             return gridCells.map((cell) => {
               const dx = cell.x - dataLatticePos.x;
               const dy = cell.y - dataLatticePos.y;
@@ -214,7 +164,6 @@ export default function HexGridBackground() {
                 const isExternal = cell.superpower.href.startsWith('http');
                 const isDimmed = hoveredKey !== null && !isHovered;
                 const superpowerDelay = cell.superpower.order * 0.15;
-                const gridDelay = 0.15 * 7 + delay;
                 return (
                   <g
                     key={`${cell.q}-${cell.r}`}

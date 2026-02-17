@@ -307,30 +307,6 @@ nav > a:first-child {
    FEATURE GRID
    ========================================================================== */
 
-.features-section {
-  padding: var(--space-16) 0 var(--space-24);
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding-left: var(--space-6);
-  padding-right: var(--space-6);
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: var(--space-12);
-}
-
-.section-header h2 {
-  font-size: var(--text-3xl);
-  margin-bottom: var(--space-4);
-}
-
-.section-header p {
-  font-size: var(--text-lg);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 .features-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -348,25 +324,6 @@ nav > a:first-child {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
-/* Feature cards styles consolidated in ENHANCED VISUAL ELEMENTS section */
-
-.feature-link {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--accent-primary);
-  padding: var(--space-1) var(--space-3);
-  background: var(--accent-primary-subtle);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
-}
-
-.feature-link:hover {
-  background: var(--accent-primary-muted);
-  color: var(--accent-primary);
-}
-
-/* Stats bar styles moved to ENHANCED VISUAL ELEMENTS section */
 
 /* ==========================================================================
    FOOTER
@@ -661,44 +618,6 @@ footer {
   line-height: var(--leading-relaxed);
 }
 
-/* Tools grid */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: var(--space-4);
-}
-
-@media (min-width: 640px) {
-  .tools-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .tools-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Ecosystem grid */
-.ecosystem-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: var(--space-4);
-}
-
-@media (min-width: 640px) {
-  .ecosystem-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .ecosystem-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 /* ==========================================================================
    CODE BLOCKS
    ========================================================================== */
@@ -766,11 +685,6 @@ footer {
   bottom: 0;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 55%, black 0%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 55%, black 0%, transparent 70%);
-}
-
-/* Hide node elements - no longer needed */
-.lattice-node {
-  display: none;
 }
 
 /* Lattice dots area — relative container, overflow visible so dots span full viewport */
@@ -1236,16 +1150,13 @@ footer {
   color: #93D500;
 }
 
-/* Light mode sandbox button - ensure visibility */
-:root[data-theme='light'] .btn.btn-sandbox,
-[data-theme='light'] .btn.btn-sandbox {
+.light .btn.btn-sandbox {
   background: #93D500;
   color: #1a1a1a;
   border-color: #7ab800 !important;
 }
 
-:root[data-theme='light'] .btn.btn-sandbox:hover,
-[data-theme='light'] .btn.btn-sandbox:hover {
+.light .btn.btn-sandbox:hover {
   background: #a4e600;
   color: #000000;
   border-color: #93D500 !important;

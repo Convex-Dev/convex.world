@@ -16,13 +16,12 @@ export default function CVMBalance({
   const whole = Math.floor(raw / 1e9);
   const frac = Math.floor(raw % 1e9);
   const fracStr = String(frac).padStart(9, '0');
-  const fracFormatted = fracStr;
   const wholeFormatted = whole.toLocaleString('en-US', { maximumFractionDigits: 0 });
 
   return (
     <span className={className ? `cvm-balance ${className}` : 'cvm-balance'}>
       <span className="cvm-balance-whole">{wholeFormatted}</span>
-      <span className="cvm-balance-frac">.{fracFormatted}</span>
+      <span className="cvm-balance-frac">.{fracStr}</span>
     </span>
   );
 }

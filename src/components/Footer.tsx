@@ -1,5 +1,3 @@
-'use client';
-
 interface FooterLink {
   text: string;
   href: string;

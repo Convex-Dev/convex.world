@@ -2,31 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { hexPath, axialToPixel, hexBounds, SQRT3 } from '@/lib/hex';
 
-const SQRT3 = Math.sqrt(3);
 const SIZE = 80;
 const GAP = 0.08;
 
-function axialToPixel(q: number, r: number): { x: number; y: number } {
-  const gapFactor = 1 + GAP;
-  const x = SQRT3 * SIZE * (q + r / 2) * gapFactor;
-  const y = 1.5 * SIZE * r * gapFactor;
-  return { x, y };
-}
+const HEX_PATH = hexPath(SIZE * 0.95);
 
-function getPointyTopHexPath(size: number): string {
-  const points: string[] = [];
-  for (let i = 0; i < 6; i++) {
-    const angleDeg = 60 * i - 90;
-    const angleRad = (Math.PI / 180) * angleDeg;
-    const x = Math.round(size * Math.cos(angleRad) * 1000) / 1000;
-    const y = Math.round(size * Math.sin(angleRad) * 1000) / 1000;
-    points.push(`${i === 0 ? 'M' : 'L'} ${x} ${y}`);
-  }
-  return points.join(' ') + ' Z';
+function toPixel(q: number, r: number) {
+  return axialToPixel(q, r, SIZE, GAP);
 }
-
-const HEX_PATH = getPointyTopHexPath(SIZE * 0.95);
 
 interface Superpower {
   title: string;
@@ -53,17 +38,10 @@ export default function SuperpowerHexTiles() {
   const positions = SUPERPOWERS.map((sp, idx) => ({
     ...sp,
     idx,
-    ...axialToPixel(sp.q, sp.r)
+    ...toPixel(sp.q, sp.r)
   }));
 
-  const hexWidth = SQRT3 * SIZE;
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  positions.forEach(({ x, y }) => {
-    minX = Math.min(minX, x - hexWidth / 2);
-    maxX = Math.max(maxX, x + hexWidth / 2);
-    minY = Math.min(minY, y - SIZE);
-    maxY = Math.max(maxY, y + SIZE);
-  });
+  const { minX, minY, maxX, maxY } = hexBounds(positions, SIZE);
 
   const svgWidth = maxX - minX + SIZE * 0.5;
   const svgHeight = maxY - minY + SIZE * 0.5;
@@ -86,13 +64,6 @@ export default function SuperpowerHexTiles() {
             <stop offset="0%" stopColor="var(--accent-primary)" stopOpacity="0.35" />
             <stop offset="100%" stopColor="var(--accent-highlight)" stopOpacity="0.2" />
           </linearGradient>
-          <filter id="superpowerGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
         </defs>
         <g transform={`translate(${offsetX}, ${offsetY})`}>
           {positions.map((tile) => {

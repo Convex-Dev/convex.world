@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useConvex } from '@/contexts/ConvexContext';
 
 interface StatValue {
@@ -44,16 +44,13 @@ export default function LiveProofOfLife() {
   // Fetch real network metrics with single combined query
   const fetchStatus = useCallback(async () => {
     try {
-      // Single query returning vector of all metrics
-      // API route returns peerLatencyMs measured server-side for accurate finality
-      const result = await convex.query('[*timestamp* *juice-price* (coin-supply)]') as { 
-        value?: unknown[]; 
+      const result = await convex.query('[*timestamp* *juice-price*]') as {
+        value?: unknown[];
         peerLatencyMs?: number;
         errorCode?: string;
       };
-      
-      // Result value is an array: [timestamp, juicePrice, coinSupply]
-      if (Array.isArray(result.value) && result.value.length >= 3) {
+
+      if (Array.isArray(result.value) && result.value.length >= 2) {
         const [timestamp, juicePrice] = result.value;
         // Use server-side peer latency for accurate finality measurement
         const latency = result.peerLatencyMs ?? 0;
@@ -81,34 +78,34 @@ export default function LiveProofOfLife() {
     return () => clearInterval(interval);
   }, [fetchStatus]);
 
+  const rafRef = useRef(0);
+
   // Animate values towards targets
   useEffect(() => {
-    const animationFrame = requestAnimationFrame(function animate() {
+    const animate = () => {
       setStats(prev => {
         const updated = { ...prev };
         let changed = false;
-        
-        Object.keys(updated).forEach(key => {
+
+        for (const key of Object.keys(updated)) {
           const stat = updated[key];
           const diff = stat.target - stat.current;
           if (Math.abs(diff) > 0.1) {
-            updated[key] = { 
-              ...stat, 
-              current: stat.current + diff * 0.1 
-            };
+            updated[key] = { ...stat, current: stat.current + diff * 0.1 };
             changed = true;
           } else if (stat.current !== stat.target) {
             updated[key] = { ...stat, current: stat.target };
             changed = true;
           }
-        });
-        
+        }
+
         return changed ? updated : prev;
       });
-      requestAnimationFrame(animate);
-    });
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
 
-    return () => cancelAnimationFrame(animationFrame);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   return (
