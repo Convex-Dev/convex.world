@@ -54,3 +54,8 @@ next-env.d.ts
 # cache
 .cache/
 *.cache
+
+# internal guidance docs
+CONVEX.WORLD.md
+FINAL LOCKED HERO TRIAD.md
+convex-brand.md
