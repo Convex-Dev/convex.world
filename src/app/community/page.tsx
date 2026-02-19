@@ -59,48 +59,32 @@ export default async function Community() {
 
   return (
     <ContentPage>
-      {/* Hero Section */}
+      {/* Hero + Social Links */}
       <section className="community-hero">
-        <span className="dev-hero-tag">// The Heart of Convex</span>
+        <span className="dev-hero-tag">// Connect with us</span>
         <h1>
           Join the{" "}
           Community
         </h1>
         <p className="community-hero-text">Builders, researchers, dreamers, and pioneers from around the world are shaping the future of decentralised coordination.</p>
-      </section>
-
-      {/* Social Links */}
-      <section className="community-section">
-        <SectionHeader number="001" title="Connect With Us" subtitle="Find your place in the Convex community" />
-        <div className="community-social-grid">
+        <div className="community-social-row">
           {socialLinks.map((social) => (
             <a
               key={social.key}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`community-social-card community-social-${social.color}`}
+              className={`community-social-link community-social-${social.color}`}
+              aria-label={social.name}
             >
-              <div className="community-social-header">
-                <div className="community-social-icon">
-                  <Image
-                    src={social.logo}
-                    alt={social.name}
-                    width={48}
-                    height={48}
-                    style={{ objectFit: "contain" }}
-                    className={social.color === "twitter" ? "x-logo" : ""}
-                  />
-                </div>
-                <h3>{social.name}</h3>
-              </div>
-              <div className="community-social-content">
-                <p>{social.description}</p>
-              </div>
-              <div className="community-social-footer">
-                <span>{social.action}</span>
-                <ArrowUpRight size={16} className="community-social-arrow" />
-              </div>
+              <Image
+                src={social.logo}
+                alt={social.name}
+                width={32}
+                height={32}
+                style={{ objectFit: "contain" }}
+                className={social.color === "twitter" ? "x-logo" : ""}
+              />
             </a>
           ))}
         </div>
@@ -108,7 +92,7 @@ export default async function Community() {
 
       {/* Activity Timeline */}
       <section className="community-section">
-        <SectionHeader number="002" title="Recent Activity" subtitle="The latest from the Convex ecosystem" />
+        <SectionHeader title="Feed" subtitle="The latest from the Convex ecosystem" />
         <div className="community-timeline">
           {displayContent.map((item, index) => (
             <a
