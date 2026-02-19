@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import ContentPage from "@/components/ContentPage";
 
 interface TeamMember {
   name: string;
@@ -24,8 +23,8 @@ const teamMembers: TeamMember[] = [
     links: {
       github: "https://github.com/Convex-Dev",
       linkedin: "https://linkedin.com/company/convex-world",
-      twitter: "https://twitter.com/convex_world"
-    }
+      twitter: "https://twitter.com/convex_world",
+    },
   },
   {
     name: "Research Team",
@@ -33,8 +32,8 @@ const teamMembers: TeamMember[] = [
     description: "Our research team focuses on advancing the state of the art in consensus mechanisms, formal verification, and distributed systems.",
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
-      github: "https://github.com/Convex-Dev"
-    }
+      github: "https://github.com/Convex-Dev",
+    },
   },
   {
     name: "Community Team",
@@ -43,8 +42,8 @@ const teamMembers: TeamMember[] = [
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
       discord: "https://discord.com/invite/xfYGq4CT7v",
-      twitter: "https://twitter.com/convex_world"
-    }
+      twitter: "https://twitter.com/convex_world",
+    },
   },
   {
     name: "Advisory Team",
@@ -52,109 +51,61 @@ const teamMembers: TeamMember[] = [
     description: "Industry veterans providing strategic guidance on technology, business, and ecosystem development.",
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
-      linkedin: "https://linkedin.com/company/convex-world"
-    }
-  }
+      linkedin: "https://linkedin.com/company/convex-world",
+    },
+  },
 ];
+
+const socialIcons: Record<string, { src: string; alt: string }> = {
+  github: { src: "/images/social_github.webp", alt: "GitHub" },
+  linkedin: { src: "/images/social_linkedin.webp", alt: "LinkedIn" },
+  twitter: { src: "/images/social_twitter.webp", alt: "Twitter" },
+  discord: { src: "/images/social_discord.webp", alt: "Discord" },
+};
 
 export default function Team() {
   return (
-    <>
-      <Navigation />
-      <main>
-            <div className="container">
-              <div className="hero-section">
-                <h1>Our Team</h1>
-                <p className="intro-text">
-                  Meet the people building the future of decentralised economic systems
-                </p>
-              </div>
+    <ContentPage noLatticeBg>
+      <div className="container">
+        <div className="hero-section">
+          <h1>Our Team</h1>
+          <p className="intro-text">
+            Meet the people building the future of decentralised economic systems
+          </p>
+        </div>
 
-              <div className="tools-grid">
-                {teamMembers.map((member) => (
-                  <article
-                    key={member.name}
-                    className="card"
-                  >
-                    <div className="endpoint-header">
-                      <div>
-                        <h3>{member.name}</h3>
-                        <p className="role-text">
-                          {member.role}
-                        </p>
-                      </div>
-                      <Image
-                        src={member.imageUrl}
-                        alt={`${member.name} Icon`}
-                        width={70}
-                        height={40}
-                      />
-                    </div>
-                    <p className="description-text">{member.description}</p>
-                    <div>
-                      {member.links.github && (
-                        <a
-                          href={member.links.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Image
-                            src="/images/social_github.webp"
-                            alt="GitHub"
-                            width={24}
-                            height={24}
-                          />
-                        </a>
-                      )}
-                      {member.links.linkedin && (
-                        <a
-                          href={member.links.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Image
-                            src="/images/social_linkedin.webp"
-                            alt="LinkedIn"
-                            width={24}
-                            height={24}
-                          />
-                        </a>
-                      )}
-                      {member.links.twitter && (
-                        <a
-                          href={member.links.twitter}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Image
-                            src="/images/social_twitter.webp"
-                            alt="Twitter"
-                            width={24}
-                            height={24}
-                          />
-                        </a>
-                      )}
-                      {member.links.discord && (
-                        <a
-                          href={member.links.discord}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Image
-                            src="/images/social_discord.webp"
-                            alt="Discord"
-                            width={24}
-                            height={24}
-                          />
-                        </a>
-                      )}
-                    </div>
-                  </article>
-                ))}
+        <div className="tools-grid">
+          {teamMembers.map((member) => (
+            <article key={member.name} className="card">
+              <div className="endpoint-header">
+                <div>
+                  <h3>{member.name}</h3>
+                  <p className="role-text">{member.role}</p>
+                </div>
+                <Image
+                  src={member.imageUrl}
+                  alt={`${member.name} Icon`}
+                  width={70}
+                  height={40}
+                />
               </div>
-            </div>
-      </main>
-      <Footer />
-    </>
+              <p className="description-text">{member.description}</p>
+              <div>
+                {Object.entries(member.links).map(([platform, url]) => {
+                  if (!url) return null;
+                  const icon = socialIcons[platform];
+                  if (!icon) return null;
+                  return (
+                    <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
+                      <Image src={icon.src} alt={icon.alt} width={24} height={24} />
+                    </a>
+                  );
+                })}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </ContentPage>
   );
 }
