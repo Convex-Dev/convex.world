@@ -2,20 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Parser from "rss-parser";
 import { ArrowUpRight, Calendar } from "lucide-react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import ContentPage from "@/components/ContentPage";
+import SectionHeader from "@/components/SectionHeader";
+import { socialLinks, FALLBACK_RECENT, type RecentItem } from "@/data/community-social";
 
 const RSS_URL = "https://docs.convex.world/blog/rss.xml";
 
-type RecentItem = {
-  type: "blog" | "announcement";
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  href: string;
-  tags: string[];
-};
+const contentTypeLabels = {
+  blog: "Blog Post",
+  announcement: "Announcement",
+} as const;
 
 function formatPubDate(raw: string | undefined): string {
   if (!raw) return "";
@@ -57,216 +53,133 @@ async function fetchRecentFromRss(): Promise<RecentItem[]> {
   }
 }
 
-const socialLinks = [
-  {
-    key: "discord",
-    name: "Discord",
-    description: "Join the conversation with builders, researchers, and enthusiasts.",
-    action: "Join",
-    logo: "/images/social_discord.webp",
-    href: "https://discord.com/invite/xfYGq4CT7v",
-    color: "discord"
-  },
-  {
-    key: "youtube",
-    name: "YouTube",
-    description: "Watch tutorials, demos, and deep dives into Convex technology.",
-    action: "Visit",
-    logo: "/images/youtube.svg",
-    href: "https://www.youtube.com/@convex-world",
-    color: "youtube"
-  },
-  {
-    key: "x",
-    name: "X",
-    description: "Follow for the latest updates, announcements, and community highlights.",
-    action: "Explore",
-    logo: "/images/x-logo.svg",
-    href: "https://x.com/convex_world",
-    color: "twitter"
-  },
-  {
-    key: "blog",
-    name: "Blog",
-    description: "In-depth articles on technology, roadmap, and ecosystem developments.",
-    action: "Read",
-    logo: "/images/convex-blue.svg",
-    href: "https://docs.convex.world/blog",
-    color: "blog"
-  }
-] as const;
-
-const FALLBACK_RECENT: RecentItem[] = [
-  {
-    type: "blog",
-    title: "AI Meets the Lattice",
-    description: "A new era of autonomous economic agents. Manus AI demonstrates how AI can actively participate as an economic actor on Convex.",
-    date: "Nov 2025",
-    author: "Manus AI",
-    href: "https://docs.convex.world/blog/ai-meets-convex",
-    tags: ["AI", "MCP", "Digital Assets"],
-  },
-  {
-    type: "blog",
-    title: "Countdown to Protonet",
-    description: "The groundbreaking Convex Protonet goes live. Everything you need to know about the launch.",
-    date: "Nov 2024",
-    author: "Convex",
-    href: "https://docs.convex.world/blog/protonet-countdown",
-    tags: ["Protonet", "Launch", "Lattice"],
-  },
-];
-
-const contentTypeLabels = {
-  blog: "Blog Post",
-  announcement: "Announcement",
-} as const;
-
 export default async function Community() {
   const recentContent = await fetchRecentFromRss();
   const displayContent = recentContent.length > 0 ? recentContent : FALLBACK_RECENT;
-  
+
   return (
-    <>
-      <Navigation />
-      <main>
-            <div className="lattice-bg" aria-hidden="true" />
+    <ContentPage>
+      {/* Hero Section */}
+      <section className="community-hero">
+        <span className="dev-hero-tag">// The Heart of Convex</span>
+        <h1>
+          Join the{" "}
+          Community
+        </h1>
+        <p className="community-hero-text">Builders, researchers, dreamers, and pioneers from around the world are shaping the future of decentralised coordination.</p>
+      </section>
 
-            {/* Hero Section */}
-            <section className="community-hero">
-              <span className="dev-hero-tag">// The Heart of Convex</span>
-              <h1>
-                Join the{" "}
-                Community
-              </h1>
-              <p className="community-hero-text">Builders, researchers, dreamers, and pioneers from around the world are shaping the future of decentralised coordination.</p>
-            </section>
-
-            {/* Social Links */}
-            <section className="community-section">
-              <div className="section-header">
-                <span className="section-number">// 001</span>
-                <h2>Connect With Us</h2>
-                <p>Find your place in the Convex community</p>
+      {/* Social Links */}
+      <section className="community-section">
+        <SectionHeader number="001" title="Connect With Us" subtitle="Find your place in the Convex community" />
+        <div className="community-social-grid">
+          {socialLinks.map((social) => (
+            <a
+              key={social.key}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`community-social-card community-social-${social.color}`}
+            >
+              <div className="community-social-header">
+                <div className="community-social-icon">
+                  <Image
+                    src={social.logo}
+                    alt={social.name}
+                    width={48}
+                    height={48}
+                    style={{ objectFit: "contain" }}
+                    className={social.color === "twitter" ? "x-logo" : ""}
+                  />
+                </div>
+                <h3>{social.name}</h3>
               </div>
-
-              <div className="community-social-grid">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.key}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`community-social-card community-social-${social.color}`}
-                  >
-                    <div className="community-social-header">
-                      <div className="community-social-icon">
-                        <Image 
-                          src={social.logo} 
-                          alt={social.name}
-                          width={48}
-                          height={48}
-                          style={{ objectFit: "contain" }}
-                          className={social.color === "twitter" ? "x-logo" : ""}
-                        />
-                      </div>
-                      <h3>{social.name}</h3>
-                    </div>
-                    <div className="community-social-content">
-                      <p>{social.description}</p>
-                    </div>
-                    <div className="community-social-footer">
-                      <span>{social.action}</span>
-                      <ArrowUpRight size={16} className="community-social-arrow" />
-                    </div>
-                  </a>
-                ))}
+              <div className="community-social-content">
+                <p>{social.description}</p>
               </div>
-            </section>
-
-            {/* Activity Timeline */}
-            <section className="community-section">
-              <div className="section-header">
-                <span className="section-number">// 002</span>
-                <h2>Recent Activity</h2>
-                <p>The latest from the Convex ecosystem</p>
+              <div className="community-social-footer">
+                <span>{social.action}</span>
+                <ArrowUpRight size={16} className="community-social-arrow" />
               </div>
+            </a>
+          ))}
+        </div>
+      </section>
 
-              <div className="community-timeline">
-                {displayContent.map((item, index) => (
-                  <a
-                    key={item.href + index}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="community-timeline-item"
-                  >
-                    <div className="community-timeline-marker">
-                      <div className="community-timeline-dot" />
-                      {index < displayContent.length - 1 && (
-                        <div className="community-timeline-line" />
-                      )}
-                    </div>
-                    <div className="community-timeline-content">
-                      <div className="community-timeline-meta">
-                        <span className="community-timeline-type">
-                          <Calendar size={12} />
-                          {contentTypeLabels[item.type]}
-                        </span>
-                        <span className="community-timeline-date">{item.date}</span>
-                      </div>
-                      <h3>{item.title}</h3>
-                      <p>{item.description}</p>
-                      <div className="community-timeline-footer">
-                        <span className="community-timeline-author">By {item.author}</span>
-                        <div className="community-timeline-tags">
-                          {item.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} className="community-timeline-tag">{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <ArrowUpRight size={16} className="community-timeline-arrow" />
-                  </a>
-                ))}
+      {/* Activity Timeline */}
+      <section className="community-section">
+        <SectionHeader number="002" title="Recent Activity" subtitle="The latest from the Convex ecosystem" />
+        <div className="community-timeline">
+          {displayContent.map((item, index) => (
+            <a
+              key={item.href + index}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="community-timeline-item"
+            >
+              <div className="community-timeline-marker">
+                <div className="community-timeline-dot" />
+                {index < displayContent.length - 1 && (
+                  <div className="community-timeline-line" />
+                )}
               </div>
-
-              <div className="community-more">
-                <Link 
-                  href="https://docs.convex.world/blog" 
-                  className="btn btn-secondary"
-                  target="_blank"
-                >
-                  View All Posts
-                  <ArrowUpRight size={14} />
-                </Link>
-              </div>
-            </section>
-
-            {/* Community CTA */}
-            <section className="community-cta">
-              <div className="community-cta-content">
-                <h3>Ready to Build the Future?</h3>
-                <p>Whether you&apos;re a developer, researcher, or just curious about decentralised systems—there&apos;s a place for you here.</p>
-                <div className="community-cta-buttons">
-                  <Link 
-                    href="https://discord.com/invite/xfYGq4CT7v" 
-                    className="btn btn-primary"
-                    target="_blank"
-                  >
-                    Join Discord
-                    <ArrowUpRight size={14} />
-                  </Link>
-                  <Link href="/developers" className="btn btn-secondary">
-                    Start Building
-                  </Link>
+              <div className="community-timeline-content">
+                <div className="community-timeline-meta">
+                  <span className="community-timeline-type">
+                    <Calendar size={12} />
+                    {contentTypeLabels[item.type]}
+                  </span>
+                  <span className="community-timeline-date">{item.date}</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <div className="community-timeline-footer">
+                  <span className="community-timeline-author">By {item.author}</span>
+                  <div className="community-timeline-tags">
+                    {item.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="community-timeline-tag">{tag}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </section>
+              <ArrowUpRight size={16} className="community-timeline-arrow" />
+            </a>
+          ))}
+        </div>
 
-            <div className="geo-line" aria-hidden="true" />
-      </main>
-      <Footer />
-    </>
+        <div className="community-more">
+          <Link
+            href="https://docs.convex.world/blog"
+            className="btn btn-secondary"
+            target="_blank"
+          >
+            View All Posts
+            <ArrowUpRight size={14} />
+          </Link>
+        </div>
+      </section>
+
+      {/* Community CTA */}
+      <section className="community-cta">
+        <div className="community-cta-content">
+          <h3>Ready to Build the Future?</h3>
+          <p>Whether you&apos;re a developer, researcher, or just curious about decentralised systems—there&apos;s a place for you here.</p>
+          <div className="community-cta-buttons">
+            <Link
+              href="https://discord.com/invite/xfYGq4CT7v"
+              className="btn btn-primary"
+              target="_blank"
+            >
+              Join Discord
+              <ArrowUpRight size={14} />
+            </Link>
+            <Link href="/developers" className="btn btn-secondary">
+              Start Building
+            </Link>
+          </div>
+        </div>
+      </section>
+    </ContentPage>
   );
 }
