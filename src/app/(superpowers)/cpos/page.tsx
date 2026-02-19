@@ -12,6 +12,11 @@ export default function CPoS() {
       tag="// Consensus"
       title={<>Convergent<br /><span className="hero-accent">Proof of Stake</span></>}
       description="The world's fastest truly decentralised consensus algorithm for a global state machine. CPoS operates as a CRDT, not a blockchain, solving the scalability trilemma."
+      highlights={[
+        { label: "Finality", value: "<1s" },
+        { label: "BFT Threshold", value: "⅔" },
+        { label: "Energy Cost", value: "~0" },
+      ]}
       visual={<div className="vision-hero-visual"><CposHexAnimation /></div>}
     >
       {/* How It Works */}
