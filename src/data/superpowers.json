@@ -1,70 +1,134 @@
 [
   {
-    "title": "Agent Native",
-    "desc": "All the power of the lattice with agentic tools using the Model Context Protocol"
-  },
-  {
-    "title":"Virtual Machine",
-    "desc":"High performance execution for smart contracts and trusted assets"
-  },
-  {
-    "title":"CAD3 Data",
-    "desc":"Revolutionary encoding format for self-replicated, cryptographically verified data" 
-  },
-  {
-    "title": "CPoS",
-    "desc": "Realtime convergent consensus algorithm for shared global state: faster than any blockchain"
+    "title": "Data Lattice",
+    "desc": "Global, replicated, self-healing, content-addressable data fabric",
+    "href": "/lattice",
+    "category": "infrastructure",
+    "icon": "database"
   },
   {
     "title": "Lattice CRDTs",
-    "desc": "Replicated, self-healing, off-chain application backends with lattice technology"
+    "desc": "Replicated, self-healing, off-chain application backends with lattice technology",
+    "href": "https://docs.convex.world/docs/cad/data_lattice",
+    "external": true,
+    "category": "infrastructure",
+    "icon": "git-merge"
   },
   {
-    "title": "Live Compiler",
-    "desc": "Dynamic on-chain compilation with no external toolchains, no build pipelines: perfect for agentic systems"
+    "title": "CPoS",
+    "desc": "Realtime convergent consensus algorithm for shared global state: faster than any blockchain",
+    "href": "/cpos",
+    "category": "infrastructure",
+    "icon": "shield"
   },
   {
-    "title": "Convex Lisp",
-    "desc": "Powerful, expressive functional programming with the lambda calculus: code is data"
-  },
-  {
-    "title": "Data Lattice",
-    "desc": "Global, replicated, self-healing, content-addressable data fabric"
-  },
-  {
-    "title": "Convex Coin",
-    "desc": "A utility token for global state transactions with fair economics"
-  },
-  {
-    "title": "Digital Assets",
-    "desc": "Create fungible tokens, NFTs, and complex financial instruments in a single expression"
-  },
-  {
-    "title": "CNS",
-    "desc": "A global, content-addressable name service for decentralised applications"
-  },
-  {
-    "title": "DIDs",
-    "desc": "Decentralised identity for users, autonomous agents and digital assets"
-  },
-  {
-    "title": "Memory Accounting",
-    "desc": "Global memory as a digital asset: incentives for efficient use and recycling"
-  },
-  {
-    "title": "One Line DeFi",
-    "desc": "Execute powerful, end-to-end economic transactions with one command"
+    "title": "Virtual Machine",
+    "desc": "High performance execution for smart contracts and trusted assets",
+    "href": "https://docs.convex.world/docs/cad/cvmex",
+    "external": true,
+    "category": "infrastructure",
+    "icon": "cpu"
   },
   {
     "title": "DLFS",
-    "desc": "Distributed filesystems on the lattice: Dropbox meets BitTorrent meets IPFS"
+    "desc": "Distributed filesystems on the lattice: Dropbox meets BitTorrent meets IPFS",
+    "href": "https://docs.convex.world/docs/cad/dlfs",
+    "external": true,
+    "category": "infrastructure",
+    "icon": "hard-drive"
   },
   {
-    "title": "Open source",
-    "desc": "Fully open-source, developer-friendly"
+    "title": "CAD3 Data",
+    "desc": "Revolutionary encoding format for self-replicated, cryptographically verified data",
+    "href": "https://docs.convex.world/docs/cad/encoding",
+    "external": true,
+    "category": "infrastructure",
+    "icon": "file-code"
+  },
+  {
+    "title": "Convex Coin",
+    "desc": "A utility token for global state transactions with fair economics",
+    "href": "/coin",
+    "category": "economy",
+    "icon": "coins"
+  },
+  {
+    "title": "Digital Assets",
+    "desc": "Create fungible tokens, NFTs, and complex financial instruments in a single expression",
+    "href": "https://docs.convex.world/docs/cad/assets",
+    "external": true,
+    "category": "economy",
+    "icon": "gem"
+  },
+  {
+    "title": "Memory Accounting",
+    "desc": "Global memory as a digital asset: incentives for efficient use and recycling",
+    "href": "https://docs.convex.world/docs/cad/memory",
+    "external": true,
+    "category": "economy",
+    "icon": "gauge"
+  },
+  {
+    "title": "One Line DeFi",
+    "desc": "Execute powerful, end-to-end economic transactions with one command",
+    "href": "https://docs.convex.world/docs/cad/torus",
+    "external": true,
+    "category": "economy",
+    "icon": "terminal"
+  },
+  {
+    "title": "CNS",
+    "desc": "A global, content-addressable name service for decentralised applications",
+    "href": "https://docs.convex.world/docs/cad/cns",
+    "external": true,
+    "category": "economy",
+    "icon": "at-sign"
+  },
+  {
+    "title": "DIDs",
+    "desc": "Decentralised identity for users, autonomous agents and digital assets",
+    "href": "https://docs.convex.world/docs/cad/did",
+    "external": true,
+    "category": "economy",
+    "icon": "fingerprint"
+  },
+  {
+    "title": "Convex Lisp",
+    "desc": "Powerful, expressive functional programming with the lambda calculus: code is data",
+    "href": "https://docs.convex.world/docs/cad/lisp",
+    "external": true,
+    "category": "platform",
+    "icon": "code"
+  },
+  {
+    "title": "Live Compiler",
+    "desc": "Dynamic on-chain compilation with no external toolchains, no build pipelines: perfect for agentic systems",
+    "href": "/sandbox",
+    "category": "platform",
+    "icon": "zap"
+  },
+  {
+    "title": "Agent Native",
+    "desc": "All the power of the lattice with agentic tools using the Model Context Protocol",
+    "href": "https://docs.convex.world/docs/cad/mcp",
+    "external": true,
+    "category": "platform",
+    "icon": "bot"
+  },
+  {
+    "title": "Open Source",
+    "desc": "Fully open-source, developer-friendly",
+    "href": "https://github.com/Convex-Dev",
+    "external": true,
+    "category": "platform",
+    "icon": "github"
   },
   {
     "title": "Non-Profit",
-    "desc": "Governed by a non-profit foundation, built for public benefit in the age of AI"
+    "desc": "Governed by a non-profit foundation, built for public benefit in the age of AI",
+    "href": "https://docs.convex.world/docs/overview/governance",
+    "external": true,
+    "category": "platform",
+    "icon": "heart"
   }
 ]
