@@ -727,8 +727,8 @@ footer {
   transform: translateX(-50%);
   min-width: 120vw;
   min-height: 300vh;
-  mask-image: radial-gradient(ellipse 70% 40% at 60% 15%, black 0%, transparent 60%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 40% at 60% 15%, black 0%, transparent 60%);
+  mask-image: radial-gradient(ellipse 70% 40% at 60% 15%, black 0%, black 25%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 40% at 60% 15%, black 0%, black 25%, transparent 70%);
 }
 
 .hex-grid-cell {
