@@ -6,6 +6,11 @@ import { advantages } from "@/data/cpos-advantages";
 import { howItWorks } from "@/data/cpos-how-it-works";
 import { getIcon } from "@/lib/icons";
 
+export const metadata = {
+  title: "Convergent Proof of Stake — Convex",
+  description: "The world's fastest truly decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality.",
+};
+
 export default function CPoS() {
   return (
     <SuperpowerPage
