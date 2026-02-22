@@ -7,6 +7,11 @@ import VisionNetworkAnimation from "@/components/VisionNetworkAnimation";
 import { principles } from "@/data/vision-principles";
 import { getIcon } from "@/lib/icons";
 
+export const metadata = {
+  title: "Vision — Convex",
+  description: "Building open economies for all. The public, decentralised foundation for real-time exchange of data and value.",
+};
+
 export default function Vision() {
   return (
     <SuperpowerPage
