@@ -9,6 +9,11 @@ import { regions } from "@/data/lattice-regions";
 import { innovations } from "@/data/lattice-innovations";
 import { getIcon } from "@/lib/icons";
 
+export const metadata = {
+  title: "Data Lattice — Convex",
+  description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs.",
+};
+
 export default function Lattice() {
   return (
     <SuperpowerPage
