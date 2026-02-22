@@ -3,18 +3,19 @@
 import { useRef, useEffect } from "react";
 
 /**
- * Living agent network — 3D sphere of nodes that breathes and
- * propagates signals, representing the agentic economy.
+ * Living agent network — 3D sphere of nodes that continuously grows,
+ * propagates signals, and expands, representing the agentic economy.
  *
- *  - Fibonacci sphere gives mathematically even node distribution
+ *  - Fibonacci sphere for mathematically even node distribution
  *  - Slow Y-axis rotation + X tilt reveals 3D depth
- *  - Each node drifts independently via unique sinusoidal oscillation
+ *  - Each node drifts via unique sinusoidal oscillation (golden ratio phases)
  *  - BFS broadcast waves propagate through the network graph
- *  - Receiving nodes swell in size (super-linear energy response)
- *  - The entire sphere expands when collective energy rises,
- *    driven by exponential moving average of mean node energy
+ *  - Receiving nodes swell on signal arrival (super-linear energy response)
+ *  - Two-layer radius system:
+ *      1. Growth radius — logarithmic expansion as nodes join
+ *      2. Energy radius — collective breathing on broadcast activity
  *  - Green signal particles travel along edges during broadcasts
- *  - The network grows: new nodes fade in over time
+ *  - Network grows continuously: spawn rate accelerates over time
  *
  * Pure SVG + math, no external dependencies.
  */
@@ -24,15 +25,19 @@ const VB = 400;
 const CX = VB / 2;
 const CY = VB / 2;
 const FOV = 600;
-const SPHERE_RADIUS = 160;
-const INITIAL_NODES = 22;
-const MAX_NODES = 30;
-const EDGE_ANGLE_THRESHOLD = 0.82; // wider threshold → denser connectivity
+const INITIAL_NODES = 14;
+const MAX_NODES = 80;
+const EDGE_ANGLE_THRESHOLD = 0.82;
+
+// ── Growth ────────────────────────────────────────────────────────
+const RADIUS_BASE = 120;          // starting sphere radius
+const RADIUS_GROWTH = 0.28;      // logarithmic growth coefficient
+const GROWTH_SMOOTHING = 2;      // how fast radius tracks growth target
 
 // ── Motion ────────────────────────────────────────────────────────
-const ROTATION_SPEED = 0.1;       // rad/s
-const TILT = 0.18;                // X-axis tilt for depth
-const DRIFT_AMP = 0.035;         // per-node surface drift amplitude
+const ROTATION_SPEED = 0.1;      // rad/s
+const TILT = 0.18;               // X-axis tilt for depth
+const DRIFT_AMP = 0.035;        // per-node surface drift amplitude
 const NODE_R_MIN = 2;
 const NODE_R_MAX = 5;
 
@@ -40,12 +45,16 @@ const NODE_R_MAX = 5;
 const BROADCAST_INTERVAL = 3.5;
 const SIGNAL_DURATION = 0.8;
 const SIGNAL_R = 2.5;
-const ENERGY_DECAY = 0.982;       // per-frame decay
-const SPAWN_INTERVAL = 5.0;
+const ENERGY_DECAY = 0.982;
 
-// ── Expansion ─────────────────────────────────────────────────────
-const EXPANSION_STRENGTH = 0.18;  // max fractional radius growth at full energy
-const EXPANSION_SMOOTHING = 4;    // exponential approach rate (higher = snappier)
+// ── Spawning ──────────────────────────────────────────────────────
+const SPAWN_INTERVAL_INITIAL = 4.0;
+const SPAWN_INTERVAL_MIN = 1.5;
+const SPAWN_ACCELERATION = 0.94;  // multiply interval by this each spawn
+
+// ── Energy expansion ──────────────────────────────────────────────
+const EXPANSION_STRENGTH = 0.18;
+const EXPANSION_SMOOTHING = 4;
 
 // ── Types ─────────────────────────────────────────────────────────
 interface Vec3 { x: number; y: number; z: number }
@@ -110,6 +119,12 @@ function driftedPosition(base: Vec3, index: number, t: number): Vec3 {
   return normalize({ x: base.x + dx, y: base.y + dy, z: base.z + dz });
 }
 
+// Logarithmic growth radius — decelerating expansion as network densifies
+function growthRadius(nodeCount: number): number {
+  const growth = Math.log(1 + (nodeCount - INITIAL_NODES) / INITIAL_NODES);
+  return RADIUS_BASE * (1 + RADIUS_GROWTH * growth);
+}
+
 // Build edges based on angular proximity on the unit sphere
 function buildEdges(positions: Vec3[], count: number): Edge[] {
   const edges: Edge[] = [];
@@ -126,6 +141,11 @@ function buildEdges(positions: Vec3[], count: number): Edge[] {
   return edges;
 }
 
+// Frame-rate independent exponential interpolation
+function expLerp(current: number, target: number, rate: number, dt: number): number {
+  return current + (target - current) * (1 - Math.exp(-dt * rate));
+}
+
 // ── Component ─────────────────────────────────────────────────────
 export default function AgentLatticeAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -138,7 +158,9 @@ export default function AgentLatticeAnimation() {
 
     // ── Mutable state ──
     let visibleCount = INITIAL_NODES;
-    let smoothRadius = SPHERE_RADIUS;
+    let smoothGrowth = growthRadius(INITIAL_NODES);
+    let smoothRadius = smoothGrowth;
+    let spawnInterval = SPAWN_INTERVAL_INITIAL;
     let prevTime = performance.now() / 1000;
     let prevOrder: number[] = [];
     let raf: number;
@@ -245,16 +267,19 @@ export default function AgentLatticeAnimation() {
         visibleCount++;
         edges = buildEdges(allBasePositions, visibleCount);
         syncEdgeEls();
-        nextSpawn = now + SPAWN_INTERVAL + Math.random() * 2;
+        spawnInterval = Math.max(SPAWN_INTERVAL_MIN, spawnInterval * SPAWN_ACCELERATION);
+        nextSpawn = now + spawnInterval + Math.random() * spawnInterval * 0.4;
       }
 
-      // ── Compute collective energy → sphere expansion ──
+      // ── Two-layer radius: growth + energy breathing ──
+      const targetGrowth = growthRadius(visibleCount);
+      smoothGrowth = expLerp(smoothGrowth, targetGrowth, GROWTH_SMOOTHING, dt);
+
       let totalEnergy = 0;
       for (let i = 0; i < visibleCount; i++) totalEnergy += energy[i];
       const meanEnergy = totalEnergy / visibleCount;
-      const targetRadius = SPHERE_RADIUS * (1 + meanEnergy * EXPANSION_STRENGTH);
-      // Frame-rate independent exponential interpolation
-      smoothRadius += (targetRadius - smoothRadius) * (1 - Math.exp(-dt * EXPANSION_SMOOTHING));
+      const targetRadius = smoothGrowth * (1 + meanEnergy * EXPANSION_STRENGTH);
+      smoothRadius = expLerp(smoothRadius, targetRadius, EXPANSION_SMOOTHING, dt);
 
       // ── Compute projected positions ──
       const rotAngle = elapsed * ROTATION_SPEED;
@@ -273,7 +298,7 @@ export default function AgentLatticeAnimation() {
         const pa = projected[edge.a], pb = projected[edge.b];
         const depthT = ((pa.z + pb.z) / 2 + 1) / 2;
         const edgeEnergy = (energy[edge.a] + energy[edge.b]) / 2;
-        const energyBoost = edgeEnergy * edgeEnergy * 0.5; // quadratic response
+        const energyBoost = edgeEnergy * edgeEnergy * 0.5;
         const fadeA = Math.min((now - birthTime[edge.a]) * 1.5, 1);
         const fadeB = Math.min((now - birthTime[edge.b]) * 1.5, 1);
         const opacity = Math.min((0.18 + 0.22 * depthT + energyBoost) * fadeA * fadeB, 0.6);
@@ -299,7 +324,6 @@ export default function AgentLatticeAnimation() {
         const depthT = (p.z + 1) / 2;
         const fadeIn = Math.min((now - birthTime[i]) * 1.5, 1);
         const breathe = Math.sin(elapsed * 0.8 + i * 1.618) * 0.08;
-        // Super-linear energy response: nodes swell dramatically on signal receipt
         const pulse = Math.pow(energy[i], 1.5) * 1.5;
         const r = (NODE_R_MIN + (NODE_R_MAX - NODE_R_MIN) * depthT) * (1 + breathe + pulse) * fadeIn;
         const opacity = (0.15 + 0.55 * depthT + energy[i] * 0.3) * fadeIn;
@@ -335,7 +359,7 @@ export default function AgentLatticeAnimation() {
           signals.pop(); signalEls.pop();
           continue;
         }
-        const ease = 1 - Math.pow(1 - t, 3); // cubic ease-out
+        const ease = 1 - Math.pow(1 - t, 3);
         const from = projected[sig.fromIdx], to = projected[sig.toIdx];
         const x = from.x + (to.x - from.x) * ease;
         const y = from.y + (to.y - from.y) * ease;
