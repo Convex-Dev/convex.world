@@ -108,10 +108,9 @@
     "icon": "zap"
   },
   {
-    "title": "Agent Native",
+    "title": "Agentic Economy",
     "desc": "All the power of the lattice with agentic tools using the Model Context Protocol",
-    "href": "https://docs.convex.world/docs/cad/mcp",
-    "external": true,
+    "href": "/ai",
     "category": "platform",
     "icon": "bot"
   },
