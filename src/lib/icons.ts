@@ -6,6 +6,7 @@ import {
   Gem, Gauge, AtSign, Fingerprint, Bot, Github, Heart,
   BookOpen, GraduationCap, Package, Server, Wrench,
   MessageCircle, Twitter, Youtube, Newspaper, HelpCircle,
+  Plug, KeyRound, Timer, CreditCard,
   LucideIcon,
 } from "lucide-react";
 
@@ -53,6 +54,10 @@ const iconMap: Record<string, LucideIcon> = {
   "newspaper": Newspaper,
   "help-circle": HelpCircle,
   "wrench": Wrench,
+  "plug": Plug,
+  "key-round": KeyRound,
+  "timer": Timer,
+  "credit-card": CreditCard,
 };
 
 export function getIcon(key: string): LucideIcon {
