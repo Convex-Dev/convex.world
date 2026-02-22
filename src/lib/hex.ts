@@ -62,7 +62,7 @@ export const SUPERPOWER_HEXES: Record<string, SuperpowerDef> = {
   '3,-1': { title: "DIDs",                 desc: "Decentralised identity",       href: "https://docs.convex.world/docs/cad/did",        order: 3 },
   '2,0':  { title: "Digital Assets",       desc: "Tokens & NFTs in one line",   href: "https://docs.convex.world/docs/tutorial/coins",  order: 4 },
   '1,1':  { title: "Virtual Machine",      desc: "High performance execution",  href: "https://docs.convex.world/docs/overview/concepts", order: 5 },
-  '0,1':  { title: "Agent Native",         desc: "Agentic tools with MCP",      href: "/developers", order: 6 },
+  '0,1':  { title: "Agentic Economy",      desc: "Agentic tools with MCP",      href: "/ai",         order: 6 },
   '-1,1': { title: "Live Compiler",        desc: "No external toolchains",      href: "/sandbox",    order: 7 },
   '0,0':  { title: "Convex Coin",          desc: "Utility token for global state", href: "/coin",   order: 8 },
 };
