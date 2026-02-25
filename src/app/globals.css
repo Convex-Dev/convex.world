@@ -2829,14 +2829,13 @@ nav .logo {
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  margin-left: clamp(var(--space-4), 2vw, var(--space-8));
   min-width: 0;
 }
 
 .nav-links-group {
   display: flex;
   align-items: center;
-  gap: clamp(var(--space-1), 1.5vw, var(--space-6));
+  gap: clamp(0.25em, calc(0.25em + (100vw - 1024px) * 0.023), var(--space-6));
 }
 
 .nav-utils-group {
@@ -3306,10 +3305,6 @@ nav .logo {
     transform: rotate(-45deg) translate(5px, -5px);
   }
   
-  nav {
-    padding: var(--space-4) var(--space-5);
-  }
-  
   /* ======================================
      MOBILE HERO - Clean, spacious layout
      ====================================== */
@@ -3384,10 +3379,6 @@ nav .logo {
 
   .mobile-menu-overlay {
     top: 60px;
-  }
-
-  nav .logo {
-    height: 28px;
   }
 
   nav > div {
