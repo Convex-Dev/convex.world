@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
-import superpowers from "./superpowers.json";
-import { getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "./superpower-metadata";
+import { superpowers, getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "./superpower-metadata";
 
-/** All hrefs that have a `page` block in superpowers.json */
+/** All hrefs that have a `page` block in the superpowers array */
 const pageHrefs = superpowers
   .filter((sp) => "page" in sp && sp.page)
   .map((sp) => sp.href);
 
-describe("superpowers.json integrity", () => {
+describe("superpowers data integrity", () => {
   it("has at least 18 entries", () => {
     expect(superpowers.length).toBeGreaterThanOrEqual(18);
   });

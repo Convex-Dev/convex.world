@@ -9,7 +9,7 @@ import { getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "@/data
 interface SuperpowerPageProps {
   href: string;
   visual?: ReactNode;
-  /** Rendered below the hero description. Defaults to the highlights grid from superpowers.json. */
+  /** Rendered below the hero description. Defaults to the highlights grid from superpower-metadata. */
   heroMeta?: ReactNode;
   /** Rich content panel displayed below heroMeta (or the default highlights). */
   heroContent?: ReactNode;
