@@ -24,7 +24,7 @@ export default function Tools() {
 
       {/* Tools Grid */}
       <section className="content-section tools-section">
-        <div className="tools-grid">
+        <div className="grid-responsive">
           {tools.map((tool, i) => {
             const IconComponent = getIcon(tool.icon);
             const number = (i + 1).toString().padStart(2, "0");

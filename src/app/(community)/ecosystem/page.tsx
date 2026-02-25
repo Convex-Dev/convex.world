@@ -24,7 +24,7 @@ export default function Ecosystem() {
 
       {/* Projects Grid */}
       <section className="content-section">
-        <div className="eco-grid">
+        <div className="grid-responsive">
           {ecosystemItems.map((item) => (
             <a
               key={item.key}
