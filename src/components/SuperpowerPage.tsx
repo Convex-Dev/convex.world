@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 import { ArrowUpRight, BookOpen } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import StructuredData from "@/lib/structured-data";
 import Highlights from "@/components/Highlights";
@@ -47,13 +47,13 @@ export default function SuperpowerPage({ href, visual, heroMeta, heroContent, ch
           </div>
           <div className="superpower-docs-grid">
             {page.docs.map((doc) => (
-              <Link key={doc.href} href={doc.href} className="superpower-doc-card" target="_blank" rel="noopener noreferrer">
+              <ExtLink key={doc.href} href={doc.href} className="superpower-doc-card">
                 <span className="superpower-doc-label">
                   {doc.label}
                   <ArrowUpRight size={14} />
                 </span>
                 {doc.description && <span className="superpower-doc-desc">{doc.description}</span>}
-              </Link>
+              </ExtLink>
             ))}
           </div>
         </section>

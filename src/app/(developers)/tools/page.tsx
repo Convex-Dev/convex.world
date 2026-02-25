@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
@@ -49,15 +50,13 @@ export default function Tools() {
                         </>
                       );
                       return ext ? (
-                        <a
+                        <ExtLink
                           key={link.href + link.name}
                           href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           className="tool-card-link"
                         >
                           {inner}
-                        </a>
+                        </ExtLink>
                       ) : (
                         <Link key={link.href + link.name} href={link.href} className="tool-card-link">
                           {inner}
@@ -85,13 +84,13 @@ export default function Tools() {
               </div>
               <p className="quickstart-note">
                 Download from{" "}
-                <a href="https://adoptium.net/temurin/releases/" target="_blank" rel="noopener noreferrer">
+                <ExtLink href="https://adoptium.net/temurin/releases/">
                   Eclipse Temurin
-                </a>
+                </ExtLink>
                 {" "}or{" "}
-                <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer">
+                <ExtLink href="https://www.oracle.com/java/technologies/downloads/">
                   Oracle JDK
-                </a>
+                </ExtLink>
               </p>
             </div>
           </div>
@@ -104,9 +103,9 @@ export default function Tools() {
               </div>
               <p className="quickstart-note">
                 Or download from the{" "}
-                <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
+                <ExtLink href="https://docs.convex.world/docs/products/convex-cli">
                   CLI documentation
-                </a>
+                </ExtLink>
               </p>
             </div>
           </div>
@@ -119,9 +118,9 @@ export default function Tools() {
               </div>
               <p className="quickstart-note">
                 See{" "}
-                <a href="https://docs.convex.world/docs/products/convex-cli" target="_blank" rel="noopener noreferrer">
+                <ExtLink href="https://docs.convex.world/docs/products/convex-cli">
                   full CLI docs
-                </a>
+                </ExtLink>
                 {" "}for commands and setup aliases
               </p>
             </div>

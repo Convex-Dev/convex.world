@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Download, ArrowUpRight, FileImage, Palette, Type } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
@@ -113,15 +114,13 @@ export default function Brand() {
             <div className="brand-font-info">
               <h4>Inter</h4>
               <p>Primary typeface for all digital communications, UI, and body text.</p>
-              <a
+              <ExtLink
                 href="https://fonts.google.com/specimen/Inter"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="brand-font-link"
               >
                 Get from Google Fonts
                 <ArrowUpRight size={14} />
-              </a>
+              </ExtLink>
             </div>
           </div>
           <div className="brand-font-card">
@@ -131,15 +130,13 @@ export default function Brand() {
             <div className="brand-font-info">
               <h4>JetBrains Mono</h4>
               <p>Monospace font for code samples, terminal output, and technical content.</p>
-              <a
+              <ExtLink
                 href="https://fonts.google.com/specimen/JetBrains+Mono"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="brand-font-link"
               >
                 Get from Google Fonts
                 <ArrowUpRight size={14} />
-              </a>
+              </ExtLink>
             </div>
           </div>
         </div>

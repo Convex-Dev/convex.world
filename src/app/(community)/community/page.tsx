@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Parser from "rss-parser";
 import { ArrowUpRight, Calendar } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import StructuredData from "@/lib/structured-data";
@@ -75,11 +76,9 @@ export default async function Community() {
         <p className="community-hero-text">Builders, researchers, dreamers, and pioneers from around the world are shaping the future of decentralised coordination.</p>
         <div className="community-social-row">
           {socialLinks.map((social) => (
-            <a
+            <ExtLink
               key={social.key}
               href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
               className={`community-social-link community-social-${social.color}`}
               aria-label={social.name}
             >
@@ -91,7 +90,7 @@ export default async function Community() {
                 style={{ objectFit: "contain" }}
                 className={social.color === "twitter" ? "x-logo" : ""}
               />
-            </a>
+            </ExtLink>
           ))}
         </div>
       </section>
@@ -101,11 +100,9 @@ export default async function Community() {
         <SectionHeader title="Feed" subtitle="The latest from the Convex ecosystem" />
         <div className="community-timeline">
           {displayContent.map((item, index) => (
-            <a
+            <ExtLink
               key={item.href + index}
               href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
               className="community-timeline-item"
             >
               <div className="community-timeline-marker">
@@ -134,19 +131,18 @@ export default async function Community() {
                 </div>
               </div>
               <ArrowUpRight size={16} className="community-timeline-arrow" />
-            </a>
+            </ExtLink>
           ))}
         </div>
 
         <div className="community-more">
-          <Link
+          <ExtLink
             href="https://docs.convex.world/blog"
             className="btn btn-secondary"
-            target="_blank"
           >
             View All Posts
             <ArrowUpRight size={14} />
-          </Link>
+          </ExtLink>
         </div>
       </section>
 
@@ -156,14 +152,13 @@ export default async function Community() {
           <h3>Ready to Build the Future?</h3>
           <p>Whether you&apos;re a developer, researcher, or just curious about decentralised systems—there&apos;s a place for you here.</p>
           <div className="community-cta-buttons">
-            <Link
+            <ExtLink
               href="https://discord.com/invite/xfYGq4CT7v"
               className="btn btn-primary"
-              target="_blank"
             >
               Join Discord
               <ArrowUpRight size={14} />
-            </Link>
+            </ExtLink>
             <Link href="/developers" className="btn btn-secondary">
               Start Building
             </Link>

@@ -1,3 +1,5 @@
+import ExtLink from "@/components/ExtLink";
+
 interface FooterLink {
   text: string;
   href: string;
@@ -62,9 +64,9 @@ export default function Footer() {
               <ul>
                 {column.links.map((link) => (
                   <li key={link.href}>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                    <ExtLink href={link.href}>
                       {link.text}
-                    </a>
+                    </ExtLink>
                   </li>
                 ))}
               </ul>

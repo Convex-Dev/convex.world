@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Zap, Terminal, Database, MonitorSmartphone, ArrowUpRight } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ReplSandbox from "@/components/ReplSandbox";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -54,10 +55,8 @@ export default function SandboxPage() {
                       </Link>
                     </p>
                   </div>
-                  <a
+                  <ExtLink
                     href="https://docs.convex.world/docs/products/convex-desktop"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="sandbox-desktop-cta"
                   >
                     <MonitorSmartphone size={20} strokeWidth={1.5} className="sandbox-desktop-cta-icon" />
@@ -66,7 +65,7 @@ export default function SandboxPage() {
                       <span className="sandbox-desktop-cta-desc">Full desktop client for power users</span>
                     </span>
                     <ArrowUpRight size={14} className="sandbox-desktop-cta-arrow" />
-                  </a>
+                  </ExtLink>
                 </div>
               </div>
             </section>

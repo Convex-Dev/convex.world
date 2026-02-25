@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import StructuredData from "@/lib/structured-data";
 import { superpowers } from "@/data/superpowers";
@@ -44,16 +45,14 @@ export default function SuperpowersIndex() {
               {items.map((sp) => {
                 const isExternal = sp.external || sp.href.startsWith("http");
                 return isExternal ? (
-                  <a
+                  <ExtLink
                     key={sp.href}
                     href={sp.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="superpower-doc-card"
                   >
                     <span className="superpower-doc-label">{sp.title}</span>
                     <span className="superpower-doc-desc">{sp.desc}</span>
-                  </a>
+                  </ExtLink>
                 ) : (
                   <Link key={sp.href} href={sp.href} className="superpower-doc-card">
                     <span className="superpower-doc-label">{sp.title}</span>

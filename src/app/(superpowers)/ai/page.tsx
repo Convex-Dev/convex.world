@@ -1,6 +1,7 @@
 import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
+import ExtLink from "@/components/ExtLink";
 import AgentLatticeAnimation from "@/components/AgentLatticeAnimation";
 import { getSuperpowerMetadata } from "@/data/superpowers";
 import { howAgentsConnect } from "@/data/ai-how-agents-connect";
@@ -76,21 +77,21 @@ export default function AgenticEconomy() {
         <div className="vision-pillars">
           <article className="vision-pillar">
             <span className="vision-pillar-number">
-              <a href="https://www.covia.ai/" target="_blank" rel="noopener noreferrer">covia.ai</a>
+              <ExtLink href="https://www.covia.ai/">covia.ai</ExtLink>
             </span>
             <h3>Covia Grid</h3>
             <p>The universal grid for AI orchestration. Covia provides MCP-enabled access to Convex, enabling agent ecosystems across organisational boundaries.</p>
           </article>
           <article className="vision-pillar">
             <span className="vision-pillar-number">
-              <a href="https://www.thinkagents.ai/" target="_blank" rel="noopener noreferrer">THINK</a>
+              <ExtLink href="https://www.thinkagents.ai/">THINK</ExtLink>
             </span>
             <h3>THINK Agent Standard</h3>
             <p>Universal framework for autonomous on-chain agents, co-developed by Convex with 70+ companies. Soul, Mind, Body architecture for sovereign digital entities.</p>
           </article>
           <article className="vision-pillar">
             <span className="vision-pillar-number">
-              <a href="https://github.com/Convex-Dev" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <ExtLink href="https://github.com/Convex-Dev">GitHub</ExtLink>
             </span>
             <h3>Open Source</h3>
             <p>The full Convex stack is open source. Inspect, fork, contribute. Agents operate on infrastructure anyone can verify.</p>

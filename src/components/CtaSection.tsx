@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 
 interface CtaLink {
   label: string;
@@ -28,10 +29,10 @@ export default function CtaSection({ className, title, description, links, headi
         {links.map((link) => {
           const cls = `btn btn-${link.variant ?? "primary"}`;
           return link.external ? (
-            <Link key={link.href} href={link.href} className={cls} target="_blank">
+            <ExtLink key={link.href} href={link.href} className={cls}>
               {link.label}
               <ArrowUpRight size={14} />
-            </Link>
+            </ExtLink>
           ) : (
             <Link key={link.href} href={link.href} className={cls}>
               {link.label}

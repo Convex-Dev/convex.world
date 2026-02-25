@@ -6,6 +6,7 @@ import Image from 'next/image';
 import ColorMode from './ColorMode';
 import Logo from './Logo';
 
+import ExtLink from '@/components/ExtLink';
 import { navDropdowns } from '@/data/nav-dropdowns';
 import { getIcon } from '@/lib/icons';
 
@@ -103,11 +104,9 @@ export default function Navigation() {
                               {section.items.map((item) => {
                                 const Icon = getIcon(item.icon);
                                 return item.external ? (
-                                  <a
+                                  <ExtLink
                                     key={item.label}
                                     href={item.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                     className={`nav-dropdown-item ${item.featured ? 'nav-dropdown-item-active' : ''}`}
                                     onClick={() => setOpenDropdown(null)}
                                   >
@@ -119,7 +118,7 @@ export default function Navigation() {
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="nav-external-icon">
                                       <path d="M7 17L17 7M17 7H7M17 7V17"/>
                                     </svg>
-                                  </a>
+                                  </ExtLink>
                                 ) : (
                                   <Link
                                     key={item.label}
@@ -188,16 +187,14 @@ export default function Navigation() {
                 {dropdown.sections.flatMap(section => section.items.slice(0, 3)).map((item, idx) => {
                   const isOverview = item.label.toLowerCase().includes('overview') || item.label === 'Community Hub';
                   return item.external ? (
-                    <a
+                    <ExtLink
                       key={`${dropdown.key}-${item.label}-${idx}`}
                       href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       onClick={closeMenu}
                       className={`mobile-menu-sublink ${isOverview ? 'mobile-menu-sublink-overview' : ''}`}
                     >
                       {item.label}
-                    </a>
+                    </ExtLink>
                   ) : (
                     <Link
                       key={`${dropdown.key}-${item.label}-${idx}`}

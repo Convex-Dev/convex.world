@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight, Shield, Coins, TrendingUp, Zap } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import ConvexLogoAnimated from "@/components/ConvexLogoAnimated";
@@ -35,13 +36,13 @@ export default function Coin() {
           </div>
         </div>
         <div className="btn-group">
-          <Link href="https://app.paisley.io" className="btn btn-primary" target="_blank">
+          <ExtLink href="https://app.paisley.io" className="btn btn-primary">
             Buy CVM
             <ArrowUpRight size={16} />
-          </Link>
-          <Link href="https://docs.convex.world/docs/cad/tokenomics" className="btn btn-secondary" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://docs.convex.world/docs/cad/tokenomics" className="btn btn-secondary">
             Tokenomics
-          </Link>
+          </ExtLink>
         </div>
       </section>
 
@@ -167,21 +168,21 @@ export default function Coin() {
         <h3>Ready to participate?</h3>
         <p>Join the Convex ecosystem and be part of the future of decentralised systems.</p>
         <div className="btn-group">
-          <Link href="https://app.paisley.io" className="btn btn-primary" target="_blank">
+          <ExtLink href="https://app.paisley.io" className="btn btn-primary">
             Buy CVM
             <ArrowUpRight size={16} />
-          </Link>
-          <Link href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary">
             Join Community
-          </Link>
+          </ExtLink>
         </div>
         <div className="coin-cta-links">
-          <Link href="https://docs.convex.world/docs/cad/tokenomics" target="_blank">
+          <ExtLink href="https://docs.convex.world/docs/cad/tokenomics">
             CAD020 Tokenomics <ArrowUpRight size={12} />
-          </Link>
-          <Link href="https://docs.convex.world/docs/overview/convex-whitepaper" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://docs.convex.world/docs/overview/convex-whitepaper">
             Whitepaper <ArrowUpRight size={12} />
-          </Link>
+          </ExtLink>
         </div>
       </section>
       <StructuredData type="WebPage" metadata={metadata} path="/coin/" />

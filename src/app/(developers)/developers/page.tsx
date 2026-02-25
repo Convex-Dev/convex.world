@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Terminal, Boxes, Zap, Code2, Github, FileCode } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
@@ -25,12 +26,12 @@ export default function Developer() {
           <h1>Build on the<br /><span className="hero-accent">Lattice</span></h1>
           <p>Build economic systems where humans and autonomous agents participate under the same rules, the same costs, and the same finality.</p>
           <div className="btn-group">
-            <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
+            <ExtLink href="https://docs.convex.world" className="btn btn-primary">
               Read Documentation
-            </Link>
-            <Link href="https://github.com/Convex-Dev" className="btn btn-secondary" target="_blank">
+            </ExtLink>
+            <ExtLink href="https://github.com/Convex-Dev" className="btn btn-secondary">
               View Source
-            </Link>
+            </ExtLink>
           </div>
         </div>
         <div className="dev-hero-visual">
@@ -56,9 +57,9 @@ export default function Developer() {
               <li><Zap size={14} /> 100% green consensus</li>
               <li><Zap size={14} /> On-chain compiler</li>
             </ul>
-            <Link href="https://docs.convex.world/docs/cad/virtual-machine" className="dev-card-link" target="_blank">
+            <ExtLink href="https://docs.convex.world/docs/cad/virtual-machine" className="dev-card-link">
               Read More →
-            </Link>
+            </ExtLink>
           </article>
 
           {/* Convex Lisp Card */}
@@ -76,9 +77,9 @@ export default function Developer() {
             <p className="dev-highlight">
               <strong>Offers resolve to settlements — a single expression can represent a complete economic transaction.</strong>
             </p>
-            <Link href="https://docs.convex.world/docs/cad/lisp" className="dev-card-link" target="_blank">
+            <ExtLink href="https://docs.convex.world/docs/cad/lisp" className="dev-card-link">
               Read More →
-            </Link>
+            </ExtLink>
           </article>
 
           {/* Lattice Data Card */}
@@ -90,9 +91,9 @@ export default function Developer() {
             <h3>Lattice Data</h3>
             <p className="dev-tagline">One global data structure. Billions of writers. Trillions of readers. Zero centralised infrastructure.</p>
             <p>Lattice technology gives every project a deterministic data fabric. Persist state, stream events, and share knowledge between services without custom databases or message queues.</p>
-            <Link href="https://docs.convex.world/docs/overview/lattice" className="dev-card-link" target="_blank">
+            <ExtLink href="https://docs.convex.world/docs/overview/lattice" className="dev-card-link">
               Read More →
-            </Link>
+            </ExtLink>
           </article>
         </div>
       </section>
@@ -101,27 +102,27 @@ export default function Developer() {
       <section className="content-section">
         <SectionHeader number="002" title="Getting Started" subtitle="Everything you need to start building on Convex" />
         <div className="dev-resources-grid">
-          <Link href="https://docs.convex.world/docs/intro" className="dev-resource-card" target="_blank">
+          <ExtLink href="https://docs.convex.world/docs/intro" className="dev-resource-card">
             <BookOpen size={20} strokeWidth={1.5} />
             <div>
               <h4>Documentation</h4>
               <p>Comprehensive guides and API references</p>
             </div>
-          </Link>
-          <Link href="https://docs.convex.world/docs/tutorial/convex-lisp" className="dev-resource-card" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://docs.convex.world/docs/tutorial/convex-lisp" className="dev-resource-card">
             <Terminal size={20} strokeWidth={1.5} />
             <div>
               <h4>Convex Lisp Tutorial</h4>
               <p>Learn the language with hands-on examples</p>
             </div>
-          </Link>
-          <Link href="https://github.com/Convex-Dev" className="dev-resource-card" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://github.com/Convex-Dev" className="dev-resource-card">
             <Github size={20} strokeWidth={1.5} />
             <div>
               <h4>GitHub</h4>
               <p>Source code and examples</p>
             </div>
-          </Link>
+          </ExtLink>
           <Link href="/sandbox" className="dev-resource-card">
             <Code2 size={20} strokeWidth={1.5} />
             <div>
@@ -129,27 +130,27 @@ export default function Developer() {
               <p>Try Convex Lisp in a live console on the testnet</p>
             </div>
           </Link>
-          <Link href="https://docs.convex.world/docs/tutorial/client-sdks/typescript" className="dev-resource-card" target="_blank">
+          <ExtLink href="https://docs.convex.world/docs/tutorial/client-sdks/typescript" className="dev-resource-card">
             <Boxes size={20} strokeWidth={1.5} />
             <div>
               <h4>TypeScript SDK</h4>
               <p>Client library for JavaScript and TypeScript</p>
             </div>
-          </Link>
-          <Link href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card">
             <Boxes size={20} strokeWidth={1.5} />
             <div>
               <h4>Java Client API</h4>
               <p>Client library for Java/JVM applications</p>
             </div>
-          </Link>
-          <Link href="https://docs.convex.world/docs/cad/0000cads" className="dev-resource-card" target="_blank">
+          </ExtLink>
+          <ExtLink href="https://docs.convex.world/docs/cad/0000cads" className="dev-resource-card">
             <FileCode size={20} strokeWidth={1.5} />
             <div>
               <h4>CADs</h4>
               <p>Convex Architecture Documents</p>
             </div>
-          </Link>
+          </ExtLink>
         </div>
       </section>
 
@@ -159,12 +160,12 @@ export default function Developer() {
           <h2>Build Economic Systems</h2>
           <p>Convex is for people building economic systems where humans and autonomous agents must coexist safely. Costs and constraints are visible. State converges deterministically.</p>
           <div className="btn-group">
-            <Link href="https://docs.convex.world" className="btn btn-primary" target="_blank">
+            <ExtLink href="https://docs.convex.world" className="btn btn-primary">
               Read Documentation
-            </Link>
-            <Link href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary" target="_blank">
+            </ExtLink>
+            <ExtLink href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary">
               Join Community
-            </Link>
+            </ExtLink>
           </div>
         </div>
       </section>

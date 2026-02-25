@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Users, Building2, Globe2 } from "lucide-react";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import CtaSection from "@/components/CtaSection";
 import SectionHeader from "@/components/SectionHeader";
@@ -26,11 +27,9 @@ export default function Ecosystem() {
       <section className="content-section">
         <div className="grid-responsive">
           {ecosystemItems.map((item) => (
-            <a
+            <ExtLink
               key={item.key}
               href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
               className="hover-card eco-card"
             >
               <span className="eco-card-category">{item.category}</span>
@@ -53,7 +52,7 @@ export default function Ecosystem() {
                 <span>Visit project</span>
                 <ArrowUpRight size={14} />
               </div>
-            </a>
+            </ExtLink>
           ))}
         </div>
       </section>
@@ -68,9 +67,9 @@ export default function Ecosystem() {
             </div>
             <h4>For Enterprises</h4>
             <p>Deploy production-ready solutions on Convex infrastructure.</p>
-            <Link href="https://docs.convex.world" className="btn btn-secondary" target="_blank">
+            <ExtLink href="https://docs.convex.world" className="btn btn-secondary">
               Learn More
-            </Link>
+            </ExtLink>
           </div>
           <div className="eco-join-card">
             <div className="eco-join-icon">
@@ -88,9 +87,9 @@ export default function Ecosystem() {
             </div>
             <h4>For Communities</h4>
             <p>Join our Discord and connect with builders worldwide.</p>
-            <Link href="https://discord.gg/xfYGq4CT7v" className="btn btn-secondary" target="_blank">
+            <ExtLink href="https://discord.gg/xfYGq4CT7v" className="btn btn-secondary">
               Join Discord
-            </Link>
+            </ExtLink>
           </div>
         </div>
       </section>

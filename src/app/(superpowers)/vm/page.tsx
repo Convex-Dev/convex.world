@@ -1,5 +1,6 @@
 import SuperpowerPage from "@/components/SuperpowerPage";
 import CtaSection from "@/components/CtaSection";
+import ExtLink from "@/components/ExtLink";
 import { getSuperpowerMetadata } from "@/data/superpowers";
 
 export const metadata = getSuperpowerMetadata("/vm");
@@ -21,7 +22,7 @@ export default function VirtualMachine() {
         </p>
         <p>
           The CVM is grounded in the{" "}
-          <a href="https://en.wikipedia.org/wiki/Lambda_calculus" target="_blank" rel="noopener noreferrer">lambda calculus</a>
+          <ExtLink href="https://en.wikipedia.org/wiki/Lambda_calculus">lambda calculus</ExtLink>
           {" "}— the same mathematical
           foundation that defines what computation itself means. One atomic
           state, no fragmentation, and smart contracts you don&apos;t have to

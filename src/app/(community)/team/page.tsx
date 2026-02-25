@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import StructuredData from "@/lib/structured-data";
 
@@ -102,9 +103,9 @@ export default function Team() {
                   const icon = socialIcons[platform];
                   if (!icon) return null;
                   return (
-                    <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
+                    <ExtLink key={platform} href={url}>
                       <Image src={icon.src} alt={icon.alt} width={24} height={24} />
-                    </a>
+                    </ExtLink>
                   );
                 })}
               </div>
