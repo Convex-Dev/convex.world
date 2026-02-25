@@ -3,17 +3,22 @@ import Link from "next/link";
 import { ArrowUpRight, BookOpen } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import StructuredData from "@/lib/structured-data";
+import Highlights from "@/components/Highlights";
 import { getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "@/data/superpower-metadata";
 
 interface SuperpowerPageProps {
   href: string;
   visual?: ReactNode;
+  /** Rendered below the hero description. Defaults to the highlights grid from superpowers.json. */
+  heroMeta?: ReactNode;
   children: ReactNode;
 }
 
-export default function SuperpowerPage({ href, visual, children }: SuperpowerPageProps) {
+export default function SuperpowerPage({ href, visual, heroMeta, children }: SuperpowerPageProps) {
   const metadata = getSuperpowerMetadata(href);
   const page = getSuperpowerPage(href);
+
+  const defaultMeta = <Highlights items={page.highlights} />;
 
   return (
     <ContentPage>
@@ -23,16 +28,7 @@ export default function SuperpowerPage({ href, visual, children }: SuperpowerPag
           <span className="dev-hero-tag">{page.tag}</span>
           <h1>{buildHeroTitle(page)}</h1>
           <p className="vision-hero-text">{page.description}</p>
-          {page.highlights.length > 0 && (
-            <div className="vision-hero-highlights">
-              {page.highlights.map((h) => (
-                <div key={h.label} className="vision-hero-highlight">
-                  <span className="vision-hero-highlight-value">{h.value}</span>
-                  <span className="vision-hero-highlight-label">{h.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          {heroMeta !== undefined ? heroMeta : defaultMeta}
         </div>
         {visual}
       </section>
