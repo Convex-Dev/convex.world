@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { SQRT3, hexPath, axialToPixel as axialToPixelBase, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
+import { isRevisit } from '@/lib/session';
 
 const SIZE = 72;
 const GAP = 0.04;
@@ -88,7 +89,7 @@ export default function HexGridMobile() {
             const dx = x - centerPos.x;
             const dy = y - centerPos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const delay = 0.8 + (distance / 300) * 0.3;
+            const delay = isRevisit ? 0 : 0.8 + (distance / 300) * 0.3;
 
             return (
               <path
@@ -105,7 +106,7 @@ export default function HexGridMobile() {
           {Object.entries(SUPERPOWER_HEXES).map(([key, superpower]) => {
             const [q, r] = key.split(',').map(Number);
             const { x, y } = toPixel(q, r);
-            const superpowerDelay = 0.3 + superpower.order * 0.12;
+            const superpowerDelay = isRevisit ? 0 : 0.3 + superpower.order * 0.12;
             const isExternal = superpower.href.startsWith('http');
 
             return (

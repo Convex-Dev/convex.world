@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useRef, useEffect } from 'react';
 import { SQRT3, hexPath, axialToPixel as axialToPixelBase, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
+import { isRevisit } from '@/lib/session';
 
 const SIZE = 360;
 const GAP = 0.04;
@@ -35,7 +36,7 @@ const ANIMATION_COMPLETE_DELAY = 3000;
 export default function HexGridBackground() {
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [isInSuperpowerArea, setIsInSuperpowerArea] = useState(false);
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(isRevisit);
   const [animationKey, setAnimationKey] = useState(0);
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
@@ -163,7 +164,7 @@ export default function HexGridBackground() {
               if (isSuperpower && cell.superpower) {
                 const isExternal = cell.superpower.href.startsWith('http');
                 const isDimmed = hoveredKey !== null && !isHovered;
-                const superpowerDelay = cell.superpower.order * 0.15;
+                const superpowerDelay = isRevisit ? 0 : cell.superpower.order * 0.15;
                 return (
                   <g
                     key={`${cell.q}-${cell.r}`}
@@ -198,7 +199,7 @@ export default function HexGridBackground() {
               }
               
               // Grid animates after all 9 superpowers complete (9 * 0.15s = 1.35s + 0.5s animation buffer)
-              const gridDelay = 1.85 + delay;
+              const gridDelay = isRevisit ? 0 : 1.85 + delay;
               const isBright = isInSuperpowerArea;
               
               return (
