@@ -3305,14 +3305,8 @@ nav .logo {
     transform: rotate(-45deg) translate(5px, -5px);
   }
   
-  /* Mobile navbar - bigger logo */
   nav {
     padding: var(--space-4) var(--space-5);
-  }
-  
-  .nav-logo {
-    height: 40px !important;
-    width: auto !important;
   }
   
   /* ======================================
