@@ -106,7 +106,7 @@ export const navDropdowns: NavDropdown[] = [
         items: [
           { label: "Tools Overview", href: "/tools", description: "Explore all developer tools", icon: "wrench", featured: true },
           { label: "Sandbox", href: "/sandbox", description: "Interactive REPL console", icon: "terminal" },
-          { label: "REST API", href: "https://peer.convex.live/swagger", external: true, description: "API reference", icon: "server" },
+          { label: "REST API", href: "https://mikera1337-convex-testnet.hf.space/swagger", external: true, description: "API reference", icon: "server" },
           { label: "CLI Tool", href: "https://docs.convex.world/docs/products/convex-cli", external: true, description: "Command-line interface", icon: "terminal" },
         ],
       },

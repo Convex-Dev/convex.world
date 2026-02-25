@@ -22,11 +22,8 @@ export default function SandboxPage() {
           <ConvexProvider>
             <div className="lattice-bg" aria-hidden="true" />
 
-            {/* Hero */}
-            <section className="content-section" >
-              <div className="section-header">
-                <span className="section-number">// Sandbox</span>
-              </div>
+            <section className="content-section">
+              <span className="section-number" style={{ marginBottom: 'var(--space-4)' }}>// Sandbox</span>
 
               <div className="dev-sandbox-container">
                 <ReplSandbox />
