@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { hexPath, axialToPixel, hexBounds, SQRT3 } from '@/lib/hex';
+import { hexPath, axialToPixel, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
 
 const SIZE = 80;
 const GAP = 0.08;
@@ -13,32 +13,17 @@ function toPixel(q: number, r: number) {
   return axialToPixel(q, r, SIZE, GAP);
 }
 
-interface Superpower {
-  title: string;
-  desc: string;
-  href: string;
-  q: number;
-  r: number;
-}
-
-const SUPERPOWERS: Superpower[] = [
-  { title: "Agent Ready", desc: "Agentic tools using the Model Context Protocol", href: "/developers", q: 1, r: -2 },
-  { title: "Virtual Machine", desc: "High performance execution for smart contracts", href: "/developers#cvm", q: 2, r: -2 },
-  { title: "CPoS Consensus", desc: "Realtime convergent consensus algorithm", href: "/developers#consensus", q: 2, r: -1 },
-  { title: "Convex Lisp", desc: "Powerful functional programming language", href: "/developers#lisp", q: 3, r: -1 },
-  { title: "Data Lattice", desc: "Global, self-healing data fabric", href: "/developers#lattice", q: 2, r: 0 },
-  { title: "Digital Assets", desc: "Create tokens and NFTs in one expression", href: "/developers#assets", q: 3, r: 0 },
-  { title: "On-Chain Compiler", desc: "Dynamic compilation with no toolchains", href: "/developers#compiler", q: 3, r: 1 },
-  { title: "Open Source", desc: "Fully open-source, developer-friendly", href: "https://github.com/Convex-Dev", q: 4, r: 1 },
-];
+const tiles = Object.entries(SUPERPOWER_HEXES).map(([key, def]) => {
+  const [q, r] = key.split(',').map(Number);
+  return { ...def, q, r, key };
+});
 
 export default function SuperpowerHexTiles() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
 
-  const positions = SUPERPOWERS.map((sp, idx) => ({
-    ...sp,
-    idx,
-    ...toPixel(sp.q, sp.r)
+  const positions = tiles.map((tile) => ({
+    ...tile,
+    ...toPixel(tile.q, tile.r),
   }));
 
   const { minX, minY, maxX, maxY } = hexBounds(positions, SIZE);
@@ -67,16 +52,16 @@ export default function SuperpowerHexTiles() {
         </defs>
         <g transform={`translate(${offsetX}, ${offsetY})`}>
           {positions.map((tile) => {
-            const isHovered = hoveredIndex === tile.idx;
+            const isHovered = hoveredKey === tile.key;
             const isExternal = tile.href.startsWith('http');
-            
+
             return (
               <g
-                key={tile.idx}
+                key={tile.key}
                 transform={`translate(${tile.x}, ${tile.y})`}
                 className={`superpower-tile ${isHovered ? 'superpower-tile-hovered' : ''}`}
-                onMouseEnter={() => setHoveredIndex(tile.idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => setHoveredKey(tile.key)}
+                onMouseLeave={() => setHoveredKey(null)}
                 style={{ cursor: 'pointer' }}
               >
                 <Link href={tile.href} target={isExternal ? '_blank' : undefined}>

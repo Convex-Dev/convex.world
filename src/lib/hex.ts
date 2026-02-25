@@ -57,12 +57,12 @@ export interface SuperpowerDef {
 /** Superpower hex definitions keyed by "q,r" axial coordinates. */
 export const SUPERPOWER_HEXES: Record<string, SuperpowerDef> = {
   '1,0':  { title: "Lattice",              desc: "Global self-healing fabric",  href: "/lattice",  order: 0 },
-  '1,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "/cpos",   order: 1 },
+  '0,-1': { title: "Convergent Consensus", desc: "Realtime convergent consensus", href: "/cpos",   order: 1 },
   '2,-1': { title: "Convex Lisp",          desc: "Functional programming",      href: "/lisp",    order: 2 },
-  '3,-1': { title: "DIDs",                 desc: "Decentralised identity",       href: "/dids",    order: 3 },
+  '1,2': { title: "DIDs",                 desc: "Decentralised identity",       href: "/dids",    order: 3 },
   '2,0':  { title: "Digital Assets",       desc: "Tokens & NFTs in one line",   href: "/assets",  order: 4 },
   '1,1':  { title: "Virtual Machine",      desc: "High performance execution",  href: "/vm",      order: 5 },
   '0,1':  { title: "Agentic Economy",      desc: "Agentic tools with MCP",      href: "/ai",         order: 6 },
-  '-1,1': { title: "Live Compiler",        desc: "No external toolchains",      href: "/sandbox",    order: 7 },
+  '-1,2': { title: "Live Compiler",        desc: "No external toolchains",      href: "/sandbox",    order: 7 },
   '0,0':  { title: "Convex Coin",          desc: "Utility token for global state", href: "/coin",   order: 8 },
 };

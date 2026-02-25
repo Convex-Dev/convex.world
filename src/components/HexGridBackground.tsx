@@ -4,15 +4,16 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 import { SQRT3, hexPath, axialToPixel as axialToPixelBase, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
 import { isRevisit } from '@/lib/session';
 
-const SIZE = 360;
+const BASE_SIZE = 300;
 const GAP = 0.04;
 const HEX_SCALE = 0.95;
 const TEXT_INSET = 0.85;
+const FULL_SIZE = 1900;
 
-const HEX_PATH = hexPath(SIZE * HEX_SCALE);
-
-function toPixel(q: number, r: number) {
-  return axialToPixelBase(q, r, SIZE, GAP);
+/** Scale hex size proportionally to viewport width. Full size at FULL_SIZE = 1900px, smaller below. */
+function computeSize() {
+  if (typeof window === 'undefined') return BASE_SIZE;
+  return Math.round(Math.min(BASE_SIZE, BASE_SIZE * Math.min(FULL_SIZE, window.innerWidth) / FULL_SIZE));
 }
 
 interface GridCell {
@@ -23,10 +24,10 @@ interface GridCell {
   superpower: (typeof SUPERPOWER_HEXES)[string] | null;
 }
 
-function pixelToAxial(px: number, py: number): { q: number; r: number } {
+function pixelToAxial(px: number, py: number, s: number): { q: number; r: number } {
   const gapFactor = 1 + GAP;
-  const r = py / (1.5 * SIZE * gapFactor);
-  const q = (px / (SQRT3 * SIZE * gapFactor)) - r / 2;
+  const r = py / (1.5 * s * gapFactor);
+  const q = (px / (SQRT3 * s * gapFactor)) - r / 2;
   return { q: Math.round(q), r: Math.round(r) };
 }
 
@@ -34,12 +35,24 @@ function pixelToAxial(px: number, py: number): { q: number; r: number } {
 const ANIMATION_COMPLETE_DELAY = 3000;
 
 export default function HexGridBackground() {
+  const [size, setSize] = useState(computeSize);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [isInSuperpowerArea, setIsInSuperpowerArea] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(isRevisit);
   const [animationKey, setAnimationKey] = useState(0);
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
+  // Recompute hex size on window resize
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const onResize = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setSize(computeSize()), 150);
+    };
+    window.addEventListener('resize', onResize);
+    return () => { window.removeEventListener('resize', onResize); clearTimeout(timeout); };
+  }, []);
+
   // Detect theme changes and replay animation
   useEffect(() => {
     const handleThemeChange = () => {
@@ -48,7 +61,7 @@ export default function HexGridBackground() {
       setHoveredKey(null);
       setIsInSuperpowerArea(false);
     };
-    
+
     // Watch for class changes on document element (theme toggle)
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -57,7 +70,7 @@ export default function HexGridBackground() {
         }
       });
     });
-    
+
     observer.observe(document.documentElement, { attributes: true });
     return () => observer.disconnect();
   }, []);
@@ -88,41 +101,43 @@ export default function HexGridBackground() {
     }, 100);
   };
   
+  const hexPathD = useMemo(() => hexPath(size * HEX_SCALE), [size]);
+
   const gridCells = useMemo(() => {
     const cells: GridCell[] = [];
     const gapFactor = 1 + GAP;
-    const hexWidth = SQRT3 * SIZE * gapFactor;
-    const hexHeight = 1.5 * SIZE * gapFactor;
-    
+    const hexWidth = SQRT3 * size * gapFactor;
+    const hexHeight = 1.5 * size * gapFactor;
+
     const viewWidth = 5000;
     const viewHeight = 8000;
     const halfW = viewWidth / 2;
-    const startY = -SIZE * 3;
+    const startY = -size * 3;
     const endY = viewHeight;
-    
+
     const seen = new Set<string>();
-    
+
     for (let py = startY; py <= endY; py += hexHeight) {
-      for (let px = -halfW - SIZE; px <= halfW + SIZE; px += hexWidth / 2) {
-        const { q, r } = pixelToAxial(px, py);
+      for (let px = -halfW - size; px <= halfW + size; px += hexWidth / 2) {
+        const { q, r } = pixelToAxial(px, py, size);
         const key = `${q},${r}`;
-        
+
         if (!seen.has(key)) {
           seen.add(key);
-          const { x, y } = toPixel(q, r);
+          const { x, y } = axialToPixelBase(q, r, size, GAP);
           const superpower = SUPERPOWER_HEXES[key] || null;
           cells.push({ q, r, x, y, superpower });
         }
       }
     }
-    
+
     return cells;
-  }, []);
+  }, [size]);
 
   const bounds = useMemo(() => {
     if (gridCells.length === 0) return { minX: 0, maxX: 0, minY: 0, maxY: 0 };
-    return hexBounds(gridCells, SIZE);
-  }, [gridCells]);
+    return hexBounds(gridCells, size);
+  }, [gridCells, size]);
 
   const svgWidth = bounds.maxX - bounds.minX;
   const svgHeight = bounds.maxY - bounds.minY;
@@ -151,7 +166,7 @@ export default function HexGridBackground() {
         </defs>
         <g transform={`translate(${offsetX}, ${offsetY})`}>
           {(() => {
-            const dataLatticePos = toPixel(1, 0);
+            const dataLatticePos = axialToPixelBase(1, 0, size, GAP);
             return gridCells.map((cell) => {
               const dx = cell.x - dataLatticePos.x;
               const dy = cell.y - dataLatticePos.y;
@@ -177,15 +192,15 @@ export default function HexGridBackground() {
                   >
                     <a href={cell.superpower.href} target={isExternal ? '_blank' : undefined}>
                       <path
-                        d={HEX_PATH}
+                        d={hexPathD}
                         className={`hex-superpower-path ${isHovered ? 'hex-superpower-path-hovered' : ''}`}
                         style={{ animationDelay: `${superpowerDelay}s` }}
                       />
                       <foreignObject
-                        x={-SIZE * HEX_SCALE * SQRT3 * TEXT_INSET / 2}
-                        y={-SIZE * 0.5}
-                        width={SIZE * HEX_SCALE * SQRT3 * TEXT_INSET}
-                        height={SIZE}
+                        x={-size * HEX_SCALE * SQRT3 * TEXT_INSET / 2}
+                        y={-size * 0.5}
+                        width={size * HEX_SCALE * SQRT3 * TEXT_INSET}
+                        height={size}
                         className="hex-superpower-foreign"
                         style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
                       >
@@ -205,7 +220,7 @@ export default function HexGridBackground() {
               return (
                 <path
                   key={`${cell.q}-${cell.r}`}
-                  d={HEX_PATH}
+                  d={hexPathD}
                   transform={`translate(${cell.x}, ${cell.y})`}
                   className={`hex-grid-cell ${isBright ? 'hex-grid-cell-bright' : ''}`}
                   style={{ animationDelay: `${gridDelay}s` }}

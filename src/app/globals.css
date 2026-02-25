@@ -598,7 +598,7 @@ nav > a:first-child {
 /* Hexagon Grid Background - Replaces square lattice with pointy-top hexagons */
 .hex-grid-bg {
   position: absolute;
-  top: 0;
+  top: var(--header-height);
   left: 0;
   right: 0;
   height: 300vh;
