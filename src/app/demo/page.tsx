@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Card from "@/components/Card";
 import Hex from "@/components/Hex";
 import LiveInspector from "@/components/LiveInspector";
@@ -15,6 +16,7 @@ export default function Demo() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               <div className="hero-section">
                 <h1>Demo</h1>
+                <p><Link href="/superpowers">Superpowers Index</Link></p>
               </div>
 
               <Card>
