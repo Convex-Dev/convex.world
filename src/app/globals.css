@@ -693,7 +693,7 @@ nav > a:first-child {
 }
 
 .light .hex-superpower-title {
-  color: rgba(15, 23, 42, 1);
+  fill: rgba(15, 23, 42, 1);
   font-weight: 700;
 }
 
@@ -714,7 +714,7 @@ nav > a:first-child {
 }
 
 .light .hex-superpower-dimmed .hex-superpower-title {
-  color: rgba(15, 23, 42, 0.4) !important;
+  fill: rgba(15, 23, 42, 0.4) !important;
 }
 
 /* Superpower Hex Tiles */
@@ -813,8 +813,7 @@ nav > a:first-child {
   filter: drop-shadow(0 0 20px rgba(106, 170, 238, 0.4));
 }
 
-.hex-superpower-foreign {
-  overflow: visible;
+.hex-superpower-title-group {
   pointer-events: none;
   opacity: 0;
   animation: hexTitleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
@@ -824,18 +823,10 @@ nav > a:first-child {
   font-family: var(--font-display);
   font-size: 3.5rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 1);
+  fill: rgba(255, 255, 255, 1);
   pointer-events: none;
-  transition: all 0.2s ease;
+  transition: fill 0.2s ease;
   letter-spacing: -0.02em;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  text-wrap: balance;
-  line-height: var(--leading-normal);
 }
 
 @keyframes hexTitleIn {
@@ -871,7 +862,7 @@ nav > a:first-child {
 }
 
 .hex-superpower-dimmed .hex-superpower-title {
-  color: rgba(255, 255, 255, 0.25);
+  fill: rgba(255, 255, 255, 0.25);
 }
 
 .hex-superpower-cta {
@@ -2491,14 +2482,17 @@ nav > a:first-child {
   animation: hexSuperpowerIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
+.hex-grid-mobile .hex-superpower-title-group {
+  pointer-events: none;
+  opacity: 0;
+  animation: hexTitleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
 .hex-grid-mobile .hex-superpower-title {
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 700;
   fill: rgba(255, 255, 255, 1);
-  pointer-events: none;
-  opacity: 0;
-  animation: hexTitleIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .hex-grid-mobile .hex-grid-cell {
