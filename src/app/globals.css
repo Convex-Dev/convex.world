@@ -604,7 +604,7 @@ nav > a:first-child {
   height: 300vh;
   pointer-events: none;
   z-index: 1;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .hex-grid-bg .hex-superpower {

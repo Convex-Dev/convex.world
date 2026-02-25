@@ -10,9 +10,8 @@ const HEX_SCALE = 0.95;
 const TEXT_INSET = 0.85;
 const FULL_SIZE = 1900;
 
-/** Scale hex size proportionally to viewport width. Full size at FULL_SIZE = 1900px, smaller below. */
+/** Scale hex size proportionally to viewport width. Full size at FULL_SIZE px, capped at BASE_SIZE. */
 function computeSize() {
-  if (typeof window === 'undefined') return BASE_SIZE;
   return Math.round(Math.min(BASE_SIZE, BASE_SIZE * Math.min(FULL_SIZE, window.innerWidth) / FULL_SIZE));
 }
 
@@ -44,15 +43,16 @@ function pixelToAxial(px: number, py: number, s: number): { q: number; r: number
 const ANIMATION_COMPLETE_DELAY = 3000;
 
 export default function HexGridBackground() {
-  const [size, setSize] = useState(computeSize);
+  const [size, setSize] = useState(BASE_SIZE);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [isInSuperpowerArea, setIsInSuperpowerArea] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(isRevisit);
   const [animationKey, setAnimationKey] = useState(0);
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Recompute hex size on window resize
+  // Set initial size on mount and recompute on resize
   useEffect(() => {
+    setSize(computeSize());
     let timeout: NodeJS.Timeout;
     const onResize = () => {
       clearTimeout(timeout);
