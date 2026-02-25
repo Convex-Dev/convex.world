@@ -7,9 +7,17 @@ import { isRevisit } from '@/lib/session';
 const SIZE = 360;
 const GAP = 0.04;
 const HEX_SCALE = 0.95;
-const TEXT_INSET = 0.85;
 
 const HEX_PATH = hexPath(SIZE * HEX_SCALE);
+
+// Split multi-word titles into balanced lines for SVG <tspan> rendering.
+// Native SVG <text> has no word-wrap, so we split manually at the midpoint.
+function titleLines(title: string): string[] {
+  const words = title.split(' ');
+  if (words.length <= 1) return [title];
+  const mid = Math.ceil(words.length / 2);
+  return [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+}
 
 function toPixel(q: number, r: number) {
   return axialToPixelBase(q, r, SIZE, GAP);
@@ -181,18 +189,24 @@ export default function HexGridBackground() {
                         className={`hex-superpower-path ${isHovered ? 'hex-superpower-path-hovered' : ''}`}
                         style={{ animationDelay: `${superpowerDelay}s` }}
                       />
-                      <foreignObject
-                        x={-SIZE * HEX_SCALE * SQRT3 * TEXT_INSET / 2}
-                        y={-SIZE * 0.5}
-                        width={SIZE * HEX_SCALE * SQRT3 * TEXT_INSET}
-                        height={SIZE}
-                        className="hex-superpower-foreign"
+                      {/* Native SVG <text> instead of <foreignObject> — iOS Safari
+                         has long-standing rendering bugs with foreignObject that
+                         cause labels to be invisible on real devices. */}
+                      <g className="hex-superpower-title-group"
                         style={{ animationDelay: `${superpowerDelay + 0.1}s` }}
                       >
-                        <div className="hex-superpower-title">
-                          {cell.superpower.title}
-                        </div>
-                      </foreignObject>
+                        <text className="hex-superpower-title" textAnchor="middle" dominantBaseline="middle">
+                          {(() => {
+                            const lines = titleLines(cell.superpower.title);
+                            if (lines.length === 1) return lines[0];
+                            return lines.map((line, i) => (
+                              <tspan key={i} x={0} dy={i === 0 ? '-0.6em' : '1.2em'}>
+                                {line}
+                              </tspan>
+                            ));
+                          })()}
+                        </text>
+                      </g>
                     </a>
                   </g>
                 );
