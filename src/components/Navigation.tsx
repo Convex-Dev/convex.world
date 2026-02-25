@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ColorMode from './ColorMode';
@@ -8,6 +8,15 @@ import Logo from './Logo';
 
 import { navDropdowns } from '@/data/nav-dropdowns';
 import { getIcon } from '@/lib/icons';
+
+/** Shift a dropdown menu left just enough to stay within the viewport. */
+function clampToViewport(el: HTMLDivElement | null) {
+  if (!el) return;
+  el.style.transform = '';
+  const rect = el.getBoundingClientRect();
+  const overflow = rect.right - window.innerWidth + 16;
+  if (overflow > 0) el.style.transform = `translateX(-${overflow}px)`;
+}
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,7 +77,7 @@ export default function Navigation() {
                   </Link>
 
                   {openDropdown === dropdown.key && (
-                    <div className="nav-dropdown-menu">
+                    <div className="nav-dropdown-menu" ref={clampToViewport}>
                       <div className={`nav-dropdown-menu-inner ${!dropdown.graphicKey ? 'nav-dropdown-menu-wide' : ''}`}>
                         {dropdown.featuredItem && (
                           <Link
