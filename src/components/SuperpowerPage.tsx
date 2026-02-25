@@ -38,7 +38,7 @@ export default function SuperpowerPage({ href, visual, heroMeta, heroContent, ch
           </div>
         )}
       </section>
-      {children}
+      <div className="vision-content">{children}</div>
       {page.docs && page.docs.length > 0 && (
         <section className="vision-section superpower-docs">
           <div className="superpower-docs-header">

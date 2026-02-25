@@ -60,6 +60,8 @@ const iconMap: Record<string, LucideIcon> = {
   "credit-card": CreditCard,
 };
 
+export type IconKey = keyof typeof iconMap;
+
 export function getIcon(key: string): LucideIcon {
   return iconMap[key] ?? Shield;
 }

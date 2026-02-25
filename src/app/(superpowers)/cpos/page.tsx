@@ -12,6 +12,12 @@ export const metadata = getSuperpowerMetadata("/cpos");
 export default function CPoS() {
   return (
     <SuperpowerPage href="/cpos" visual={<div className="vision-hero-visual"><CposHexAnimation /></div>}>
+      <p>
+      Every decentralised economy faces the same challenge: how do you prevent a digital coin from being spent twice? The first generation solved this with energy. The second with capital.</p>
+      <p><strong>Convex solves it with mathematics</strong>.</p>
+      <p>CPoS is not an incremental improvement - it's revolutionary new system. Peers don't compete to produce blocks: they <em>converge</em>. Beliefs propagate, merge, and resolve through a CRDT structure that is provably guaranteed to reach agreement. No leaders, no chains, no wasted energy. Just convergence.
+      </p>
+
       {/* How It Works */}
       <section className="vision-section">
         <SectionHeader number="001" title="How CPoS Works" subtitle="Consensus through convergence, not competition" />
@@ -33,7 +39,7 @@ export default function CPoS() {
 
       {/* Not a Blockchain */}
       <section className="vision-section">
-        <SectionHeader number="002" title="Not a Blockchain" subtitle="A fundamentally different architecture" />
+        <SectionHeader number="002" title="Beyond Blockchain" subtitle="A fundamentally different architecture" />
         <div className="cpos-comparison">
           <div className="cpos-comparison-col">
             <h4>Traditional Blockchains</h4>

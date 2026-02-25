@@ -1,30 +1,31 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
+import React, { type ReactNode } from "react";
+import type { IconKey } from "@/lib/icons";
 
 export interface SuperpowerDocLink {
-  label: string;
-  href: string;
-  description?: string;
+  label: string; /* Title of link */
+  href: string; /* URL of link */
+  description?: string; /* One-line description of link */
 }
 
 export interface SuperpowerPage {
-  tag: string;
-  heroTitle: string;
-  heroAccent?: string;
-  description: string;
+  tag: string; /* Topical tag displayed above hero */
+  heroTitle: string; /* Main hero title, displayed in large letters */
+  heroAccent?: string; /* Secondary hero title in accent colour */
+  description: string; /* Inspirational hero description, displayed below the title */
   highlights: { label: string; value: string }[];
-  docs?: SuperpowerDocLink[];
+  docs?: SuperpowerDocLink[]; /* List of documentation links, displayed below content */
 }
 
 interface SuperpowerEntry {
-  title: string;
-  desc: string;
-  href: string;
-  category: string;
-  icon: string;
-  external?: boolean;
-  metadata?: Metadata;
-  page?: SuperpowerPage;
+  title: string; /* Short snappy title, used for navigation e.g. front page hexes */
+  desc: string; /* Short description, used for menu descriptions */
+  href: string; /* Primary internal href for the page */
+  category: "overview" | "infrastructure" | "economy" | "platform";
+  icon: IconKey;
+  external?: boolean; /* External, link will open in a new tab */
+  metadata?: Metadata; /* Metadata for the page, used for SEO */
+  page?: SuperpowerPage; /* Page-specific content */
 }
 
 export const superpowers: SuperpowerEntry[] = [
@@ -64,10 +65,10 @@ export const superpowers: SuperpowerEntry[] = [
       tag: "// Core Technology",
       heroTitle: "The Data",
       heroAccent: "Lattice",
-      description: "A boundless, self-healing cloud of decentralised data and computing power. Fortified by cryptography and seamless consensus, no single entity controls it.",
+      description: "A boundless, self-healing fabric of decentralised data on a true self-sovereign, P2P network.",
       highlights: [
         { label: "Replication", value: "CRDT" },
-        { label: "Addressing", value: "Content" },
+        { label: "Fees", value: "Zero" },
         { label: "Scale", value: "∞" },
       ],
     },
@@ -106,17 +107,18 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "shield",
     metadata: {
       title: "Convergent Proof of Stake — Convex",
-      description: "The world's fastest truly decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality.",
+      description: "The world's fastest decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality.",
     },
     page: {
       tag: "// Consensus",
       heroTitle: "Convergent",
       heroAccent: "Proof of Stake",
-      description: "The world's fastest truly decentralised consensus algorithm for a global state machine. CPoS operates as a CRDT, not a blockchain, solving the scalability trilemma.",
+      description: "The world's fastest consensus algorithm for a global state machine. CPoS operates as a CRDT, not a blockchain, solving the scalability trilemma.",
       highlights: [
         { label: "Finality", value: "<1s" },
         { label: "BFT Threshold", value: "⅔" },
         { label: "Energy Cost", value: "~0" },
+        { label: "Block Delay", value: "Zero" }
       ],
     },
   },

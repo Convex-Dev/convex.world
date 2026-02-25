@@ -19,6 +19,6 @@ export const howItWorks: IconCardItem[] = [
   {
     icon: "lock",
     title: "Two-Phase Commit",
-    text: "Once 2/3 of peers align on the same ordering, a Proposed Consensus Point is established. When 2/3 of peers confirm this proposal, consensus is finalised. From this point, the ordering is immutable. Digital signatures ensure no peer can impersonate another—full cryptographic security is maintained throughout.",
+    text: "Once a majority of peers align on the same ordering, a Proposed Consensus Point is established. When 2/3 of peers confirm this proposal, consensus is finalised. From this point, the ordering is immutable. Digital signatures ensure no peer can impersonate another—full cryptographic security is maintained throughout.",
   },
 ];
