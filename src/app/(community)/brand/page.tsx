@@ -15,7 +15,6 @@ export const metadata = {
 export default function Brand() {
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path="/brand/" />
       {/* Hero Section */}
       <section className="brand-hero">
         <div className="hero-eyebrow">
@@ -156,6 +155,7 @@ export default function Brand() {
           { label: "Community Hub", href: "/community", variant: "secondary" },
         ]}
       />
+      <StructuredData type="WebPage" metadata={metadata} path="/brand/" />
     </ContentPage>
   );
 }

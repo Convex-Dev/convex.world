@@ -65,7 +65,6 @@ export default async function Community() {
 
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path="/community/" />
       {/* Hero + Social Links */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Connect with us</span>
@@ -171,6 +170,7 @@ export default async function Community() {
           </div>
         </div>
       </section>
+      <StructuredData type="WebPage" metadata={metadata} path="/community/" />
     </ContentPage>
   );
 }

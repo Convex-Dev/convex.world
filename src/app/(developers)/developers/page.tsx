@@ -18,7 +18,6 @@ export const metadata = {
 export default function Developer() {
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path="/developers/" />
       {/* Hero Section - Asymmetric Layout */}
       <section className="dev-hero-split">
         <div className="dev-hero-content">
@@ -169,6 +168,7 @@ export default function Developer() {
           </div>
         </div>
       </section>
+      <StructuredData type="WebPage" metadata={metadata} path="/developers/" />
     </ContentPage>
   );
 }

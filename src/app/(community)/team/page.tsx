@@ -72,7 +72,6 @@ const socialIcons: Record<string, { src: string; alt: string }> = {
 export default function Team() {
   return (
     <ContentPage noLatticeBg>
-      <StructuredData type="AboutPage" metadata={metadata} path="/team/" />
       <div className="container">
         <div className="hero-section">
           <h1>Our Team</h1>
@@ -113,6 +112,7 @@ export default function Team() {
           ))}
         </div>
       </div>
+      <StructuredData type="AboutPage" metadata={metadata} path="/team/" />
     </ContentPage>
   );
 }

@@ -24,7 +24,6 @@ export default function SuperpowerPage({ href, visual, heroMeta, heroContent, ch
 
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path={`${href}/`} />
       <section className="vision-hero">
         <span className="dev-hero-tag">{page.tag}</span>
         <div className="vision-hero-content">
@@ -59,6 +58,7 @@ export default function SuperpowerPage({ href, visual, heroMeta, heroContent, ch
           </div>
         </section>
       )}
+      <StructuredData type="WebPage" metadata={metadata} path={`${href}/`} />
     </ContentPage>
   );
 }

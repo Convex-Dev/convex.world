@@ -15,7 +15,6 @@ export const metadata = {
 export default function Ecosystem() {
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path="/ecosystem/" />
       {/* Hero Section */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Building on Convex</span>
@@ -105,6 +104,7 @@ export default function Ecosystem() {
           { label: "Get in Touch", href: "https://discord.gg/xfYGq4CT7v", external: true },
         ]}
       />
+      <StructuredData type="WebPage" metadata={metadata} path="/ecosystem/" />
     </ContentPage>
   );
 }

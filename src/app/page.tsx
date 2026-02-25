@@ -18,7 +18,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <StructuredData type="WebSite" metadata={metadata} path="/" />
       <Navigation />
       <main>
         <WalletProvider persistKey="convex.world:wallet">
@@ -56,6 +55,7 @@ export default function Home() {
         </WalletProvider>
       </main>
       <Footer />
+      <StructuredData type="WebSite" metadata={metadata} path="/" />
     </>
   );
 }

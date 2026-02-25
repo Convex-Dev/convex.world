@@ -16,7 +16,6 @@ export const metadata = {
 export default function SandboxPage() {
   return (
     <>
-      <StructuredData type="WebApplication" metadata={metadata} path="/sandbox/" />
       <Navigation />
       <main>
         <WalletProvider persistKey="convex.world:wallet">
@@ -80,6 +79,7 @@ export default function SandboxPage() {
         </WalletProvider>
       </main>
       <Footer />
+      <StructuredData type="WebApplication" metadata={metadata} path="/sandbox/" />
     </>
   );
 }

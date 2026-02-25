@@ -12,7 +12,6 @@ export const metadata = getSuperpowerMetadata("/coin");
 export default function Coin() {
   return (
     <ContentPage mainClassName="coin-page">
-      <StructuredData type="WebPage" metadata={metadata} path="/coin/" />
       <ConvexLogoAnimated />
 
       <section className="coin-hero">
@@ -185,6 +184,7 @@ export default function Coin() {
           </Link>
         </div>
       </section>
+      <StructuredData type="WebPage" metadata={metadata} path="/coin/" />
     </ContentPage>
   );
 }

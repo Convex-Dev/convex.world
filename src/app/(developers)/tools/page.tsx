@@ -15,7 +15,6 @@ export const metadata = {
 export default function Tools() {
   return (
     <ContentPage>
-      <StructuredData type="WebPage" metadata={metadata} path="/tools/" />
       {/* Hero Section */}
       <section className="tools-hero">
         <span className="dev-hero-tag">//Network Resources</span>
@@ -140,6 +139,7 @@ export default function Tools() {
           { label: "Developer Overview", href: "/developers", variant: "secondary" },
         ]}
       />
+      <StructuredData type="WebPage" metadata={metadata} path="/tools/" />
     </ContentPage>
   );
 }
