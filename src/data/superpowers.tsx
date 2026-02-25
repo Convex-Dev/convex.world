@@ -498,8 +498,7 @@ export function buildHeroTitle(page: SuperpowerPage): ReactNode {
   if (!page.heroAccent) return page.heroTitle;
   return (
     <>
-      {page.heroTitle}
-      <br />
+      {page.heroTitle}{" "}
       <span className="hero-accent">{page.heroAccent}</span>
     </>
   );

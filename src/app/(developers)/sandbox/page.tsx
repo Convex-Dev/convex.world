@@ -17,7 +17,7 @@ export default function SandboxPage() {
   return (
     <>
       <Navigation />
-      <main>
+      <main className="page-content">
         <WalletProvider persistKey="convex.world:wallet">
           <ConvexProvider>
             <div className="lattice-bg" aria-hidden="true" />
