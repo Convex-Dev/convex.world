@@ -8022,3 +8022,46 @@ nav .logo {
     padding: var(--space-12) var(--space-4);
   }
 }
+
+/* ==========================================================================
+   404 NOT FOUND
+   ========================================================================== */
+
+.not-found {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-10) var(--space-4);
+}
+
+.not-found-content {
+  max-width: 640px;
+  text-align: center;
+}
+
+.not-found-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--accent-primary);
+  line-height: 1;
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.not-found-content h1 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.not-found-content > p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.not-found-links {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
