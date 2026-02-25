@@ -40,7 +40,7 @@ function buildInnovationSections(): NavDropdownSection[] {
       groups[cat].push({
         label: sp.title,
         href: sp.href,
-        external: sp.external ?? undefined,
+        external: "external" in sp ? (sp.external as boolean) : undefined,
         description: sp.desc,
         icon: sp.icon ?? "shield",
       });

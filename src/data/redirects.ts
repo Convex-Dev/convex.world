@@ -35,6 +35,7 @@ const redirects: Record<string, string> = {
   "/press":           "/brand",
   "/logos":           "/brand",
   "/people":          "/team",
+  "/oss":             "/open-source",
 
   // External products
   "/buy":             "https://app.paisley.io",

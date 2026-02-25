@@ -4,12 +4,19 @@ import superpowers from "./superpowers.json";
 
 type SuperpowerEntry = (typeof superpowers)[number];
 
+export interface SuperpowerDocLink {
+  label: string;
+  href: string;
+  description?: string;
+}
+
 export interface SuperpowerPage {
   tag: string;
   heroTitle: string;
   heroAccent?: string;
   description: string;
   highlights: { label: string; value: string }[];
+  docs?: SuperpowerDocLink[];
 }
 
 /**

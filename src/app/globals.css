@@ -8065,3 +8065,65 @@ nav .logo {
   gap: var(--space-3);
   justify-content: center;
 }
+
+/* ==========================================================================
+   SUPERPOWER DOCS SECTION
+   ========================================================================== */
+
+.superpower-docs {
+  border-top: 1px solid var(--glass-border);
+  padding-top: var(--space-8);
+}
+
+.superpower-docs-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--text-secondary);
+}
+
+.superpower-docs-header h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.superpower-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+}
+
+.superpower-doc-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.superpower-doc-card:hover {
+  border-color: var(--accent-primary);
+  background: var(--surface-overlay);
+}
+
+.superpower-doc-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.superpower-doc-desc {
+  color: var(--text-tertiary);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
