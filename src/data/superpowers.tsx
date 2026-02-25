@@ -43,7 +43,7 @@ export const superpowers: SuperpowerEntry[] = [
       tag: "// Vision",
       heroTitle: "Building open",
       heroAccent: "economies for all",
-      description: "Convex is a public, decentralized foundation for real-time coordination of data and value—enabling open participation and shared outcomes at global scale.",
+      description: "Convex is a public, decentralised foundation for real-time coordination of data and value: enabling open participation and shared outcomes at global scale.",
       highlights: [
         { label: "Superpowers", value: "17" },
         { label: "Open Source", value: "100%" },
@@ -51,54 +51,7 @@ export const superpowers: SuperpowerEntry[] = [
       ],
     },
   },
-  {
-    title: "Data Lattice",
-    desc: "Global, replicated, self-healing, content-addressable data fabric",
-    href: "/lattice",
-    category: "infrastructure",
-    icon: "database",
-    metadata: {
-      title: "Data Lattice — Convex",
-      description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs.",
-    },
-    page: {
-      tag: "// Core Technology",
-      heroTitle: "The Data",
-      heroAccent: "Lattice",
-      description: "A boundless, self-healing fabric of decentralised data on a true self-sovereign, P2P network.",
-      highlights: [
-        { label: "Replication", value: "CRDT" },
-        { label: "Fees", value: "Zero" },
-        { label: "Scale", value: "∞" },
-      ],
-    },
-  },
-  {
-    title: "Lattice CRDTs",
-    desc: "Replicated, self-healing, off-chain application backends with lattice technology",
-    href: "/crdts",
-    category: "infrastructure",
-    icon: "git-merge",
-    metadata: {
-      title: "Lattice CRDTs — Convex",
-      description: "Conflict-free Replicated Data Types that power self-healing, eventually consistent data across the Convex lattice.",
-    },
-    page: {
-      tag: "// Infrastructure",
-      heroTitle: "Lattice",
-      heroAccent: "CRDTs",
-      description: "Conflict-free Replicated Data Types form the mathematical foundation of the Convex lattice. Data converges automatically across peers with no coordination overhead.",
-      highlights: [
-        { label: "Convergence", value: "Auto" },
-        { label: "Conflicts", value: "Zero" },
-        { label: "Coordination", value: "None" },
-      ],
-      docs: [
-        { label: "CAD — Data Lattice", href: "https://docs.convex.world/docs/cad/data_lattice", description: "Specification for lattice-based CRDTs" },
-        { label: "Lattice Technology Overview", href: "https://docs.convex.world/docs/overview/lattice", description: "High-level introduction to lattice technology" },
-      ],
-    },
-  },
+ 
   {
     title: "CPoS",
     desc: "Realtime convergent consensus algorithm for shared global state: faster than any blockchain",
@@ -150,6 +103,55 @@ export const superpowers: SuperpowerEntry[] = [
       ],
     },
   },
+  {
+    title: "Lattice CRDTs",
+    desc: "Replicated, self-healing, off-chain application backends with lattice technology",
+    href: "/crdts",
+    category: "infrastructure",
+    icon: "git-merge",
+    metadata: {
+      title: "Lattice CRDTs — Convex",
+      description: "Conflict-free Replicated Data Types that power self-healing, eventually consistent data across the Convex lattice.",
+    },
+    page: {
+      tag: "// Infrastructure",
+      heroTitle: "Lattice",
+      heroAccent: "CRDTs",
+      description: "Conflict-free Replicated Data Types form the mathematical foundation of the Convex lattice. Data converges automatically across peers with no coordination overhead.",
+      highlights: [
+        { label: "Convergence", value: "Auto" },
+        { label: "Conflicts", value: "Zero" },
+        { label: "Coordination", value: "None" },
+      ],
+      docs: [
+        { label: "CAD — Data Lattice", href: "https://docs.convex.world/docs/cad/data_lattice", description: "Specification for lattice-based CRDTs" },
+        { label: "Lattice Technology Overview", href: "https://docs.convex.world/docs/overview/lattice", description: "High-level introduction to lattice technology" },
+      ],
+    },
+  },
+  {
+    title: "Data Lattice",
+    desc: "Global, replicated data fabric",
+    href: "/lattice",
+    category: "infrastructure",
+    icon: "database",
+    metadata: {
+      title: "Data Lattice — Convex",
+      description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs.",
+    },
+    page: {
+      tag: "// Core Technology",
+      heroTitle: "The Data",
+      heroAccent: "Lattice",
+      description: "A boundless, self-healing fabric of decentralised data on a true self-sovereign, P2P network.",
+      highlights: [
+        { label: "Replication", value: "CRDT" },
+        { label: "Fees", value: "Zero" },
+        { label: "Scale", value: "∞" },
+      ],
+    },
+  },
+
   {
     title: "DLFS",
     desc: "Distributed filesystems on the lattice: Dropbox meets BitTorrent meets IPFS",

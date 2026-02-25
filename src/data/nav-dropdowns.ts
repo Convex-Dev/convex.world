@@ -72,7 +72,7 @@ export const navDropdowns: NavDropdown[] = [
     label: "Developers",
     href: "/developers",
     navClass: "nav-link-bold",
-    graphicKey: "Developers",
+    graphicKey: "developers",
     sections: [
       {
         title: "Start Building",
