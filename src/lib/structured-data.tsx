@@ -15,7 +15,7 @@ type SchemaType =
   | "WebApplication"
   | "AboutPage";
 
-function resolveTitle(title: Metadata["title"]): string {
+export function resolveTitle(title: Metadata["title"]): string {
   if (!title) return "Convex";
   if (typeof title === "string") return title;
   if ("default" in title) return title.default ?? "Convex";
@@ -23,7 +23,7 @@ function resolveTitle(title: Metadata["title"]): string {
   return "Convex";
 }
 
-function buildSchema(
+export function buildSchema(
   type: SchemaType,
   metadata: Metadata,
   path: string,
