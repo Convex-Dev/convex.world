@@ -11,10 +11,12 @@ interface SuperpowerPageProps {
   visual?: ReactNode;
   /** Rendered below the hero description. Defaults to the highlights grid from superpowers.json. */
   heroMeta?: ReactNode;
+  /** Rich content panel displayed below heroMeta (or the default highlights). */
+  heroContent?: ReactNode;
   children: ReactNode;
 }
 
-export default function SuperpowerPage({ href, visual, heroMeta, children }: SuperpowerPageProps) {
+export default function SuperpowerPage({ href, visual, heroMeta, heroContent, children }: SuperpowerPageProps) {
   const metadata = getSuperpowerMetadata(href);
   const page = getSuperpowerPage(href);
 
@@ -24,13 +26,18 @@ export default function SuperpowerPage({ href, visual, heroMeta, children }: Sup
     <ContentPage>
       <StructuredData type="WebPage" metadata={metadata} path={`${href}/`} />
       <section className="vision-hero">
+        <span className="dev-hero-tag">{page.tag}</span>
         <div className="vision-hero-content">
-          <span className="dev-hero-tag">{page.tag}</span>
           <h1>{buildHeroTitle(page)}</h1>
           <p className="vision-hero-text">{page.description}</p>
           {heroMeta !== undefined ? heroMeta : defaultMeta}
         </div>
-        {visual}
+        {(visual || heroContent) && (
+          <div className="vision-hero-right">
+            {visual}
+            {heroContent && <div className="vision-hero-panel">{heroContent}</div>}
+          </div>
+        )}
       </section>
       {children}
       {page.docs && page.docs.length > 0 && (

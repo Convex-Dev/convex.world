@@ -2,11 +2,11 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import CtaSection from "@/components/CtaSection";
 import { getSuperpowerMetadata } from "@/data/superpower-metadata";
 
-export const metadata = getSuperpowerMetadata("/torus");
+export const metadata = getSuperpowerMetadata("/defi");
 
 export default function OneLineDeFi() {
   return (
-    <SuperpowerPage href="/torus">
+    <SuperpowerPage href="/defi">
       <CtaSection
         className="vision-cta"
         heading="h2"

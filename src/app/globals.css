@@ -7285,20 +7285,25 @@ nav .logo {
 .vision-hero {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-12);
+  gap: var(--space-4);
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-24) clamp(24px, 8vw, 160px) var(--space-20);
-  min-height: 85vh;
-  align-items: center;
+  padding: var(--space-8) clamp(24px, 6vw, 120px) var(--space-12);
+  align-items: start;
   overflow: visible;
 }
 
 @media (min-width: 768px) {
   .vision-hero {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
+    grid-template-columns: 2fr 3fr;
+    gap: var(--space-4);
   }
+}
+
+.vision-hero > .dev-hero-tag {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0;
 }
 
 .vision-hero-content {
@@ -7309,19 +7314,65 @@ nav .logo {
 
 .vision-hero-content h1 {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5rem);
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
   font-weight: 600;
-  line-height: 1.05;
-  margin-bottom: var(--space-8);
+  line-height: 1.08;
+  margin-bottom: var(--space-6);
   letter-spacing: -0.03em;
   margin-left: -3px;
 }
 
 .vision-hero-text {
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   color: var(--color-text-secondary);
   line-height: 1.7;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+/* Right-hand column: visual and/or hero content panel */
+.vision-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  justify-content: start;
+  min-height: 0;
+}
+
+.vision-hero-right > * {
+  min-height: 0;
+  flex-shrink: 1;
+}
+
+.vision-hero-panel {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.vision-hero-panel p {
+  margin: 0 0 var(--space-3);
+}
+
+.vision-hero-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.vision-hero-panel strong {
+  color: var(--neutral-200);
+  font-weight: 500;
+}
+
+.vision-hero-panel ul {
+  margin: var(--space-3) 0;
+  padding-left: var(--space-4);
+}
+
+.vision-hero-panel li {
+  margin-bottom: var(--space-2);
+}
+
+.vision-hero-panel li:last-child {
+  margin-bottom: 0;
 }
 
 .vision-hero-highlights {
@@ -7363,21 +7414,22 @@ nav .logo {
 .vision-hero-visual {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  max-height: 40vh;
 }
-
 
 .vision-hero-visual svg {
   width: 100%;
   max-width: 800px;
   height: auto;
+  max-height: 40vh;
 }
 
 /* Sections — matches dev-section padding */
 .vision-section {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-16) clamp(24px, 8vw, 160px);
+  padding: var(--space-16) clamp(24px, 6vw, 120px);
 }
 
 .vision-section .section-header {
@@ -7930,16 +7982,16 @@ nav .logo {
 
 @media (max-width: 768px) {
   .vision-hero {
-    padding: var(--space-16) var(--space-6) var(--space-12);
+    padding: var(--space-6) var(--space-6) var(--space-8);
     min-height: auto;
   }
 
   .vision-hero-content h1 {
-    font-size: clamp(2.25rem, 8vw, 3rem);
+    font-size: clamp(2rem, 7vw, 2.75rem);
   }
 
   .vision-hero-text {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
   }
 
   .vision-hero-highlights {
@@ -8011,7 +8063,7 @@ nav .logo {
 
 @media (max-width: 480px) {
   .vision-hero {
-    padding: var(--space-12) var(--space-4) var(--space-10);
+    padding: var(--space-4) var(--space-4) var(--space-8);
   }
 
   .vision-section {
@@ -8064,6 +8116,33 @@ nav .logo {
   display: flex;
   gap: var(--space-3);
   justify-content: center;
+}
+
+
+.hero-cards {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.hero-card {
+  padding: var(--space-4);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.hero-card h3 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.hero-card p {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ==========================================================================

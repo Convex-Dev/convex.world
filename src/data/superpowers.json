@@ -233,11 +233,11 @@
       "tag": "// Economics",
       "heroTitle": "Memory",
       "heroAccent": "Accounting",
-      "description": "Global memory as a tradeable digital asset. Memory accounting creates natural economic incentives for efficient state usage and recycling — no artificial gas limits needed.",
+      "description": "On-chain memory as a tradeable digital asset. Natural incentives for efficient use — no artificial gas limits.",
       "highlights": [
         { "label": "Memory", "value": "Tradeable" },
         { "label": "Recycling", "value": "Incentivised" },
-        { "label": "Gas Limits", "value": "None" }
+        { "label": "Gas Limits", "value": "Zero" }
       ],
       "docs": [
         { "label": "CAD — Memory Accounting", "href": "https://docs.convex.world/docs/cad/memory", "description": "Memory pricing and accounting model" },
@@ -248,7 +248,7 @@
   {
     "title": "One Line DeFi",
     "desc": "Execute powerful, end-to-end economic transactions with one command",
-    "href": "/torus",
+    "href": "/defi",
     "category": "economy",
     "icon": "terminal",
     "metadata": {

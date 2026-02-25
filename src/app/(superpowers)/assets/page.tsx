@@ -14,7 +14,7 @@ export default function DigitalAssets() {
         description="Try creating tokens in the sandbox, or explore one-line DeFi with Torus."
         links={[
           { label: "Open Sandbox", href: "/sandbox" },
-          { label: "One Line DeFi", href: "/torus", variant: "secondary" },
+          { label: "One Line DeFi", href: "/defi", variant: "secondary" },
         ]}
       />
     </SuperpowerPage>

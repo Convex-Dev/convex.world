@@ -104,7 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/torus`,
+      url: `${baseUrl}/defi`,
       lastModified: buildDate,
       changeFrequency: "monthly",
       priority: 0.5,
