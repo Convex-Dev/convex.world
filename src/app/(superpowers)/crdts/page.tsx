@@ -1,6 +1,6 @@
 import SuperpowerPage from "@/components/SuperpowerPage";
 import CtaSection from "@/components/CtaSection";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 
 export const metadata = getSuperpowerMetadata("/crdts");
 

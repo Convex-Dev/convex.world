@@ -4,12 +4,12 @@ import { ArrowUpRight, BookOpen } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import StructuredData from "@/lib/structured-data";
 import Highlights from "@/components/Highlights";
-import { getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "@/data/superpowers";
 
 interface SuperpowerPageProps {
   href: string;
   visual?: ReactNode;
-  /** Rendered below the hero description. Defaults to the highlights grid from superpower-metadata. */
+  /** Rendered below the hero description. Defaults to the highlights grid from superpowers. */
   heroMeta?: ReactNode;
   /** Rich content panel displayed below heroMeta (or the default highlights). */
   heroContent?: ReactNode;

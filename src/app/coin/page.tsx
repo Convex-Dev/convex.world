@@ -5,7 +5,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ConvexLogoAnimated from "@/components/ConvexLogoAnimated";
 import ReleaseCurveChart from "@/components/ReleaseCurveChart";
 import StructuredData from "@/lib/structured-data";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 
 export const metadata = getSuperpowerMetadata("/coin");
 

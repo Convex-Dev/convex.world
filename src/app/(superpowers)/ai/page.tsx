@@ -2,7 +2,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import AgentLatticeAnimation from "@/components/AgentLatticeAnimation";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 import { howAgentsConnect } from "@/data/ai-how-agents-connect";
 import { capabilities } from "@/data/ai-capabilities";
 import { getIcon } from "@/lib/icons";

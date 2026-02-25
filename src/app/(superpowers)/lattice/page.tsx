@@ -4,7 +4,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import LatticeDotsGrid from "@/components/LatticeDotsGrid";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 import { foundationBlocks } from "@/data/lattice-foundation";
 import { regions } from "@/data/lattice-regions";
 import { innovations } from "@/data/lattice-innovations";

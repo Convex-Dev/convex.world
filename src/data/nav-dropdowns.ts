@@ -1,4 +1,4 @@
-import { superpowers } from "@/data/superpower-metadata";
+import { superpowers } from "@/data/superpowers";
 
 export interface NavDropdownItem {
   label: string;

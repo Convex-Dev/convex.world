@@ -4,7 +4,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import VisionNetworkAnimation from "@/components/VisionNetworkAnimation";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 import { principles } from "@/data/vision-principles";
 import { getIcon } from "@/lib/icons";
 

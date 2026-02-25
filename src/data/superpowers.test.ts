@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { superpowers, getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "./superpower-metadata";
+import { superpowers, getSuperpowerMetadata, getSuperpowerPage, buildHeroTitle } from "./superpowers";
 
 /** All hrefs that have a `page` block in the superpowers array */
 const pageHrefs = superpowers

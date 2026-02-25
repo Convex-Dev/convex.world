@@ -2,7 +2,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import CposHexAnimation from "@/components/CposHexAnimation";
-import { getSuperpowerMetadata } from "@/data/superpower-metadata";
+import { getSuperpowerMetadata } from "@/data/superpowers";
 import { advantages } from "@/data/cpos-advantages";
 import { howItWorks } from "@/data/cpos-how-it-works";
 import { getIcon } from "@/lib/icons";
