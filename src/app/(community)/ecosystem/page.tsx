@@ -18,12 +18,12 @@ export default function Ecosystem() {
       {/* Hero Section */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Building on Convex</span>
-        <h1>Featured Projects</h1>
+        <h1 className="page-hero-title">Featured Projects</h1>
         <p className="community-hero-text">Organisations leveraging Convex for real-world impact</p>
       </section>
 
       {/* Projects Grid */}
-      <section className="eco-section">
+      <section className="content-section">
         <div className="eco-grid">
           {ecosystemItems.map((item) => (
             <a
@@ -31,7 +31,7 @@ export default function Ecosystem() {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="eco-card"
+              className="hover-card eco-card"
             >
               <span className="eco-card-category">{item.category}</span>
               <div className="eco-card-header">
@@ -59,7 +59,7 @@ export default function Ecosystem() {
       </section>
 
       {/* Join Section */}
-      <section className="eco-section">
+      <section className="content-section">
         <SectionHeader number="002" title="Join the Ecosystem" subtitle="Build with us and be part of the next generation of decentralised systems" />
         <div className="eco-join-grid">
           <div className="eco-join-card">
@@ -97,7 +97,7 @@ export default function Ecosystem() {
 
       {/* CTA */}
       <CtaSection
-        className="eco-cta"
+        className="page-cta"
         title="Building on Convex?"
         description="If you're building on Convex and want to be featured here, reach out and we'll add you to the ecosystem."
         links={[

@@ -18,19 +18,19 @@ export default function Tools() {
       {/* Hero Section */}
       <section className="tools-hero">
         <span className="dev-hero-tag">//Network Resources</span>
-        <h1>Convex Tools</h1>
+        <h1 className="page-hero-title">Convex Tools</h1>
         <p>Everything you need to explore, build, test, and deploy</p>
       </section>
 
       {/* Tools Grid */}
-      <section className="tools-section">
+      <section className="content-section tools-section">
         <div className="tools-grid">
           {tools.map((tool, i) => {
             const IconComponent = getIcon(tool.icon);
             const number = (i + 1).toString().padStart(2, "0");
             return (
               <div key={tool.title} className="tool-card-wrapper">
-                <article className="tool-card">
+                <article className="hover-card tool-card">
                   <div className="tool-card-header">
                     <div className="tool-card-icon">
                       <IconComponent size={24} strokeWidth={1.5} />
@@ -73,7 +73,7 @@ export default function Tools() {
       </section>
 
       {/* Quick Start Section */}
-      <section className="tools-section">
+      <section className="content-section tools-section">
         <SectionHeader number="002" title="Quick Start" subtitle="Get up and running with the Convex CLI" />
         <div className="tools-quickstart">
           <div className="quickstart-step">
@@ -131,7 +131,7 @@ export default function Tools() {
 
       {/* CTA */}
       <CtaSection
-        className="tools-cta"
+        className="page-cta tools-cta"
         title="Ready to build?"
         description="Explore the documentation for in-depth guides and API references."
         links={[

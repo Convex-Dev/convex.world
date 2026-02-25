@@ -68,7 +68,7 @@ export default async function Community() {
       {/* Hero + Social Links */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Connect with us</span>
-        <h1>
+        <h1 className="page-hero-title">
           Join the{" "}
           Community
         </h1>
@@ -97,7 +97,7 @@ export default async function Community() {
       </section>
 
       {/* Activity Timeline */}
-      <section className="community-section">
+      <section className="content-section community-section">
         <SectionHeader title="Feed" subtitle="The latest from the Convex ecosystem" />
         <div className="community-timeline">
           {displayContent.map((item, index) => (
@@ -151,7 +151,7 @@ export default async function Community() {
       </section>
 
       {/* Community CTA */}
-      <section className="community-cta">
+      <section className="page-cta community-cta">
         <div className="community-cta-content">
           <h3>Ready to Build the Future?</h3>
           <p>Whether you&apos;re a developer, researcher, or just curious about decentralised systems—there&apos;s a place for you here.</p>

@@ -163,7 +163,7 @@ export default function Coin() {
         </div>
       </section>
 
-      <section className="coin-cta">
+      <section className="page-cta coin-cta">
         <h3>Ready to participate?</h3>
         <p>Join the Convex ecosystem and be part of the future of decentralised systems.</p>
         <div className="btn-group">

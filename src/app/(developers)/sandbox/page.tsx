@@ -23,7 +23,7 @@ export default function SandboxPage() {
             <div className="lattice-bg" aria-hidden="true" />
 
             {/* Hero */}
-            <section className="dev-section" >
+            <section className="content-section" >
               <div className="section-header">
                 <span className="section-number">// Sandbox</span>
               </div>

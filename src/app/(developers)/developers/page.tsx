@@ -39,11 +39,11 @@ export default function Developer() {
       </section>
 
       {/* Core Technologies */}
-      <section className="dev-section">
+      <section className="content-section">
         <SectionHeader number="001" title="Core Technologies" subtitle="The foundational layers that power the Convex network" />
         <div className="dev-grid">
           {/* CVM Card */}
-          <article className="dev-card dev-card-featured">
+          <article className="hover-card dev-card dev-card-featured">
             <span className="dev-card-number">01</span>
             <div className="dev-card-icon dev-card-icon-cvm">
               <CvmIcon />
@@ -62,7 +62,7 @@ export default function Developer() {
           </article>
 
           {/* Convex Lisp Card */}
-          <article className="dev-card dev-card-featured">
+          <article className="hover-card dev-card dev-card-featured">
             <span className="dev-card-number">02</span>
             <div className="dev-card-icon">
               <Image src="/images/convex86.webp" alt="Convex" width={24} height={24} />
@@ -82,7 +82,7 @@ export default function Developer() {
           </article>
 
           {/* Lattice Data Card */}
-          <article className="dev-card">
+          <article className="hover-card dev-card">
             <span className="dev-card-number">03</span>
             <div className="dev-card-icon dev-card-icon-lattice">
               <LatticeDataIcon />
@@ -98,7 +98,7 @@ export default function Developer() {
       </section>
 
       {/* Getting Started */}
-      <section className="dev-section">
+      <section className="content-section">
         <SectionHeader number="002" title="Getting Started" subtitle="Everything you need to start building on Convex" />
         <div className="dev-resources-grid">
           <Link href="https://docs.convex.world/docs/intro" className="dev-resource-card" target="_blank">
