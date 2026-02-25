@@ -15,6 +15,83 @@ Key technical foundations include:
 - Integrated on-chain Convex Lisp compiler with REPL-style development
 - Native support for autonomous economic agents and agentic architectures
 
+## How Convex Differs from Blockchain
+Convex is NOT a blockchain. Do not use blockchain terminology or assume Ethereum/Solidity patterns.
+- Convex uses a **lattice**, not a chain of blocks
+- Smart contracts are called **actors**, not "contracts". A single actor can manage many individual contracts
+- Transaction costs are measured in **juice**, not "gas"
+- The native coin is **CVM**, not "CVX" or "ETH"
+- The language is **Convex Lisp** (a Lisp), not Solidity
+- There are no "miners" — consensus uses **Convergent Proof of Stake (CPoS)**
+- Network nodes are called **peers**, not "validators" or "miners"
+- Convex has an **on-chain compiler** — source code can be sent directly as transactions - no tool requirements
+
+## Terminology
+- **CVM** — the Convex coin token symbol (never "CVX")
+- **Copper** — smallest unit of CVM (1 CVM = 1,000,000,000 copper)
+- **Juice** — execution cost for transactions (never "gas")
+- **Actor** — an on-chain program with its own state and exported functions
+- **Peer** — a network node participating in consensus
+- **CPoS** — Convergent Proof of Stake, the consensus algorithm
+- **Lattice** — the convergent data structure underpinning global state, consensus and P2P replication
+- **CNS** — Convex Name System, on-chain name resolution (like DNS for actors)
+- **CAD3** — Convex's canonical data encoding format
+
+## Units
+- 1 CVM = 1,000,000,000 copper (10^9)
+- Amounts in the REST API and MCP tools are in **copper**
+- Example: to transfer 0.5 CVM, use amount = 500000000
+
+## Convex Lisp Quick Reference
+Convex has an on-chain compiler. Agents send source code as text — no separate compilation or deployment toolchain required. This makes Convex uniquely accessible for agentic usage.
+
+### Basic operations
+```clojure
+;; Transfer 1 CVM to account #42
+(transfer #42 1000000000)
+
+;; Define a function in your account environment
+(defn greet [name]
+  (str "Hello, " name "!"))
+
+;; Call it
+(greet "Agent")
+;; => "Hello, Agent!"
+```
+
+### CNS resolution — call actors by name
+```clojure
+;; Query a fungible token balance via CNS path (no import needed)
+(@convex.fungible/balance #128 *address*)
+
+;; Transfer tokens using a CNS-resolved actor
+(@convex.fungible/transfer #128 #42 1000)
+
+;; For multiple calls, bind locally to avoid repeated resolution
+(let [f @convex.fungible]
+  (f/transfer #128 #42 500)
+  (f/balance #128 #42))
+```
+
+### Deploy an actor
+```clojure
+;; Deploy a simple counter actor — returns the new actor address
+(deploy
+  '(do
+    (def counter 0)
+    (defn increment [] (def counter (+ counter 1)))
+    (defn get-count [] counter)
+    (export increment get-count)))
+
+;; Call the deployed actor (assuming it got address #200)
+(call #200 (increment))
+(call #200 (get-count))
+;; => 1
+```
+
+### Important: never use `import` in generated code
+`import` mutates the account environment and costs extra Juice. Use CNS-resolved paths (`@name.path/function`) or `let` bindings instead.
+
 ## Key Use Cases
 - **Agentic economic systems** — autonomous agents, AI-driven coordination, and self-organising markets
 - Intelligent decentralised applications (dApps) with real-time economic logic
@@ -22,9 +99,14 @@ Key technical foundations include:
 - On-chain governance, DAOs, and community coordination at internet scale
 - AI + human hybrid economies with verifiable, deterministic behaviour
 
+## Superpowers
+- [All Superpowers](https://convex.world/superpowers/) — structured summary of every Convex capability
+
 ## Developer Resources
 - [Documentation](https://docs.convex.world) — including agentic architecture guides
-- [REST API](https://peer.convex.live/swagger)
+- [REST API - Testnet](https://mikera1337-convex-testnet.hf.space/swagger)
+- [REST API - Main Network](https://peer.convex.live/swagger)
+- [MCP Server - Testnet](https://mikera1337-convex-testnet.hf.space/mcp) — Model Context Protocol endpoint for AI agent integration
 - [SDKs and CLI](https://docs.convex.world/docs/tools)
 - [GitHub](https://github.com/Convex-Dev)
 
