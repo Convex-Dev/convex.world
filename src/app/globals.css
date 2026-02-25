@@ -124,7 +124,7 @@
   --container-wide: 1600px;
   --container-narrow: 800px;
   --header-height: 90px;
-  --page-px: clamp(24px, 8vw, 160px);
+  --page-px: clamp(1em, calc(1em + (100vw - 1024px) * 0.16), 160px);
 }
 
 /* Light Mode - Clean, professional slate-based palette */
@@ -2829,20 +2829,21 @@ nav .logo {
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  margin-left: var(--space-8);
+  margin-left: clamp(var(--space-4), 2vw, var(--space-8));
+  min-width: 0;
 }
 
 .nav-links-group {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: clamp(var(--space-1), 1.5vw, var(--space-6));
 }
 
 .nav-utils-group {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  margin-left: var(--space-8);
+  flex-shrink: 0;
 }
 
 /* Language Picker */
