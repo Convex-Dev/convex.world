@@ -124,6 +124,7 @@
   --container-wide: 1600px;
   --container-narrow: 800px;
   --header-height: 90px;
+  --page-px: clamp(24px, 8vw, 160px);
 }
 
 /* Light Mode - Clean, professional slate-based palette */
@@ -265,17 +266,18 @@ main {
   padding-top: var(--header-height);
 }
 
-.page-container {
+/* Page container — applied once on ContentPage <main>, provides horizontal constraints */
+.page-content {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--space-6);
+  padding-left: var(--page-px);
+  padding-right: var(--page-px);
 }
 
-/* Standard content section — constrained width with fluid padding */
+/* Standard content section */
 .content-section {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-12) clamp(24px, 8vw, 160px);
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
 }
 
 /* Card hover effect — top accent bar and radial glow */
@@ -341,7 +343,7 @@ nav {
   height: var(--header-height);
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 clamp(24px, 8vw, 160px);
+  padding: 0 var(--page-px);
 }
 
 nav > div {
@@ -937,7 +939,7 @@ nav > a:first-child {
   align-items: flex-start;
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 clamp(24px, 8vw, 160px);
+  padding: 0 var(--page-px);
   padding-top: calc(var(--header-height) + 8vh);
   padding-bottom: 10vh;
   position: relative;
@@ -965,14 +967,14 @@ nav > a:first-child {
 }
 
 .hero-split .hero-title {
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-size: clamp(2rem, 4vw, 4.5rem);
   margin-bottom: var(--space-8);
   line-height: var(--leading-tight);
   max-width: 100%;
 }
 
 .hero-split .hero-subtitle {
-  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
   max-width: 480px;
   margin-bottom: var(--space-8);
   margin-left: 0;
@@ -1511,8 +1513,6 @@ nav > a:first-child {
   justify-content: center;
   gap: var(--space-8);
   width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
   padding: var(--space-8) var(--space-10);
   background: linear-gradient(180deg, 
     rgba(18, 18, 22, 0.98) 0%, 
@@ -1977,7 +1977,7 @@ nav > a:first-child {
 .capabilities-compact {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: var(--space-12) clamp(24px, 8vw, 160px);
+  padding: var(--space-12) var(--page-px);
   position: relative;
   z-index: 10;
 }
@@ -2426,69 +2426,40 @@ nav > a:first-child {
   }
 }
 
-/* Responsive - Hero and Hex Grid */
-@media (max-width: 1400px) {
+/* Responsive - Hero and Hex Grid — single-column below 900px */
+@media (max-width: 900px) {
   .hero-split {
     grid-template-columns: 1fr;
     padding-top: calc(var(--header-height) + 4vh);
     gap: var(--space-8);
+    min-height: auto;
   }
-  
+
   .hero-left {
-    max-width: clamp(600px, 70vw, 900px);
+    max-width: clamp(480px, 85vw, 720px);
     margin: 0 auto;
     text-align: center;
     align-items: center;
   }
-  
+
   .hero-split .hero-cta-group {
     justify-content: center;
   }
 
-  /* Hide empty hero-right on single-column layout */
   .hero-right {
     display: none;
   }
 
-  /* Hide desktop hex grid — use mobile grid on single-column layouts */
   .hex-grid-bg {
     display: none;
   }
-  
+
   .hex-grid-mobile {
     display: block !important;
   }
-}
 
-/* Portrait tablets with lots of vertical space — scale up hero content */
-@media (min-width: 900px) and (max-width: 1400px) and (min-height: 1100px) {
-  .hero-split .hero-title {
-    font-size: clamp(3.5rem, 7vw, 5rem);
-  }
-  
   .hero-split .hero-subtitle {
-    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-    max-width: 560px;
-  }
-  
-  .hero-left {
-    max-width: clamp(700px, 80vw, 1000px);
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-split {
-    min-height: auto;
-    padding-bottom: var(--space-4);
-  }
-  
-  .hero-split .hero-title {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-  
-  .hero-split .hero-subtitle {
-    font-size: clamp(0.95rem, 3vw, 1.1rem);
-    max-width: 280px;
+    max-width: 360px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2572,7 +2543,7 @@ nav > a:first-child {
 .footer-content {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 clamp(24px, 8vw, 160px);
+  padding: 0 var(--page-px);
 }
 
 /* Footer Network Status Strip */
@@ -3455,9 +3426,7 @@ nav .logo {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-12);
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-24) clamp(24px, 8vw, 160px) var(--space-20);
+  padding: var(--space-24) 0 var(--space-20);
   min-height: 85vh;
   align-items: center;
 }
@@ -3466,7 +3435,7 @@ nav .logo {
   .dev-hero-split {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-16);
-    padding: var(--space-24) clamp(24px, 8vw, 160px) var(--space-20);
+    padding: var(--space-24) 0 var(--space-20);
   }
 }
 
@@ -3805,9 +3774,7 @@ nav .logo {
 }
 
 .dev-cta {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-16) clamp(24px, 8vw, 160px);
+  padding-top: var(--space-16); padding-bottom: var(--space-16);
 }
 
 .dev-cta-content {
@@ -3848,7 +3815,7 @@ nav .logo {
 /* Mobile: 480px */
 @media (max-width: 480px) {
   .dev-hero-split {
-    padding: var(--space-12) var(--space-4);
+    padding: var(--space-12) 0;
   }
 
   .dev-hero-content h1 {
@@ -4110,8 +4077,7 @@ nav .logo {
   padding: var(--space-8) var(--space-6);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  max-width: var(--container-max);
-  margin: 0 auto var(--space-12);
+  margin-bottom: var(--space-12);
 }
 
 .eco-stat {
@@ -4826,9 +4792,7 @@ nav .logo {
 .coin-value-section {
   position: relative;
   z-index: 1;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-12) var(--space-6);
+  padding-top: var(--space-12); padding-bottom: var(--space-12);
 }
 
 .coin-value-grid {
@@ -4898,8 +4862,6 @@ nav .logo {
 }
 
 .coin-free-content {
-  max-width: var(--container-max);
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -4958,9 +4920,7 @@ nav .logo {
 .coin-tokenomics {
   position: relative;
   z-index: 1;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-24) var(--space-6);
+  padding-top: var(--space-24); padding-bottom: var(--space-24);
   min-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -5086,9 +5046,7 @@ nav .logo {
 .coin-curve-section {
   position: relative;
   z-index: 1;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-24) var(--space-6);
+  padding-top: var(--space-24); padding-bottom: var(--space-24);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -6216,9 +6174,7 @@ nav .logo {
 
 /* Sandbox Section */
 .dev-sandbox-section {
-  padding: var(--space-20) var(--space-6);
-  max-width: var(--container-max);
-  margin: 0 auto;
+  padding-top: var(--space-20); padding-bottom: var(--space-20);
 }
 
 .dev-sandbox-container {
@@ -6586,7 +6542,7 @@ nav .logo {
 
 /* Inspector Section Layout */
 .inspector-section {
-  padding: var(--space-20) clamp(24px, 8vw, 160px);
+  padding: var(--space-20) var(--page-px);
   max-width: var(--container-max);
   margin: 0 auto;
 }
@@ -6757,9 +6713,7 @@ nav .logo {
    ========================================================================== */
 
 .brand-hero {
-  padding: var(--space-20) var(--space-6) var(--space-12);
-  max-width: var(--container-max);
-  margin: 0 auto;
+  padding: var(--space-20) 0 var(--space-12);
   text-align: center;
 }
 
@@ -6770,9 +6724,7 @@ nav .logo {
 }
 
 .brand-section {
-  padding: var(--space-12) var(--space-6);
-  max-width: var(--container-max);
-  margin: 0 auto;
+  padding-top: var(--space-12); padding-bottom: var(--space-12);
 }
 
 .brand-logo-grid {
@@ -6974,9 +6926,7 @@ nav .logo {
 }
 
 .brand-cta {
-  padding: var(--space-16) var(--space-6);
-  max-width: var(--container-max);
-  margin: 0 auto;
+  padding-top: var(--space-16); padding-bottom: var(--space-16);
   text-align: center;
 }
 
@@ -7003,9 +6953,7 @@ nav .logo {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-4);
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-8) clamp(24px, 6vw, 120px) var(--space-12);
+  padding: var(--space-8) 0 var(--space-12);
   align-items: start;
   overflow: visible;
 }
@@ -7144,9 +7092,7 @@ nav .logo {
 
 /* Content wrapper — bounds all children and styles prose */
 .vision-content {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 clamp(24px, 6vw, 120px);
+  padding: 0;
 }
 
 .vision-content > p,
@@ -7160,9 +7106,7 @@ nav .logo {
 
 /* Sections — matches dev-section padding */
 .vision-section {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-16) clamp(24px, 6vw, 120px);
+  padding-top: var(--space-16); padding-bottom: var(--space-16);
 }
 
 .vision-section .section-header {
@@ -7400,9 +7344,7 @@ nav .logo {
 
 /* CTA — matches dev-cta pattern */
 .vision-cta {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: var(--space-20) clamp(24px, 8vw, 160px);
+  padding-top: var(--space-20); padding-bottom: var(--space-20);
   text-align: center;
 }
 

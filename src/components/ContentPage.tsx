@@ -12,7 +12,7 @@ export default function ContentPage({ children, mainClassName, noLatticeBg }: Co
   return (
     <>
       <Navigation />
-      <main className={mainClassName}>
+      <main className={`page-content${mainClassName ? ` ${mainClassName}` : ''}`}>
         {!noLatticeBg && <div className="lattice-bg" aria-hidden="true" />}
         {children}
         <div className="geo-line" aria-hidden="true" />
