@@ -2,31 +2,16 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import CposHexAnimation from "@/components/CposHexAnimation";
-import StructuredData from "@/lib/structured-data";
+import { getSuperpowerMetadata } from "@/data/superpower-metadata";
 import { advantages } from "@/data/cpos-advantages";
 import { howItWorks } from "@/data/cpos-how-it-works";
 import { getIcon } from "@/lib/icons";
 
-export const metadata = {
-  title: "Convergent Proof of Stake — Convex",
-  description: "The world's fastest truly decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality.",
-};
+export const metadata = getSuperpowerMetadata("/cpos");
 
 export default function CPoS() {
   return (
-    <>
-    <StructuredData type="WebPage" metadata={metadata} path="/cpos/" />
-    <SuperpowerPage
-      tag="// Consensus"
-      title={<>Convergent<br /><span className="hero-accent">Proof of Stake</span></>}
-      description="The world's fastest truly decentralised consensus algorithm for a global state machine. CPoS operates as a CRDT, not a blockchain, solving the scalability trilemma."
-      highlights={[
-        { label: "Finality", value: "<1s" },
-        { label: "BFT Threshold", value: "⅔" },
-        { label: "Energy Cost", value: "~0" },
-      ]}
-      visual={<div className="vision-hero-visual"><CposHexAnimation /></div>}
-    >
+    <SuperpowerPage href="/cpos" visual={<div className="vision-hero-visual"><CposHexAnimation /></div>}>
       {/* How It Works */}
       <section className="vision-section">
         <SectionHeader number="001" title="How CPoS Works" subtitle="Consensus through convergence, not competition" />
@@ -126,6 +111,5 @@ export default function CPoS() {
         ]}
       />
     </SuperpowerPage>
-    </>
   );
 }

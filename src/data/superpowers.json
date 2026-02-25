@@ -1,10 +1,47 @@
 [
   {
+    "title": "Vision",
+    "desc": "Building open economies for all",
+    "href": "/vision",
+    "category": "overview",
+    "icon": "globe",
+    "metadata": {
+      "title": "Vision — Convex",
+      "description": "Building open economies for all. The public, decentralised foundation for real-time exchange of data and value."
+    },
+    "page": {
+      "tag": "// Vision",
+      "heroTitle": "Building open",
+      "heroAccent": "economies for all",
+      "description": "Centralised gatekeepers have dominated our economies for too long, extracting rents, inflating costs, and excluding billions from participation. Convex is the public, decentralised foundation for real-time exchange of data and value.",
+      "highlights": [
+        { "label": "Superpowers", "value": "17" },
+        { "label": "Open Source", "value": "100%" },
+        { "label": "Non-Profit", "value": "✓" }
+      ]
+    }
+  },
+  {
     "title": "Data Lattice",
     "desc": "Global, replicated, self-healing, content-addressable data fabric",
     "href": "/lattice",
     "category": "infrastructure",
-    "icon": "database"
+    "icon": "database",
+    "metadata": {
+      "title": "Data Lattice — Convex",
+      "description": "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs."
+    },
+    "page": {
+      "tag": "// Core Technology",
+      "heroTitle": "The Data",
+      "heroAccent": "Lattice",
+      "description": "A boundless, self-healing cloud of decentralised data and computing power. Fortified by cryptography and seamless consensus, no single entity controls it.",
+      "highlights": [
+        { "label": "Replication", "value": "CRDT" },
+        { "label": "Addressing", "value": "Content" },
+        { "label": "Scale", "value": "∞" }
+      ]
+    }
   },
   {
     "title": "Lattice CRDTs",
@@ -19,7 +56,22 @@
     "desc": "Realtime convergent consensus algorithm for shared global state: faster than any blockchain",
     "href": "/cpos",
     "category": "infrastructure",
-    "icon": "shield"
+    "icon": "shield",
+    "metadata": {
+      "title": "Convergent Proof of Stake — Convex",
+      "description": "The world's fastest truly decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality."
+    },
+    "page": {
+      "tag": "// Consensus",
+      "heroTitle": "Convergent",
+      "heroAccent": "Proof of Stake",
+      "description": "The world's fastest truly decentralised consensus algorithm for a global state machine. CPoS operates as a CRDT, not a blockchain, solving the scalability trilemma.",
+      "highlights": [
+        { "label": "Finality", "value": "<1s" },
+        { "label": "BFT Threshold", "value": "⅔" },
+        { "label": "Energy Cost", "value": "~0" }
+      ]
+    }
   },
   {
     "title": "Virtual Machine",
@@ -50,7 +102,22 @@
     "desc": "A utility token for global state transactions with fair economics",
     "href": "/coin",
     "category": "economy",
-    "icon": "coins"
+    "icon": "coins",
+    "metadata": {
+      "title": "Convex Coin (CVM)",
+      "description": "The native utility token powering the Convex decentralised execution engine. 1B max supply, fair release curve, zero read fees."
+    },
+    "page": {
+      "tag": "// Economy",
+      "heroTitle": "Convex",
+      "heroAccent": "Coin",
+      "description": "The native utility token powering the world's most efficient decentralised execution engine.",
+      "highlights": [
+        { "label": "Max Supply", "value": "1B" },
+        { "label": "Coppers per Coin", "value": "10⁹" },
+        { "label": "Read Fees", "value": "0" }
+      ]
+    }
   },
   {
     "title": "Digital Assets",
@@ -112,7 +179,21 @@
     "desc": "All the power of the lattice with agentic tools using the Model Context Protocol",
     "href": "/ai",
     "category": "platform",
-    "icon": "bot"
+    "icon": "bot",
+    "metadata": {
+      "title": "Agentic Economy — Convex",
+      "description": "The open network where autonomous agents are first-class economic participants. Built-in MCP, programmable accounts, and a live Lisp compiler."
+    },
+    "page": {
+      "tag": "// Platform",
+      "heroTitle": "Agentic Economy",
+      "description": "The open network where autonomous agents are first-class economic participants. Built-in MCP, programmable accounts, and a live Lisp compiler give agents the same rights, the same costs, and the same finality as humans.",
+      "highlights": [
+        { "label": "MCP", "value": "Native" },
+        { "label": "Accounts", "value": "Programmable" },
+        { "label": "Identity", "value": "DID" }
+      ]
+    }
   },
   {
     "title": "Open Source",

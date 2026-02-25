@@ -4,30 +4,15 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import VisionNetworkAnimation from "@/components/VisionNetworkAnimation";
-import StructuredData from "@/lib/structured-data";
+import { getSuperpowerMetadata } from "@/data/superpower-metadata";
 import { principles } from "@/data/vision-principles";
 import { getIcon } from "@/lib/icons";
 
-export const metadata = {
-  title: "Vision — Convex",
-  description: "Building open economies for all. The public, decentralised foundation for real-time exchange of data and value.",
-};
+export const metadata = getSuperpowerMetadata("/vision");
 
 export default function Vision() {
   return (
-    <>
-    <StructuredData type="WebPage" metadata={metadata} path="/vision/" />
-    <SuperpowerPage
-      tag="// Vision"
-      title={<>Building open<br /><span className="hero-accent">economies for all</span></>}
-      description="Centralised gatekeepers have dominated our economies for too long, extracting rents, inflating costs, and excluding billions from participation. Convex is the public, decentralised foundation for real-time exchange of data and value."
-      highlights={[
-        { label: "Superpowers", value: "17" },
-        { label: "Open Source", value: "100%" },
-        { label: "Non-Profit", value: "✓" },
-      ]}
-      visual={<div className="vision-hero-visual"><VisionNetworkAnimation /></div>}
-    >
+    <SuperpowerPage href="/vision" visual={<div className="vision-hero-visual"><VisionNetworkAnimation /></div>}>
       {/* The Why */}
       <section className="vision-section">
         <SectionHeader number="001" title="Why Convex Exists" subtitle="Three convictions that drive everything we build" />
@@ -135,6 +120,5 @@ export default function Vision() {
         ]}
       />
     </SuperpowerPage>
-    </>
   );
 }

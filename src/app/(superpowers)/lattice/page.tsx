@@ -4,32 +4,17 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import LatticeDotsGrid from "@/components/LatticeDotsGrid";
-import StructuredData from "@/lib/structured-data";
+import { getSuperpowerMetadata } from "@/data/superpower-metadata";
 import { foundationBlocks } from "@/data/lattice-foundation";
 import { regions } from "@/data/lattice-regions";
 import { innovations } from "@/data/lattice-innovations";
 import { getIcon } from "@/lib/icons";
 
-export const metadata = {
-  title: "Data Lattice — Convex",
-  description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs.",
-};
+export const metadata = getSuperpowerMetadata("/lattice");
 
 export default function Lattice() {
   return (
-    <>
-    <StructuredData type="WebPage" metadata={metadata} path="/lattice/" />
-    <SuperpowerPage
-      tag="// Core Technology"
-      title={<>The Data <span className="hero-accent">Lattice</span></>}
-      description="A boundless, self-healing cloud of decentralised data and computing power. Fortified by cryptography and seamless consensus, no single entity controls it."
-      highlights={[
-        { label: "Replication", value: "CRDT" },
-        { label: "Addressing", value: "Content" },
-        { label: "Scale", value: "∞" },
-      ]}
-      visual={<LatticeDotsGrid />}
-    >
+    <SuperpowerPage href="/lattice" visual={<LatticeDotsGrid />}>
       {/* Foundation */}
       <section className="vision-section">
         <SectionHeader number="001" title="Algebraic Foundation" subtitle="Mathematics as infrastructure" />
@@ -121,6 +106,5 @@ export default function Lattice() {
         ]}
       />
     </SuperpowerPage>
-    </>
   );
 }

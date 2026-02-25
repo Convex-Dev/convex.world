@@ -5,11 +5,9 @@ import SectionHeader from "@/components/SectionHeader";
 import ConvexLogoAnimated from "@/components/ConvexLogoAnimated";
 import ReleaseCurveChart from "@/components/ReleaseCurveChart";
 import StructuredData from "@/lib/structured-data";
+import { getSuperpowerMetadata } from "@/data/superpower-metadata";
 
-export const metadata = {
-  title: "Convex Coin (CVM)",
-  description: "The native utility token powering the Convex decentralised execution engine. 1B max supply, fair release curve, zero read fees.",
-};
+export const metadata = getSuperpowerMetadata("/coin");
 
 export default function Coin() {
   return (
