@@ -4,11 +4,18 @@ import { ArrowUpRight, Users, Building2, Globe2 } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import CtaSection from "@/components/CtaSection";
 import SectionHeader from "@/components/SectionHeader";
+import StructuredData from "@/lib/structured-data";
 import { ecosystemItems } from "@/data/ecosystem-items";
+
+export const metadata = {
+  title: "Ecosystem",
+  description: "Organisations and projects building on the Convex decentralised lattice platform.",
+};
 
 export default function Ecosystem() {
   return (
     <ContentPage>
+      <StructuredData type="WebPage" metadata={metadata} path="/ecosystem/" />
       {/* Hero Section */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Building on Convex</span>

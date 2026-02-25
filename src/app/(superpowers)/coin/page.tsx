@@ -4,10 +4,17 @@ import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import ConvexLogoAnimated from "@/components/ConvexLogoAnimated";
 import ReleaseCurveChart from "@/components/ReleaseCurveChart";
+import StructuredData from "@/lib/structured-data";
+
+export const metadata = {
+  title: "Convex Coin (CVM)",
+  description: "The native utility token powering the Convex decentralised execution engine. 1B max supply, fair release curve, zero read fees.",
+};
 
 export default function Coin() {
   return (
     <ContentPage mainClassName="coin-page">
+      <StructuredData type="WebPage" metadata={metadata} path="/coin/" />
       <ConvexLogoAnimated />
 
       <section className="coin-hero">

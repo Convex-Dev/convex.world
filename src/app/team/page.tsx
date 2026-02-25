@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ContentPage from "@/components/ContentPage";
+import StructuredData from "@/lib/structured-data";
 
 interface TeamMember {
   name: string;
@@ -56,6 +57,11 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
+export const metadata = {
+  title: "Team",
+  description: "Meet the people building the future of decentralised economic systems at Convex.",
+};
+
 const socialIcons: Record<string, { src: string; alt: string }> = {
   github: { src: "/images/social_github.webp", alt: "GitHub" },
   linkedin: { src: "/images/social_linkedin.webp", alt: "LinkedIn" },
@@ -66,6 +72,7 @@ const socialIcons: Record<string, { src: string; alt: string }> = {
 export default function Team() {
   return (
     <ContentPage noLatticeBg>
+      <StructuredData type="AboutPage" metadata={metadata} path="/team/" />
       <div className="container">
         <div className="hero-section">
           <h1>Our Team</h1>

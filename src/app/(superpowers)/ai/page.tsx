@@ -2,6 +2,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import AgentLatticeAnimation from "@/components/AgentLatticeAnimation";
+import StructuredData from "@/lib/structured-data";
 import { howAgentsConnect } from "@/data/ai-how-agents-connect";
 import { capabilities } from "@/data/ai-capabilities";
 import { getIcon } from "@/lib/icons";
@@ -13,6 +14,8 @@ export const metadata = {
 
 export default function AgenticEconomy() {
   return (
+    <>
+    <StructuredData type="WebPage" metadata={metadata} path="/ai/" />
     <SuperpowerPage
       tag="// Platform"
       title="Agentic Economy"
@@ -122,5 +125,6 @@ export default function AgenticEconomy() {
         ]}
       />
     </SuperpowerPage>
+    </>
   );
 }

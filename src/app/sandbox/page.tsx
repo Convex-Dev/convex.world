@@ -3,6 +3,7 @@ import { Zap, Terminal, Database, MonitorSmartphone, ArrowUpRight } from "lucide
 import ReplSandbox from "@/components/ReplSandbox";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import StructuredData from "@/lib/structured-data";
 import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 
@@ -15,6 +16,7 @@ export const metadata = {
 export default function SandboxPage() {
   return (
     <>
+      <StructuredData type="WebApplication" metadata={metadata} path="/sandbox/" />
       <Navigation />
       <main>
         <WalletProvider persistKey="convex.world:wallet">

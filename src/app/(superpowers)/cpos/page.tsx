@@ -2,6 +2,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import CposHexAnimation from "@/components/CposHexAnimation";
+import StructuredData from "@/lib/structured-data";
 import { advantages } from "@/data/cpos-advantages";
 import { howItWorks } from "@/data/cpos-how-it-works";
 import { getIcon } from "@/lib/icons";
@@ -13,6 +14,8 @@ export const metadata = {
 
 export default function CPoS() {
   return (
+    <>
+    <StructuredData type="WebPage" metadata={metadata} path="/cpos/" />
     <SuperpowerPage
       tag="// Consensus"
       title={<>Convergent<br /><span className="hero-accent">Proof of Stake</span></>}
@@ -123,5 +126,6 @@ export default function CPoS() {
         ]}
       />
     </SuperpowerPage>
+    </>
   );
 }

@@ -4,7 +4,13 @@ import Parser from "rss-parser";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
+import StructuredData from "@/lib/structured-data";
 import { socialLinks, FALLBACK_RECENT, type RecentItem } from "@/data/community-social";
+
+export const metadata = {
+  title: "Community",
+  description: "Join the Convex community. Connect with builders, researchers, and pioneers shaping the future of decentralised coordination.",
+};
 
 const RSS_URL = "https://docs.convex.world/blog/rss.xml";
 
@@ -59,6 +65,7 @@ export default async function Community() {
 
   return (
     <ContentPage>
+      <StructuredData type="WebPage" metadata={metadata} path="/community/" />
       {/* Hero + Social Links */}
       <section className="community-hero">
         <span className="dev-hero-tag">// Connect with us</span>

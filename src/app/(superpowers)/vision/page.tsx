@@ -4,6 +4,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import VisionNetworkAnimation from "@/components/VisionNetworkAnimation";
+import StructuredData from "@/lib/structured-data";
 import { principles } from "@/data/vision-principles";
 import { getIcon } from "@/lib/icons";
 
@@ -14,6 +15,8 @@ export const metadata = {
 
 export default function Vision() {
   return (
+    <>
+    <StructuredData type="WebPage" metadata={metadata} path="/vision/" />
     <SuperpowerPage
       tag="// Vision"
       title={<>Building open<br /><span className="hero-accent">economies for all</span></>}
@@ -132,5 +135,6 @@ export default function Vision() {
         ]}
       />
     </SuperpowerPage>
+    </>
   );
 }

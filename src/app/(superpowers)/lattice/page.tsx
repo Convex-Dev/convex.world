@@ -4,6 +4,7 @@ import SuperpowerPage from "@/components/SuperpowerPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import LatticeDotsGrid from "@/components/LatticeDotsGrid";
+import StructuredData from "@/lib/structured-data";
 import { foundationBlocks } from "@/data/lattice-foundation";
 import { regions } from "@/data/lattice-regions";
 import { innovations } from "@/data/lattice-innovations";
@@ -16,6 +17,8 @@ export const metadata = {
 
 export default function Lattice() {
   return (
+    <>
+    <StructuredData type="WebPage" metadata={metadata} path="/lattice/" />
     <SuperpowerPage
       tag="// Core Technology"
       title={<>The Data <span className="hero-accent">Lattice</span></>}
@@ -118,5 +121,6 @@ export default function Lattice() {
         ]}
       />
     </SuperpowerPage>
+    </>
   );
 }

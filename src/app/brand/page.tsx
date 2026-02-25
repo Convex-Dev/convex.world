@@ -4,11 +4,18 @@ import { Download, ArrowUpRight, FileImage, Palette, Type } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
+import StructuredData from "@/lib/structured-data";
 import { logoAssets, brandColors, guidelines } from "@/data/brand-assets";
+
+export const metadata = {
+  title: "Brand Assets",
+  description: "Official Convex logos, colours, typography, and brand guidelines for media, presentations, and partner materials.",
+};
 
 export default function Brand() {
   return (
     <ContentPage>
+      <StructuredData type="WebPage" metadata={metadata} path="/brand/" />
       {/* Hero Section */}
       <section className="brand-hero">
         <div className="hero-eyebrow">

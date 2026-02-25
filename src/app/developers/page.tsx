@@ -7,11 +7,18 @@ import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
 import CvmIcon from "@/components/icons/CvmIcon";
 import LatticeDataIcon from "@/components/icons/LatticeDataIcon";
+import StructuredData from "@/lib/structured-data";
 import { heroTerminalSequences } from "@/data/developer-terminal-sequences";
+
+export const metadata = {
+  title: "Developers",
+  description: "Build economic systems on the Convex lattice. Convex Lisp, CVM runtime, TypeScript and Java SDKs, and comprehensive documentation.",
+};
 
 export default function Developer() {
   return (
     <ContentPage>
+      <StructuredData type="WebPage" metadata={metadata} path="/developers/" />
       {/* Hero Section - Asymmetric Layout */}
       <section className="dev-hero-split">
         <div className="dev-hero-content">

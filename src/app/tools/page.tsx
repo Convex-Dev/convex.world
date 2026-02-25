@@ -3,12 +3,19 @@ import { ArrowUpRight } from "lucide-react";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
+import StructuredData from "@/lib/structured-data";
 import { tools } from "@/data/tools";
 import { getIcon } from "@/lib/icons";
+
+export const metadata = {
+  title: "Tools",
+  description: "Explore, build, test, and deploy on Convex. CLI tools, SDKs, REPL sandbox, and developer resources.",
+};
 
 export default function Tools() {
   return (
     <ContentPage>
+      <StructuredData type="WebPage" metadata={metadata} path="/tools/" />
       {/* Hero Section */}
       <section className="tools-hero">
         <span className="dev-hero-tag">//Network Resources</span>
