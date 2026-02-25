@@ -123,7 +123,7 @@ export const superpowers: SuperpowerEntry[] = [
     },
   },
   {
-    title: "Virtual Machine",
+    title: "Convex Virtual Machine",
     desc: "High performance execution for smart contracts and trusted assets",
     href: "/vm",
     category: "infrastructure",
@@ -138,9 +138,10 @@ export const superpowers: SuperpowerEntry[] = [
       heroAccent: "Machine",
       description: "A deterministic runtime built on the lambda calculus. Turing-complete smart contracts, on-chain compilation, and the full power of functional programming.",
       highlights: [
+        { label: "State Model", value: "Global" },
         { label: "Deterministic", value: "✓" },
-        { label: "Compilation", value: "On-Chain" },
-        { label: "Paradigm", value: "Functional" },
+        { label: "Transactions", value: "Atomic" },
+        { label: "Compute TPS", value: "1 million+" },
       ],
       docs: [
         { label: "CAD — CVM Execution", href: "https://docs.convex.world/docs/cad/cvmex", description: "Execution model and instruction set" },
