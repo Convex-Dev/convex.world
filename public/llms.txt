@@ -1,5 +1,7 @@
 # Convex
 
+> For comprehensive detail on every Convex capability, see [llms-full.txt](https://convex.world/llms-full.txt).
+
 ## What is Convex?
 Convex is the foundational platform for **agentic economic systems** — a decentralised network and execution engine that powers the next generation of intelligent, open economies on the Internet of Value.
 

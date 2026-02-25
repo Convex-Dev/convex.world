@@ -13,6 +13,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
+    // @ts-expect-error — Next.js types don't include custom directives yet
+    "LLMs-Txt": `${baseUrl}/llms.txt`,
   };
 }
 
