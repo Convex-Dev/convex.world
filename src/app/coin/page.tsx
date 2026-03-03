@@ -5,6 +5,7 @@ import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import ConvexLogoAnimated from "@/components/ConvexLogoAnimated";
 import ReleaseCurveChart from "@/components/ReleaseCurveChart";
+import CoinSupply from "@/components/CoinSupply";
 import StructuredData from "@/lib/structured-data";
 import { getSuperpowerMetadata } from "@/data/superpowers";
 
@@ -18,12 +19,9 @@ export default function Coin() {
       <section className="coin-hero">
         <span className="coin-ticker">CVM</span>
         <h1>Convex Coin</h1>
-        <p className="coin-tagline">The native utility token powering the world&apos;s most efficient decentralised execution engine</p>
+        <p className="coin-tagline">The native utility token for the world&apos;s most powerful decentralised engine</p>
         <div className="coin-hero-stats">
-          <div className="coin-hero-stat">
-            <span className="coin-hero-stat-value">1B</span>
-            <span className="coin-hero-stat-label">Max Supply</span>
-          </div>
+          <CoinSupply />
           <div className="coin-hero-stat-divider" />
           <div className="coin-hero-stat">
             <span className="coin-hero-stat-value">10<sup>9</sup></span>
@@ -36,13 +34,9 @@ export default function Coin() {
           </div>
         </div>
         <div className="btn-group">
-          <ExtLink href="https://app.paisley.io" className="btn btn-primary">
+          <span className="btn btn-primary btn-disabled" title="CVM online purchases coming soon!">
             Buy CVM
-            <ArrowUpRight size={16} />
-          </ExtLink>
-          <ExtLink href="https://docs.convex.world/docs/cad/tokenomics" className="btn btn-secondary">
-            Tokenomics
-          </ExtLink>
+          </span>
         </div>
       </section>
 
@@ -53,14 +47,14 @@ export default function Coin() {
               <Zap size={24} strokeWidth={1.5} />
             </div>
             <h3>Transaction Fuel</h3>
-            <p>A small CVM fee applies only to state-changing transactions—safeguarding the network while ensuring equitable access.</p>
+            <p>A small CVM fee applies to state-changing transactions: safeguarding the network while ensuring equitable access.</p>
           </div>
           <div className="coin-value-card">
             <div className="coin-value-icon">
               <Shield size={24} strokeWidth={1.5} />
             </div>
             <h3>Stake & Secure</h3>
-            <p>Stake CVM on trusted peers through Convergent Proof-of-Stake, earning rewards while strengthening network security.</p>
+            <p>Stake CVM on trusted peers through Convergent Proof-of-Stake. Peers earn a share of transaction fees while strengthening network security.</p>
           </div>
           <div className="coin-value-card">
             <div className="coin-value-icon">
@@ -73,8 +67,8 @@ export default function Coin() {
             <div className="coin-value-icon">
               <TrendingUp size={24} strokeWidth={1.5} />
             </div>
-            <h3>Earn Rewards</h3>
-            <p>Contributors to the network and ecosystem are rewarded with CVM for their participation.</p>
+            <h3>Earn Awards</h3>
+            <p>Contributors to the network and ecosystem may be awarded with CVM for their contributions!</p>
           </div>
         </div>
       </section>
@@ -143,6 +137,9 @@ export default function Coin() {
             </div>
           </div>
         </div>
+        <ExtLink href="https://docs.convex.world/docs/cad/tokenomics" className="btn btn-secondary">
+          Read more: CAD020 Tokenomics <ArrowUpRight size={14} />
+        </ExtLink>
       </section>
 
       <section className="coin-curve-section">
@@ -168,10 +165,9 @@ export default function Coin() {
         <h3>Ready to participate?</h3>
         <p>Join the Convex ecosystem and be part of the future of decentralised systems.</p>
         <div className="btn-group">
-          <ExtLink href="https://app.paisley.io" className="btn btn-primary">
+          <span className="btn btn-primary btn-disabled" title="CVM online purchases coming soon!">
             Buy CVM
-            <ArrowUpRight size={16} />
-          </ExtLink>
+          </span>
           <ExtLink href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary">
             Join Community
           </ExtLink>

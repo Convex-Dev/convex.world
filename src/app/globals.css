@@ -1516,6 +1516,17 @@ nav > a:first-child {
   opacity: 1;
 }
 
+.btn-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: auto;
+}
+
+.btn-disabled:hover {
+  background: var(--accent-primary);
+  color: var(--surface-void);
+}
+
 /* Mobile: 480px — button overrides */
 @media (max-width: 480px) {
   .btn-group {
@@ -4722,11 +4733,11 @@ nav .logo {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
+  width: 1200px;
+  height: 1200px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.35;
+  opacity: 0.18;
 }
 
 .coin-grid {
