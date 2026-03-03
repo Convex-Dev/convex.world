@@ -20,17 +20,17 @@ export default function Vision() {
           <article className="vision-pillar">
             <span className="vision-pillar-number">01</span>
             <h3>Decentralised Economies</h3>
-            <p>We want open, inclusive, decentralised economies at global scale—free from centralised control and unnecessary middlemen. This can only occur with true self-sovereign control of data and assets, backed by a powerful open protocol.</p>
+            <p>We want open, inclusive, decentralised economies at global scale—free from centralised control and gatekeepers. This can only occur with true self-sovereign control of data and assets, backed by a powerful open protocol.</p>
           </article>
           <article className="vision-pillar">
             <span className="vision-pillar-number">02</span>
             <h3>Mass Adoption</h3>
-            <p>Getting the whole world to use decentralised applications requires realtime, interactive performance, low transaction costs, and simple operation. Existing blockchains are failing to deliver this. Convex is not a blockchain—it offers a fundamentally more compelling path.</p>
+            <p>Getting the whole world to use decentralised applications requires realtime, interactive performance, low transaction costs, and simple operation. Blockchains cannot deliver this; Convex offers a fundamentally more compelling path.</p>
           </article>
           <article className="vision-pillar">
             <span className="vision-pillar-number">03</span>
             <h3>Free from Vested Interests</h3>
-            <p>Convex is developed on open-source principles and governed by a non-profit foundation. We are not owned or dependent on money from VCs, power brokers, or centralised organisations. 100% of Convex Coins are issued to those who bring value to the ecosystem.</p>
+            <p>Convex is developed on open-source principles. We are an independent non-profit foundation. 100% of Convex Coins are issued to those who bring value to the ecosystem.</p>
           </article>
         </div>
       </section>
@@ -85,8 +85,8 @@ export default function Vision() {
             </div>
             <h4>Convex Virtual Machine</h4>
             <p>A deterministic runtime built on the lambda calculus. Turing-complete smart contracts, on-chain compilation, and the full power of functional programming—designed for both humans and autonomous agents.</p>
-            <Link href="/developers" className="vision-stack-link">
-              Start Building <ArrowRight size={14} />
+            <Link href="/vm" className="vision-stack-link">
+              Explore the CVM <ArrowRight size={14} />
             </Link>
           </div>
         </div>

@@ -43,7 +43,7 @@ export const superpowers: SuperpowerEntry[] = [
       tag: "// Vision",
       heroTitle: "Building open",
       heroAccent: "economies for all",
-      description: "Convex is a public, decentralised foundation for real-time coordination of data and value: enabling open participation and shared outcomes at global scale.",
+      description: "Convex is a public, decentralised foundation for real-time exchange of data and value: enabling open economic participation at global scale.",
       highlights: [
         { label: "Superpowers", value: "17" },
         { label: "Open Source", value: "100%" },

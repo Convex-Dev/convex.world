@@ -1791,7 +1791,7 @@ nav > a:first-child {
   font-size: var(--text-xs);
   color: var(--color-text-tertiary);
   letter-spacing: var(--tracking-wider);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
 }
 
 .section-header h2 {
@@ -5254,7 +5254,7 @@ nav .logo {
   }
 
   .coin-tokenomics {
-    padding: var(--space-12) var(--space-4);
+    padding: var(--space-4) var(--space-4);
     min-height: auto;
   }
 
