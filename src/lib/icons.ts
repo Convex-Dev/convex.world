@@ -7,6 +7,7 @@ import {
   BookOpen, GraduationCap, Package, Server, Wrench,
   MessageCircle, Twitter, Youtube, Newspaper, HelpCircle,
   Plug, KeyRound, Timer, CreditCard,
+  Download, Container,
   LucideIcon,
 } from "lucide-react";
 
@@ -58,6 +59,8 @@ const iconMap: Record<string, LucideIcon> = {
   "key-round": KeyRound,
   "timer": Timer,
   "credit-card": CreditCard,
+  "download": Download,
+  "container": Container,
 };
 
 export type IconKey = keyof typeof iconMap;

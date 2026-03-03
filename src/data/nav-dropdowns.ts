@@ -168,4 +168,27 @@ export const navDropdowns: NavDropdown[] = [
       },
     ],
   },
+  {
+    key: "downloads",
+    label: "Downloads",
+    href: "/downloads",
+    graphicKey: "network",
+    sections: [
+      {
+        title: "Get Convex",
+        items: [
+          { label: "Downloads", href: "/downloads", description: "Install scripts and release downloads", icon: "download", featured: true },
+          { label: "GitHub Releases", href: "https://github.com/Convex-Dev/convex/releases", external: true, description: "All versions and changelogs", icon: "github" },
+        ],
+      },
+      {
+        title: "Other Sources",
+        items: [
+          { label: "Docker Hub", href: "https://hub.docker.com/r/convexlive/convex", external: true, description: "Container images for peers", icon: "container" },
+          { label: "Build from Source", href: "https://github.com/Convex-Dev/convex", external: true, description: "Clone and build with Maven", icon: "code-2" },
+          { label: "Maven Central", href: "https://search.maven.org/search?q=world.convex", external: true, description: "Java library dependencies", icon: "package" },
+        ],
+      },
+    ],
+  },
 ];

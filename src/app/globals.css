@@ -4053,6 +4053,62 @@ nav .logo {
   padding: var(--space-20) var(--space-6);
 }
 
+/* Downloads page */
+
+.downloads-platforms {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .downloads-platforms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.download-platform-card h3 {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-lg);
+}
+
+.download-platform-card .quickstart-code {
+  margin-bottom: var(--space-3);
+}
+
+.copy-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.copy-block:hover {
+  background: var(--surface-elevated);
+}
+
+.copy-icon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  margin-left: var(--space-3);
+  transition: color 0.15s ease;
+}
+
+.copy-block:hover .copy-icon {
+  color: var(--accent-primary);
+}
+
+.downloads-prereq {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.downloads-grid {
+  margin-bottom: var(--space-6);
+}
+
 /* Mobile: 480px */
 @media (max-width: 480px) {
   .tools-hero {
