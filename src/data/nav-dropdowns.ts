@@ -78,44 +78,31 @@ export const navDropdowns: NavDropdown[] = [
         title: "Start Building",
         items: [
           { label: "Developer Overview", href: "/developers", description: "Introduction to building on Convex", icon: "code-2", featured: true },
-          { label: "Documentation", href: "https://docs.convex.world/docs/intro", external: true, description: "Comprehensive guides and references", icon: "book-open" },
+          { label: "User Guide", href: "https://docs.convex.world/docs/tutorial", external: true, description: "Step-by-step guide to Convex", icon: "book-open" },
           { label: "Convex Lisp Tutorial", href: "https://docs.convex.world/docs/tutorial/convex-lisp", external: true, description: "Learn the language", icon: "graduation-cap" },
           { label: "TypeScript SDK", href: "https://docs.convex.world/docs/tutorial/client-sdks/typescript", external: true, description: "Client library for JS/TS", icon: "package" },
-          { label: "Java Client API", href: "https://github.com/Convex-Dev/convex/tree/develop/convex-java", external: true, description: "Client library for Java/JVM", icon: "package" },
+          { label: "Java SDK", href: "https://github.com/Convex-Dev/convex/tree/develop/convex-java", external: true, description: "Client library for Java/JVM", icon: "package" },
+          { label: "Python SDK", href: "https://github.com/Convex-Dev/convex-api-py", external: true, description: "Client library for Python", icon: "package" },
+        ],
+      },
+      {
+        title: "Tools",
+        items: [
+          { label: "Tools Overview", href: "/tools", description: "Explore all developer tools", icon: "wrench" },
+          { label: "Sandbox", href: "/sandbox", description: "Interactive REPL console", icon: "terminal" },
+          { label: "Protonet Explorer", href: "https://peer.convex.live/explorer", external: true, description: "Explore the live network", icon: "globe" },
+          { label: "Testnet Explorer", href: "https://mikera1337-convex-testnet.hf.space/explorer", external: true, description: "Explore the testnet", icon: "globe" },
+          { label: "REST API", href: "https://mikera1337-convex-testnet.hf.space/swagger", external: true, description: "API reference", icon: "server" },
+          { label: "CLI Tool", href: "https://docs.convex.world/docs/products/convex-cli", external: true, description: "Command-line interface", icon: "terminal" },
+          { label: "Convex Desktop", href: "https://docs.convex.world/docs/products/convex-desktop", external: true, description: "Desktop GUI application", icon: "monitor-smartphone" },
         ],
       },
       {
         title: "Resources",
         items: [
-          { label: "Sandbox REPL", href: "/sandbox", description: "Try Convex Lisp live", icon: "terminal" },
           { label: "CADs", href: "https://docs.convex.world/docs/cad/0000cads", external: true, description: "Convex Architecture Documents", icon: "file-code" },
           { label: "GitHub", href: "https://github.com/Convex-Dev", external: true, description: "Source code and examples", icon: "github" },
           { label: "Full Docs", href: "https://docs.convex.world", external: true, description: "Complete documentation site", icon: "book-open" },
-        ],
-      },
-    ],
-  },
-  {
-    key: "network",
-    label: "Network",
-    href: "/tools",
-    graphicKey: "network",
-    sections: [
-      {
-        title: "Tools",
-        items: [
-          { label: "Tools Overview", href: "/tools", description: "Explore all developer tools", icon: "wrench", featured: true },
-          { label: "Sandbox", href: "/sandbox", description: "Interactive REPL console", icon: "terminal" },
-          { label: "REST API", href: "https://mikera1337-convex-testnet.hf.space/swagger", external: true, description: "API reference", icon: "server" },
-          { label: "CLI Tool", href: "https://docs.convex.world/docs/products/convex-cli", external: true, description: "Command-line interface", icon: "terminal" },
-        ],
-      },
-      {
-        title: "Inspect",
-        items: [
-          { label: "Protonet Explorer", href: "https://peer.convex.live/explorer", external: true, icon: "globe" },
-          { label: "Testnet Explorer", href: "https://mikera1337-convex-testnet.hf.space/explorer", external: true, icon: "globe" },
-          { label: "Convex Desktop", href: "https://docs.convex.world/docs/products/convex-desktop", external: true, icon: "monitor-smartphone" },
         ],
       },
     ],

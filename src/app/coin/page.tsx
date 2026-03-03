@@ -119,8 +119,8 @@ export default function Coin() {
                 <circle cx="50" cy="50" r="45" className="ring-75" strokeDasharray="212.06 70.68" strokeDashoffset="-17.67" />
               </svg>
               <div className="coin-allocation-center">
-                <span>1B</span>
-                <small>Max Supply</small>
+                <span>100%</span>
+                <small>To Contributors</small>
               </div>
             </div>
           </div>
@@ -129,8 +129,8 @@ export default function Coin() {
               <div className="coin-allocation-bar bar-25" />
               <div className="coin-allocation-info">
                 <span className="coin-allocation-percent">25%</span>
-                <h4>Development & Grants</h4>
-                <p>Bounties and awards to accelerate core development, tooling, and dapp innovation.</p>
+                <h4>Ecosystem Awards</h4>
+                <p>Awards to accelerate development, innovation and community building.</p>
               </div>
             </div>
             <div className="coin-allocation-item">
@@ -138,7 +138,7 @@ export default function Coin() {
               <div className="coin-allocation-info">
                 <span className="coin-allocation-percent">75%</span>
                 <h4>Public Release Curve</h4>
-                <p>Fair, transparent release over time—ensuring broad participation and aligned incentives.</p>
+                <p>Fair, transparent release curve giving lower prices to early adopters.</p>
               </div>
             </div>
           </div>

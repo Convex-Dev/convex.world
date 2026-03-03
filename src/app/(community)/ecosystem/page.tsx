@@ -20,7 +20,6 @@ export default function Ecosystem() {
       <section className="community-hero">
         <span className="dev-hero-tag">// Building on Convex</span>
         <h1 className="page-hero-title">Featured Projects</h1>
-        <p className="community-hero-text">Organisations leveraging Convex for real-world impact</p>
       </section>
 
       {/* Projects Grid */}
