@@ -45,6 +45,13 @@ function generateBackgroundHexes(): Array<{q: number, r: number}> {
 
 export default function HexGridMobile() {
   const [animationKey, setAnimationKey] = useState(0);
+  // Start false (SSR-safe) — updated client-side to avoid hydration mismatch
+  // since sessionStorage isn't available during server rendering.
+  const [skipAnimations, setSkipAnimations] = useState(false);
+
+  useEffect(() => {
+    if (isRevisit) setSkipAnimations(true);
+  }, []);
 
   // Detect theme changes and replay animation
   useEffect(() => {
@@ -97,7 +104,7 @@ export default function HexGridMobile() {
             const dx = x - centerPos.x;
             const dy = y - centerPos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const delay = isRevisit ? 0 : 0.8 + (distance / 300) * 0.3;
+            const delay = skipAnimations ? 0 : 0.8 + (distance / 300) * 0.3;
 
             return (
               <path
@@ -114,7 +121,7 @@ export default function HexGridMobile() {
           {Object.entries(SUPERPOWER_HEXES).map(([key, superpower]) => {
             const [q, r] = key.split(',').map(Number);
             const { x, y } = toPixel(q, r);
-            const superpowerDelay = isRevisit ? 0 : 0.3 + superpower.order * 0.12;
+            const superpowerDelay = skipAnimations ? 0 : 0.3 + superpower.order * 0.12;
             const isExternal = superpower.href.startsWith('http');
 
             return (
