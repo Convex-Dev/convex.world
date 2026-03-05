@@ -4,13 +4,14 @@ import { useRef, useEffect } from "react";
 
 /**
  * Fills the hero visual with dots at every background-grid intersection.
- * Size and opacity fall off smoothly with distance from the nucleus (container centre).
+ * Size and opacity fall off smoothly with distance from the nucleus (container center).
  * A radial sine wave animates all dots — the whole data fabric pulses outward.
  *
- * Dots span the full viewport (overflowing the container) so they align with
- * the position:fixed lattice-bg grid. A scroll-compensating wrapper keeps dots
- * locked to the background on mobile scroll — without this, the position:absolute
- * dots drift relative to the fixed background as the container scrolls.
+ * Grid math:
+ *   lattice-bg is position:fixed, background-size:50px, background-position:center center.
+ *   Tile midpoint (25px) aligns with CSS viewport center, so grid lines sit at:
+ *     x = (clientWidth/2 - 25) + n * 50
+ *   We use clientWidth (excludes scrollbar) to match CSS.
  */
 
 const GRID = 50;
@@ -60,8 +61,6 @@ export default function LatticeDotsGrid() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLDivElement[]>([]);
   const dotsData = useRef<DotData[]>([]);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const scrollOrigin = useRef({ x: 0, y: 0 });
 
   // Build dots and start animation
   useEffect(() => {
@@ -74,11 +73,12 @@ export default function LatticeDotsGrid() {
       const vh = document.documentElement.clientHeight;
 
       // Phase: where a grid line falls in container-local coords
-      // Aligned to the position:fixed lattice-bg (centred at viewport midpoint)
       const phaseX = (((vw / 2 - 25 - rect.left) % GRID) + GRID) % GRID;
       const phaseY = (((vh / 2 - 25 - rect.top) % GRID) + GRID) % GRID;
 
-      // Generate dots covering the entire viewport in container-local coords
+      // Generate dots covering the ENTIRE viewport in container-local coords
+      // viewport left edge = -rect.left, right edge = vw - rect.left
+      // viewport top edge = -rect.top, bottom edge = vh - rect.top
       const minX = -rect.left - GRID;
       const maxX = vw - rect.left + GRID;
       const minY = -rect.top - GRID;
@@ -136,23 +136,8 @@ export default function LatticeDotsGrid() {
 
       dotsData.current = dots;
 
-      // Record scroll position at build time so the animation loop can
-      // compensate for scroll and keep dots aligned with the fixed background
-      scrollOrigin.current = { x: window.scrollX, y: window.scrollY };
-
-      // Wrapper div holds all dots — a single translate on the wrapper each frame
-      // compensates for scroll, far cheaper than repositioning every individual dot.
-      // Removing the wrapper also removes all its child dots in one operation.
-      if (wrapperRef.current) {
-        wrapperRef.current.remove();
-      }
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "absolute";
-      wrapper.style.inset = "0";
-      wrapper.style.pointerEvents = "none";
-      container!.appendChild(wrapper);
-      wrapperRef.current = wrapper;
-
+      // Remove previous dots and create new DOM elements
+      dotsRef.current.forEach((el) => el.remove());
       dotsRef.current = dots.map((dot) => {
         const el = document.createElement("div");
         el.className = "lattice-dot";
@@ -160,7 +145,7 @@ export default function LatticeDotsGrid() {
         el.style.top = `${dot.y}px`;
         el.style.width = `${dot.baseSize}px`;
         el.style.height = `${dot.baseSize}px`;
-        wrapper.appendChild(el);
+        container!.appendChild(el);
         return el;
       });
     }
@@ -176,15 +161,6 @@ export default function LatticeDotsGrid() {
     function loop() {
       const now = performance.now() / 1000;
       const elapsed = now - t0;
-
-      // Scroll compensation: translate the wrapper so dots stay aligned
-      // with the position:fixed lattice-bg as the page scrolls
-      const wrapper = wrapperRef.current;
-      if (wrapper) {
-        const dx = window.scrollX - scrollOrigin.current.x;
-        const dy = window.scrollY - scrollOrigin.current.y;
-        wrapper.style.transform = `translate(${dx}px, ${dy}px)`;
-      }
 
       const dots = dotsData.current;
       const els = dotsRef.current;
