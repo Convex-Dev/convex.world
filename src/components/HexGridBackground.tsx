@@ -46,13 +46,22 @@ export default function HexGridBackground() {
   const [size, setSize] = useState(BASE_SIZE);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const [isInSuperpowerArea, setIsInSuperpowerArea] = useState(false);
-  const [isAnimationComplete, setIsAnimationComplete] = useState(isRevisit);
+  // Start false (SSR-safe) — updated client-side in useEffect to avoid hydration mismatch
+  const [skipAnimations, setSkipAnimations] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Set initial size on mount and recompute on resize
+  // Set initial size on mount, check revisit status, and recompute on resize
   useEffect(() => {
     setSize(computeSize());
+    // Defer isRevisit check to client-side only — sessionStorage isn't
+    // available during SSR, so reading it at module scope causes a
+    // hydration mismatch (server: false → delays, client: true → no delays).
+    if (isRevisit) {
+      setSkipAnimations(true);
+      setIsAnimationComplete(true);
+    }
     let timeout: NodeJS.Timeout;
     const onResize = () => {
       clearTimeout(timeout);
@@ -188,7 +197,7 @@ export default function HexGridBackground() {
               if (isSuperpower && cell.superpower) {
                 const isExternal = cell.superpower.href.startsWith('http');
                 const isDimmed = hoveredKey !== null && !isHovered;
-                const superpowerDelay = isRevisit ? 0 : cell.superpower.order * 0.15;
+                const superpowerDelay = skipAnimations ? 0 : cell.superpower.order * 0.15;
                 return (
                   <g
                     key={`${cell.q}-${cell.r}`}
@@ -229,7 +238,7 @@ export default function HexGridBackground() {
               }
               
               // Grid animates after all 9 superpowers complete (9 * 0.15s = 1.35s + 0.5s animation buffer)
-              const gridDelay = isRevisit ? 0 : 1.85 + delay;
+              const gridDelay = skipAnimations ? 0 : 1.85 + delay;
               const isBright = isInSuperpowerArea;
               
               return (

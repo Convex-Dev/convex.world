@@ -150,6 +150,7 @@ export const navDropdowns: NavDropdown[] = [
         title: "Content",
         items: [
           { label: "Blog", href: "https://docs.convex.world/blog", external: true, icon: "newspaper" },
+          { label: "Press", href: "/press", description: "Media resources and facts", icon: "file-text" },
           { label: "Stack Overflow", href: "https://stackoverflow.com/questions/tagged/convex", external: true, icon: "help-circle" },
         ],
       },
