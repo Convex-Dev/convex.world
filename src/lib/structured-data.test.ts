@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveTitle, buildSchema } from "./structured-data";
+import { resolveTitle, buildSchema, buildBreadcrumbList } from "./structured-data";
 
 describe("resolveTitle", () => {
   it("returns 'Convex' for null/undefined", () => {
@@ -45,5 +45,23 @@ describe("buildSchema", () => {
   it("always includes publisher", () => {
     const schema = buildSchema("WebPage", metadata, "/");
     expect(schema.publisher).toBeDefined();
+  });
+});
+
+describe("buildBreadcrumbList", () => {
+  it("returns null for the homepage", () => {
+    expect(buildBreadcrumbList("Convex", "/")).toBeNull();
+  });
+
+  it("returns a two-item breadcrumb for a subpage", () => {
+    const schema = buildBreadcrumbList("Vision", "/vision/");
+    expect(schema).not.toBeNull();
+    expect(schema!["@type"]).toBe("BreadcrumbList");
+    const items = schema!.itemListElement as Record<string, unknown>[];
+    expect(items).toHaveLength(2);
+    expect(items[0].name).toBe("Home");
+    expect(items[0].item).toBe("https://convex.world");
+    expect(items[1].name).toBe("Vision");
+    expect(items[1].item).toBe("https://convex.world/vision/");
   });
 });

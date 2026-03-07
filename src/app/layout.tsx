@@ -20,7 +20,6 @@ export const metadata: Metadata = {
   creator: "Convex",
   publisher: "Convex",
   metadataBase: new URL("https://convex.world"),
-  alternates: { canonical: "/" },
   openGraph: {
     title: "Convex – Engine for the Agentic Economy",
     description:

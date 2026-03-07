@@ -63,9 +63,43 @@ export function buildSchema(
   return base;
 }
 
+export function buildBreadcrumbList(
+  name: string,
+  path: string,
+): Record<string, unknown> | null {
+  // Homepage has no breadcrumb trail
+  if (path === "/") return null;
+
+  const items: Record<string, unknown>[] = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: BASE_URL,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name,
+      item: `${BASE_URL}${path}`,
+    },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items,
+  };
+}
+
 /**
- * Renders a <script type="application/ld+json"> tag from a page's
+ * Renders structured data and a canonical link from a page's
  * existing Next.js `metadata` export.
+ *
+ * Emits:
+ * - Page-type JSON-LD schema (WebPage, WebSite, etc.)
+ * - BreadcrumbList JSON-LD schema (all pages except homepage)
+ * - <link rel="canonical"> for the page URL
  *
  * Usage (in any page that already exports `metadata`):
  *
@@ -80,11 +114,22 @@ export default function StructuredData({
   metadata: Metadata;
   path: string;
 }) {
-  const schema = buildSchema(type, metadata, path);
+  const name = resolveTitle(metadata.title);
+  const pageSchema = buildSchema(type, metadata, path);
+  const breadcrumbSchema = buildBreadcrumbList(name, path);
+  const canonicalUrl = `${BASE_URL}${path}`;
+
+  const schemas = breadcrumbSchema
+    ? [pageSchema, breadcrumbSchema]
+    : [pageSchema];
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      <link rel="canonical" href={canonicalUrl} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+      />
+    </>
   );
 }
