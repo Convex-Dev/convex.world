@@ -37,7 +37,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "globe",
     metadata: {
       title: "Vision — Convex",
-      description: "Building open economies for all. The public, decentralised foundation for real-time exchange of data and value.",
+      description: "Building open economies for all. Convex is the public, decentralised foundation for real-time exchange of data and value — created by Mike Anderson, governed by a non-profit foundation.",
+      keywords: ["decentralised economy", "open economy", "decentralised platform vision", "Internet of Value", "Mike Anderson", "Convex Foundation", "non-profit blockchain alternative"],
     },
     page: {
       tag: "// Vision",
@@ -59,8 +60,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "infrastructure",
     icon: "shield",
     metadata: {
-      title: "Convergent Proof of Stake — Convex",
-      description: "The world's fastest decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality.",
+      title: "Convergent Proof of Stake (CPoS) — Convex",
+      description: "The world's fastest decentralised consensus algorithm. CPoS operates as a CRDT, not a blockchain, with sub-second finality and zero energy waste. A green alternative to Proof of Work and traditional Proof of Stake.",
+      keywords: ["proof of stake", "consensus algorithm", "CPoS", "CRDT consensus", "Byzantine fault tolerance", "BFT consensus", "green consensus", "energy efficient consensus", "sub-second finality", "blockchain alternative", "decentralised consensus"],
     },
     page: {
       tag: "// Consensus",
@@ -82,8 +84,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "infrastructure",
     icon: "cpu",
     metadata: {
-      title: "Convex Virtual Machine — Convex",
-      description: "A deterministic, Turing-complete virtual machine built on the lambda calculus for high-performance smart contract execution.",
+      title: "Convex Virtual Machine (CVM) — Convex",
+      description: "A deterministic, Turing-complete virtual machine built on the lambda calculus for high-performance smart contract execution. 1M+ transactions per second with on-chain compilation.",
+      keywords: ["virtual machine", "smart contract execution", "decentralised VM", "lambda calculus VM", "Turing complete", "on-chain compiler", "high performance smart contracts", "deterministic execution", "CVM"],
     },
     page: {
       tag: "// Execution",
@@ -111,7 +114,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "git-merge",
     metadata: {
       title: "Lattice CRDTs — Convex",
-      description: "Conflict-free Replicated Data Types that power self-healing, eventually consistent data across the Convex lattice.",
+      description: "Conflict-free Replicated Data Types that power self-healing, eventually consistent data across the Convex lattice. Zero-coordination replication for decentralised applications.",
+      keywords: ["CRDT", "conflict-free replicated data types", "eventual consistency", "decentralised data", "self-healing data", "replicated data structures", "lattice data"],
     },
     page: {
       tag: "// Infrastructure",
@@ -137,7 +141,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "database",
     metadata: {
       title: "Data Lattice — Convex",
-      description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs.",
+      description: "A global, replicated, self-healing, content-addressable data fabric built on lattice technology and CRDTs. Infinitely scalable decentralised storage with zero fees.",
+      keywords: ["decentralised data", "data lattice", "content addressable storage", "decentralised storage", "global state", "data fabric", "P2P data", "replicated data"],
     },
     page: {
       tag: "// Core Technology",
@@ -159,8 +164,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "infrastructure",
     icon: "hard-drive",
     metadata: {
-      title: "DLFS — Convex",
-      description: "Decentralised Lattice File System — distributed, content-addressable file storage built on the Convex lattice.",
+      title: "DLFS — Decentralised Lattice File System — Convex",
+      description: "Decentralised Lattice File System — distributed, content-addressable, cryptographically verified file storage. Like Dropbox meets BitTorrent meets IPFS, built on the Convex lattice.",
+      keywords: ["decentralised file system", "DLFS", "distributed storage", "IPFS alternative", "content addressable", "P2P file system", "decentralised storage"],
     },
     page: {
       tag: "// Storage",
@@ -185,8 +191,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "infrastructure",
     icon: "file-code",
     metadata: {
-      title: "CAD3 Data — Convex",
-      description: "A universal encoding format for cryptographically verified, self-describing, content-addressable data structures.",
+      title: "CAD3 Data Encoding — Convex",
+      description: "CAD3 — a universal encoding format for cryptographically verified, self-describing, content-addressable data structures. The data format underpinning the Convex lattice.",
+      keywords: ["data encoding", "content addressable data", "cryptographic verification", "self-describing data", "CAD3", "data format"],
     },
     page: {
       tag: "// Data Format",
@@ -211,8 +218,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "economy",
     icon: "coins",
     metadata: {
-      title: "Convex Coin (CVM)",
-      description: "The native utility token powering the Convex decentralised execution engine. 1B max supply, fair release curve, zero read fees.",
+      title: "Convex Coin (CVM) — Tokenomics",
+      description: "CVM — the native utility token powering the Convex decentralised execution engine. 1 billion max supply, fair release curve, zero read fees. Stake, transact, and earn awards.",
+      keywords: ["CVM token", "Convex Coin", "utility token", "cryptocurrency", "tokenomics", "proof of stake token", "digital currency", "fair token distribution", "staking"],
     },
     page: {
       tag: "// Economy",
@@ -234,7 +242,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "gem",
     metadata: {
       title: "Digital Assets — Convex",
-      description: "Create fungible tokens, NFTs, and complex financial instruments in a single Convex Lisp expression.",
+      description: "Create fungible tokens, NFTs, and complex financial instruments in a single Convex Lisp expression. Composable, secure digital ownership on the decentralised lattice.",
+      keywords: ["digital assets", "fungible tokens", "NFT platform", "token creation", "create NFT", "create token", "composable assets", "digital ownership"],
     },
     page: {
       tag: "// Economy",
@@ -261,7 +270,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "gauge",
     metadata: {
       title: "Memory Accounting — Convex",
-      description: "Global on-chain memory as a digital asset with built-in incentives for efficient use and recycling.",
+      description: "Global on-chain memory as a tradeable digital asset with built-in incentives for efficient use and recycling. No artificial gas limits — natural economic incentives for storage.",
+      keywords: ["on-chain memory", "memory accounting", "decentralised storage economics", "gas alternative", "storage incentives"],
     },
     page: {
       tag: "// Economics",
@@ -287,7 +297,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "terminal",
     metadata: {
       title: "One Line DeFi — Convex",
-      description: "Execute powerful, end-to-end decentralised finance transactions with a single Convex Lisp expression via the Torus DEX.",
+      description: "Execute powerful, end-to-end decentralised finance transactions with a single Convex Lisp expression. Torus DEX — the built-in automated market maker for token swaps and liquidity.",
+      keywords: ["DeFi", "decentralised finance", "DEX", "decentralised exchange", "automated market maker", "AMM", "token swap", "liquidity pool", "Torus DEX"],
     },
     page: {
       tag: "// DeFi",
@@ -313,8 +324,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "economy",
     icon: "at-sign",
     metadata: {
-      title: "Convex Name Service — Convex",
-      description: "A global, hierarchical name service for actors, data, and services on the Convex network.",
+      title: "Convex Name Service (CNS) — Convex",
+      description: "CNS — a global, hierarchical name service for actors, data, and services on the Convex network. Human-readable names for on-chain resources, like DNS for the decentralised world.",
+      keywords: ["name service", "decentralised DNS", "CNS", "on-chain naming", "decentralised name resolution", "human readable addresses"],
     },
     page: {
       tag: "// Naming",
@@ -339,8 +351,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "economy",
     icon: "fingerprint",
     metadata: {
-      title: "Decentralised Identifiers — Convex",
-      description: "W3C-compatible decentralised identifiers for users, autonomous agents, and digital assets on the Convex network.",
+      title: "Decentralised Identifiers (DIDs) — Convex",
+      description: "W3C-compatible decentralised identifiers for users, autonomous agents, and digital assets. Self-sovereign identity on the Convex network — no central authority required.",
+      keywords: ["decentralised identity", "DID", "W3C DID", "self-sovereign identity", "digital identity", "decentralised identifiers", "agent identity"],
     },
     page: {
       tag: "// Identity",
@@ -365,8 +378,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "platform",
     icon: "code",
     metadata: {
-      title: "Convex Lisp — Convex",
-      description: "A powerful, expressive smart contract language based on the lambda calculus. Code is data, compilation is on-chain.",
+      title: "Convex Lisp — Smart Contract Language",
+      description: "Convex Lisp — a powerful, expressive smart contract language based on the lambda calculus. Code is data, compilation is on-chain, and the full power of functional programming is available to humans and AI agents.",
+      keywords: ["Convex Lisp", "smart contract language", "Lisp programming", "functional programming", "lambda calculus", "on-chain compiler", "Clojure-inspired", "code is data", "homoiconicity"],
     },
     page: {
       tag: "// Language",
@@ -399,8 +413,9 @@ export const superpowers: SuperpowerEntry[] = [
     category: "platform",
     icon: "bot",
     metadata: {
-      title: "Agentic Economy — Convex",
-      description: "The open network where autonomous agents are first-class economic participants. Built-in MCP, programmable accounts, and a live Lisp compiler.",
+      title: "Agentic Economy — AI Agents on Convex",
+      description: "The open network where autonomous AI agents are first-class economic participants. Built-in MCP (Model Context Protocol), programmable accounts, DID identity, and a live Lisp compiler for agent-driven transactions.",
+      keywords: ["agentic economy", "AI agents", "autonomous agents", "MCP", "Model Context Protocol", "agent infrastructure", "AI agent platform", "programmable accounts", "agent-driven transactions", "AI DeFi"],
     },
     page: {
       tag: "// Platform",
@@ -421,7 +436,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "github",
     metadata: {
       title: "Open Source — Convex",
-      description: "Convex is fully open-source. Inspect, audit, fork, and contribute to the decentralised lattice platform.",
+      description: "Convex is fully open-source. Inspect, audit, fork, and contribute to the decentralised lattice platform. Transparent, community-driven development for public benefit.",
+      keywords: ["open source", "open source blockchain", "open source decentralised", "community driven", "auditable code", "transparent development"],
     },
     page: {
       tag: "// Platform",
@@ -448,7 +464,8 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "heart",
     metadata: {
       title: "Non-Profit Foundation — Convex",
-      description: "Convex is governed by a non-profit foundation, built for public benefit — not venture capital returns.",
+      description: "Convex is governed by a non-profit foundation, built for public benefit — not venture capital returns. No VCs, no power brokers — technology for the common good.",
+      keywords: ["non-profit foundation", "decentralised governance", "public benefit", "DAO", "community governance", "non-profit blockchain"],
     },
     page: {
       tag: "// Governance",
