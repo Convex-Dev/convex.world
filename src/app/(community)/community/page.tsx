@@ -9,8 +9,9 @@ import StructuredData from "@/lib/structured-data";
 import { socialLinks, FALLBACK_RECENT, type RecentItem } from "@/data/community-social";
 
 export const metadata = {
-  title: "Community",
-  description: "Join the Convex community. Connect with builders, researchers, and pioneers shaping the future of decentralised coordination.",
+  title: "Community — Join Convex",
+  description: "Join the Convex community. Connect with builders, researchers, and pioneers shaping the future of decentralised coordination. Discord, Twitter/X, YouTube, and more.",
+  keywords: ["Convex community", "web3 community", "decentralised community", "Discord", "developer community", "blockchain community"],
 };
 
 const RSS_URL = "https://docs.convex.world/blog/rss.xml";

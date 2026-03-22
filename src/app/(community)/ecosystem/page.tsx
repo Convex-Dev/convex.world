@@ -9,8 +9,9 @@ import StructuredData from "@/lib/structured-data";
 import { ecosystemItems } from "@/data/ecosystem-items";
 
 export const metadata = {
-  title: "Ecosystem",
-  description: "Organisations and projects building on the Convex decentralised lattice platform.",
+  title: "Ecosystem — Projects on Convex",
+  description: "Organisations and projects building on the Convex decentralised lattice platform. Explore the growing ecosystem of dApps, tools, and services powered by Convex.",
+  keywords: ["Convex ecosystem", "decentralised projects", "dApps", "web3 projects", "blockchain ecosystem", "Convex partners"],
 };
 
 export default function Ecosystem() {
