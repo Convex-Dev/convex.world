@@ -639,7 +639,7 @@ nav > a:first-child {
 /* Hexagon Grid Background - Replaces square lattice with pointy-top hexagons */
 .hex-grid-bg {
   position: absolute;
-  top: var(--header-height);
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
