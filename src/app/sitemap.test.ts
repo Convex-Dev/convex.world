@@ -27,9 +27,9 @@ describe("sitemap", () => {
     expect(new Set(urls).size).toBe(urls.length);
   });
 
-  const requiredPages = ["/", "/vision", "/coin", "/developers", "/memory", "/tools", "/ecosystem"];
+  const requiredPages = ["/", "/vision/", "/coin/", "/developers/", "/memory/", "/tools/", "/ecosystem/"];
   it.each(requiredPages)("includes %s", (path) => {
-    const url = path === "/" ? "https://convex.world" : `https://convex.world${path}`;
+    const url = `https://convex.world${path}`;
     expect(entries.some((e) => e.url === url)).toBe(true);
   });
 });
