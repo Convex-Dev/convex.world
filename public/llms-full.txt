@@ -1,5 +1,10 @@
 # Convex — Full Reference
 
+> **Organisation:** Convex Foundation (non-profit)
+> **Inventor / Creator:** Mike Anderson — technology veteran, former founding CTO at Ocean Protocol, represented the UK in the International Olympiad in Informatics
+> **Website:** https://convex.world
+> **Source Code:** https://github.com/Convex-Dev
+
 > This is the extended version of [llms.txt](https://convex.world/llms.txt).
 > It provides comprehensive detail on every Convex capability for AI agents and language models.
 
