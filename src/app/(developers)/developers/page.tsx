@@ -12,8 +12,9 @@ import StructuredData from "@/lib/structured-data";
 import { heroTerminalSequences } from "@/data/developer-terminal-sequences";
 
 export const metadata = {
-  title: "Developers",
-  description: "Build economic systems on the Convex lattice. Convex Lisp, CVM runtime, TypeScript and Java SDKs, and comprehensive documentation.",
+  title: "Developers — Build on Convex",
+  description: "Build decentralised economic systems on the Convex lattice. Convex Lisp smart contracts, CVM runtime, TypeScript and Java SDKs, REST API, and comprehensive documentation for web3 developers.",
+  keywords: ["web3 development", "smart contract development", "decentralised app development", "dApp development", "TypeScript SDK", "Java SDK", "Python SDK", "REST API", "Convex Lisp", "developer tools", "blockchain development", "web3 SDK"],
 };
 
 export default function Developer() {

@@ -6,9 +6,10 @@ import InstallCommands, { CopyBlock } from "@/components/InstallCommands";
 import StructuredData from "@/lib/structured-data";
 
 export const metadata = {
-  title: "Downloads",
+  title: "Downloads — Install Convex",
   description:
-    "Download Convex — install scripts, release builds, Docker images, and source code.",
+    "Download Convex — one-command install scripts, release builds, Docker images, and source code. Run a decentralised peer node in minutes.",
+  keywords: ["download Convex", "install Convex", "Convex peer", "Docker image", "build from source", "Convex CLI", "run peer node"],
 };
 
 export default function Downloads() {
