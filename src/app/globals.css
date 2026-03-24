@@ -7893,6 +7893,10 @@ nav .logo {
   margin-bottom: 0;
 }
 
+.vision-story .code-block {
+  margin-top: var(--space-8);
+}
+
 /* CTA — matches dev-cta pattern */
 .vision-cta {
   padding-top: var(--space-20); padding-bottom: var(--space-20);
