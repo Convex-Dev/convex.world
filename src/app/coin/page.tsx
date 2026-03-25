@@ -34,9 +34,9 @@ export default function Coin() {
           </div>
         </div>
         <div className="btn-group">
-          <span className="btn btn-primary btn-disabled" title="CVM online purchases coming soon!">
+          <ExtLink href="https://www.paisley.io/buy-convex" className="btn btn-primary">
             Buy CVM
-          </span>
+          </ExtLink>
         </div>
       </section>
 
@@ -165,9 +165,9 @@ export default function Coin() {
         <h3>Ready to participate?</h3>
         <p>Join the Convex ecosystem and be part of the future of decentralised systems.</p>
         <div className="btn-group">
-          <span className="btn btn-primary btn-disabled" title="CVM online purchases coming soon!">
+          <ExtLink href="https://www.paisley.io/buy-convex" className="btn btn-primary">
             Buy CVM
-          </span>
+          </ExtLink>
           <ExtLink href="https://discord.com/invite/xfYGq4CT7v" className="btn btn-secondary">
             Join Community
           </ExtLink>
