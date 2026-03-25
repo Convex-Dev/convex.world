@@ -35,7 +35,26 @@ export default function Ecosystem() {
               <span className="eco-card-category">{item.category}</span>
               <div className="eco-card-header">
                 <div className="eco-card-image">
-                  {item.image && (
+                  {item.imageDark ? (
+                    <>
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={120}
+                        height={120}
+                        style={{ objectFit: "contain" }}
+                        className="eco-img-light"
+                      />
+                      <Image
+                        src={item.imageDark}
+                        alt={item.title}
+                        width={120}
+                        height={120}
+                        style={{ objectFit: "contain" }}
+                        className="eco-img-dark"
+                      />
+                    </>
+                  ) : item.image ? (
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -43,7 +62,7 @@ export default function Ecosystem() {
                       height={120}
                       style={{ objectFit: "contain" }}
                     />
-                  )}
+                  ) : null}
                 </div>
                 <h3>{item.title}</h3>
               </div>

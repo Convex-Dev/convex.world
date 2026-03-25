@@ -4,6 +4,7 @@ export interface EcosystemItem {
   description: string;
   category: string;
   image: string;
+  imageDark?: string;
   link: string;
 }
 
@@ -22,6 +23,7 @@ export const ecosystemItems: EcosystemItem[] = [
     description: "A membership-owned cooperative platform for freelancers and creatives building a better future for all.",
     category: "Creator Economy",
     image: "/images/paisley-logo.webp",
+    imageDark: "/images/PAISLEY_logo_white.png",
     link: "https://paisley.io",
   },
   {
