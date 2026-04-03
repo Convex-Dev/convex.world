@@ -6226,6 +6226,29 @@ nav .logo {
   color: var(--accent-primary);
 }
 
+.repl-run-btn {
+  padding: var(--space-1) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--surface-void);
+  background: var(--accent-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.repl-run-btn:hover {
+  opacity: 0.85;
+}
+
+.repl-run-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .repl-hints {
   display: flex;
   gap: var(--space-4);

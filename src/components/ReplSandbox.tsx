@@ -20,19 +20,18 @@ interface ReplLine {
 }
 
 function contentFromConvexResponse(r: ConvexResponse): string {
-  if (r.errorCode || r.value) {
+  if (r.errorCode) {
     const text =
       (typeof r.value === 'string' && r.value) ||
       (typeof r.result === 'string' && r.result) ||
-      r.value ||
       '';
-    if (r.errorCode && text) return `${r.errorCode}: ${text}`;
-    if (r.errorCode) return r.errorCode;
-    if (r.value) return r.value as string;
-    return 'Unknown error';
+    return text ? `${r.errorCode}: ${text}` : r.errorCode;
   }
-  if (typeof r.result === 'string') return r.result;
-  if (r.value === null || r.value === undefined) return 'nil';
+  if (r.value === null || r.value === undefined) {
+    if (typeof r.result === 'string') return r.result || 'nil';
+    return 'nil';
+  }
+  if (typeof r.value === 'string') return r.value;
   if (typeof r.value === 'object') return JSON.stringify(r.value, null, 2);
   return String(r.value);
 }
@@ -45,7 +44,7 @@ const QUERY_EXAMPLES: { heading: string; code: string; description: string }[] =
 ];
 
 const TRANSACT_EXAMPLES: { heading: string; code: string; description: string }[] = [
-  { heading: 'Send CVM', code: '(transfer #129 1000000)', description: 'send 0.01 CVM to recipient' },
+  { heading: 'Send CVM', code: '(transfer #12 1000000)', description: 'send 0.001 CVM to recipient' },
   { heading: 'Create account', code: '(create-account 0x1d82380b9fd19ff699c96f286b1fa3badd86ba705a1b1e15cd654a678bfd2007)', description: 'create a new account with the given public key' },
 ];
 
@@ -203,9 +202,7 @@ export default function ReplSandbox() {
 
     if (e.key === 'Enter') {
       e.preventDefault();
-      const el = inputRef.current;
-      const atEnd = !el || el.selectionStart == null || el.selectionStart === input.length;
-      if (atEnd) el?.form?.requestSubmit();
+      inputRef.current?.form?.requestSubmit();
       return;
     }
     if (e.key === 'ArrowUp') {
@@ -509,6 +506,14 @@ export default function ReplSandbox() {
             Transact
           </button>
         </div>
+        <button
+          type="submit"
+          className="repl-run-btn"
+          disabled={!input.trim() || isExecuting}
+          title="Run expression (Enter)"
+        >
+          Run
+        </button>
       </form>
       
 
