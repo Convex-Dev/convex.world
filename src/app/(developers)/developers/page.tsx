@@ -101,7 +101,39 @@ export default function Developer() {
 
       {/* Getting Started */}
       <section className="content-section">
-        <SectionHeader number="002" title="Getting Started" subtitle="Everything you need to start building on Convex" />
+        <SectionHeader number="002" title="Getting Started" subtitle="From Hello World to production" />
+        <h3 className="dev-subsection-title">Hello World</h3>
+        <div className="dev-resources-grid dev-hello-steps">
+          <Link href="/sandbox" className="dev-resource-card">
+            <span className="dev-step-num">1</span>
+            <div>
+              <h4>Open the Sandbox</h4>
+              <p>No install required — start coding in your browser</p>
+            </div>
+          </Link>
+          <div className="dev-resource-card">
+            <span className="dev-step-num">2</span>
+            <div>
+              <h4>Run your first query</h4>
+              <p><code>(+ 1 2 3)</code> — returns <code>6</code></p>
+            </div>
+          </div>
+          <div className="dev-resource-card">
+            <span className="dev-step-num">3</span>
+            <div>
+              <h4>Write to global state</h4>
+              <p><code>(def greeting &quot;Hello, Convex!&quot;)</code></p>
+            </div>
+          </div>
+          <div className="dev-resource-card">
+            <span className="dev-step-num">4</span>
+            <div>
+              <h4>Read it back</h4>
+              <p><code>greeting</code> — persists on-chain, free to read</p>
+            </div>
+          </div>
+        </div>
+        <h3 className="dev-subsection-title">Resources</h3>
         <div className="dev-resources-grid">
           <ExtLink href="https://docs.convex.world/docs/intro" className="dev-resource-card">
             <BookOpen size={20} strokeWidth={1.5} />
