@@ -34,6 +34,7 @@ const footerData: FooterColumn[] = [
     links: [
       { text: "Blog", href: "https://docs.convex.world/blog" },
       { text: "Ecosystem", href: "/ecosystem" },
+      { text: "Awesome Lattice", href: "https://brittleboye.github.io/awesome-lattice/" },
       { text: "Brand Assets", href: "/brand" },
       { text: "Press", href: "/press" },
       { text: "Report an Issue", href: "https://github.com/Convex-Dev/convex.world/issues" }
