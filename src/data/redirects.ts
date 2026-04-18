@@ -5,6 +5,9 @@
  * If matched, they are redirected instantly. Paths should be lowercase with
  * no trailing slash.
  *
+ * For prefix-based redirects that preserve the suffix path (e.g. the Javadoc
+ * tree under /apidocs/**), see {@link prefixRedirects} below.
+ *
  * Add new entries here as pages move or vanish — no server config needed.
  */
 const redirects: Record<string, string> = {
@@ -41,6 +44,19 @@ const redirects: Record<string, string> = {
   // External products
   "/buy":             "https://app.paisley.io",
   "/mcp":             "https://docs.convex.world/docs/cad/mcp",
+};
+
+/**
+ * Prefix-based redirects that preserve the path suffix, query string, and hash.
+ *
+ * A visit to `/<prefix>/<suffix>` is redirected to `<target>/<suffix>`, with
+ * the suffix case preserved (important for filesystem-style resources like
+ * Javadoc HTML). Prefix keys should be lowercase, no trailing slash; target
+ * values should end with a slash.
+ */
+export const prefixRedirects: Record<string, string> = {
+  // Legacy Javadoc location — now hosted under docs.convex.world.
+  "/apidocs": "https://docs.convex.world/apidocs/",
 };
 
 export default redirects;
