@@ -11,10 +11,15 @@ export default function Hex({
   height = 100,
   className,
   children,
+  style,
   ...props
 }: HexProps) {
   return (
-    <div className={className ? `hex-icon ${className}` : 'hex-icon'} {...props}>
+    <div
+      {...props}
+      className={className ? `hex-icon ${className}` : 'hex-icon'}
+      style={{ width, height, ...style }}
+    >
       <svg
         style={{
           position: 'absolute',

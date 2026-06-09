@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Download, ArrowUpRight, FileImage, Palette, Type } from "lucide-react";
 import ExtLink from "@/components/ExtLink";

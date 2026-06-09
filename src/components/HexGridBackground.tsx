@@ -7,7 +7,6 @@ import { isRevisit } from '@/lib/session';
 const BASE_SIZE = 300;
 const GAP = 0.04;
 const HEX_SCALE = 0.95;
-const TEXT_INSET = 0.85;
 const FULL_SIZE = 1900;
 
 /** Scale hex size proportionally to viewport width. Full size at FULL_SIZE px, capped at BASE_SIZE. */

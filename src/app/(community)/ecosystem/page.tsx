@@ -19,7 +19,7 @@ export default function Ecosystem() {
     <ContentPage>
       {/* Hero Section */}
       <section className="community-hero">
-        <span className="dev-hero-tag">// Building on Convex</span>
+        <span className="dev-hero-tag">{"// Building on Convex"}</span>
         <h1 className="page-hero-title">Featured Projects</h1>
       </section>
 

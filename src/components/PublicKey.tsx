@@ -29,6 +29,8 @@ export default function PublicKey({
   return (
     <span className={className ? `public-key ${className}` : 'public-key'} title={tooltip}>
       {hasKey && base ? (
+        // Dynamic peer URLs are not compatible with next/image remote patterns.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={`${base}/identicon/${hex}`}
           alt=""

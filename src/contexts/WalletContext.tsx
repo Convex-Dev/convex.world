@@ -11,7 +11,6 @@ import {
 } from "react";
 import {
   KeyPair,
-  bytesToHex,
   hexToBytes,
   sign,
 } from "@convex-world/convex-ts";

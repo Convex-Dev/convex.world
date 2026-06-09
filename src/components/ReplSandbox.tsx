@@ -75,7 +75,6 @@ export default function ReplSandbox() {
   const hasMatchingKey =
     accountDetails?.publicKey &&
     wallet?.publicKeys.some((pk) => norm(pk) === norm(accountDetails.publicKey!));
-  const isKeyConnected = !!keyPair;
 
   // Fetch account details when address or network (peerUrl) changes (debounced)
   useEffect(() => {

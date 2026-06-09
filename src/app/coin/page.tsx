@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ArrowUpRight, Shield, Coins, TrendingUp, Zap } from "lucide-react";
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";

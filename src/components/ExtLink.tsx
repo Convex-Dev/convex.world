@@ -37,7 +37,7 @@ export default function ExtLink({ href, children, ...rest }: ExtLinkProps) {
     <a
       href={href}
       target={target}
-      rel={target === "_blank" ? "noopener noreferrer" : undefined}
+      rel="noopener noreferrer"
       {...rest}
     >
       {children}

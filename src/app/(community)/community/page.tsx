@@ -69,7 +69,7 @@ export default async function Community() {
     <ContentPage>
       {/* Hero + Social Links */}
       <section className="community-hero">
-        <span className="dev-hero-tag">// Connect with us</span>
+        <span className="dev-hero-tag">{"// Connect with us"}</span>
         <h1 className="page-hero-title">
           Join the{" "}
           Community

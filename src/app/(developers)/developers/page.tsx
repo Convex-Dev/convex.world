@@ -5,7 +5,6 @@ import ExtLink from "@/components/ExtLink";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
-import CtaSection from "@/components/CtaSection";
 import CvmIcon from "@/components/icons/CvmIcon";
 import LatticeDataIcon from "@/components/icons/LatticeDataIcon";
 import StructuredData from "@/lib/structured-data";
@@ -23,7 +22,7 @@ export default function Developer() {
       {/* Hero Section - Asymmetric Layout */}
       <section className="dev-hero-split">
         <div className="dev-hero-content">
-          <span className="dev-hero-tag">// Builder Interface</span>
+          <span className="dev-hero-tag">{"// Builder Interface"}</span>
           <h1>Build on the<br /><span className="hero-accent">Lattice</span></h1>
           <p>Build economic systems where humans and autonomous agents participate under the same rules, the same costs, and the same finality.</p>
           <div className="btn-group">

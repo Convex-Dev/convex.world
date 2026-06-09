@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { KeyPair, bytesToHex } from '@convex-world/convex-ts';
+import { KeyPair } from '@convex-world/convex-ts';
 
 type ImportKeyDialogProps = {
   isOpen: boolean;

@@ -15,7 +15,7 @@ export default function CPoS() {
       <p>
       Every decentralised economy faces the same challenge: how do you prevent a digital coin from being spent twice? The first generation solved this with energy. The second with capital.</p>
       <p><strong>Convex solves it with mathematics</strong>.</p>
-      <p>CPoS is not an incremental improvement - it's revolutionary new system. Peers don't compete to produce blocks: they <em>converge</em>. Beliefs propagate, merge, and resolve through a CRDT structure that is provably guaranteed to reach agreement. No leaders, no chains, no wasted energy. Just convergence.
+      <p>CPoS is not an incremental improvement - it&apos;s a revolutionary new system. Peers don&apos;t compete to produce blocks: they <em>converge</em>. Beliefs propagate, merge, and resolve through a CRDT structure that is provably guaranteed to reach agreement. No leaders, no chains, no wasted energy. Just convergence.
       </p>
 
       {/* How It Works */}

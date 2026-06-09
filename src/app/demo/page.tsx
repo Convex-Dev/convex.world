@@ -31,7 +31,7 @@ export default function Demo() {
                 <ConvexProvider>
                   <section className="inspector-section">
                     <div className="section-header">
-                      <span className="section-number">// Observe</span>
+                      <span className="section-number">{"// Observe"}</span>
                       <h2>Inspect Live State</h2>
                       <p>Direct instrumentation into the global consensus</p>
                     </div>

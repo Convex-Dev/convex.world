@@ -1,7 +1,6 @@
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
-import CtaSection from "@/components/CtaSection";
 import InstallCommands, { CopyBlock } from "@/components/InstallCommands";
 import StructuredData from "@/lib/structured-data";
 

@@ -9,7 +9,7 @@ interface SectionHeaderProps {
 export default function SectionHeader({ number, title, subtitle }: SectionHeaderProps) {
   return (
     <div className="section-header">
-      {number && <span className="section-number">// {number}</span>}
+      {number && <span className="section-number">{`// ${number}`}</span>}
       <h2>{title}</h2>
       {subtitle && <p>{subtitle}</p>}
     </div>

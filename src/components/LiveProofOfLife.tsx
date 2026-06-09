@@ -69,7 +69,7 @@ export default function LiveProofOfLife() {
     } catch {
       setIsConnected(false);
     }
-  }, []);
+  }, [convex]);
 
   // Initial fetch and polling
   useEffect(() => {

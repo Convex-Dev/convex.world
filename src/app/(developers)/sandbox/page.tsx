@@ -24,7 +24,7 @@ export default function SandboxPage() {
             <div className="lattice-bg" aria-hidden="true" />
 
             <section className="content-section">
-              <span className="section-number" style={{ marginBottom: 'var(--space-4)' }}>// Sandbox</span>
+              <span className="section-number" style={{ marginBottom: 'var(--space-4)' }}>{"// Sandbox"}</span>
 
               <div className="dev-sandbox-container">
                 <ReplSandbox />

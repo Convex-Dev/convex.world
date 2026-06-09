@@ -18,7 +18,7 @@ export default function Tools() {
     <ContentPage>
       {/* Hero Section */}
       <section className="tools-hero">
-        <span className="dev-hero-tag">//Network Resources</span>
+        <span className="dev-hero-tag">{"//Network Resources"}</span>
         <h1 className="page-hero-title">Convex Tools</h1>
         <p>Everything you need to explore, build, test, and deploy</p>
       </section>
