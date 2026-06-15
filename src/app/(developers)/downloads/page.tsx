@@ -98,6 +98,14 @@ export default function Downloads() {
             </div>
           </article>
         </div>
+        <p className="quickstart-note">
+          <strong>First run:</strong> the jar is not code-signed, so double-clicking it can
+          trigger a Gatekeeper (macOS) or SmartScreen (Windows) prompt. Running it from a
+          terminal with <code>java -jar convex.jar</code> avoids that. To keep double-clicking:
+          on macOS right-click the jar and choose Open once (or run{" "}
+          <code>xattr -dr com.apple.quarantine convex.jar</code>); on Windows choose
+          More info, then Run anyway.
+        </p>
       </section>
 
       {/* Docker */}
