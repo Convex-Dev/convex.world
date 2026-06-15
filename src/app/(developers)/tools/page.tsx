@@ -99,7 +99,7 @@ export default function Tools() {
             <div className="quickstart-content">
               <h4>Download convex.jar</h4>
               <div className="quickstart-code">
-                <code>curl -O https://convex.world/convex.jar</code>
+                <code>curl -fL -o convex.jar https://github.com/Convex-Dev/convex/releases/latest/download/convex.jar</code>
               </div>
               <p className="quickstart-note">
                 Or download from the{" "}
