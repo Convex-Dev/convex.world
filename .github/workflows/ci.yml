@@ -1,0 +1,159 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: ["develop", "master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  app:
+    name: App checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10.28.1"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+  installers:
+    name: Installer checks
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Unix installer syntax
+        if: runner.os == 'Linux'
+        run: bash -n public/install.sh
+
+      - name: Smoke test Unix installer
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          work="$(mktemp -d)"
+          export HOME="$work/home"
+          export CONVEX_HOME="$HOME/.convex"
+          tools="$work/tools"
+          mkdir -p "$HOME" "$tools"
+          export PATH="$tools:$PATH"
+
+          cat > "$tools/java" <<'SCRIPT'
+          #!/usr/bin/env bash
+          if [ "${1:-}" = "-version" ]; then
+            echo 'openjdk version "24.0.1" 2026-01-01' >&2
+            exit 0
+          fi
+          exit 0
+          SCRIPT
+
+          cat > "$tools/curl" <<'SCRIPT'
+          #!/usr/bin/env bash
+          out=""
+          while [ "$#" -gt 0 ]; do
+            case "$1" in
+              -o)
+                out="$2"
+                shift 2
+                ;;
+              *)
+                shift
+                ;;
+            esac
+          done
+          [ -n "$out" ] || exit 1
+          mkdir -p "$(dirname "$out")"
+          printf 'fake jar\n' > "$out"
+          SCRIPT
+
+          chmod +x "$tools/java" "$tools/curl"
+
+          bash public/install.sh
+
+          test -f "$CONVEX_HOME/convex.jar"
+          test -x "$HOME/.local/bin/convex"
+          grep -q "$CONVEX_HOME/convex.jar" "$HOME/.local/bin/convex"
+
+      - name: Check PowerShell installer syntax
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          [scriptblock]::Create((Get-Content -Raw public/install.ps1)) | Out-Null
+
+      - name: Smoke test PowerShell installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          $work = Join-Path $env:RUNNER_TEMP "convex-installer-smoke"
+          Remove-Item -LiteralPath $work -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Path $work | Out-Null
+
+          $env:CONVEX_HOME = Join-Path $work ".convex"
+          $tools = Join-Path $work "tools"
+          New-Item -ItemType Directory -Path $tools | Out-Null
+          $env:Path = "$tools;$env:Path"
+
+          Set-Content -Path (Join-Path $tools "java.cmd") -Encoding ASCII -Value @"
+          @echo off
+          echo openjdk version "24.0.1" 2026-01-01 1>&2
+          exit /b 0
+          "@
+
+          function Invoke-WebRequest {
+            param(
+              [string] $Uri,
+              [string] $OutFile,
+              [switch] $UseBasicParsing
+            )
+            New-Item -ItemType Directory -Path (Split-Path -Parent $OutFile) -Force | Out-Null
+            Set-Content -Path $OutFile -Encoding ASCII -Value "fake jar"
+          }
+
+          [Environment]::SetEnvironmentVariable("Path", $env:CONVEX_HOME, "User")
+
+          & .\public\install.ps1
+
+          if (-not (Test-Path -LiteralPath (Join-Path $env:CONVEX_HOME "convex.jar"))) {
+            throw "convex.jar was not installed"
+          }
+
+          if (-not (Test-Path -LiteralPath (Join-Path $env:CONVEX_HOME "convex.cmd"))) {
+            throw "convex.cmd wrapper was not installed"
+          }

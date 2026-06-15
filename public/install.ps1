@@ -12,8 +12,8 @@
 
 $ErrorActionPreference = "Stop"
 
-$ConvexHome = if ($env:CONVEX_HOME) { $env:CONVEX_HOME } else { "$HOME\.convex" }
-$ConvexJar = "$ConvexHome\convex.jar"
+$ConvexHome = if ($env:CONVEX_HOME) { $env:CONVEX_HOME } else { Join-Path $HOME ".convex" }
+$ConvexJar = Join-Path $ConvexHome "convex.jar"
 $MinJavaVersion = 21
 $Repo = "Convex-Dev/convex"
 
@@ -23,6 +23,36 @@ function Info($msg)  { Write-Host "  $msg" }
 function Ok($msg)    { Write-Host "  [OK] $msg" -ForegroundColor Green }
 function Warn($msg)  { Write-Host "  [!!] $msg" -ForegroundColor Yellow }
 function Fail($msg)  { Write-Host "  [FAIL] $msg" -ForegroundColor Red; exit 1 }
+
+function Test-DirectoryWritable($path) {
+    if (-not (Test-Path -LiteralPath $path -PathType Container)) {
+        return $false
+    }
+
+    $probe = Join-Path $path ".convex-write-test-$([Guid]::NewGuid().ToString('N'))"
+    try {
+        New-Item -ItemType File -Path $probe -Force | Out-Null
+        Remove-Item -LiteralPath $probe -Force
+        return $true
+    }
+    catch {
+        return $false
+    }
+}
+
+function Test-PathEntry($pathValue, $entry) {
+    if (-not $pathValue) {
+        return $false
+    }
+
+    $normalizedEntry = $entry.TrimEnd('\')
+    foreach ($part in $pathValue.Split(';')) {
+        if ($part.Trim().TrimEnd('\').Equals($normalizedEntry, [StringComparison]::OrdinalIgnoreCase)) {
+            return $true
+        }
+    }
+    return $false
+}
 
 # ── Check Java ───────────────────────────────────────────
 
@@ -64,7 +94,9 @@ function Download-Convex {
     }
 
     Info "Downloading from $url ..."
-    Invoke-WebRequest -Uri $url -OutFile $ConvexJar -UseBasicParsing
+    $tmpJar = "$ConvexJar.tmp"
+    Invoke-WebRequest -Uri $url -OutFile $tmpJar -UseBasicParsing
+    Move-Item -LiteralPath $tmpJar -Destination $ConvexJar -Force
 
     if (-not (Test-Path $ConvexJar)) {
         Fail "Download failed."
@@ -76,7 +108,11 @@ function Download-Convex {
 # ── Create wrapper script ────────────────────────────────
 
 function Install-Wrapper {
-    $wrapper = "$ConvexHome\convex.cmd"
+    if (-not (Test-DirectoryWritable $ConvexHome)) {
+        Fail "$ConvexHome is not writable. Set CONVEX_HOME to a writable directory."
+    }
+
+    $wrapper = Join-Path $ConvexHome "convex.cmd"
 
     Set-Content -Path $wrapper -Encoding ASCII -Value @"
 @echo off
@@ -87,10 +123,11 @@ java -jar "$ConvexJar" %*
 
     # Add to PATH if not already there
     $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
-    if ($userPath -notlike "*$ConvexHome*") {
+    if (-not (Test-PathEntry $userPath $ConvexHome)) {
         $reply = Read-Host "  Add $ConvexHome to your PATH? [Y/n]"
         if ($reply -eq "" -or $reply -match "^[Yy]") {
-            [Environment]::SetEnvironmentVariable("Path", "$userPath;$ConvexHome", "User")
+            $newUserPath = if ($userPath) { "$userPath;$ConvexHome" } else { $ConvexHome }
+            [Environment]::SetEnvironmentVariable("Path", $newUserPath, "User")
             $env:Path = "$env:Path;$ConvexHome"
             Ok "Added $ConvexHome to user PATH"
             Warn "Restart your terminal for PATH changes to take effect."

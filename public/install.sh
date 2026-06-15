@@ -26,6 +26,17 @@ ok()    { printf '  \033[32m✓\033[0m %s\n' "$*"; }
 warn()  { printf '  \033[33m!\033[0m %s\n' "$*"; }
 fail()  { printf '  \033[31m✗\033[0m %s\n' "$*"; exit 1; }
 
+path_contains() {
+    case ":$PATH:" in
+        *":$1:"*) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+is_writable_dir() {
+    [ -d "$1" ] && [ -w "$1" ]
+}
+
 # ── Check Java ───────────────────────────────────────────
 
 check_java() {
@@ -59,29 +70,31 @@ get_download_url() {
 download() {
     local url
     url=$(get_download_url)
+    local tmp_jar="$CONVEX_JAR.tmp"
 
     mkdir -p "$CONVEX_HOME"
 
     info "Downloading from $url ..."
 
     if command -v curl &>/dev/null; then
-        curl -fSL --progress-bar -o "$CONVEX_JAR" "$url"
+        curl -fSL --progress-bar -o "$tmp_jar" "$url"
     elif command -v wget &>/dev/null; then
-        wget -q --show-progress -O "$CONVEX_JAR" "$url"
+        wget -q --show-progress -O "$tmp_jar" "$url"
     else
         fail "Neither curl nor wget found. Please install one."
     fi
 
+    mv "$tmp_jar" "$CONVEX_JAR"
     ok "Downloaded convex.jar"
 }
 
 # ── Create wrapper script ────────────────────────────────
 
 install_wrapper() {
-    # Find a writable directory on PATH
+    # Find a writable directory on PATH.
     local bin_dir=""
     for dir in "$HOME/.local/bin" "$HOME/bin" "/usr/local/bin"; do
-        if [ -d "$dir" ] && echo "$PATH" | grep -q "$dir"; then
+        if is_writable_dir "$dir" && path_contains "$dir"; then
             bin_dir="$dir"
             break
         fi
@@ -91,6 +104,10 @@ install_wrapper() {
     if [ -z "$bin_dir" ]; then
         bin_dir="$HOME/.local/bin"
         mkdir -p "$bin_dir"
+    fi
+
+    if ! is_writable_dir "$bin_dir"; then
+        fail "$bin_dir is not writable. Create a writable bin directory or add one to PATH."
     fi
 
     local wrapper="$bin_dir/convex"
@@ -104,7 +121,7 @@ SCRIPT
     ok "Installed 'convex' command to $wrapper"
 
     # Check if bin_dir is on PATH
-    if ! echo "$PATH" | grep -q "$bin_dir"; then
+    if ! path_contains "$bin_dir"; then
         warn "$bin_dir is not on your PATH. Add it with:"
         info "  export PATH=\"$bin_dir:\$PATH\""
     fi

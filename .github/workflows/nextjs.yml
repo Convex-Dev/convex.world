@@ -36,9 +36,9 @@ jobs:
         with:
           node-version: "20"
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: '10.11.0'
+          version: '10.28.1'
       - name: Detect package manager
         id: detect-package-manager
         run: |

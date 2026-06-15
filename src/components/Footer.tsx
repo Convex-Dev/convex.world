@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ExtLink from "@/components/ExtLink";
 
 interface FooterLink {
@@ -18,7 +19,7 @@ const footerData: FooterColumn[] = [
       { text: "Whitepaper", href: "https://docs.convex.world/docs/overview/convex-whitepaper" },
       { text: "Core Concepts", href: "https://docs.convex.world/docs/overview/concepts" },
       { text: "Tutorials", href: "https://docs.convex.world/docs/tutorial/coins" },
-      { text: "API Reference", href: "http://peer.convex.live:8080/swagger" }
+      { text: "API Reference", href: "https://peer.convex.live/swagger" }
     ]
   },
   {
@@ -43,6 +44,13 @@ const footerData: FooterColumn[] = [
 ];
 
 export default function Footer() {
+  const renderFooterLink = (link: FooterLink) => {
+    if (link.href.startsWith("/")) {
+      return <Link href={link.href}>{link.text}</Link>;
+    }
+    return <ExtLink href={link.href}>{link.text}</ExtLink>;
+  };
+
   return (
     <footer>
       <div className="footer-content">
@@ -55,7 +63,7 @@ export default function Footer() {
           </div>
           <div className="status-item">
             <span className="status-label">Protocol</span>
-            <span className="status-value">v0.7.14</span>
+            <span className="status-value">v0.8.5</span>
           </div>
         </div>
 
@@ -66,9 +74,7 @@ export default function Footer() {
               <ul>
                 {column.links.map((link) => (
                   <li key={link.href}>
-                    <ExtLink href={link.href}>
-                      {link.text}
-                    </ExtLink>
+                    {renderFooterLink(link)}
                   </li>
                 ))}
               </ul>
