@@ -16,11 +16,14 @@ export default function Hero() {
         </p>
 
         <div className="hero-cta-group">
-          <Link href="/vision" className="btn btn-primary btn-lg">
-            <span>Vision</span>
+          <Link href="/developers" className="btn btn-primary btn-lg">
+            <span>Start building</span>
           </Link>
           <Link href="/sandbox" className="btn btn-sandbox btn-lg">
             <span>Sandbox</span>
+          </Link>
+          <Link href="/vision" className="btn btn-secondary btn-lg">
+            <span>Vision</span>
           </Link>
         </div>
         
