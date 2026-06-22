@@ -1,4 +1,5 @@
 import { superpowers } from "@/data/superpowers";
+import { PROTONET_PEER_URL, TESTNET_PEER_URL } from "@/lib/networks";
 
 export interface NavDropdownItem {
   label: string;
@@ -89,9 +90,9 @@ export const navDropdowns: NavDropdown[] = [
         items: [
           { label: "Tools Overview", href: "/tools", description: "Explore all developer tools", icon: "wrench" },
           { label: "Sandbox", href: "/sandbox", description: "Interactive REPL console", icon: "terminal" },
-          { label: "Protonet Explorer", href: "https://peer.convex.live/explorer", external: true, description: "Explore the live network", icon: "globe" },
-          { label: "Testnet Explorer", href: "https://mikera1337-convex-testnet.hf.space/explorer", external: true, description: "Explore the testnet", icon: "globe" },
-          { label: "REST API", href: "https://mikera1337-convex-testnet.hf.space/swagger", external: true, description: "API reference", icon: "server" },
+          { label: "Protonet Explorer", href: `${PROTONET_PEER_URL}/explorer`, external: true, description: "Explore the live network", icon: "globe" },
+          { label: "Testnet Explorer", href: `${TESTNET_PEER_URL}/explorer`, external: true, description: "Explore the testnet", icon: "globe" },
+          { label: "REST API", href: `${TESTNET_PEER_URL}/swagger`, external: true, description: "API reference", icon: "server" },
           { label: "CLI Tool", href: "https://docs.convex.world/docs/products/convex-cli", external: true, description: "Command-line interface", icon: "terminal" },
           { label: "Convex Desktop", href: "https://docs.convex.world/docs/products/convex-desktop", external: true, description: "Desktop GUI application", icon: "monitor-smartphone" },
         ],

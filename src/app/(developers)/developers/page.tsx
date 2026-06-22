@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Terminal, Boxes, Zap, Code2, Github, FileCode } from "lucide-react";
+import { BookOpen, Terminal, Boxes, Zap, Code2, Github, FileCode, Rocket } from "lucide-react";
 import ExtLink from "@/components/ExtLink";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
 import ContentPage from "@/components/ContentPage";
@@ -102,6 +102,13 @@ export default function Developer() {
       <section className="content-section">
         <SectionHeader number="002" title="Getting Started" subtitle="Everything you need to start building on Convex" />
         <div className="dev-resources-grid">
+          <ExtLink href="https://docs.convex.world/docs/tutorial/quickstart" className="dev-resource-card">
+            <Rocket size={20} strokeWidth={1.5} />
+            <div>
+              <h4>Quick Start</h4>
+              <p>Deploy and call a smart contract in the Sandbox — no install</p>
+            </div>
+          </ExtLink>
           <ExtLink href="https://docs.convex.world/docs/intro" className="dev-resource-card">
             <BookOpen size={20} strokeWidth={1.5} />
             <div>
@@ -137,11 +144,18 @@ export default function Developer() {
               <p>Client library for JavaScript and TypeScript</p>
             </div>
           </ExtLink>
-          <ExtLink href="https://github.com/Convex-Dev/convex/tree/develop/convex-java" className="dev-resource-card">
+          <ExtLink href="https://docs.convex.world/docs/tutorial/client-sdks/java" className="dev-resource-card">
             <Boxes size={20} strokeWidth={1.5} />
             <div>
-              <h4>Java Client API</h4>
+              <h4>Java SDK</h4>
               <p>Client library for Java/JVM applications</p>
+            </div>
+          </ExtLink>
+          <ExtLink href="https://docs.convex.world/docs/tutorial/client-sdks/python" className="dev-resource-card">
+            <Boxes size={20} strokeWidth={1.5} />
+            <div>
+              <h4>Python SDK</h4>
+              <p>Client library for Python applications</p>
             </div>
           </ExtLink>
           <ExtLink href="https://docs.convex.world/docs/cad/0000cads" className="dev-resource-card">

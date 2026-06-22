@@ -1,3 +1,5 @@
+import { PROTONET_PEER_URL, TESTNET_PEER_URL } from "@/lib/networks";
+
 export interface ToolLink {
   name: string;
   href: string;
@@ -23,8 +25,8 @@ export const tools: Tool[] = [
     description: "Explore the Convex network, view transactions, blocks, and network activity in real-time.",
     icon: "compass",
     links: [
-      { name: "Protonet", href: "https://peer.convex.live/explorer", isExternal: true },
-      { name: "Testnet", href: "https://mikera1337-convex-testnet.hf.space/explorer", isExternal: true },
+      { name: "Protonet", href: `${PROTONET_PEER_URL}/explorer`, isExternal: true },
+      { name: "Testnet", href: `${TESTNET_PEER_URL}/explorer`, isExternal: true },
     ],
   },
   {
@@ -37,7 +39,7 @@ export const tools: Tool[] = [
     title: "REST API",
     description: "Access Convex network data and functionality through comprehensive REST API endpoints.",
     icon: "globe",
-    links: [{ name: "Swagger", href: "https://peer.convex.live/swagger", isExternal: true }],
+    links: [{ name: "Swagger", href: `${PROTONET_PEER_URL}/swagger`, isExternal: true }],
   },
   {
     title: "CLI Tool",

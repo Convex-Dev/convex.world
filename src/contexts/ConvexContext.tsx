@@ -18,7 +18,7 @@ const ConvexContext = createContext<ConvexContextValue | null>(null);
 
 type ConvexProviderProps = {
   children: ReactNode;
-  /** Optional peer URL; defaults to https://peer.convex.live */
+  /** Optional peer URL; defaults to the public testnet (see lib/convex-api.ts). */
   peerUrl?: string;
 };
 

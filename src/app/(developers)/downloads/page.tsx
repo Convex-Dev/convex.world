@@ -133,7 +133,7 @@ export default function Downloads() {
         </div>
         <p className="quickstart-note">
           Available tags: <code>latest</code> (stable), <code>snapshot</code>{" "}
-          (develop), or a specific version like <code>0.8.3</code>.{" "}
+          (develop), or a specific version like <code>0.8.5</code>.{" "}
           <ExtLink href="https://hub.docker.com/r/convexlive/convex">
             View on Docker Hub
           </ExtLink>

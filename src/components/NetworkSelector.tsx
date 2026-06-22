@@ -3,10 +3,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useConvex } from '@/contexts/ConvexContext';
+import { PROTONET_PEER_URL, TESTNET_PEER_URL } from '@/lib/networks';
 
 const PRESETS: { label: string; url: string }[] = [
-  { label: 'Protonet (convex.live)', url: 'https://peer.convex.live' },
-  { label: 'Testnet', url: 'https://mikera1337-convex-testnet.hf.space' },
+  { label: 'Protonet (convex.live)', url: PROTONET_PEER_URL },
+  { label: 'Testnet', url: TESTNET_PEER_URL },
 ];
 
 function normalizeUrl(u: string): string {

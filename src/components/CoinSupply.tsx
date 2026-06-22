@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { TESTNET_PEER_URL } from "@/lib/networks";
 
-const PEER_URL = "https://mikera1337-convex-testnet.hf.space";
+const PEER_URL = TESTNET_PEER_URL;
 
 export default function CoinSupply() {
   const [supply, setSupply] = useState<string | null>(null);

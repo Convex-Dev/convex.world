@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ExtLink from "@/components/ExtLink";
+import { PROTONET_PEER_URL } from "@/lib/networks";
 
 interface FooterLink {
   text: string;
@@ -19,7 +20,7 @@ const footerData: FooterColumn[] = [
       { text: "Whitepaper", href: "https://docs.convex.world/docs/overview/convex-whitepaper" },
       { text: "Core Concepts", href: "https://docs.convex.world/docs/overview/concepts" },
       { text: "Tutorials", href: "https://docs.convex.world/docs/tutorial/coins" },
-      { text: "API Reference", href: "https://peer.convex.live/swagger" }
+      { text: "API Reference", href: `${PROTONET_PEER_URL}/swagger` }
     ]
   },
   {

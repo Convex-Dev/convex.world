@@ -17,6 +17,7 @@ import {
   type Result,
   type ResultInfo,
 } from '@convex-world/convex-ts';
+import { TESTNET_PEER_URL } from '@/lib/networks';
 
 // Re-export KeyPair so consumers don't need a second import source
 export { KeyPair } from '@convex-world/convex-ts';
@@ -59,7 +60,7 @@ export interface ConvexOptions {
 // Client
 // ---------------------------------------------------------------------------
 
-const DEFAULT_PEER_URL = 'https://mikera1337-convex-testnet.hf.space';
+const DEFAULT_PEER_URL = TESTNET_PEER_URL;
 
 /**
  * Convex client for the website.

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { PROTONET_PEER_URL, TESTNET_PEER_URL } from "@/lib/networks";
 
 export const metadata: Metadata = {
   title: {
@@ -154,8 +155,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="dns-prefetch" href="https://docs.convex.world" />
-        <link rel="dns-prefetch" href="https://mikera1337-convex-testnet.hf.space" />
-        <link rel="dns-prefetch" href="https://peer.convex.live" />
+        <link rel="dns-prefetch" href={TESTNET_PEER_URL} />
+        <link rel="dns-prefetch" href={PROTONET_PEER_URL} />
         <link rel="preconnect" href="https://docs.convex.world" crossOrigin="anonymous" />
         <script
           dangerouslySetInnerHTML={{
