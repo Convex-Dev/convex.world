@@ -3849,6 +3849,39 @@ nav .logo {
   margin: 0;
 }
 
+.dev-step-num {
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-top: 2px;
+}
+
+.dev-hello-steps {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .dev-hello-steps {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.dev-subsection-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin: 0 0 var(--space-4) 0;
+}
+
 .dev-cta {
   padding-top: var(--space-16); padding-bottom: var(--space-16);
 }
@@ -4355,6 +4388,12 @@ nav .logo {
 .eco-card:hover .eco-card-image {
   transform: scale(1.05);
 }
+
+/* Theme-aware ecosystem logos: dark variant shown by default, light variant in light mode */
+.eco-img-light { display: none; }
+.eco-img-dark { display: block; }
+.light .eco-img-light { display: block; }
+.light .eco-img-dark { display: none; }
 
 .eco-card h3 {
   font-family: var(--font-display);
