@@ -11,28 +11,28 @@
   },
   "dependencies": {
     "@convex-world/convex-ts": "^0.3.0",
-    "lucide-react": "^0.562.0",
-    "next": "16.1.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "lucide-react": "^0.577.0",
+    "next": "16.2.10",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "rss-parser": "^3.13.0",
-    "shiki": "^3.23.0"
+    "shiki": "^4.3.1"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.3",
-    "@types/node": "^20.19.31",
-    "@types/react": "^19.2.10",
+    "@eslint/eslintrc": "^3.3.5",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "autoprefixer": "^10.4.24",
+    "autoprefixer": "^10.5.2",
     "eslint": "^9.39.2",
-    "eslint-config-next": "16.0.8",
-    "postcss": "^8.5.6",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "eslint-config-next": "16.2.10",
+    "postcss": "^8.5.16",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@10.28.1+sha512.7d7dbbca9e99447b7c3bf7a73286afaaf6be99251eb9498baefa7d406892f67b879adb3a1d7e687fc4ccc1a388c7175fbaae567a26ab44d1067b54fcf0d6a316"
 }
