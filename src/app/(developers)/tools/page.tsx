@@ -4,6 +4,8 @@ import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
 import CtaSection from "@/components/CtaSection";
+import PageHero from "@/components/PageHero";
+import Section from "@/components/Section";
 import StructuredData from "@/lib/structured-data";
 import { tools } from "@/data/tools";
 import { getIcon } from "@/lib/icons";
@@ -17,14 +19,12 @@ export default function Tools() {
   return (
     <ContentPage>
       {/* Hero Section */}
-      <section className="tools-hero">
-        <span className="dev-hero-tag">{"//Network Resources"}</span>
-        <h1 className="page-hero-title">Convex Tools</h1>
+      <PageHero className="tools-hero" eyebrow="//Network Resources" title="Convex Tools">
         <p>Everything you need to explore, build, test, and deploy</p>
-      </section>
+      </PageHero>
 
       {/* Tools Grid */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <div className="grid-responsive">
           {tools.map((tool, i) => {
             const IconComponent = getIcon(tool.icon);
@@ -69,10 +69,10 @@ export default function Tools() {
             );
           })}
         </div>
-      </section>
+      </Section>
 
       {/* Quick Start Section */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <SectionHeader number="002" title="Quick Start" subtitle="Get up and running with the Convex CLI" />
         <div className="tools-quickstart">
           <div className="quickstart-step">
@@ -126,7 +126,7 @@ export default function Tools() {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* CTA */}
       <CtaSection

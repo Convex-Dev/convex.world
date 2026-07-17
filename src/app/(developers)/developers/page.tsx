@@ -5,6 +5,7 @@ import ExtLink from "@/components/ExtLink";
 import AnimatedTerminal from "@/components/AnimatedTerminal";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
+import Section from "@/components/Section";
 import CvmIcon from "@/components/icons/CvmIcon";
 import LatticeDataIcon from "@/components/icons/LatticeDataIcon";
 import StructuredData from "@/lib/structured-data";
@@ -40,7 +41,7 @@ export default function Developer() {
       </section>
 
       {/* Core Technologies */}
-      <section className="content-section">
+      <Section>
         <SectionHeader number="001" title="Core Technologies" subtitle="The foundational layers that power the Convex network" />
         <div className="dev-grid">
           {/* CVM Card */}
@@ -96,10 +97,10 @@ export default function Developer() {
             </ExtLink>
           </article>
         </div>
-      </section>
+      </Section>
 
       {/* Getting Started */}
-      <section className="content-section">
+      <Section>
         <SectionHeader number="002" title="Getting Started" subtitle="Everything you need to start building on Convex" />
         <div className="dev-resources-grid">
           <ExtLink href="https://docs.convex.world/docs/tutorial/quickstart" className="dev-resource-card">
@@ -166,7 +167,7 @@ export default function Developer() {
             </div>
           </ExtLink>
         </div>
-      </section>
+      </Section>
 
       {/* Builder Section */}
       <section className="dev-cta">

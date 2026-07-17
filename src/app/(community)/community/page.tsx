@@ -5,6 +5,8 @@ import { ArrowUpRight, Calendar } from "lucide-react";
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
+import PageHero from "@/components/PageHero";
+import Section from "@/components/Section";
 import StructuredData from "@/lib/structured-data";
 import { socialLinks, FALLBACK_RECENT, type RecentItem } from "@/data/community-social";
 
@@ -69,12 +71,16 @@ export default async function Community() {
   return (
     <ContentPage>
       {/* Hero + Social Links */}
-      <section className="community-hero">
-        <span className="dev-hero-tag">{"// Connect with us"}</span>
-        <h1 className="page-hero-title">
+      <PageHero
+        className="community-hero"
+        eyebrow="// Connect with us"
+        title={
+          <>
           Join the{" "}
           Community
-        </h1>
+          </>
+        }
+      >
         <p className="community-hero-text">Builders, researchers, dreamers, and pioneers from around the world are shaping the future of decentralised coordination.</p>
         <div className="community-social-row">
           {socialLinks.map((social) => (
@@ -95,10 +101,10 @@ export default async function Community() {
             </ExtLink>
           ))}
         </div>
-      </section>
+      </PageHero>
 
       {/* Activity Timeline */}
-      <section className="content-section community-section">
+      <Section className="community-section">
         <SectionHeader title="Feed" subtitle="The latest from the Convex ecosystem" />
         <div className="community-timeline">
           {displayContent.map((item, index) => (
@@ -146,7 +152,7 @@ export default async function Community() {
             <ArrowUpRight size={14} />
           </ExtLink>
         </div>
-      </section>
+      </Section>
 
       {/* Community CTA */}
       <section className="page-cta community-cta">

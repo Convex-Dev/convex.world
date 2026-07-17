@@ -68,7 +68,10 @@ public/
 
 ### Styling
 
-- All styling uses **CSS custom properties** defined in `globals.css` — never add Tailwind or inline styles
+- Follow the architecture in `src/styles/README.md`
+- Design tokens live in `src/styles/tokens.css`; document defaults and shared layouts live alongside it
+- Treat `globals.css` as a compatibility file for existing styles, not the default home for new rules
+- Keep new reusable component styles beside the component in a CSS Module
 - Follow the existing design token system: `--surface-*`, `--accent-*`, `--text-*`, `--space-*`, `--font-*`
 - Glass effects: use `--glass-bg`, `--glass-border`, `--glass-blur`
 - Dark theme is the default; light mode is toggled via `.light` class on `<html>`
@@ -78,6 +81,7 @@ public/
 
 - One component per file in `src/components/`, PascalCase filenames
 - Page templates: `ContentPage` (standard page with nav/footer), `SuperpowerPage` (feature page)
+- Use `PageHero` and `Section` for normal content-page structure
 - Use `SectionHeader` for numbered section titles
 - Use `CtaSection` for repeated CTA groups, `Link` for internal navigation, and `ExtLink` for external links
 - Icons: import from `lucide-react`, reference by name via the icon map in `src/lib/icons.ts`

@@ -1,0 +1,154 @@
+:root {
+  /* Core Surfaces — Dark palette */
+  --surface-void: #09090b;
+  --surface-base: #0f0f12;
+  --surface-elevated: #161619;
+  --surface-overlay: #1c1c20;
+
+  /* Neutral Scale */
+  --neutral-900: #18181b;
+  --neutral-800: #27272a;
+  --neutral-700: #3f3f46;
+  --neutral-600: #52525b;
+  --neutral-500: #71717a;
+  --neutral-400: #a1a1aa;
+  --neutral-300: #d4d4d8;
+  --neutral-200: #e4e4e7;
+  --neutral-100: #fafafa;
+
+  /* Primary Brand Blue — Medium Blue (PANTONE 7683 C) */
+  --accent-primary: #416BA9;
+  --accent-primary-muted: rgba(65, 107, 169, 0.2);
+  --accent-primary-subtle: rgba(65, 107, 169, 0.1);
+  --accent-primary-glow: rgba(65, 107, 169, 0.3);
+
+  /* Dark Blue (PANTONE 2756 C) */
+  --accent-dark: #0F206C;
+  --accent-dark-muted: rgba(15, 32, 108, 0.2);
+
+  /* Sky Blue for highlights (PANTONE 284 C) */
+  --accent-highlight: #6AAAEE;
+  --accent-highlight-muted: rgba(106, 170, 238, 0.2);
+
+  /* Light Blue (PANTONE 290 C) */
+  --accent-light: #B8D8EB;
+  --accent-light-muted: rgba(184, 216, 235, 0.2);
+
+  /* Compute / Juice — Rich Yellow */
+  --accent-juice: #E0CC00;
+  --accent-juice-muted: rgba(224, 204, 0, 0.15);
+
+  /* Consensus / Success — Apple Green */
+  --accent-consensus: #93D500;
+  --accent-consensus-muted: rgba(147, 213, 0, 0.15);
+
+  /* Semantic Colors — WCAG AA compliant (4.5:1 minimum for regular text) */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #b4b4bc;
+  --color-text-tertiary: #9898a0;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-border-accent: rgba(65, 107, 169, 0.5);
+
+  /* Glass Effect */
+  --glass-bg: rgba(15, 15, 18, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 12px;
+
+  /* Typography — Brand-correct */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: 'Source Sans 3', 'Source Sans Pro', -apple-system, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+
+  /* Type Scale - WCAG AA compliant minimums */
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.5rem;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+
+  /* Spacing Scale - 8px Grid */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Transitions */
+  --transition-fast: 20ms ease;
+  --transition-base: 50ms ease;
+  --transition-slow: 100ms ease;
+
+  /* Layout */
+  --container-max: 1400px;
+  --container-wide: 1600px;
+  --container-narrow: 800px;
+  --header-height: 90px;
+  --page-px: clamp(1em, calc(1em + (100vw - 1024px) * 0.16), 160px);
+}
+
+/* Light Mode - Clean, professional slate-based palette */
+.light {
+  --surface-void: #f8fafc;
+  --surface-base: #f1f5f9;
+  --surface-elevated: #ffffff;
+  --surface-overlay: #e2e8f0;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #64748b;
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-border-hover: rgba(15, 23, 42, 0.15);
+  --color-border-accent: rgba(65, 107, 169, 0.3);
+
+  --accent-primary: #416BA9;
+  --accent-primary-muted: rgba(65, 107, 169, 0.1);
+  --accent-primary-subtle: rgba(65, 107, 169, 0.05);
+  --accent-primary-glow: rgba(65, 107, 169, 0.12);
+
+  --accent-secondary: #6366f1;
+  --accent-secondary-muted: rgba(99, 102, 241, 0.1);
+
+  --glass-bg: rgba(248, 250, 252, 0.9);
+  --glass-border: rgba(15, 23, 42, 0.06);
+}
+
+/* Theme-specific shared surfaces */
+.light header {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.light .lattice-bg {
+  background-image:
+    linear-gradient(rgba(14, 116, 144, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 116, 144, 0.18) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
+}

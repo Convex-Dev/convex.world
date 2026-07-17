@@ -5,6 +5,7 @@ import ReplSandbox from "@/components/ReplSandbox";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import StructuredData from "@/lib/structured-data";
+import Section from "@/components/Section";
 import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 
@@ -23,7 +24,7 @@ export default function SandboxPage() {
           <ConvexProvider>
             <div className="lattice-bg" aria-hidden="true" />
 
-            <section className="content-section">
+            <Section>
               <span className="section-number" style={{ marginBottom: 'var(--space-4)' }}>{"// Sandbox"}</span>
 
               <div className="dev-sandbox-container">
@@ -68,7 +69,7 @@ export default function SandboxPage() {
                   </ExtLink>
                 </div>
               </div>
-            </section>
+            </Section>
 
             <div className="geo-line" aria-hidden="true" />
           </ConvexProvider>

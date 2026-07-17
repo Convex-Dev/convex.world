@@ -5,6 +5,8 @@ import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import CtaSection from "@/components/CtaSection";
 import SectionHeader from "@/components/SectionHeader";
+import PageHero from "@/components/PageHero";
+import Section from "@/components/Section";
 import StructuredData from "@/lib/structured-data";
 import { ecosystemItems } from "@/data/ecosystem-items";
 
@@ -18,13 +20,14 @@ export default function Ecosystem() {
   return (
     <ContentPage>
       {/* Hero Section */}
-      <section className="community-hero">
-        <span className="dev-hero-tag">{"// Building on Convex"}</span>
-        <h1 className="page-hero-title">Featured Projects</h1>
-      </section>
+      <PageHero
+        className="community-hero"
+        eyebrow="// Building on Convex"
+        title="Featured Projects"
+      />
 
       {/* Projects Grid */}
-      <section className="content-section">
+      <Section>
         <div className="grid-responsive">
           {ecosystemItems.map((item) => (
             <ExtLink
@@ -55,10 +58,10 @@ export default function Ecosystem() {
             </ExtLink>
           ))}
         </div>
-      </section>
+      </Section>
 
       {/* Join Section */}
-      <section className="content-section">
+      <Section>
         <SectionHeader number="002" title="Join the Ecosystem" subtitle="Build with us and be part of the next generation of decentralised systems" />
         <div className="eco-join-grid">
           <div className="eco-join-card">
@@ -92,7 +95,7 @@ export default function Ecosystem() {
             </ExtLink>
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* CTA */}
       <CtaSection

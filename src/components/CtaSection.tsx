@@ -11,7 +11,7 @@ interface CtaLink {
 }
 
 interface CtaSectionProps {
-  className: string;
+  className?: string;
   title: string;
   description: string;
   links: CtaLink[];
@@ -19,7 +19,7 @@ interface CtaSectionProps {
   children?: ReactNode;
 }
 
-export default function CtaSection({ className, title, description, links, heading = "h3", children }: CtaSectionProps) {
+export default function CtaSection({ className = "page-cta", title, description, links, heading = "h3", children }: CtaSectionProps) {
   const Heading = heading;
   return (
     <section className={className}>

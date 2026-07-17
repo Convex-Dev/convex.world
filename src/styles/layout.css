@@ -1,0 +1,101 @@
+main {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  padding-top: var(--header-height);
+}
+
+/* Main width constraint used by ContentPage. */
+.page-content {
+  width: min(100% - 2 * var(--page-px), var(--container-max));
+  margin: 0 auto;
+}
+
+.content-section {
+  padding-block: var(--space-12);
+}
+
+/* Reusable card treatment. */
+.hover-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  opacity: 0;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-highlight));
+  transition: opacity var(--transition-base);
+}
+
+.hover-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at top center, var(--accent-primary-muted) 0%, transparent 60%);
+  transition: opacity var(--transition-base);
+}
+
+.hover-card:hover::before,
+.hover-card:hover::after {
+  opacity: 1;
+}
+
+.grid-responsive {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.page-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.03em;
+}
+
+.page-hero {
+  padding-block: var(--space-16) var(--space-12);
+}
+
+.page-cta {
+  text-align: center;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+}
+
+.page-cta h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+
+.page-cta p {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  max-width: 500px;
+  margin: 0 auto var(--space-8);
+  line-height: var(--leading-normal);
+}

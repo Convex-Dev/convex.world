@@ -1,6 +1,7 @@
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
+import Section from "@/components/Section";
 import InstallCommands, { CopyBlock } from "@/components/InstallCommands";
 import StructuredData from "@/lib/structured-data";
 
@@ -15,7 +16,7 @@ export default function Downloads() {
   return (
     <ContentPage>
       {/* Quick Install */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <SectionHeader
           number="001"
           title="Quick Install"
@@ -29,10 +30,10 @@ export default function Downloads() {
           </ExtLink>
           . The installer checks and will tell you if Java is missing.
         </p>
-      </section>
+      </Section>
 
       {/* Direct Downloads */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <SectionHeader
           number="002"
           title="Direct Download"
@@ -106,10 +107,10 @@ export default function Downloads() {
           <code>xattr -dr com.apple.quarantine convex.jar</code>); on Windows choose
           More info, then Run anyway.
         </p>
-      </section>
+      </Section>
 
       {/* Docker */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <SectionHeader
           number="003"
           title="Docker"
@@ -138,10 +139,10 @@ export default function Downloads() {
             View on Docker Hub
           </ExtLink>
         </p>
-      </section>
+      </Section>
 
       {/* Build from Source */}
-      <section className="content-section tools-section">
+      <Section className="tools-section">
         <SectionHeader
           number="004"
           title="Build from Source"
@@ -167,7 +168,7 @@ export default function Downloads() {
             </div>
           </div>
         </div>
-      </section>
+      </Section>
 
       <StructuredData type="WebPage" metadata={metadata} path="/downloads/" />
     </ContentPage>
