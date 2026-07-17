@@ -37,7 +37,8 @@ function stripHtml(html: string): string {
 
 async function fetchRecentFromRss(): Promise<RecentItem[]> {
   try {
-    const res = await fetch(RSS_URL, { next: { revalidate: 3600 } });
+    // Static exports have no runtime revalidation. Refresh the feed on each build.
+    const res = await fetch(RSS_URL, { cache: "force-cache" });
     if (!res.ok) return [];
     const xml = await res.text();
     const parser = new Parser();

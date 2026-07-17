@@ -14,9 +14,13 @@ import {
   hexToBytes,
   sign,
 } from "@convex-world/convex-ts";
+import {
+  parseStoredWalletKeys,
+  type StoredWalletKeys,
+} from "@/lib/wallet-storage";
 
 // Map: publicKey (hex) -> seed (hex). Stored as a plain object for JSON/localStorage.
-type KeysMap = Record<string, string>;
+type KeysMap = StoredWalletKeys;
 
 type WalletContextValue = {
   /** Public keys (hex) in the wallet */
@@ -47,15 +51,13 @@ type WalletProviderProps = {
 
 export function WalletProvider({ children, persistKey = null }: WalletProviderProps) {
   const [keys, setKeys] = useState<KeysMap>(() => ({}));
+  const [loadedPersistKey, setLoadedPersistKey] = useState<string | null>(null);
 
   const load = useCallback(() => {
     if (!persistKey || typeof window === "undefined") return;
     try {
       const raw = window.localStorage.getItem(persistKey);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && typeof parsed === "object") setKeys(parsed as KeysMap);
-      }
+      setKeys(parseStoredWalletKeys(raw) ?? {});
     } catch {
       // ignore
     }
@@ -72,11 +74,12 @@ export function WalletProvider({ children, persistKey = null }: WalletProviderPr
 
   useEffect(() => {
     load();
-  }, [load]);
+    setLoadedPersistKey(persistKey);
+  }, [load, persistKey]);
 
   useEffect(() => {
-    if (persistKey) persist();
-  }, [persistKey, keys, persist]);
+    if (persistKey && loadedPersistKey === persistKey) persist();
+  }, [persistKey, loadedPersistKey, keys, persist]);
 
   const getSeed = useCallback(
     (publicKeyHex: string): Uint8Array | undefined => {

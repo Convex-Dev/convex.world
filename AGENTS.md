@@ -9,7 +9,7 @@
 ## Tech Stack
 
 - **Framework:** Next.js 16 (App Router, static export)
-- **Language:** TypeScript 5.9, React 19
+- **Language:** TypeScript 6, React 19
 - **Styling:** Custom CSS design system — **no Tailwind** (see `globals.css`)
 - **Icons:** Lucide React (icon map in `src/lib/icons.ts`)
 - **Fonts:** Inter (headings), Source Sans 3 (body), JetBrains Mono (code)
@@ -27,13 +27,7 @@ pnpm lint       # ESLint
 
 ### Dependencies
 
-The site depends on the sibling `convex.ts` repo via a local file reference:
-
-```json
-"@convex-world/convex-ts": "file:../convex.ts/packages/convex-client"
-```
-
-You must have `../convex.ts` cloned and built (`pnpm install && pnpm build` in that repo) before `pnpm install` will succeed here.
+The Convex TypeScript client is installed from npm as `@convex-world/convex-ts`; no sibling repository checkout is required.
 
 ## Project Structure
 
@@ -47,17 +41,11 @@ src/
 │   │   ├── vision/         # /vision — principles and architecture
 │   │   ├── lattice/        # /lattice — data lattice technology
 │   │   ├── cpos/           # /cpos — Convergent Proof of Stake
-│   │   ├── ai/             # /ai — agentic economy
-│   │   └── coin/           # /coin — CVM token
-│   ├── developers/         # /developers — developer hub
-│   ├── ecosystem/          # /ecosystem — featured projects
-│   ├── community/          # /community — social links, blog feed
-│   ├── brand/              # /brand — logos, colours, guidelines
-│   ├── tools/              # /tools — tools and quick start
-│   ├── team/               # /team — team members
-│   ├── sandbox/            # /sandbox — interactive Convex REPL
-│   ├── demo/               # /demo — component showcase (dev only)
-│   ├── api/                # API routes
+│   │   └── ai/             # /ai — agentic economy
+│   ├── (developers)/       # Developer hub, tools, downloads, and sandbox routes
+│   ├── (community)/        # Ecosystem, community, brand, press, and team routes
+│   ├── coin/               # /coin — CVM token
+│   ├── demo/               # /demo — exported component showcase
 │   ├── robots.ts           # robots.txt generation
 │   └── sitemap.ts          # sitemap.xml generation
 ├── components/             # React components (one file per component)
@@ -91,14 +79,14 @@ public/
 - One component per file in `src/components/`, PascalCase filenames
 - Page templates: `ContentPage` (standard page with nav/footer), `SuperpowerPage` (feature page)
 - Use `SectionHeader` for numbered section titles
-- Use `Button` component (variants: primary, secondary, sandbox) — not raw `<a>` or `<button>`
+- Use `CtaSection` for repeated CTA groups, `Link` for internal navigation, and `ExtLink` for external links
 - Icons: import from `lucide-react`, reference by name via the icon map in `src/lib/icons.ts`
 
 ### Content Data
 
 - Page content is driven by typed data files in `src/data/`
 - Add new content items to existing data files rather than hardcoding in page components
-- Type definitions live in `src/data/types.ts`
+- Shared type definitions live in `src/data/types.ts`; feature-specific types may be colocated with their data
 
 ### Technical Terminology
 

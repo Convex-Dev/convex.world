@@ -42,6 +42,9 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Verify static export
+        run: test -f out/index.html
+
   installers:
     name: Installer checks
     runs-on: ${{ matrix.os }}

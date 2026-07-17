@@ -26,4 +26,8 @@ describe("redirects", () => {
       expect(value, `"${key}" redirects to itself`).not.toBe(key);
     }
   });
+
+  it("does not redirect a current first-party page", () => {
+    expect(redirects).not.toHaveProperty("/press");
+  });
 });

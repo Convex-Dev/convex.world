@@ -29,13 +29,12 @@ High-level initiatives for improving the Convex website.
 
 ## Developer Experience
 
-- **Testing** — Add a test framework (Vitest or Playwright) with at minimum build smoke tests and component tests for interactive features
+- **Component testing** — Extend the existing Vitest suite with component tests for the wallet, navigation, sandbox, and interactive features
+- **Browser testing** — Add a small Playwright smoke suite for navigation, theme switching, and the sandbox happy path
 - **Storybook or component catalogue** — Formalise the existing `/demo` page into a proper component showcase for design consistency
-- **CI checks** — Add lint, type-check, and build verification to the GitHub Actions workflow on pull requests (currently only runs on push to `master`)
 
 ## Infrastructure
 
-- **Publish convex-ts to npm** — Remove the fragile local `file:` dependency so the site can be built without a sibling repo checkout
 - **Preview deployments** — Deploy PR branches to preview URLs (Vercel, Netlify, or GitHub Pages environments) for design review
 - **Analytics** — Privacy-respecting analytics (Plausible, Umami) to understand traffic patterns and popular content
 

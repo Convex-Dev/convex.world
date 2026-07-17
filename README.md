@@ -1,10 +1,10 @@
 # Convex.World Static Website
 
-This is the static website for [Convex](https://convex.world), a decentralized network and execution engine based on Lattice Technology. Built with [Next.js](https://nextjs.org).
+This is the statically exported website for [Convex](https://convex.world), a decentralised network and execution engine based on Lattice Technology. It is built with Next.js and deployed to GitHub Pages.
 
 ## About Convex
 
-Convex is a decentralized network and execution engine for the Internet of Value, implementing a "Stateful Internet" where the network itself securely hosts and executes code and data. Key features include:
+Convex is a decentralised network and execution engine for the Internet of Value, implementing a "Stateful Internet" where the network itself securely hosts and executes code and data. Key features include:
 
 - Lattice Technology for efficient consensus and verifiability
 - Global State model with immutable data structures and atomic transactions
@@ -15,15 +15,24 @@ Convex is a decentralized network and execution engine for the Internet of Value
 
 ## Development
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+pnpm install
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+Before submitting a change, run the repository checks:
+
+```bash
+pnpm lint
+pnpm test
+pnpm build
+```
+
+The production build is a static export written to `out/`.
 
 ## Learn More
 
@@ -36,7 +45,7 @@ To learn more about Convex and Next.js, check out these resources:
 
 ## Deployment
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pushes to `master` are built and deployed to GitHub Pages by `.github/workflows/nextjs.yml`. Pull requests and pushes to `develop` or `master` run linting, type-checking, tests and a production build.
 
 ## Community
 

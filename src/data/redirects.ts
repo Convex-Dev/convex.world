@@ -35,7 +35,6 @@ const redirects: Record<string, string> = {
   "/console":         "/sandbox",
   "/projects":        "/ecosystem",
   "/partners":        "/ecosystem",
-  "/press":           "/brand",
   "/logos":           "/brand",
   "/people":          "/team",
   "/oss":             "/open-source",
