@@ -71,8 +71,8 @@ jobs:
           export HOME="$work/home"
           export CONVEX_HOME="$HOME/.convex"
           tools="$work/tools"
-          mkdir -p "$HOME" "$tools"
-          export PATH="$tools:$PATH"
+          mkdir -p "$HOME/.local/bin" "$tools"
+          export PATH="$tools:$HOME/.local/bin:$PATH"
 
           cat > "$tools/java" <<'SCRIPT'
           #!/usr/bin/env bash
