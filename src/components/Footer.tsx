@@ -64,7 +64,7 @@ export default function Footer() {
           </div>
           <div className="status-item">
             <span className="status-label">Protocol</span>
-            <span className="status-value">v0.8.12</span>
+            <span className="status-value">v0.8.13</span>
           </div>
         </div>
 
