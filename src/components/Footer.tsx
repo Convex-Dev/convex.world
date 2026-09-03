@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ExtLink from "@/components/ExtLink";
 import { PROTONET_PEER_URL } from "@/lib/networks";
+import { CONVEX_RELEASE_VERSION } from "@/data/release";
 
 interface FooterLink {
   text: string;
@@ -64,7 +65,7 @@ export default function Footer() {
           </div>
           <div className="status-item">
             <span className="status-label">Latest Release</span>
-            <span className="status-value">v0.8.16</span>
+            <span className="status-value">{`v${CONVEX_RELEASE_VERSION}`}</span>
           </div>
         </div>
 

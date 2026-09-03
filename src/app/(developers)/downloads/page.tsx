@@ -4,6 +4,7 @@ import SectionHeader from "@/components/SectionHeader";
 import Section from "@/components/Section";
 import InstallCommands, { CopyBlock } from "@/components/InstallCommands";
 import StructuredData from "@/lib/structured-data";
+import { CONVEX_RELEASE_VERSION } from "@/data/release";
 
 export const metadata = {
   title: "Downloads — Install Convex",
@@ -134,7 +135,7 @@ export default function Downloads() {
         </div>
         <p className="quickstart-note">
           Available tags: <code>latest</code> (stable), <code>snapshot</code>{" "}
-          (develop), or a specific version like <code>0.8.7</code>.{" "}
+          (develop), or a specific version like <code>{CONVEX_RELEASE_VERSION}</code>.{" "}
           <ExtLink href="https://hub.docker.com/r/convexlive/convex">
             View on Docker Hub
           </ExtLink>
