@@ -28,6 +28,7 @@ Before submitting a change, run the repository checks:
 
 ```bash
 pnpm lint
+pnpm typecheck
 pnpm test
 pnpm build
 ```
