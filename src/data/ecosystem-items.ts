@@ -17,6 +17,22 @@ export const ecosystemItems: EcosystemItem[] = [
     link: "https://covia.ai",
   },
   {
+    key: "getmine",
+    title: "GetMine",
+    description: "A local-first personal health vault for macOS and Windows, with Mina, a personal health agent that helps you organise and use your own health data. Powered by Covia.",
+    category: "Personal Health",
+    image: "/images/getmine.webp",
+    link: "https://getmine.ai",
+  },
+  {
+    key: "brightside",
+    title: "Brightside",
+    description: "A self-sovereign personal agent that runs privately on your own machine, under your own identity, and writes its own skills. Built on the Covia grid.",
+    category: "Personal AI Agent",
+    image: "/images/brightside.webp",
+    link: "https://github.com/covia-ai/brightside",
+  },
+  {
     key: "paisley",
     title: "Paisley",
     description: "A membership-owned cooperative platform for freelancers and creatives building a better future for all.",
