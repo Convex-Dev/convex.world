@@ -39,7 +39,7 @@ export const ecosystemItems: EcosystemItem[] = [
     description: "A membership-owned cooperative platform for freelancers and creatives building a better future for all.",
     category: "Creator Economy",
     image: "/images/paisley-logo.webp",
-    imageDark: "/images/PAISLEY_logo_white.png",
+    imageDark: "/images/paisley-logo-white.webp",
     link: "https://paisley.io",
   },
   {
