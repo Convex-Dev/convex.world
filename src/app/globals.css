@@ -3806,6 +3806,12 @@ nav .logo {
   transform: scale(1.05);
 }
 
+/* Theme-aware ecosystem logos: dark variant shown by default, light variant in light mode */
+.eco-img-light { display: none; }
+.eco-img-dark { display: block; }
+.light .eco-img-light { display: block; }
+.light .eco-img-dark { display: none; }
+
 .eco-card h3 {
   font-family: var(--font-display);
   font-size: var(--text-xl);
