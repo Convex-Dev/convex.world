@@ -7,28 +7,32 @@ export interface TerminalSequence {
   lines: TerminalLine[];
 }
 
+// Each sequence continues from the previous one in the same session.
+// Commands and results are real: verified together as one combined query
+// against the Convex testnet (addresses and counts reflect the state at the time).
 export const heroTerminalSequences: TerminalSequence[] = [
   {
     lines: [
-      { type: "command", text: "(import convex.fungible :as fun)" },
-      { type: "command", text: "(deploy (fun/build-token {:supply 1000000}))" },
-      { type: "result", text: "#token:0x8a2f..." },
+      { type: "command", text: "(def fun @convex.fungible)" },
+      { type: "result", text: "#64" },
+      { type: "command", text: "(def my-token (deploy (fun/build-token {:supply 1000000})))" },
+      { type: "result", text: "#133" },
     ],
   },
   {
     lines: [
-      { type: "command", text: "(@convex.fungible/mint MY-TOKEN 500000)" },
-      { type: "result", text: "500000" },
-      { type: "command", text: "(@convex.fungible/balance MY-TOKEN)" },
-      { type: "result", text: "500000" },
+      { type: "command", text: "(fun/transfer my-token #13 250000)" },
+      { type: "result", text: "250000" },
+      { type: "command", text: "(fun/balance my-token)" },
+      { type: "result", text: "750000" },
     ],
   },
   {
     lines: [
-      { type: "command", text: '(def accounts (query (all :users)))' },
-      { type: "result", text: "[#addr:0x1a.. #addr:0x2b..]" },
-      { type: "command", text: "(count accounts)" },
-      { type: "result", text: "2847" },
+      { type: "command", text: "(fun/balance my-token #13)" },
+      { type: "result", text: "250000" },
+      { type: "command", text: "(count (:accounts *state*))" },
+      { type: "result", text: "134" },
     ],
   },
 ];

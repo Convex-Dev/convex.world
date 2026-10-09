@@ -41,7 +41,7 @@ const capabilities: CapabilitySection[] = [
     number: '03',
     subtitle: 'Economic Physics',
     title: 'Execute Predictably',
-    description: 'Juice measures computational cost. Memory is recyclable. State converges deterministically. The CVM executes millions of operations with predictable, accountable resource consumption.',
+    description: 'Juice measures computational cost. Memory is recyclable. State converges deterministically. Designed for 100,000+ transactions per second, with predictable, accountable resource consumption.',
     cta: { label: 'View Benchmarks', href: 'https://docs.convex.world/docs/overview/performance', external: true },
   },
   {
@@ -59,7 +59,7 @@ const capabilities: CapabilitySection[] = [
     subtitle: 'Human + Agent Co-Participation',
     title: 'Coordinate Autonomously',
     description: 'Humans define intent and constraints. Autonomous agents execute logic continuously. Both share the same costs, the same finality, the same accountability.',
-    cta: { label: 'Agent Architecture', href: '/developers', external: false },
+    cta: { label: 'Agent Architecture', href: '/ai', external: false },
   },
   {
     id: 'mission',
@@ -130,6 +130,9 @@ function ScaleGraphic() {
   );
 }
 
+// Design target from https://docs.convex.world/docs/overview/performance
+const TARGET_TPS = 100000;
+
 function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
   const [displayValue, setDisplayValue] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -143,14 +146,14 @@ function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
     const animate = (now: number) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.floor(eased * 1000000));
+      setDisplayValue(Math.floor(eased * TARGET_TPS));
       if (progress < 1) requestAnimationFrame(animate);
     };
     requestAnimationFrame(animate);
   }, [isVisible, hasAnimated]);
 
   const formatValue = (val: number) => {
-    if (val >= 1000000) return '1M+ TPS';
+    if (val >= TARGET_TPS) return '100K+ TPS';
     if (val >= 1000) return `${(val / 1000) | 0}K`;
     return String(val);
   };
@@ -168,14 +171,16 @@ function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
 
 type TerminalLine = { type: 'command' | 'result'; text: string };
 
+// Each sequence is one command plus its result. They play in order, so the
+// balance check follows the transfer; results verified against the testnet.
 const terminalSequences: TerminalLine[][] = [
   [
-    { type: 'command', text: '(transfer 100)' },
+    { type: 'command', text: '(transfer #42 100)' },
     { type: 'result', text: '100' },
   ],
   [
-    { type: 'command', text: '(balance)' },
-    { type: 'result', text: '999500' },
+    { type: 'command', text: '(balance #42)' },
+    { type: 'result', text: '100' },
   ],
   [
     { type: 'command', text: '(+ 1 2 3)' },

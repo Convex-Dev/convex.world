@@ -19,8 +19,8 @@ const DATA_EXAMPLE = `
 ;; All data is immutable — "updates" return new values
 (let [accounts {:alice 1000 :bob 500}
       updated  (assoc accounts :carol 750)]
-  updated)
-;; => {:alice 1000, :bob 500, :carol 750}
+  [accounts updated])
+;; => [{:bob 500,:alice 1000} {:bob 500,:carol 750,:alice 1000}]
 
 ;; The original is unchanged — always
 `;
@@ -30,29 +30,33 @@ const ACTOR_EXAMPLE = `
 (def my-token
   (deploy
     '(do
-       (def supply 1000000)
+       ;; The deployer starts out holding the entire supply
+       (def holdings {*caller* 1000000})
 
        (defn balance ^{:callable true} [addr]
-         (or (get holdings addr) 0))
+         (get holdings addr 0))
 
        (defn transfer ^{:callable true} [to amount]
-         (let [from *caller*]
-           (assert (<= amount (balance from)))
-           (set! holdings
-             (assoc holdings
-               from (- (balance from) amount)
-               to   (+ (balance to) amount))))))))
+         (let [from *caller*
+               bal  (balance from)]
+           (assert (<= 0 amount bal))
+           (def holdings (assoc holdings from (- bal amount)))
+           (def holdings (assoc holdings to (+ (balance to) amount))))))))
+
+;; Call the actor's functions
+(call my-token (transfer #42 250))
+(call my-token (balance #42))
+;; => 250
 `;
 
 const MACRO_EXAMPLE = `
 ;; Macros operate on code as data — at compile time
 (defmacro when-positive [x & body]
-  \`(let [v# ~x]
-     (when (> v# 0) ~@body)))
+  \`(if (> ~x 0) ~(cons 'do body)))
 
 ;; The compiler expands this before execution
-(when-positive balance
-  (transfer recipient balance))
+(expand '(when-positive amount (transfer to amount)))
+;; => (cond (> amount 0) (do (transfer to amount)))
 `;
 
 export default function ConvexLisp() {
@@ -112,12 +116,11 @@ export default function ConvexLisp() {
           </p>
           <p>
             Under the hood, Convex uses <strong>persistent data structures</strong> with
-            automatic structural sharing — the same technique pioneered by
-            Clojure and made famous by Rich Hickey&apos;s insight that &ldquo;the
-            old version of a collection <em>is</em> still there.&rdquo; Updating
-            a million-entry map copies only the changed path, not the whole
-            structure. This gives you the safety of immutability with the
-            performance of mutation.
+            automatic structural sharing — the technique Clojure popularised,
+            where every old version of a collection remains intact after an
+            update. Updating a million-entry map copies only the changed path,
+            not the whole structure. This gives you the safety of immutability
+            with the performance of mutation.
           </p>
           <p>
             And because every data structure is a <strong>Merkle tree</strong>,
@@ -167,8 +170,11 @@ export default function ConvexLisp() {
             structures, build domain-specific languages for financial
             instruments or governance rules, and eliminate boilerplate without
             sacrificing clarity. The macro system follows the
-            expansion-passing style of Scheme, giving you hygienic
-            transformations with full access to the CVM environment.
+            expansion-passing style of Scheme, giving every macro full access
+            to the CVM environment. Convex macros are not hygienic, so a macro
+            must take care not to capture the caller&apos;s symbols; Convex
+            0.8.7 adds <code>gensym</code> (with the protocol v1 network
+            upgrade) for generating fresh names in capture-safe macros.
           </p>
           <CodeBlock code={ACTOR_EXAMPLE} title="deploying an actor" />
         </div>
@@ -190,8 +196,8 @@ export default function ConvexLisp() {
           <p>
             This is the same power that has made Lisp the language of choice
             for AI research, symbolic computation, and complex system design
-            for over sixty years. Paul Graham called it &ldquo;the language
-            that keeps getting rediscovered.&rdquo; Rich Hickey built Clojure
+            for over sixty years, and why each new generation of programmers
+            rediscovers it. Rich Hickey built Clojure
             on the insight that immutability and homoiconicity together
             produce programs that are simpler, more reliable, and easier to
             reason about than anything the mainstream offers.
@@ -216,7 +222,7 @@ export default function ConvexLisp() {
         description="Write and execute Convex Lisp in the interactive sandbox, or explore the full language reference."
         links={[
           { label: "Open Sandbox", href: "/sandbox" },
-          { label: "Developer Overview", href: "/developers", variant: "secondary" },
+          { label: "Language Reference", href: "https://docs.convex.world/docs/cad/lisp", variant: "secondary", external: true },
         ]}
       />
     </SuperpowerPage>
