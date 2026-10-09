@@ -15,7 +15,7 @@ const redirects: Record<string, string> = {
   "/docs":            "https://docs.convex.world",
   "/github":          "https://github.com/Convex-Dev",
   "/discord":         "https://discord.com/invite/xfYGq4CT7v",
-  "/twitter":         "https://twitter.com/convex_world",
+  "/twitter":         "https://x.com/convex_world",
   "/blog":            "https://docs.convex.world/blog",
 
   // Documentation deep links
@@ -54,8 +54,9 @@ const redirects: Record<string, string> = {
  * values should end with a slash.
  */
 export const prefixRedirects: Record<string, string> = {
-  // Legacy Javadoc location — now hosted under docs.convex.world.
-  "/apidocs": "https://docs.convex.world/apidocs/",
+  // Legacy Javadoc location — Javadoc is now published to javadoc.io. Deep
+  // links into the convex.core module keep the same relative path there.
+  "/apidocs": "https://javadoc.io/doc/world.convex/convex-core/latest/",
 };
 
 export default redirects;

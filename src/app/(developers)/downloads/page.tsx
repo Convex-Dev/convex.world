@@ -66,24 +66,6 @@ export default function Downloads() {
 
           <article className="hover-card tool-card">
             <div className="tool-card-header">
-              <h3>Development Snapshot</h3>
-            </div>
-            <p>
-              Latest build from the develop branch. May contain incomplete
-              features or breaking changes.
-            </p>
-            <div className="tool-card-links">
-              <ExtLink
-                href="https://github.com/Convex-Dev/convex/releases/tag/snapshot-develop"
-                className="tool-card-link"
-              >
-                <span>Snapshot Build</span>
-              </ExtLink>
-            </div>
-          </article>
-
-          <article className="hover-card tool-card">
-            <div className="tool-card-header">
               <h3>All Releases</h3>
             </div>
             <p>
@@ -129,13 +111,14 @@ export default function Downloads() {
             <span className="quickstart-number">2</span>
             <div className="quickstart-content">
               <h4>Run a peer</h4>
-              <CopyBlock text="docker run convexlive/convex peer start" />
+              <CopyBlock text="docker run -p 8080:8080 -p 18888:18888 convexlive/convex" />
             </div>
           </div>
         </div>
         <p className="quickstart-note">
-          Available tags: <code>latest</code> (stable), <code>snapshot</code>{" "}
-          (develop), or a specific version like <code>{CONVEX_RELEASE_VERSION}</code>.{" "}
+          The image starts a peer by default, serving the HTTP API on port 8080 and the
+          peer protocol on port 18888. Available tags: <code>latest</code> (stable) or a
+          specific version like <code>{CONVEX_RELEASE_VERSION}</code>.{" "}
           <ExtLink href="https://hub.docker.com/r/convexlive/convex">
             View on Docker Hub
           </ExtLink>

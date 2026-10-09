@@ -142,7 +142,7 @@ export const navDropdowns: NavDropdown[] = [
         items: [
           { label: "Community Hub", href: "/community", description: "Join the conversation", icon: "users", featured: true },
           { label: "Discord", href: "https://discord.com/invite/xfYGq4CT7v", external: true, description: "Chat with builders", icon: "message-circle" },
-          { label: "Twitter / X", href: "https://x.com/convex_world", external: true, description: "Latest updates", icon: "twitter" },
+          { label: "X", href: "https://x.com/convex_world", external: true, description: "Latest updates", icon: "twitter" },
           { label: "YouTube", href: "https://www.youtube.com/@convex-world", external: true, description: "Tutorials and demos", icon: "youtube" },
         ],
       },
@@ -151,7 +151,6 @@ export const navDropdowns: NavDropdown[] = [
         items: [
           { label: "Blog", href: "https://docs.convex.world/blog", external: true, icon: "newspaper" },
           { label: "Press", href: "/press", description: "Media resources and facts", icon: "file-text" },
-          { label: "Stack Overflow", href: "https://stackoverflow.com/questions/tagged/convex", external: true, icon: "help-circle" },
         ],
       },
     ],
@@ -174,7 +173,7 @@ export const navDropdowns: NavDropdown[] = [
         items: [
           { label: "Docker Hub", href: "https://hub.docker.com/r/convexlive/convex", external: true, description: "Container images for peers", icon: "container" },
           { label: "Build from Source", href: "https://github.com/Convex-Dev/convex", external: true, description: "Clone and build with Maven", icon: "code-2" },
-          { label: "Maven Central", href: "https://search.maven.org/search?q=world.convex", external: true, description: "Java library dependencies", icon: "package" },
+          { label: "Maven Central", href: "https://central.sonatype.com/namespace/world.convex", external: true, description: "Java library dependencies", icon: "package" },
         ],
       },
     ],

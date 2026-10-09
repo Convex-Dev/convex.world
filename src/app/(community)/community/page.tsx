@@ -12,8 +12,8 @@ import { socialLinks, FALLBACK_RECENT, type RecentItem } from "@/data/community-
 
 export const metadata = {
   title: "Community — Join Convex",
-  description: "Join the Convex community. Connect with builders, researchers, and pioneers shaping the future of decentralised coordination. Discord, Twitter/X, YouTube, and more.",
-  keywords: ["Convex community", "web3 community", "decentralised community", "Discord", "developer community", "blockchain community"],
+  description: "Join the Convex community. Connect with builders, researchers, and pioneers shaping the future of decentralised coordination. Discord, X, YouTube, and more.",
+  keywords: ["Convex community", "web3 community", "decentralised community", "Discord", "developer community", "lattice community"],
 };
 
 const RSS_URL = "https://docs.convex.world/blog/rss.xml";

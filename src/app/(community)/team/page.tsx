@@ -24,8 +24,8 @@ const teamMembers: TeamMember[] = [
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
       github: "https://github.com/Convex-Dev",
-      linkedin: "https://linkedin.com/company/convex-world",
-      twitter: "https://twitter.com/convex_world",
+      linkedin: "https://www.linkedin.com/company/convex-foundation/",
+      twitter: "https://x.com/convex_world",
     },
   },
   {
@@ -44,7 +44,7 @@ const teamMembers: TeamMember[] = [
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
       discord: "https://discord.com/invite/xfYGq4CT7v",
-      twitter: "https://twitter.com/convex_world",
+      twitter: "https://x.com/convex_world",
     },
   },
   {
@@ -53,7 +53,7 @@ const teamMembers: TeamMember[] = [
     description: "Industry veterans providing strategic guidance on technology, business, and ecosystem development.",
     imageUrl: "/images/logo_dark_blue.svg",
     links: {
-      linkedin: "https://linkedin.com/company/convex-world",
+      linkedin: "https://www.linkedin.com/company/convex-foundation/",
     },
   },
 ];
@@ -66,7 +66,7 @@ export const metadata = {
 const socialIcons: Record<string, { src: string; alt: string }> = {
   github: { src: "/images/social_github.webp", alt: "GitHub" },
   linkedin: { src: "/images/social_linkedin.webp", alt: "LinkedIn" },
-  twitter: { src: "/images/social_twitter.webp", alt: "Twitter" },
+  twitter: { src: "/images/social_twitter.webp", alt: "X" },
   discord: { src: "/images/social_discord.webp", alt: "Discord" },
 };
 

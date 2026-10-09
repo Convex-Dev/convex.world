@@ -29,7 +29,7 @@ const footerData: FooterColumn[] = [
     links: [
       { text: "Discord", href: "https://discord.com/invite/xfYGq4CT7v" },
       { text: "GitHub", href: "https://github.com/Convex-Dev" },
-      { text: "Twitter", href: "https://twitter.com/convex_world" }
+      { text: "X", href: "https://x.com/convex_world" }
     ]
   },
   {

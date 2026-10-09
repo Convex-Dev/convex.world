@@ -65,7 +65,7 @@ export const metadata: Metadata = {
       "The decentralised lattice platform for agentic economic systems. Sub-second finality, infinite scalability, 100% green consensus. Created by Mike Anderson.",
     url: "https://convex.world",
     siteName: "Convex",
-    locale: "en_US",
+    locale: "en_GB",
     type: "website",
     // Absolute URLs required for Discord; 1200×630 recommended. Use social_card.webp if you add one.
     images: [
@@ -120,11 +120,11 @@ const jsonLd = [
       jobTitle: "Inventor and Chief Technology Officer",
     },
     sameAs: [
-      "https://twitter.com/convex_world",
+      "https://x.com/convex_world",
       "https://github.com/Convex-Dev",
       "https://discord.com/invite/xfYGq4CT7v",
       "https://www.youtube.com/@convex-world",
-      "https://www.linkedin.com/company/convex-world/",
+      "https://www.linkedin.com/company/convex-foundation/",
     ],
   },
   {
