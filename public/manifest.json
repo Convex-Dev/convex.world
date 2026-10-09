@@ -1,12 +1,11 @@
 {
-  "name": "Convex – Build Decentralised Economic Systems",
+  "name": "Convex – Engine for the Agentic Economy",
   "short_name": "Convex",
-  "description": "Decentralised economic systems using Convex lattice technology",
+  "description": "Convex is the decentralised lattice platform for agentic economic systems.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0F206C",
   "theme_color": "#0F206C",
-  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "/favicon.ico",
@@ -15,4 +14,3 @@
     }
   ]
 }
-

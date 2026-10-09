@@ -124,8 +124,8 @@ The site connects to the Convex network via `ConvexContext`:
 
 - **Default peer:** `TESTNET_PEER_URL` in `src/lib/networks.ts` (currently `https://mikera1337-convex-testnet.hf.space`)
 - **Sandbox** (`/sandbox`) — Convex Lisp REPL with query/transact modes
-- **Live Inspector** — real-time state browser on the homepage
-- **Resource Gauges** — network resource visualisation
+- **Live Inspector** — real-time state browser (currently shown only on the unlisted `/demo` showcase)
+- **Resource Gauges** — network resource visualisation (also on `/demo`)
 
 These depend on the `@convex-world/convex-ts` client library.
 

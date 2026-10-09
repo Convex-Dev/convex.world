@@ -8,6 +8,12 @@ import Footer from "@/components/Footer";
 import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 
+export const metadata = {
+  title: "Component Demo",
+  description: "Internal showcase of convex.world components.",
+  robots: { index: false, follow: false },
+};
+
 export default function Demo() {
   return (
     <>

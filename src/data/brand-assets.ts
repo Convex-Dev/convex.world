@@ -11,7 +11,7 @@ export const logoAssets: LogoAsset[] = [
     name: "Logo (Dark Blue)",
     filename: "logo_dark_blue.svg",
     path: "/images/logo_dark_blue.svg",
-    format: "SVG",
+    format: "SVG (bitmap)",
     usage: "Primary logo for light backgrounds",
   },
   {
@@ -37,11 +37,11 @@ export interface BrandColor {
 }
 
 export const brandColors: BrandColor[] = [
-  { name: "Convex Blue", hex: "#0066FF", usage: "Primary brand colour" },
-  { name: "Deep Blue", hex: "#001133", usage: "Dark backgrounds, text" },
-  { name: "Electric Cyan", hex: "#00D4FF", usage: "Accent, highlights" },
-  { name: "Lattice Purple", hex: "#7B61FF", usage: "Secondary accent" },
-  { name: "Success Green", hex: "#00FF88", usage: "Positive states" },
+  { name: "Medium Blue", hex: "#416BA9", usage: "Primary brand colour (PANTONE 7683 C)" },
+  { name: "Dark Blue", hex: "#0F206C", usage: "Deep accents and backgrounds (PANTONE 2756 C)" },
+  { name: "Sky Blue", hex: "#6AAAEE", usage: "Highlights and links (PANTONE 284 C)" },
+  { name: "Light Blue", hex: "#B8D8EB", usage: "Soft accents (PANTONE 290 C)" },
+  { name: "Juice Yellow", hex: "#E0CC00", usage: "Compute and juice indicators" },
 ];
 
 export interface BrandGuideline {

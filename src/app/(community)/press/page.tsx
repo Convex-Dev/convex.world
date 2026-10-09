@@ -136,7 +136,7 @@ export default function Press() {
         <SectionHeader
           number="006"
           title="Press Contact"
-          subtitle="For media inquiries, research requests, or verification"
+          subtitle="For media enquiries, research requests, or verification"
         />
         <div className="press-contact-card">
           <div className="press-contact-details">

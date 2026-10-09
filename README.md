@@ -42,7 +42,6 @@ To learn more about Convex and Next.js, check out these resources:
 - [Convex Documentation](https://docs.convex.world) - learn about Convex features and capabilities
 - [Convex Design Documents](https://github.com/Convex-Dev/design) - architecture and design specifications
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial
 
 ## Deployment
 

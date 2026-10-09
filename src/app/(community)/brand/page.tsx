@@ -32,7 +32,7 @@ export default function Brand() {
 
       {/* Logo Downloads */}
       <section className="brand-section">
-        <SectionHeader number="001" title="Logo Assets" subtitle="Download official Convex logos in vector format" />
+        <SectionHeader number="001" title="Logo Assets" subtitle="Download official Convex logos and marks" />
         <div className="brand-logo-grid">
           {logoAssets.map((asset) => (
             <div key={asset.name} className="brand-logo-card">
@@ -112,9 +112,25 @@ export default function Brand() {
             </div>
             <div className="brand-font-info">
               <h4>Inter</h4>
-              <p>Primary typeface for all digital communications, UI, and body text.</p>
+              <p>Typeface for headings, display text, and UI.</p>
               <ExtLink
                 href="https://fonts.google.com/specimen/Inter"
+                className="brand-font-link"
+              >
+                Get from Google Fonts
+                <ArrowUpRight size={14} />
+              </ExtLink>
+            </div>
+          </div>
+          <div className="brand-font-card">
+            <div className="brand-font-icon">
+              <Type size={24} />
+            </div>
+            <div className="brand-font-info">
+              <h4>Source Sans 3</h4>
+              <p>Body text for paragraphs and long-form content.</p>
+              <ExtLink
+                href="https://fonts.google.com/specimen/Source+Sans+3"
                 className="brand-font-link"
               >
                 Get from Google Fonts
@@ -145,10 +161,10 @@ export default function Brand() {
       <CtaSection
         className="brand-cta"
         title="Need Something Specific?"
-        description="For additional assets, custom formats, or press inquiries, reach out to us on Discord."
+        description="For additional assets or custom formats, reach out to us on Discord. For press enquiries, email press@convex.world."
         links={[
           { label: "Contact on Discord", href: "https://discord.com/invite/xfYGq4CT7v", external: true },
-          { label: "Community Hub", href: "/community", variant: "secondary" },
+          { label: "Email the Press Team", href: "mailto:press@convex.world", variant: "secondary" },
         ]}
       />
       <StructuredData type="WebPage" metadata={metadata} path="/brand/" />
