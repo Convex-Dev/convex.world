@@ -3842,6 +3842,24 @@ nav .logo {
   color: var(--color-text-primary);
 }
 
+/* Card with no website yet: not clickable, so no hover lift and a muted status pill */
+.eco-card-static:hover {
+  border-color: var(--color-border);
+  transform: none;
+  box-shadow: none;
+}
+
+.eco-card-static:hover .eco-card-image {
+  transform: none;
+}
+
+.eco-card-static .eco-card-link,
+.eco-card-static:hover .eco-card-link {
+  background: transparent;
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-hover);
+}
+
 /* Join Grid */
 .eco-join-grid {
   display: grid;

@@ -29,34 +29,53 @@ export default function Ecosystem() {
       {/* Projects Grid */}
       <Section>
         <div className="grid-responsive">
-          {ecosystemItems.map((item) => (
-            <ExtLink
-              key={item.key}
-              href={item.link}
-              className="hover-card eco-card"
-            >
-              <span className="eco-card-category">{item.category}</span>
-              <div className="eco-card-header">
-                <div className="eco-card-image">
-                  {item.image && (
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={120}
-                      height={120}
-                      style={{ objectFit: "contain" }}
-                    />
-                  )}
+          {ecosystemItems.map((item) => {
+            const body = (
+              <>
+                <span className="eco-card-category">{item.category}</span>
+                <div className="eco-card-header">
+                  <div className="eco-card-image">
+                    {item.image && (
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={120}
+                        height={120}
+                        style={{ objectFit: "contain" }}
+                      />
+                    )}
+                  </div>
+                  <h3>{item.title}</h3>
                 </div>
-                <h3>{item.title}</h3>
-              </div>
-              <p>{item.description}</p>
-              <div className="eco-card-link">
-                <span>Visit project</span>
-                <ArrowUpRight size={14} />
-              </div>
-            </ExtLink>
-          ))}
+                <p>{item.description}</p>
+              </>
+            );
+
+            if (!item.link) {
+              return (
+                <div key={item.key} className="eco-card eco-card-static">
+                  {body}
+                  <div className="eco-card-link">
+                    <span>Website launching soon</span>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <ExtLink
+                key={item.key}
+                href={item.link}
+                className="hover-card eco-card"
+              >
+                {body}
+                <div className="eco-card-link">
+                  <span>Visit project</span>
+                  <ArrowUpRight size={14} />
+                </div>
+              </ExtLink>
+            );
+          })}
         </div>
       </Section>
 

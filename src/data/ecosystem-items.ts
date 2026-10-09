@@ -4,7 +4,8 @@ export interface EcosystemItem {
   description: string;
   category: string;
   image: string;
-  link: string;
+  /** Omit until the project has a live website; the card then shows "Website launching soon". */
+  link?: string;
 }
 
 export const ecosystemItems: EcosystemItem[] = [
@@ -31,6 +32,13 @@ export const ecosystemItems: EcosystemItem[] = [
     category: "Personal AI Agent",
     image: "/images/brightside.webp",
     link: "https://github.com/covia-ai/brightside",
+  },
+  {
+    key: "eurodbase",
+    title: "EuroDBase",
+    description: "A record of state for enterprise SQL: keep SQL, gain state, and move beyond legacy databases. Built on native Convex lattice technology.",
+    category: "Enterprise Data",
+    image: "/images/eurodbase.webp",
   },
   {
     key: "paisley",
