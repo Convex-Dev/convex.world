@@ -28,7 +28,7 @@ export interface TechSpec {
 
 export const techSpecs: TechSpec[] = [
   { label: "Consensus", value: "Convergent Proof of Stake (CPoS)" },
-  { label: "Consensus Patent", value: "CPoS patented in China; US patent pending" },
+  { label: "Consensus Patent", value: "CPoS patented in China (US patent pending); free to use on the Convex Network under the CPL" },
   { label: "Finality", value: "Millisecond deterministic finality" },
   { label: "Execution Environment", value: "Convex Virtual Machine (CVM)" },
   { label: "Language", value: "Convex Lisp" },

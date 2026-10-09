@@ -11,7 +11,7 @@ It implements a true **Stateful Internet** where the network itself securely hos
 
 Key technical foundations include:
 - Realtime consensus with Convergent Proof of Stake — milliseconds to finality, zero block delay
-- CPoS is patented (granted in China, US patent pending); the Convex Public Licence gives every Convex user and developer a royalty-free licence to it, and Convex is the only network running CPoS
+- CPoS is patented (granted in China, US patent pending). The Convex Public Licence (CPL), Convex's open-source licence, grants everyone who uses Convex software a royalty-free licence to the patent, so CPoS is free to use on the Convex Network. The CPL does not license CPoS for use outside Convex software.
 - Infinitely scalable lattice data — peers work independently on different lattice regions and sync only what they need (see below)
 - Immutable data structures with atomic, composable transactions
 - High-performance Lambda Calculus-based VM for Turing-complete smart contracts and agent logic
