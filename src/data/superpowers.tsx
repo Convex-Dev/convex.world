@@ -324,7 +324,7 @@ export const superpowers: SuperpowerEntry[] = [
     category: "economy",
     icon: "at-sign",
     metadata: {
-      title: "Convex Name Service (CNS) — Convex",
+      title: "Convex Name System (CNS) — Convex",
       description: "CNS — a global, hierarchical name service for actors, data, and services on the Convex network. Human-readable names for on-chain resources, like DNS for the decentralised world.",
       keywords: ["name service", "decentralised DNS", "CNS", "on-chain naming", "decentralised name resolution", "human readable addresses"],
     },
@@ -339,7 +339,7 @@ export const superpowers: SuperpowerEntry[] = [
         { label: "Resolution", value: "Instant" },
       ],
       docs: [
-        { label: "CAD — CNS", href: "https://docs.convex.world/docs/cad/cns", description: "Convex Name Service specification" },
+        { label: "CAD — CNS", href: "https://docs.convex.world/docs/cad/cns", description: "Convex Name System specification" },
         { label: "Tutorial — Actors", href: "https://docs.convex.world/docs/tutorial/actors", description: "Building the actors (smart contracts) that CNS names point to" },
       ],
     },
