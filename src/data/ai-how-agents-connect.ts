@@ -9,16 +9,16 @@ export const howAgentsConnect: IconCardItem[] = [
   {
     icon: "layers",
     title: "Prepare & Execute",
-    text: "Two-phase transaction flow: simulate with zero cost, then commit atomically. No mempools, no front-running, no wasted juice.",
+    text: "Dry-run any operation as a free query, then prepare the transaction, sign it, and submit it to execute atomically. No mempools, no front-running, no wasted juice.",
   },
   {
     icon: "key-round",
     title: "Flexible Signing",
-    text: "Ed25519 for fully autonomous agents, hardware wallets for supervised agents, multi-agent review systems for high-value operations. The same cryptographic primitives for every participant.",
+    text: "Ed25519 keys for fully autonomous agents, a peer-hosted signing service for agents that should not hold keys themselves, and pluggable signers for everything else. The same cryptographic primitives for every participant.",
   },
   {
     icon: "database",
     title: "Global State Access",
-    text: "Sub-millisecond reads across the entire global state. Millions of queries per second per peer. Agents observe everything, in real time.",
+    text: "Fast reads across the entire global state. Queries run directly on any peer, with no consensus round and no fees. Agents observe everything, in real time.",
   },
 ];

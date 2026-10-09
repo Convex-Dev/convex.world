@@ -114,7 +114,7 @@ export default function CAD3Data() {
         description="See how CAD3 underpins the lattice, or dive into the full encoding specification."
         links={[
           { label: "Data Lattice", href: "/lattice" },
-          { label: "Start Building", href: "/developers", variant: "secondary" },
+          { label: "Encoding Specification", href: "https://docs.convex.world/docs/cad/encoding", external: true, variant: "secondary" },
         ]}
       />
     </SuperpowerPage>

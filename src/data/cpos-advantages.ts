@@ -14,7 +14,7 @@ export const advantages: IconCardItem[] = [
   {
     icon: "shield",
     title: "Byzantine Fault Tolerant",
-    text: "Consensus is guaranteed and stable as long as a majority voting power follows the protocol honestly. Proven secure against even powerful adversaries.",
+    text: "Consensus advances only with a two-thirds supermajority of effective stake behind it, tolerating up to one third of stake acting maliciously. Proven secure against even powerful adversaries.",
   },
   {
     icon: "lock",

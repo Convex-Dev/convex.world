@@ -85,7 +85,7 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "cpu",
     metadata: {
       title: "Convex Virtual Machine (CVM) — Convex",
-      description: "A deterministic, Turing-complete virtual machine built on the lambda calculus for high-performance smart contract execution. 1M+ transactions per second with on-chain compilation.",
+      description: "A deterministic, Turing-complete virtual machine built on the lambda calculus for high-performance smart contract execution, with on-chain compilation. Designed for a network target of 100,000+ transactions per second.",
       keywords: ["virtual machine", "smart contract execution", "decentralised VM", "lambda calculus VM", "Turing complete", "on-chain compiler", "high performance smart contracts", "deterministic execution", "CVM"],
     },
     page: {
@@ -164,13 +164,13 @@ export const superpowers: SuperpowerEntry[] = [
     category: "infrastructure",
     icon: "hard-drive",
     metadata: {
-      title: "DLFS — Decentralised Lattice File System — Convex",
-      description: "Decentralised Lattice File System — distributed, content-addressable, cryptographically verified file storage. Like Dropbox meets BitTorrent meets IPFS, built on the Convex lattice.",
+      title: "DLFS — Data Lattice File System — Convex",
+      description: "Data Lattice File System — distributed, content-addressable, cryptographically verified file storage. Like Dropbox meets BitTorrent meets IPFS, built on the Convex lattice.",
       keywords: ["decentralised file system", "DLFS", "distributed storage", "IPFS alternative", "content addressable", "P2P file system", "decentralised storage"],
     },
     page: {
       tag: "// Storage",
-      heroTitle: "Decentralised Lattice",
+      heroTitle: "Data Lattice",
       heroAccent: "File System",
       description: "A distributed file system built on the lattice. Content-addressable, cryptographically verified, and infinitely scalable — like Dropbox meets BitTorrent meets IPFS.",
       highlights: [
@@ -203,7 +203,7 @@ export const superpowers: SuperpowerEntry[] = [
       highlights: [
         { label: "Addressing", value: "Content" },
         { label: "Self-Describing", value: "✓" },
-        { label: "Verification", value: "SHA-256" },
+        { label: "Verification", value: "SHA3-256" },
       ],
       docs: [
         { label: "CAD — Encoding", href: "https://docs.convex.world/docs/cad/encoding", description: "Full CAD3 encoding specification" },
@@ -270,18 +270,18 @@ export const superpowers: SuperpowerEntry[] = [
     icon: "gauge",
     metadata: {
       title: "Memory Accounting — Convex",
-      description: "Global on-chain memory as a tradeable digital asset with built-in incentives for efficient use and recycling. No artificial gas limits — natural economic incentives for storage.",
-      keywords: ["on-chain memory", "memory accounting", "decentralised storage economics", "gas alternative", "storage incentives"],
+      description: "Global on-chain memory as a tradeable digital asset with built-in incentives for efficient use and recycling. Storage consumes a memory allowance bought from a common pool, refunded when you free it.",
+      keywords: ["on-chain memory", "memory accounting", "decentralised storage economics", "state growth", "storage incentives"],
     },
     page: {
       tag: "// Economics",
       heroTitle: "Memory",
       heroAccent: "Accounting",
-      description: "On-chain memory as a tradeable digital asset. Natural incentives for efficient use — no artificial gas limits.",
+      description: "On-chain memory as a tradeable digital asset. Natural incentives for efficient use — free state and your memory allowance comes back.",
       highlights: [
         { label: "Memory", value: "Tradeable" },
         { label: "Recycling", value: "Incentivised" },
-        { label: "Gas Limits", value: "Zero" },
+        { label: "Freed Memory", value: "Refunded" },
       ],
       docs: [
         { label: "CAD — Memory Accounting", href: "https://docs.convex.world/docs/cad/memory", description: "Memory pricing and accounting model" },
@@ -340,7 +340,7 @@ export const superpowers: SuperpowerEntry[] = [
       ],
       docs: [
         { label: "CAD — CNS", href: "https://docs.convex.world/docs/cad/cns", description: "Convex Name Service specification" },
-        { label: "CAD — Actors", href: "https://docs.convex.world/docs/cad/actors", description: "Smart contract model used with CNS" },
+        { label: "Tutorial — Actors", href: "https://docs.convex.world/docs/tutorial/actors", description: "Building the actors (smart contracts) that CNS names point to" },
       ],
     },
   },
@@ -437,7 +437,7 @@ export const superpowers: SuperpowerEntry[] = [
     metadata: {
       title: "Open Source — Convex",
       description: "Convex is fully open-source. Inspect, audit, fork, and contribute to the decentralised lattice platform. Transparent, community-driven development for public benefit.",
-      keywords: ["open source", "open source blockchain", "open source decentralised", "community driven", "auditable code", "transparent development"],
+      keywords: ["open source", "open source lattice", "open source decentralised", "community driven", "auditable code", "transparent development"],
     },
     page: {
       tag: "// Platform",
@@ -465,7 +465,7 @@ export const superpowers: SuperpowerEntry[] = [
     metadata: {
       title: "Non-Profit Foundation — Convex",
       description: "Convex is governed by a non-profit foundation, built for public benefit — not venture capital returns. No VCs, no power brokers — technology for the common good.",
-      keywords: ["non-profit foundation", "decentralised governance", "public benefit", "DAO", "community governance", "non-profit blockchain"],
+      keywords: ["non-profit foundation", "decentralised governance", "public benefit", "DAO", "community governance", "non-profit lattice platform"],
     },
     page: {
       tag: "// Governance",

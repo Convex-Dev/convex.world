@@ -14,7 +14,7 @@ import { heroTerminalSequences } from "@/data/developer-terminal-sequences";
 export const metadata = {
   title: "Developers — Build on Convex",
   description: "Build decentralised economic systems on the Convex lattice. Convex Lisp smart contracts, CVM runtime, TypeScript and Java SDKs, REST API, and comprehensive documentation for web3 developers.",
-  keywords: ["web3 development", "smart contract development", "decentralised app development", "dApp development", "TypeScript SDK", "Java SDK", "Python SDK", "REST API", "Convex Lisp", "developer tools", "blockchain development", "web3 SDK"],
+  keywords: ["web3 development", "smart contract development", "decentralised app development", "dApp development", "TypeScript SDK", "Java SDK", "Python SDK", "REST API", "Convex Lisp", "developer tools", "lattice development", "web3 SDK"],
 };
 
 export default function Developer() {
@@ -54,7 +54,7 @@ export default function Developer() {
             <p>A deterministic, high-performance decentralised runtime engine that manages trusted global state—suitable for smart contracts, digital assets, autonomous agents, and trust registries.</p>
             <ul className="dev-features">
               <li><Zap size={14} /> Turing Complete execution</li>
-              <li><Zap size={14} /> 1M+ transactions per second</li>
+              <li><Zap size={14} /> Designed for 100,000+ TPS</li>
               <li><Zap size={14} /> 100% green consensus</li>
               <li><Zap size={14} /> On-chain compiler</li>
             </ul>

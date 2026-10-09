@@ -80,7 +80,7 @@ export default function AgenticEconomy() {
               <ExtLink href="https://www.covia.ai/">covia.ai</ExtLink>
             </span>
             <h3>Covia Grid</h3>
-            <p>The universal grid for AI orchestration. Covia provides MCP-enabled access to Convex, enabling agent ecosystems across organisational boundaries.</p>
+            <p>The universal federated grid for AI, built on Convex. Covia lets models, agents and data collaborate across organisational boundaries through MCP, A2A and REST, with built-in governance.</p>
           </article>
           <article className="vision-pillar">
             <span className="vision-pillar-number">

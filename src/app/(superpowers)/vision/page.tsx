@@ -103,7 +103,7 @@ export default function Vision() {
             While working as founding CTO at Ocean Protocol, he saw the promise of decentralised systems but also the need for a fundamentally better base layer. This led to a programme of deep research, tackling multiple design challenges to make Convex possible—from inventing Convergent Proof of Stake, to developing Lattice technology, to building a new kind of virtual machine based on the lambda calculus.
           </p>
           <p>
-            The Convex Foundation was established in 2020. After years of brutal testing across global testnet deployments—including validation through the EU Next Generation Internet initiative—Convex proved its global scale and stunning energy efficiency. The network is now launching Protonet: the first live Convex network with real assets.
+            The Convex Foundation was established in 2020. After years of brutal testing across global testnet deployments—including validation through the EU Next Generation Internet initiative—Convex proved its global scale and stunning energy efficiency. In December 2024 it launched Protonet: the first live Convex network with real assets.
           </p>
         </div>
       </section>
