@@ -5,4 +5,4 @@
  * status strip and the Downloads page Docker tag example both read from it,
  * so nothing else needs to change. See "Release Version Bump" in AGENTS.md.
  */
-export const CONVEX_RELEASE_VERSION = "0.8.16";
+export const CONVEX_RELEASE_VERSION = "0.8.17";
