@@ -105,6 +105,28 @@ export default function CPoS() {
         </div>
       </section>
 
+      {/* Patent */}
+      <section className="vision-section">
+        <SectionHeader number="005" title="Patented Technology" subtitle="Unique to Convex, free for everyone who builds on it" />
+        <div className="vision-pillars">
+          <article className="vision-pillar">
+            <span className="vision-pillar-number">CN</span>
+            <h3>Granted in China</h3>
+            <p>Convergent Proof of Stake is protected by a granted patent in China.</p>
+          </article>
+          <article className="vision-pillar">
+            <span className="vision-pillar-number">US</span>
+            <h3>Pending in the US</h3>
+            <p>A US patent application for CPoS is in its final stages.</p>
+          </article>
+          <article className="vision-pillar">
+            <span className="vision-pillar-number">CPL</span>
+            <h3>Free for Convex</h3>
+            <p>The Convex Public Licence gives every Convex user and developer a royalty-free licence to the patent, so the network stays free to use. Convex is the only network running CPoS: a competing network outside the Convex ecosystem cannot adopt it without permission where the patent applies.</p>
+          </article>
+        </div>
+      </section>
+
       {/* CTA */}
       <CtaSection
         className="vision-cta"

@@ -11,6 +11,7 @@ It implements a true **Stateful Internet** where the network itself securely hos
 
 Key technical foundations include:
 - Realtime consensus with Convergent Proof of Stake — milliseconds to finality, zero block delay
+- CPoS is patented (granted in China, US patent pending); the Convex Public Licence gives every Convex user and developer a royalty-free licence to it, and Convex is the only network running CPoS
 - Infinitely scalable lattice data — peers work independently on different lattice regions and sync only what they need (see below)
 - Immutable data structures with atomic, composable transactions
 - High-performance Lambda Calculus-based VM for Turing-complete smart contracts and agent logic
@@ -164,6 +165,9 @@ The world's fastest consensus algorithm for a global state machine. CPoS operate
 | BFT Threshold | 2/3 |
 | Energy Cost | ~0 |
 | Block Delay | Zero |
+| Patent | Granted in China; US pending |
+
+CPoS is patented. The Convex Public Licence gives every Convex user and developer a royalty-free licence to the patent, so the network stays free to use; a competing network outside the Convex ecosystem cannot adopt CPoS without permission where the patent applies.
 
 More: https://convex.world/cpos/
 
