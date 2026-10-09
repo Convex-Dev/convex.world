@@ -11,7 +11,7 @@ It implements a true **Stateful Internet** where the network itself securely hos
 
 Key technical foundations include:
 - Realtime consensus with Convergent Proof of Stake — milliseconds to finality, zero block delay
-- CPoS is patented (granted in China, US patent pending). The Convex Public Licence (CPL), Convex's open-source licence, grants everyone who uses Convex software a royalty-free licence to the patent, so CPoS is free to use on the Convex Network. The CPL does not license CPoS for use outside Convex software.
+- CPoS is patented (granted in China, US patent pending), with a royalty-free licence for everyone who uses Convex software (see Licensing below)
 - Infinitely scalable lattice data — peers work independently on different lattice regions and sync only what they need (see below)
 - Immutable data structures with atomic, composable transactions
 - High-performance Lambda Calculus-based VM for Turing-complete smart contracts and agent logic
@@ -459,6 +459,12 @@ More: https://convex.world/foundation/
 - Programmable money, digital assets, and composable financial primitives
 - On-chain governance, DAOs, and community coordination at internet scale
 - AI + human hybrid economies with verifiable, deterministic behaviour
+
+## Licensing: Open Source, One Network
+- Convex software is open source under the [Convex Public Licence (CPL)](https://github.com/Convex-Dev/convex/blob/master/LICENSE.md). Anyone can use, modify and build on it, including as a library in commercial software; changes to Convex itself must be shared under the CPL.
+- The CPL includes a royalty-free licence to the patent on Convergent Proof of Stake (granted in China, US patent pending) for everyone who uses Convex software.
+- Any network running Convex software for real economic transactions must follow the Convex Network Governance Rules, which keep one Main Network with a single global state. Forks are not permitted; test networks are free to run, and subnets are allowed on set terms.
+- The CPL does not license CPoS outside Convex software, so where the patent applies, CPoS cannot be reimplemented to run a separate network.
 
 ## Capabilities for Agents
 - [MCP](https://docs.convex.world/docs/cad/mcp): standard tools for agents to query data, execute transactions, manage digital assets, and watch state changes
