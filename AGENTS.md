@@ -168,6 +168,7 @@ Partner logos for the ecosystem page live in `public/images/ecosystem/`, and thi
 ## Agent Tooling
 
 - `.claude/settings.json` (checked in) pre-approves the four check commands and read-only git commands for Claude Code sessions. Add a rule there, not in personal settings, when every contributor's sessions would need it.
+- `.claude/launch.json` (checked in) defines the `dev` server (`pnpm dev` on port 3000) for the Claude Code preview pane.
 - This repo does not configure git identity. Check `git config user.name` before the first commit in a fresh clone.
 
 ## Roadmap
