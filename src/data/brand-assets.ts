@@ -1,32 +1,62 @@
+/** Brand files live in public/brand/; every logo is offered as SVG and as a transparent PNG. */
 export interface LogoAsset {
   name: string;
-  filename: string;
-  path: string;
-  format: string;
+  svg: string;
+  png: string;
+  /** The background the asset is designed for, used for its preview. */
+  background: "light" | "dark";
   usage: string;
 }
 
 export const logoAssets: LogoAsset[] = [
   {
     name: "Logo (Dark Blue)",
-    filename: "logo_dark_blue.svg",
-    path: "/images/logo_dark_blue.svg",
-    format: "SVG (bitmap)",
+    svg: "/brand/convex-logo-dark-blue.svg",
+    png: "/brand/convex-logo-dark-blue.png",
+    background: "light",
     usage: "Primary logo for light backgrounds",
   },
   {
-    name: "Logo Mark (Blue)",
-    filename: "convex-blue.svg",
-    path: "/images/convex-blue.svg",
-    format: "SVG",
-    usage: "Icon/mark for compact spaces",
+    name: "Logo (White)",
+    svg: "/brand/convex-logo-white.svg",
+    png: "/brand/convex-logo-white.png",
+    background: "dark",
+    usage: "Primary logo for dark backgrounds",
   },
   {
-    name: "Logo Mark",
-    filename: "convex.svg",
-    path: "/images/convex.svg",
-    format: "SVG",
-    usage: "Monochrome logo mark",
+    name: "Logo (Colour)",
+    svg: "/brand/convex-logo-colour.svg",
+    png: "/brand/convex-logo-colour.png",
+    background: "dark",
+    usage: "Full-colour logo for dark backgrounds",
+  },
+  {
+    name: "Stacked Logo (Dark Blue)",
+    svg: "/brand/convex-logo-stacked-dark-blue.svg",
+    png: "/brand/convex-logo-stacked-dark-blue.png",
+    background: "light",
+    usage: "Stacked layout for square or narrow spaces on light backgrounds",
+  },
+  {
+    name: "Mark (Dark Blue)",
+    svg: "/brand/convex-mark-dark-blue.svg",
+    png: "/brand/convex-mark-dark-blue.png",
+    background: "light",
+    usage: "The hexagon on its own, for compact spaces on light backgrounds",
+  },
+  {
+    name: "Mark (White)",
+    svg: "/brand/convex-mark-white.svg",
+    png: "/brand/convex-mark-white.png",
+    background: "dark",
+    usage: "The hexagon on its own, for compact spaces on dark backgrounds",
+  },
+  {
+    name: "Mark (Colour)",
+    svg: "/brand/convex-mark-colour.svg",
+    png: "/brand/convex-mark-colour.png",
+    background: "dark",
+    usage: "App icons, avatars and favicons",
   },
 ];
 
@@ -60,7 +90,7 @@ export const guidelines: BrandGuideline[] = [
   },
   {
     title: "Background Usage",
-    description: "Use the dark logo on light backgrounds and light logo on dark backgrounds for optimal contrast.",
+    description: "Use the dark blue logo on light backgrounds, and the white or colour logo on dark backgrounds, for optimal contrast.",
   },
   {
     title: "No Modifications",

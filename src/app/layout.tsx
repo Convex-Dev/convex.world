@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PROTONET_PEER_URL, TESTNET_PEER_URL } from "@/lib/networks";
+import { ORGANIZATION_LOGO } from "@/lib/structured-data";
+
+const SOCIAL_CARD_URL = "https://convex.world/brand/social-card.png";
 
 export const metadata: Metadata = {
   title: {
@@ -67,10 +70,10 @@ export const metadata: Metadata = {
     siteName: "Convex",
     locale: "en_GB",
     type: "website",
-    // Absolute URLs required for Discord; 1200×630 recommended. Use social_card.webp if you add one.
+    // Absolute URL required for Discord. Social platforms do not render SVG, so this is a PNG.
     images: [
       {
-        url: "https://convex.world/images/logo_dark_blue.svg",
+        url: SOCIAL_CARD_URL,
         width: 1200,
         height: 630,
         alt: "Convex – Engine for the agentic economy",
@@ -82,7 +85,7 @@ export const metadata: Metadata = {
     title: "Convex – Engine for the Agentic Economy",
     description:
       "The decentralised lattice platform for agentic economic systems. Sub-second finality, infinite scalability, 100% green consensus.",
-    images: ["https://convex.world/images/logo_dark_blue.svg"],
+    images: [SOCIAL_CARD_URL],
     creator: "@convex_world",
   },
   robots: {
@@ -95,6 +98,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  icons: {
+    apple: "/brand/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
 };
@@ -110,7 +116,7 @@ const jsonLd = [
     name: "Convex Foundation",
     alternateName: "Convex",
     url: "https://convex.world",
-    logo: "https://convex.world/images/convex.svg",
+    logo: ORGANIZATION_LOGO,
     description:
       "Non-profit foundation building the decentralised lattice platform for agentic economic systems.",
     founder: {

@@ -4,7 +4,6 @@ High-level initiatives for improving the Convex website.
 
 ## Social Sharing & SEO
 
-- **Open Graph image** — Replace the SVG logo with a proper 1200×630 raster social card (`social_card.webp`) for rich previews on Twitter/Discord/LinkedIn
 - **Structured data** — Add page-level JSON-LD (Article, FAQPage, SoftwareApplication) beyond the current Organisation schema
 - **Accessibility audit** — Add ARIA landmarks, skip navigation, keyboard focus management, and screen reader testing across all pages
 

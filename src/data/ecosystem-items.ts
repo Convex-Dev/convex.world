@@ -14,7 +14,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "Covia.ai",
     description: "Building the universal grid for AI, enabling powerful AI agent ecosystems across organisational boundaries.",
     category: "AI Infrastructure",
-    image: "/images/covia.webp",
+    image: "/images/ecosystem/covia.webp",
     link: "https://covia.ai",
   },
   {
@@ -22,7 +22,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "GetMine",
     description: "A local-first personal health vault with Mina, a personal health agent that helps you organise and use your own health data. Built on native Convex lattice technology.",
     category: "Personal Health",
-    image: "/images/getmine.webp",
+    image: "/images/ecosystem/getmine.webp",
     link: "https://getmine.ai",
   },
   {
@@ -30,7 +30,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "Brightside",
     description: "A self-sovereign personal agent that runs privately on your own machine, under your own identity, and writes its own skills. Built on native Convex lattice technology.",
     category: "Personal AI Agent",
-    image: "/images/brightside.webp",
+    image: "/images/ecosystem/brightside.webp",
     link: "https://github.com/covia-ai/brightside",
   },
   {
@@ -38,14 +38,14 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "EuroDBase",
     description: "A record of state for enterprise SQL: keep SQL, gain state, and move beyond legacy databases. Built on native Convex lattice technology.",
     category: "Enterprise Data",
-    image: "/images/eurodbase.webp",
+    image: "/images/ecosystem/eurodbase.webp",
   },
   {
     key: "paisley",
     title: "Paisley",
     description: "A membership-owned cooperative platform for freelancers and creatives building a better future for all.",
     category: "Creator Economy",
-    image: "/images/paisley-logo.webp",
+    image: "/images/ecosystem/paisley-logo.webp",
     link: "https://paisley.io",
   },
   {
@@ -53,7 +53,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "European Union",
     description: "Part of the Next Generation Internet programme, focusing on efficient scalable DLT infrastructure and interoperable token exchange.",
     category: "Government",
-    image: "/images/Europe.webp",
+    image: "/images/ecosystem/Europe.webp",
     link: "https://docs.convex.world/docs/products/tokengine",
   },
   {
@@ -61,7 +61,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "Lumoza",
     description: "Transforming the music industry with solutions to help artists register and manage their copyrights.",
     category: "Music & IP",
-    image: "/images/lumoza.avif",
+    image: "/images/ecosystem/lumoza.avif",
     link: "https://lumoza.io",
   },
   {
@@ -69,7 +69,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "ReMeLife",
     description: "The first AI-Web3 Care-2-Earn community ecosystem, building ReMeGrid—a decentralised rewards-based care community.",
     category: "Healthcare",
-    image: "/images/remelife.webp",
+    image: "/images/ecosystem/remelife.webp",
     link: "https://remelife.com",
   },
   {
@@ -77,7 +77,7 @@ export const ecosystemItems: EcosystemItem[] = [
     title: "Alpha Cards",
     description: "A satirical collectible trading card game parodying luxury finance culture, with on-chain card forging and trading powered by Convex.",
     category: "Gaming",
-    image: "/images/alphacards.webp",
+    image: "/images/ecosystem/alphacards.webp",
     link: "https://mikera.github.io/alpha-cards/",
   },
 ];

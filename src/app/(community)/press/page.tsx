@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Mail, MapPin, Building2, ArrowUpRight, Github, Download } from "lucide-react";
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
@@ -60,19 +61,23 @@ export default function Press() {
         <SectionHeader
           number="002"
           title="Media Kit"
-          subtitle="Official brand assets with version control"
+          subtitle="Official logos and press materials"
         />
         <p className="press-section-desc">
-          We provide our official brand assets and documentation via a shared
-          repository to ensure accuracy, transparency, and version control.
+          Official logos, colours, and usage guidelines are on our brand page.
+          The media kit folder holds further press materials.
         </p>
         <div className="press-media-actions">
+          <Link href="/brand/" className="btn btn-primary">
+            <Download size={16} />
+            <span>Brand Assets</span>
+          </Link>
           <ExtLink
             href="https://drive.google.com/drive/folders/1Zrw76dOho2PL5jtN58Ips2Docl_z6-t5?usp=drive_link"
-            className="btn btn-primary"
+            className="btn btn-secondary"
           >
-            <Download size={16} />
-            <span>Download Media Kit</span>
+            <span>Media Kit Folder</span>
+            <ArrowUpRight size={16} />
           </ExtLink>
         </div>
       </section>

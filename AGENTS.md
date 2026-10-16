@@ -38,7 +38,7 @@ The Convex TypeScript client is installed from npm as `@convex-world/convex-ts`;
 
 ### Tests
 
-Tests live beside the code they cover as `*.test.ts` and run with Vitest. They are mostly data-integrity checks: sitemap entries, navigation dropdowns, superpowers data, redirects, release version format, hex geometry, structured data, and wallet storage. Several assert minimum counts, required fields, and unique hrefs, so run `pnpm test` after adding a page, a superpower, or a navigation entry. Component tests are not yet set up (`.tsx` files are outside the test glob).
+Tests live beside the code they cover as `*.test.ts` and run with Vitest. They are mostly data-integrity checks: sitemap entries, navigation dropdowns, superpowers data, redirects, release version format, hex geometry, structured data, brand asset files, logo path data, and wallet storage. Several assert minimum counts, required fields, and unique hrefs, so run `pnpm test` after adding a page, a superpower, or a navigation entry. Component tests are not yet set up (`.tsx` files are outside the test glob).
 
 ## Project Structure
 
@@ -66,7 +66,8 @@ src/
 ├── lib/                    # Utilities (icon map, networks, convex-api adapter, helpers)
 └── styles/                 # Design system: tokens.css, base.css, layout.css, README.md
 public/
-├── images/                 # Logos, ecosystem graphics, social icons
+├── brand/                  # Convex logos (SVG + PNG), app icons, social card — see Brand Assets
+├── images/                 # navbar/ art, ecosystem/ partner logos, social/ platform icons
 ├── svg/                    # SVG assets
 ├── install.sh, install.ps1 # One-line installer scripts (smoke-tested in CI)
 ├── apidocs/, convex.jar/   # Redirect stubs to docs.convex.world and GitHub releases
@@ -151,6 +152,18 @@ When a new Convex release is published, the site shows it in the footer status s
 4. Merge `develop` into `master` to deploy.
 
 No other file needs to change. Installer scripts and download links always fetch the latest GitHub release.
+
+## Brand Assets
+
+All Convex brand files live in `public/brand/` and are served at `https://convex.world/brand/…`, next to the `/brand/` page.
+
+- **Logos and marks** — `convex-logo-{dark-blue,white,colour}`, `convex-logo-stacked-dark-blue`, `convex-mark-{dark-blue,white,colour}`, each as a true-vector SVG plus a transparent PNG (logos 2400px wide, stacked logo 1600px, marks 1024px wide). The vectors come from `convex-web` (`logo_2_color_white.svg`, `convex_logo_blue.svg`). The colour logo and the stacked logo are copied from those files unchanged. The dark-blue and white versions use the colour logo's lettering and spacing, with the outline mark in place of the filled one.
+- **Site files** — `social-card.png` (1200×630, the Open Graph and Twitter image), `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` (PWA manifest), `apple-touch-icon.png` (180×180). The favicon stays at `src/app/favicon.ico`.
+- **Brand page** — `src/data/brand-assets.ts` lists what `/brand/` offers. `brand-assets.test.ts` checks that every listed file exists, and checks the social card, manifest icons and organisation logo.
+- **On the site** — use the `Logo` component (`variant="logo"` or `"mark"`). It draws inline SVG in `currentColor`, so set its colour with CSS `color`, never filters. Its path data is in `src/lib/logo-paths.ts`; `logo-paths.test.ts` fails if that drifts from the files in `public/brand/`.
+- **Changing a logo** — edit the SVGs in `public/brand/`, update `logo-paths.ts` to match, then re-render the PNGs at the sizes above with any SVG renderer.
+
+Partner logos for the ecosystem page live in `public/images/ecosystem/`, and third-party platform icons in `public/images/social/`. Neither is a Convex brand asset.
 
 ## Agent Tooling
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Download, ArrowUpRight, FileImage, Palette, Type } from "lucide-react";
+import { Download, ArrowUpRight, Palette, Type } from "lucide-react";
 import ExtLink from "@/components/ExtLink";
 import ContentPage from "@/components/ContentPage";
 import SectionHeader from "@/components/SectionHeader";
@@ -36,9 +36,9 @@ export default function Brand() {
         <div className="brand-logo-grid">
           {logoAssets.map((asset) => (
             <div key={asset.name} className="brand-logo-card">
-              <div className="brand-logo-preview">
+              <div className={`brand-logo-preview brand-logo-preview-${asset.background}`}>
                 <Image
-                  src={asset.path}
+                  src={asset.svg}
                   alt={asset.name}
                   width={200}
                   height={60}
@@ -49,18 +49,17 @@ export default function Brand() {
                 <h3>{asset.name}</h3>
                 <p>{asset.usage}</p>
                 <div className="brand-logo-meta">
-                  <span className="brand-format">
-                    <FileImage size={14} />
-                    {asset.format}
-                  </span>
-                  <a
-                    href={asset.path}
-                    download={asset.filename}
-                    className="brand-download"
-                  >
-                    <Download size={14} />
-                    Download
-                  </a>
+                  {[asset.svg, asset.png].map((path) => (
+                    <a
+                      key={path}
+                      href={path}
+                      download={path.split("/").pop()}
+                      className="brand-download"
+                    >
+                      <Download size={14} />
+                      {path.endsWith(".svg") ? "SVG" : "PNG"}
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>

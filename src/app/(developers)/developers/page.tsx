@@ -67,7 +67,7 @@ export default function Developer() {
           <article className="hover-card dev-card dev-card-featured">
             <span className="dev-card-number">02</span>
             <div className="dev-card-icon">
-              <Image src="/images/convex86.webp" alt="Convex" width={24} height={24} />
+              <Image src="/brand/convex-mark-colour.svg" alt="Convex" width={21} height={24} />
             </div>
             <h3>Convex Lisp</h3>
             <p>A modern Lisp dialect inspired by Clojure—powerful, expressive, and designed for composable economic systems that both humans and autonomous agents can understand.</p>

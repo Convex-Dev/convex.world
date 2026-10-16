@@ -13,13 +13,13 @@ export default function ConvexLogoAnimated() {
       <svg className="coin-logo-svg" viewBox="0 0 100 100" aria-hidden="true">
         <polygon
           className="logo-hex"
-          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+          points="50,5 88.97,27.5 88.97,72.5 50,95 11.03,72.5 11.03,27.5"
           fill="none"
           strokeWidth="1.5"
         />
         <line className="logo-line logo-line-1" x1="50" y1="5" x2="50" y2="95" />
-        <line className="logo-line logo-line-2" x1="50" y1="95" x2="7" y2="27.5" />
-        <line className="logo-line logo-line-3" x1="50" y1="95" x2="93" y2="27.5" />
+        <line className="logo-line logo-line-2" x1="50" y1="95" x2="11.03" y2="27.5" />
+        <line className="logo-line logo-line-3" x1="50" y1="95" x2="88.97" y2="27.5" />
 
         <circle className="energy-pulse pulse-1" cx="50" cy="50" r="20" />
         <circle className="energy-pulse pulse-2" cx="50" cy="50" r="35" />

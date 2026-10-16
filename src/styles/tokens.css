@@ -34,6 +34,10 @@
   --accent-light: #B8D8EB;
   --accent-light-muted: rgba(184, 216, 235, 0.2);
 
+  /* Logo grounds — fixed light and dark backgrounds for showing logo variants; not themed */
+  --brand-ground-light: #ffffff;
+  --brand-ground-dark: #0f0f12;
+
   /* Compute / Juice — Rich Yellow */
   --accent-juice: #E0CC00;
   --accent-juice-muted: rgba(224, 204, 0, 0.15);

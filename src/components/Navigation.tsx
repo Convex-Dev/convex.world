@@ -54,7 +54,7 @@ export default function Navigation() {
       <header>
         <nav ref={navRef}>
           <Link href="/" aria-label="Convex home">
-            <Logo priority width={400} height={120} className="nav-logo" />
+            <Logo className="nav-logo" />
           </Link>
 
           {/* Desktop Navigation with Dropdowns */}

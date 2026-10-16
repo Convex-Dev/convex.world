@@ -1,34 +1,37 @@
 import type { ComponentProps } from 'react';
-import Image from 'next/image';
+import { LOGO_PATHS, LOGO_VIEWBOX, MARK_PATHS, MARK_VIEWBOX } from '@/lib/logo-paths';
 
-type BaseImageProps = ComponentProps<typeof Image>;
-
-type LogoProps = Omit<BaseImageProps, 'src' | 'alt' | 'width' | 'height'> & {
-  alt?: string;
-  width?: number;
-  height?: number;
+type LogoProps = Omit<ComponentProps<'svg'>, 'viewBox' | 'children'> & {
+  /** `logo` is the mark with the CONVEX lettering; `mark` is the hexagon alone. */
+  variant?: 'logo' | 'mark';
+  title?: string;
 };
 
+/**
+ * The Convex logo as inline SVG. It takes its colour from CSS `color`, so set
+ * that rather than recolouring with filters. Downloadable files live in public/brand/.
+ */
 export default function Logo({
-  alt = 'Convex logo',
-  width = 200,
-  height = 60,
+  variant = 'logo',
+  title = 'Convex',
   className = '',
-  priority = false,
   ...props
 }: LogoProps) {
+  const isMark = variant === 'mark';
   const composedClassName = className ? `logo ${className}` : 'logo';
 
   return (
-    <Image
-      src="/images/logo_dark_blue.svg"
-      alt={alt}
-      width={width}
-      height={height}
+    <svg
+      viewBox={isMark ? MARK_VIEWBOX : LOGO_VIEWBOX}
+      fill="currentColor"
+      role="img"
+      aria-label={title}
       className={composedClassName}
-      priority={priority}
       {...props}
-    />
+    >
+      {(isMark ? MARK_PATHS : LOGO_PATHS).map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </svg>
   );
 }
-

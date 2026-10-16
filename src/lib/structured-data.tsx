@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://convex.world";
 
+/** Organisation logo for JSON-LD; search engines want a raster image. */
+export const ORGANIZATION_LOGO = `${BASE_URL}/brand/convex-mark-colour.png`;
+
 const PUBLISHER = {
   "@type": "Organization",
-  name: "Convex",
+  name: "Convex Foundation",
   url: BASE_URL,
-  logo: `${BASE_URL}/images/convex.svg`,
+  logo: ORGANIZATION_LOGO,
 };
 
 type SchemaType =
