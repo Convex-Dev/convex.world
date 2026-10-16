@@ -4,6 +4,8 @@ export interface EcosystemItem {
   description: string;
   category: string;
   image: string;
+  /** Variant of `image` for the dark theme, for logos that disappear on a dark background. */
+  imageDark?: string;
   /** Omit until the project has a live website; the card then shows "Website launching soon". */
   link?: string;
 }
@@ -46,6 +48,7 @@ export const ecosystemItems: EcosystemItem[] = [
     description: "A membership-owned cooperative platform for freelancers and creatives building a better future for all.",
     category: "Creator Economy",
     image: "/images/ecosystem/paisley-logo.webp",
+    imageDark: "/images/ecosystem/paisley-logo-white.webp",
     link: "https://paisley.io",
   },
   {

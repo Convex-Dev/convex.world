@@ -42,6 +42,17 @@ export default function Ecosystem() {
                         width={120}
                         height={120}
                         style={{ objectFit: "contain" }}
+                        className={item.imageDark ? "eco-img-light" : undefined}
+                      />
+                    )}
+                    {item.imageDark && (
+                      <Image
+                        src={item.imageDark}
+                        alt={item.title}
+                        width={120}
+                        height={120}
+                        style={{ objectFit: "contain" }}
+                        className="eco-img-dark"
                       />
                     )}
                   </div>
