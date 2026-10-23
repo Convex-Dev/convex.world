@@ -76,3 +76,18 @@ a:hover {
     font-size: 14px;
   }
 }
+
+/* Honour the system "reduce motion" setting. Animations jump to their end state
+   and loops stop after one pass. !important is needed to beat component rules
+   and inline animation delays. JavaScript animations check
+   usePrefersReducedMotion() in lib/reduced-motion.ts. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

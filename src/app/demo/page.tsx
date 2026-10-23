@@ -5,6 +5,7 @@ import LiveInspector from "@/components/LiveInspector";
 import ResourceGauges from "@/components/ResourceGauges";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { MAIN_CONTENT_ID } from "@/components/SkipLink";
 import { ConvexProvider } from "@/contexts/ConvexContext";
 import { WalletProvider } from "@/contexts/WalletContext";
 
@@ -18,7 +19,7 @@ export default function Demo() {
   return (
     <>
       <Navigation />
-      <main className="page-content">
+      <main id={MAIN_CONTENT_ID} className="page-content">
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               <div className="hero-section">
                 <h1>Demo</h1>

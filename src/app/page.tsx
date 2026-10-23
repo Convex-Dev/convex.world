@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import HexGridBackground from "@/components/HexGridBackground";
+import { MAIN_CONTENT_ID } from "@/components/SkipLink";
 import StructuredData from "@/lib/structured-data";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
-      <main>
+      <main id={MAIN_CONTENT_ID}>
         <HexGridBackground />
         <Hero />
         <CapabilitySections />

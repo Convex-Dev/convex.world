@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePrefersReducedMotion } from '@/lib/reduced-motion';
 
 type TerminalLine = { type: 'command' | 'result'; text: string };
 type TerminalSequence = { lines: TerminalLine[] };
@@ -16,16 +17,22 @@ export default function AnimatedTerminal({ sequences, title = 'convex-lisp', cla
   const [lineIdx, setLineIdx] = useState(0);
   const [typed, setTyped] = useState('');
   const [cursorOn, setCursorOn] = useState(true);
+  const reduceMotion = usePrefersReducedMotion();
 
   const seq = sequences[seqIdx];
-  const line = seq.lines[lineIdx];
+  // With reduced motion, show the sequence complete with a steady cursor instead of typing it out
+  const shownLineIdx = reduceMotion ? seq.lines.length : lineIdx;
+  const showCursor = reduceMotion || cursorOn;
+  const line = seq.lines[shownLineIdx];
 
   useEffect(() => {
+    if (reduceMotion) return;
     const id = setInterval(() => setCursorOn(v => !v), 530);
     return () => clearInterval(id);
-  }, []);
+  }, [reduceMotion]);
 
   useEffect(() => {
+    if (reduceMotion) return;
     if (!line) {
       const id = setTimeout(() => {
         setSeqIdx(i => (i + 1) % sequences.length);
@@ -48,24 +55,24 @@ export default function AnimatedTerminal({ sequences, title = 'convex-lisp', cla
       const id = setTimeout(() => { setLineIdx(i => i + 1); setTyped(''); }, 800);
       return () => clearTimeout(id);
     }
-  }, [line, typed, sequences.length]);
+  }, [line, typed, sequences.length, reduceMotion]);
 
   const renderLines = () => {
     const out: React.ReactElement[] = [];
     for (let i = 0; i < seq.lines.length; i++) {
       const l = seq.lines[i];
-      if (i < lineIdx) {
+      if (i < shownLineIdx) {
         out.push(
           <code key={i} className={l.type === 'result' ? 'terminal-result' : ''}>
             {l.text}
           </code>
         );
-      } else if (i === lineIdx) {
+      } else if (i === shownLineIdx) {
         if (l.type === 'command') {
           out.push(
             <code key={i}>
               {typed}
-              <span className={`terminal-cursor${cursorOn ? '' : ' terminal-cursor-hidden'}`} />
+              <span className={`terminal-cursor${showCursor ? '' : ' terminal-cursor-hidden'}`} />
             </code>
           );
         } else {
@@ -75,10 +82,10 @@ export default function AnimatedTerminal({ sequences, title = 'convex-lisp', cla
         }
       }
     }
-    if (lineIdx >= seq.lines.length) {
+    if (shownLineIdx >= seq.lines.length) {
       out.push(
         <code key="end">
-          <span className={`terminal-cursor${cursorOn ? '' : ' terminal-cursor-hidden'}`} />
+          <span className={`terminal-cursor${showCursor ? '' : ' terminal-cursor-hidden'}`} />
         </code>
       );
     }

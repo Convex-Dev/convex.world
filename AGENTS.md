@@ -92,11 +92,13 @@ public/
 - Glass effects: use `--glass-bg`, `--glass-border`, `--glass-blur`
 - Dark theme is the default; light mode is toggled via `.light` class on `<html>`
 - Use the 8px spacing grid (`--space-1` through `--space-12`)
+- Respect reduced motion: `src/styles/base.css` stops CSS animations and transitions when the visitor asks for less motion. JavaScript animations must check `usePrefersReducedMotion()` from `src/lib/reduced-motion.ts` and draw one still frame instead of looping
 
 ### Components
 
 - One component per file in `src/components/`, PascalCase filenames
 - Page templates: `ContentPage` (standard page with nav/footer), `SuperpowerPage` (feature page)
+- The root layout renders a `SkipLink` to `#main-content`. `ContentPage` sets that id on its `<main>`; a page that renders its own `<main>` must set `id={MAIN_CONTENT_ID}` (exported by `SkipLink`)
 - Use `PageHero` and `Section` for normal content-page structure
 - Use `SectionHeader` for numbered section titles
 - Use `CtaSection` for repeated CTA groups, `Link` for internal navigation, and `ExtLink` for external links

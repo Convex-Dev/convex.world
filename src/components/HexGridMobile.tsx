@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { hexPath, axialToPixel as axialToPixelBase, hexBounds, SUPERPOWER_HEXES } from '@/lib/hex';
 import { isRevisit } from '@/lib/session';
+import { usePrefersReducedMotion } from '@/lib/reduced-motion';
 
 const SIZE = 72;
 const GAP = 0.04;
@@ -48,6 +49,9 @@ export default function HexGridMobile() {
   // Start false (SSR-safe) — updated client-side to avoid hydration mismatch
   // since sessionStorage isn't available during server rendering.
   const [skipAnimations, setSkipAnimations] = useState(false);
+  // With reduced motion, the grid appears at once
+  const reduceMotion = usePrefersReducedMotion();
+  const noIntro = skipAnimations || reduceMotion;
 
   useEffect(() => {
     if (isRevisit) setSkipAnimations(true);
@@ -104,7 +108,7 @@ export default function HexGridMobile() {
             const dx = x - centerPos.x;
             const dy = y - centerPos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const delay = skipAnimations ? 0 : 0.8 + (distance / 300) * 0.3;
+            const delay = noIntro ? 0 : 0.8 + (distance / 300) * 0.3;
 
             return (
               <path
@@ -121,7 +125,7 @@ export default function HexGridMobile() {
           {Object.entries(SUPERPOWER_HEXES).map(([key, superpower]) => {
             const [q, r] = key.split(',').map(Number);
             const { x, y } = toPixel(q, r);
-            const superpowerDelay = skipAnimations ? 0 : 0.3 + superpower.order * 0.12;
+            const superpowerDelay = noIntro ? 0 : 0.3 + superpower.order * 0.12;
             const isExternal = superpower.href.startsWith('http');
 
             return (

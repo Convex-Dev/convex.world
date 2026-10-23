@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { PROTONET_PEER_URL, TESTNET_PEER_URL } from "@/lib/networks";
 import { ORGANIZATION_LOGO } from "@/lib/structured-data";
+import SkipLink from "@/components/SkipLink";
 
 const SOCIAL_CARD_URL = "https://convex.world/brand/social-card.png";
 
@@ -175,6 +176,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <SkipLink />
         {children}
       </body>
     </html>

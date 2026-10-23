@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
 /**
  * Animated hexagon graphic for the CPoS hero — grid-aligned.
@@ -70,6 +71,7 @@ export default function CposHexAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const [layout, setLayout] = useState<{ center: Pt; vertices: Pt[]; w: number; h: number } | null>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
   // Measure container and snap to grid
   useEffect(() => {
@@ -149,7 +151,8 @@ export default function CposHexAnimation() {
     let raf: number;
     function loop() {
       const now = performance.now() / 1000;
-      const elapsed = now - t0;
+      // With reduced motion, hold the converged state as a still image
+      const elapsed = reduceMotion ? CYCLE_PERIOD * 0.65 : now - t0;
 
       // --- Convergence cycle ---
       const cyclePhase = (elapsed % CYCLE_PERIOD) / CYCLE_PERIOD;
@@ -176,6 +179,9 @@ export default function CposHexAnimation() {
         centerEl.setAttribute("r", centerR.toFixed(2));
         centerEl.setAttribute("fill", `rgba(124,163,220,${centerBrightness.toFixed(3)})`);
       }
+
+      // A still image has no signals in flight
+      if (reduceMotion) return;
 
       // --- Gossip signals along edges ---
       const gossipRate = GOSSIP_INTERVAL * (1.2 - 0.7 * convergence);
@@ -253,7 +259,7 @@ export default function CposHexAnimation() {
       spokeEls.forEach((el) => el.remove());
       pool.forEach((el) => el.remove());
     };
-  }, [layout]);
+  }, [layout, reduceMotion]);
 
   return (
     <div ref={containerRef} style={{ width: "100%", height: "100%", minHeight: 400, position: "relative" }}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
 /**
  * Fills the hero visual with dots at every background-grid intersection.
@@ -61,6 +62,7 @@ export default function LatticeDotsGrid() {
   const containerRef = useRef<HTMLDivElement>(null);
   const dotsRef = useRef<HTMLDivElement[]>([]);
   const dotsData = useRef<DotData[]>([]);
+  const reduceMotion = usePrefersReducedMotion();
 
   // Build dots and start animation
   useEffect(() => {
@@ -160,7 +162,8 @@ export default function LatticeDotsGrid() {
     const t0 = performance.now() / 1000;
     function loop() {
       const now = performance.now() / 1000;
-      const elapsed = now - t0;
+      // With reduced motion, draw one still frame long after the wave has reached every dot
+      const elapsed = reduceMotion ? 600 : now - t0;
 
       const dots = dotsData.current;
       const els = dotsRef.current;
@@ -187,7 +190,7 @@ export default function LatticeDotsGrid() {
         el.style.transform = `translate(-50%,-50%) scale(${dimScale.toFixed(3)})`;
         el.style.opacity = opacity.toFixed(3);
       }
-      raf = requestAnimationFrame(loop);
+      if (!reduceMotion) raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);
 
@@ -203,7 +206,7 @@ export default function LatticeDotsGrid() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return <div ref={containerRef} className="vision-hero-visual lattice-dots-area" />;
 }

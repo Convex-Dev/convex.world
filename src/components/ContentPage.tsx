@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { MAIN_CONTENT_ID } from "@/components/SkipLink";
 
 interface ContentPageProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ export default function ContentPage({ children, mainClassName, noLatticeBg }: Co
   return (
     <>
       <Navigation />
-      <main className={`page-content${mainClassName ? ` ${mainClassName}` : ''}`}>
+      <main id={MAIN_CONTENT_ID} className={`page-content${mainClassName ? ` ${mainClassName}` : ''}`}>
         {!noLatticeBg && <div className="lattice-bg" aria-hidden="true" />}
         {children}
         <div className="geo-line" aria-hidden="true" />
