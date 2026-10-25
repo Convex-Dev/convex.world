@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
 /**
  * 3D rotating globe made of nodes and edges for the Vision hero.
@@ -100,6 +101,7 @@ function project(p: Vec3, cx: number, cy: number): { x: number; y: number; scale
 
 export default function VisionNetworkAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -125,8 +127,8 @@ export default function VisionNetworkAnimation() {
     let prevOrder: number[] = []; // Track previous z-order to avoid unnecessary DOM reflows
 
     function loop() {
-      const now = performance.now() / 1000;
-      const angle = now * ROTATION_SPEED;
+      // With reduced motion, draw the network once without rotating it
+      const angle = reduceMotion ? 0 : (performance.now() / 1000) * ROTATION_SPEED;
 
       // Use viewBox center (400x400), not pixel dimensions
       const cx = 200;
@@ -179,7 +181,7 @@ export default function VisionNetworkAnimation() {
       }
       if (orderChanged) prevOrder = indices;
 
-      raf = requestAnimationFrame(loop);
+      if (!reduceMotion) raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);
 
@@ -188,7 +190,7 @@ export default function VisionNetworkAnimation() {
       edgeEls.forEach((el) => el.remove());
       nodeEls.forEach((el) => el.remove());
     };
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <svg

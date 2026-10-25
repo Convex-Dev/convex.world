@@ -1,0 +1,24 @@
+/* Sits above the viewport until a keyboard user tabs to it */
+.skipLink {
+  position: fixed;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 200; /* above the fixed site header (z-index 100) */
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background: var(--surface-base);
+  border: 2px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  transform: translateY(-200%);
+}
+
+.skipLink:focus {
+  transform: none;
+}
+
+.skipLink:hover {
+  color: var(--color-text-primary);
+}

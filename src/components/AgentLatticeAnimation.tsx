@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { usePrefersReducedMotion } from "@/lib/reduced-motion";
 
 /**
  * Living agent network — 3D sphere of nodes that continuously grows,
@@ -149,6 +150,7 @@ function expLerp(current: number, target: number, rate: number, dt: number): num
 // ── Component ─────────────────────────────────────────────────────
 export default function AgentLatticeAnimation() {
   const svgRef = useRef<SVGSVGElement>(null);
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -156,9 +158,12 @@ export default function AgentLatticeAnimation() {
 
     const allBasePositions = fibonacciSphere(MAX_NODES);
 
+    // With reduced motion, draw the fully grown network once instead of animating its growth
+    const initialNodes = reduceMotion ? MAX_NODES : INITIAL_NODES;
+
     // ── Mutable state ──
-    let visibleCount = INITIAL_NODES;
-    let smoothGrowth = growthRadius(INITIAL_NODES);
+    let visibleCount = initialNodes;
+    let smoothGrowth = growthRadius(initialNodes);
     let smoothRadius = smoothGrowth;
     let spawnInterval = SPAWN_INTERVAL_INITIAL;
     let prevTime = performance.now() / 1000;
@@ -168,7 +173,7 @@ export default function AgentLatticeAnimation() {
     const energy: number[] = new Array(MAX_NODES).fill(0);
     const birthTime: number[] = [];
     for (let i = 0; i < MAX_NODES; i++) {
-      birthTime.push(i < INITIAL_NODES ? -10 : Infinity);
+      birthTime.push(i < initialNodes ? -10 : Infinity);
     }
 
     let edges = buildEdges(allBasePositions, visibleCount);
@@ -369,7 +374,7 @@ export default function AgentLatticeAnimation() {
         signalEls[i].setAttribute("opacity", opacity.toFixed(3));
       }
 
-      raf = requestAnimationFrame(loop);
+      if (!reduceMotion) raf = requestAnimationFrame(loop);
     }
     raf = requestAnimationFrame(loop);
 
@@ -380,7 +385,7 @@ export default function AgentLatticeAnimation() {
       signalEls.forEach(el => el.remove());
       signalPool.forEach(el => el.remove());
     };
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <svg

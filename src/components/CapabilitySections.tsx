@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { usePrefersReducedMotion } from '@/lib/reduced-motion';
 
 interface CtaLink {
   label: string;
@@ -85,8 +86,11 @@ function ConsensusGraphic() {
 
 function ScaleGraphic() {
   const [activeCells, setActiveCells] = useState<Set<string>>(new Set(['0-1', '1-0', '1-2', '2-1']));
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
+    // With reduced motion, the starting cells stay lit
+    if (reduceMotion) return;
     const interval = setInterval(() => {
       setActiveCells(prev => {
         const next = new Set(prev);
@@ -104,7 +108,7 @@ function ScaleGraphic() {
       });
     }, 600);
     return () => clearInterval(interval);
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <svg viewBox="0 0 120 120" className="cap-mini-svg">
@@ -136,9 +140,13 @@ const TARGET_TPS = 100000;
 function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
   const [displayValue, setDisplayValue] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
+  // With reduced motion, show the full gauge and figure without counting up
+  const filled = hasAnimated || reduceMotion;
+  const shownValue = reduceMotion ? TARGET_TPS : displayValue;
 
   useEffect(() => {
-    if (!isVisible || hasAnimated) return;
+    if (!isVisible || hasAnimated || reduceMotion) return;
     setHasAnimated(true);
     const duration = 2000;
     const start = performance.now();
@@ -150,7 +158,7 @@ function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
       if (progress < 1) requestAnimationFrame(animate);
     };
     requestAnimationFrame(animate);
-  }, [isVisible, hasAnimated]);
+  }, [isVisible, hasAnimated, reduceMotion]);
 
   const formatValue = (val: number) => {
     if (val >= TARGET_TPS) return '100K+ TPS';
@@ -161,10 +169,10 @@ function PerformanceGraphic({ isVisible }: { isVisible: boolean }) {
   return (
     <svg viewBox="0 0 140 120" className="cap-mini-svg">
       <path className="perf-track" d="M 25 70 A 45 45 0 0 1 115 70" fill="none" />
-      <path className={`perf-fill ${hasAnimated ? 'perf-animated' : ''}`} d="M 25 70 A 45 45 0 0 1 115 70" fill="none" />
-      <line className={`perf-needle ${hasAnimated ? 'perf-animated' : ''}`} x1="70" y1="70" x2="70" y2="35" />
+      <path className={`perf-fill ${filled ? 'perf-animated' : ''}`} d="M 25 70 A 45 45 0 0 1 115 70" fill="none" />
+      <line className={`perf-needle ${filled ? 'perf-animated' : ''}`} x1="70" y1="70" x2="70" y2="35" />
       <circle className="perf-needle-center" cx="70" cy="70" r="4" />
-      <text className="perf-value" x="70" y="100" textAnchor="middle">{formatValue(displayValue)}</text>
+      <text className="perf-value" x="70" y="100" textAnchor="middle">{formatValue(shownValue)}</text>
     </svg>
   );
 }
@@ -193,16 +201,21 @@ function DeveloperGraphic() {
   const [lineIdx, setLineIdx] = useState(0);
   const [typed, setTyped] = useState('');
   const [cursorOn, setCursorOn] = useState(true);
+  const reduceMotion = usePrefersReducedMotion();
 
   const seq = terminalSequences[seqIdx];
-  const line = seq[lineIdx];
+  // With reduced motion, show the exchange complete instead of typing it out
+  const shownLineIdx = reduceMotion ? seq.length : lineIdx;
+  const line = seq[shownLineIdx];
 
   useEffect(() => {
+    if (reduceMotion) return;
     const id = setInterval(() => setCursorOn(v => !v), 530);
     return () => clearInterval(id);
-  }, []);
+  }, [reduceMotion]);
 
   useEffect(() => {
+    if (reduceMotion) return;
     if (!line) {
       const id = setTimeout(() => {
         setSeqIdx(i => (i + 1) % terminalSequences.length);
@@ -225,10 +238,10 @@ function DeveloperGraphic() {
       const id = setTimeout(() => { setLineIdx(i => i + 1); }, 800);
       return () => clearTimeout(id);
     }
-  }, [line, typed]);
+  }, [line, typed, reduceMotion]);
 
-  const currentCommand = line?.type === 'command' ? typed : (lineIdx > 0 ? seq[0].text : '');
-  const showResult = lineIdx >= 1 && seq[1];
+  const currentCommand = line?.type === 'command' ? typed : (shownLineIdx > 0 ? seq[0].text : '');
+  const showResult = shownLineIdx >= 1 && seq[1];
 
   return (
     <div className="terminal-mini">

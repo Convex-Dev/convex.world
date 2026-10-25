@@ -4,6 +4,7 @@ import ExtLink from "@/components/ExtLink";
 import ReplSandbox from "@/components/ReplSandbox";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { MAIN_CONTENT_ID } from "@/components/SkipLink";
 import StructuredData from "@/lib/structured-data";
 import Section from "@/components/Section";
 import { ConvexProvider } from "@/contexts/ConvexContext";
@@ -19,7 +20,7 @@ export default function SandboxPage() {
   return (
     <>
       <Navigation />
-      <main className="page-content">
+      <main id={MAIN_CONTENT_ID} className="page-content">
         <WalletProvider persistKey="convex.world:wallet">
           <ConvexProvider>
             <div className="lattice-bg" aria-hidden="true" />

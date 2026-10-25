@@ -5,7 +5,7 @@ High-level initiatives for improving the Convex website.
 ## Social Sharing & SEO
 
 - **Structured data** — Add page-level JSON-LD (Article, FAQPage, SoftwareApplication) beyond the current Organisation schema
-- **Accessibility audit** — Add ARIA landmarks, skip navigation, keyboard focus management, and screen reader testing across all pages
+- **Accessibility audit** — Add ARIA landmarks, keyboard focus management, and screen reader testing across all pages (a skip link and reduced-motion support are in place)
 
 ## Performance & Images
 
@@ -40,5 +40,5 @@ High-level initiatives for improving the Convex website.
 ## Design & Brand
 
 - **Light mode polish** — Audit and refine the light theme; currently dark-first with light mode as a secondary consideration
-- **Animation performance** — Profile hex grid and lattice animations on lower-end devices; add `prefers-reduced-motion` support
+- **Animation performance** — Profile hex grid and lattice animations on lower-end devices
 - **Consistent illustration style** — Develop a reusable illustration system for feature pages beyond the current mix of animations and static graphics
